@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Author" content="tmax@tmaxius.com">
+    <link rel="icon" href="favicon.ico" />
+    <title>Tmaxius | Code & Cosmic Analytics Workspace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    screens: {
+                        'xs': '400px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+        }
+        .device-screenshot {
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border: 4px solid #fff;
+            border-radius: 1.5rem;
+        }
+        body[data-lang="en"] .lang-zh { display: none !important; }
+        body[data-lang="zh"] .lang-en { display: none !important; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 antialiased" data-lang="en">
+
+    <!-- Global Sticky Navigation Header -->
+    <header class="bg-slate-950/80 backdrop-blur-md text-white shadow-lg sticky top-0 z-50 border-b border-slate-800">
+        <div class="container mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center gap-2">
+            <!-- Left Branding Side -->
+            <div class="flex items-center space-x-2 flex-shrink-0">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-amber-500 via-emerald-500 to-cyan-500 flex items-center justify-center shadow-md">
+                    <span class="font-black text-slate-950 text-sm sm:text-base">TX</span>
+                </div>
+                <div class="flex items-baseline space-x-1">
+                    <span class="text-xl sm:text-2xl font-bold tracking-wide bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">Tmaxius</span>
+                </div>
+            </div>
+            
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex space-x-8 font-medium items-center text-sm text-slate-300">
+                <a href="#ecosystem" class="hover:text-white transition">Workspace</a>
+                <a href="#mypaths" class="hover:text-emerald-400 transition flex items-center gap-1">
+                    <i class="fa-solid fa-yin-yang text-xs"></i> MyPaths (BaZi)
+                </a>
+                <a href="#velo" class="hover:text-amber-400 transition flex items-center gap-1">
+                    <i class="fa-solid fa-car text-xs"></i> Velo App
+                </a>
+            </nav>
+
+            <!-- Right Utilities Controls Side -->
+            <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
+                <button onclick="toggleLanguage()" class="flex items-center justify-center space-x-1 border border-slate-700 rounded-lg px-2 py-1.5 sm:px-3 text-xs sm:text-sm hover:border-slate-500 transition bg-slate-800/50 min-w-[40px] sm:min-w-auto">
+                    <i class="fa-solid fa-language text-base sm:text-lg text-amber-400"></i>
+                    <span class="hidden xs:inline lang-en font-medium">中文</span>
+                    <span class="hidden xs:inline lang-zh font-medium">EN</span>
+                    <span class="xs:hidden lang-en font-medium text-[10px]">中</span>
+                    <span class="xs:hidden lang-zh font-medium text-[10px]">EN</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Master Brand Hero Intro Section -->
+    <section class="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-900 py-20 px-6 overflow-hidden text-center border-b border-slate-800">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(51,65,85,0.15),transparent_60%)]"></div>
+        <div class="container mx-auto max-w-3xl relative z-10">
+            <span class="text-xs font-bold uppercase tracking-widest bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full text-slate-400">
+                Innovative Development Studio
+            </span>
+            <h1 class="text-4xl sm:text-6xl font-extrabold mt-6 mb-6 tracking-tight text-white">
+                <span class="lang-en">Bridging Practical Utilities & Ancient Wisdom</span>
+                <span class="lang-zh">连接实用工具与东方智慧</span>
+            </h1>
+            <p class="text-lg text-slate-400 leading-relaxed mb-8 max-w-2xl mx-auto">
+                <span class="lang-en">Welcome to Tmaxius. We build robust software solutions spanning from advanced mobile translation co-pilots for drivers to complex metaphysical computational engines.</span>
+                <span class="lang-zh">欢迎来到 Tmaxius。我们致力于打造多元化的软件系统，涵盖专为驾驶员设计的移动辅助出行工具，以及深度的东方玄学数字化运算引擎。</span>
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#mypaths" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3 rounded-xl transition flex items-center gap-2 shadow-lg shadow-emerald-600/20">
+                    <i class="fa-solid fa-yin-yang"></i> Run MyPaths BaZi
+                </a>
+                <a href="#velo" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-semibold border border-slate-700 px-6 py-3 rounded-xl transition flex items-center gap-2">
+                    <i class="fa-solid fa-car"></i> Get Velo Driver APK
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core App Matrix Showcase Dashboard -->
+    <main id="ecosystem" class="container mx-auto px-4 sm:px-6 py-16 max-w-6xl">
+        
+        <!-- ROW 1: MYPATHS REALIGNMENT (BAZI APP) -->
+        <div id="mypaths" class="bg-gradient-to-br from-teal-950 via-slate-950 to-slate-950 rounded-3xl p-6 sm:p-10 border border-emerald-900/30 mb-12 shadow-2xl transition hover:border-emerald-500/40 duration-300">
+            <div class="grid lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold px-3 py-1 rounded-md text-xs uppercase tracking-wider">React Web Engine</span>
+                        <span class="text-slate-500 text-xs font-mono">Live App</span>
+                    </div>
+                    <h2 class="text-3xl font-extrabold text-white flex items-center gap-2">
+                        MyPaths <span class="text-emerald-400 font-normal text-xl sm:text-2xl">| 八字命理分析系统</span>
+                    </h2>
+                    <p class="text-slate-300 text-base leading-relaxed">
+                        <span class="lang-en">MyPaths is a highly accurate Metaphysical Destiny Engine that decodes personal characteristics using the Four Pillars of Destiny (BaZi). By analyzing the precise combination of Heavenly Stems, Earthly Branches, and the Five Elements (五行), it instantly charts astrological maps, solar terms (节气), and cosmic pillars to provide profound natal data visualization.</span>
+                        <span class="lang-zh">MyPaths 是一款高精度的东方八字命理数字化运算工具。通过精确对齐年、月、日、时之天干地支，系统能瞬间排盘并直观解析五行生克、大运流年、神煞、胎元命宫及交运节气规律，将传统玄学智慧转化为清晰的可视化数字指标。</span>
+                    </p>
+
+                    <!-- Features extracted directly from the app image matrix -->
+                    <div class="grid grid-cols-2 gap-2 text-xs text-slate-400 font-mono pt-2">
+                        <div class="flex items-center gap-1.5"><i class="fa-solid fa-square-poll-vertical text-emerald-400"></i> 四柱排盘 (年/月/日/时)</div>
+                        <div class="flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-emerald-400"></i> 阴阳历/儒略日转换</div>
+                        <div class="flex items-center gap-1.5"><i class="fa-solid fa-circle-nodes text-emerald-400"></i> 大运流年/宜忌分析</div>
+                        <div class="flex items-center gap-1.5"><i class="fa-solid fa-bolt text-emerald-400"></i> 五行纳音与交运精准测算</div>
+                    </div>
+
+                    <div class="pt-4 flex flex-wrap gap-4">
+                        <a href="https://mypaths.tmaxius.com/exe" class="bg-emerald-500 text-slate-950 font-bold px-6 py-3 rounded-xl hover:bg-emerald-400 transition flex items-center gap-2 shadow-lg shadow-emerald-500/15">
+                            <span class="lang-en">Launch BaZi App Interface</span>
+                            <span class="lang-zh">立即启动 MyPaths 计算器</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                        <a href="https://mypaths.tmaxius.com/" class="border border-slate-700 hover:border-slate-500 text-slate-300 px-5 py-3 rounded-xl transition text-sm flex items-center gap-1.5">
+                            <i class="fa-solid fa-book-open text-xs text-slate-400"></i>
+                            <span class="lang-en">Documentation Hub</span>
+                            <span class="lang-zh">查看使用指南与教程</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Live Interface Mockup Preview Box -->
+                <div class="lg:col-span-5 bg-gradient-to-br from-slate-900/90 to-emerald-950/20 border border-slate-800 p-6 rounded-2xl flex flex-col justify-center text-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-emerald-500/[0.02] mix-blend-overlay"></div>
+                    <div class="text-emerald-500 text-5xl mb-2"><i class="fa-solid fa-yin-yang animate-spin-slow"></i></div>
+                    <div class="space-y-1">
+                        <h4 class="text-white font-semibold text-base">Interactive Destiny Analyst</h4>
+                        <p class="text-xs text-slate-400 font-mono">Endpoint: mypaths.tmaxius.com/exe</p>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-3 border-t border-slate-800/60 pt-3 leading-relaxed">
+                        Input birth data parameters to immediately run real-time cosmic matrix mapping for personal profiling.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 2: VELO DRIVER SYSTEM COMPONENT INTEGRATION -->
+        <div id="velo" class="bg-gradient-to-b from-slate-950 to-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Info Section Description -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span class="bg-amber-500/10 border border-amber-500/20 text-amber-400 font-bold px-3 py-1 rounded-md text-xs uppercase tracking-wider">Android Utility APK</span>
+                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-2.5 py-1 rounded-md text-xs font-mono">v4.163 Stable</span>
+                    </div>
+                    
+                    <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Velo Drivers Co-Pilot</h2>
+                    
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        <span class="lang-en">Velo is the premium vehicular translation co-pilot built to eliminate language barriers from the driver’s seat. Break down communication gaps instantly with high-utility preset driving phrases, or use seamless voice-to-voice translation without missing a beat.</span>
+                        <span class="lang-zh">Velo 是专为驾驶员量身打造的高级出行副驾。通过极具实用性的预设车载短语组合，让您瞬间打破沟通瓶颈；更有无缝衔接的实时语音对译功能，伴您稳健前行，不漏掉任何关键信息。</span>
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-slate-400 bg-slate-950/50 p-4 rounded-xl border border-slate-800">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-comments text-amber-400"></i> Preset Driving Phrases</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-microphone text-emerald-400"></i> Bi-Directional Voice Translate</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-wifi-slash text-red-400"></i> 100% Offline Database Local</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-blue-400"></i> Secure Android 8.0+ Build</div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                        <a href="https://github.com/Tmax9663/velo-downloads/releases/download/v4.163/Velo_v4.163.apk" download class="bg-amber-500 text-slate-950 font-bold text-base px-6 py-4 rounded-xl hover:bg-amber-400 transition shadow-lg shadow-amber-500/10 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-file-arrow-down"></i>
+                            <span class="lang-en">Download Velo v4.163 APK</span>
+                            <span class="lang-zh">下载 Velo 官方正版 APK</span>
+                        </a>
+                        <a href="#installation" class="border border-slate-700 text-slate-300 hover:border-slate-500 font-medium px-6 py-4 rounded-xl text-center text-sm transition flex items-center justify-center gap-2">
+                            <span class="lang-en">See Installation Manual</span>
+                            <span class="lang-zh">看安装配置要求</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Screenshots View Block Device Graphics Area -->
+                <div class="lg:col-span-6 relative">
+                    <!-- DESKTOP APP GRAPHIC STACK (Hidden on Mobile viewports) -->
+                    <div class="relative hidden sm:flex justify-center items-center scale-90 xl:scale-100 h-[440px]">
+                        <div class="absolute w-[150px] h-auto rotate-[-12deg] -left-4 top-20 z-10">
+                            <img src="setting.jpg" alt="Velo Settings" class="device-screenshot w-full opacity-60 transition hover:opacity-100 duration-200"> 
+                        </div>
+                        <div class="absolute w-[160px] h-auto -rotate-[4deg] left-12 top-4 z-20">
+                            <img src="offlineLanguage.jpg" alt="Velo Offline Installer" class="device-screenshot w-full opacity-80 transition hover:opacity-100 duration-200">
+                        </div>
+                        <div class="absolute w-[160px] h-auto rotate-[6deg] right-8 top-4 z-20">
+                            <img src="quickPhrase.jpg" alt="Velo Phrasebook" class="device-screenshot w-full opacity-80 transition hover:opacity-100 duration-200"> 
+                        </div>
+                        <div class="absolute w-[200px] h-auto z-30 shadow-2xl">
+                            <img src="home.jpg" alt="Velo Home Screen Translation" class="device-screenshot w-full">
+                        </div>
+                    </div>
+
+                    <!-- MOBILE SCREENSHOT INTERACTIVE SLIDER ENGINE CAROUSEL -->
+                    <div class="relative sm:hidden px-2 max-w-[280px] mx-auto">
+                        <button onclick="moveSlide(-1)" class="absolute -left-6 top-1/2 -translate-y-1/2 bg-slate-800/80 hover:bg-slate-700 text-white w-8 h-8 rounded-full flex items-center justify-center z-40 border border-slate-700 shadow">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        </button>
+                        <button onclick="moveSlide(1)" class="absolute -right-6 top-1/2 -translate-y-1/2 bg-slate-800/80 hover:bg-slate-700 text-white w-8 h-8 rounded-full flex items-center justify-center z-40 border border-slate-700 shadow">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <div class="w-full overflow-hidden">
+                            <div id="carouselTrack" class="flex transition-transform duration-300 ease-out" style="transform: translateX(0%);">
+                                <div class="w-full flex-shrink-0 px-1">
+                                    <img src="home.jpg" alt="Velo Dashboard Screen" class="device-screenshot w-full">
+                                    <p class="text-center text-[11px] text-slate-500 mt-2 font-mono">01 / Main Translation Hub</p>
+                                </div>
+                                <div class="w-full flex-shrink-0 px-1">
+                                    <img src="quickPhrase.jpg" alt="Velo Preset Panel" class="device-screenshot w-full">
+                                    <p class="text-center text-[11px] text-slate-500 mt-2 font-mono">02 / Quick Driving Phrases</p>
+                                </div>
+                                <div class="w-full flex-shrink-0 px-1">
+                                    <img src="offlineLanguage.jpg" alt="Velo Engine Configuration" class="device-screenshot w-full">
+                                    <p class="text-center text-[11px] text-slate-500 mt-2 font-mono">03 / Offline Engine Packs</p>
+                                </div>
+                                <div class="w-full flex-shrink-0 px-1">
+                                    <img src="setting.jpg" alt="Velo System Parameter Preferences" class="device-screenshot w-full">
+                                    <p class="text-center text-[11px] text-slate-500 mt-2 font-mono">04 / Developer Adjustments</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dots Control Layout Indicator -->
+                        <div class="flex justify-center space-x-2 mt-3">
+                            <span class="dot-indicator w-2 h-2 rounded-full bg-white transition-all duration-200" onclick="setSlide(0)"></span>
+                            <span class="dot-indicator w-2 h-2 rounded-full bg-slate-700 transition-all duration-200" onclick="setSlide(1)"></span>
+                            <span class="dot-indicator w-2 h-2 rounded-full bg-slate-700 transition-all duration-200" onclick="setSlide(2)"></span>
+                            <span class="dot-indicator w-2 h-2 rounded-full bg-slate-700 transition-all duration-200" onclick="setSlide(3)"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Detailed Instruction Guide Documentation Block -->
+    <section id="installation" class="py-16 bg-slate-950 border-t border-slate-800">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h3 class="text-2xl font-bold text-center text-white mb-10">
+                <span class="lang-en">Velo APK Deployment Manual</span>
+                <span class="lang-zh">安卓安装配置操作指引</span>
+            </h3>
+            
+            <div class="space-y-6 text-sm sm:text-base text-slate-300">
+                <div class="flex items-start space-x-4 bg-slate-900 p-5 rounded-xl border border-slate-800">
+                    <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 font-bold flex items-center justify-center border border-amber-500/20 text-sm flex-shrink-0">1</div>
+                    <p>
+                        <strong class="text-white block mb-1">Download Package File</strong>
+                        <span class="lang-en">Obtain the binary target by executing the file download link above. Save the verified release installation file package.</span>
+                        <span class="lang-zh">轻触上方下载连结下载得到安装固件，在文件管理器提示未知警告源时点按“保留/继续”。</span>
+                    </p>
+                </div>
+                <div class="flex items-start space-x-4 bg-slate-900 p-5 rounded-xl border border-slate-800">
+                    <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 font-bold flex items-center justify-center border border-amber-500/20 text-sm flex-shrink-0">2</div>
+                    <p>
+                        <strong class="text-white block mb-1">Grant Sandbox Permission</strong>
+                        <span class="lang-en">Allow unknown app storage validation settings execution for your respective browser app or local asset explorer app instance.</span>
+                        <span class="lang-zh">前往安卓 <strong>系统设置 &gt; 安全与隐私</strong> 选项，对浏览器或文件管理器授予“允许安装外部未知应用”权限。</span>
+                    </p>
+                </div>
+                <div class="flex items-start space-x-4 bg-slate-900 p-5 rounded-xl border border-slate-800">
+                    <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 font-bold flex items-center justify-center border border-amber-500/20 text-sm flex-shrink-0">3</div>
+                    <p>
+                        <strong class="text-white block mb-1">Sync Offline Localization Assets</strong>
+                        <span class="lang-en">Navigate internal app modules to the <strong>Install</strong> tab profile dashboard interface to pre-download localized speech packs for uninterrupted route coverage.</span>
+                        <span class="lang-zh">初次启动运行后，请前往底栏 <strong>Install (安装)</strong> 控制台，提前批量离线同步目标语言资源包以防野外弱网断连。</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Branding Workspace Footer -->
+    <footer class="bg-slate-950 text-slate-500 py-12 text-center text-xs border-t border-slate-900">
+        <p class="mb-2">&copy; 2026 Tmaxius Workspaces. All rights reserved.</p>
+        <p class="max-w-xl mx-auto px-4 text-slate-600">
+            <span class="lang-en">All systems, calculation metrics, and utility solutions are engineered to advance data parsing productivity. Use responsibly.</span>
+            <span class="lang-zh">本站发布的效率应用、数理运算及工具软件系统均以数据解析提效为宗旨。请依合规条款合理使用。</span>
+        </p>
+    </footer>
+
+    <!-- Interactive Component Javascript Core Engines -->
+    <script>
+        // Global Dual-Language State Controller
+        function toggleLanguage() {
+            const body = document.body;
+            const currentLang = body.getAttribute('data-lang');
+            const newLang = currentLang === 'en' ? 'zh' : 'en';
+            body.setAttribute('data-lang', newLang);
+        }
+
+        // Mobile Responsive Slider Navigation System Logic
+        let activeSlideIndex = 0;
+        const totalSlides = 4;
+        const trackElement = document.getElementById('carouselTrack');
+        const dotsElements = document.getElementsByClassName('dot-indicator');
+
+        function updateCarouselUI() {
+            if(!trackElement) return;
+            trackElement.style.transform = `translateX(-${activeSlideIndex * 100}%)`;
+            for (let i = 0; i < dotsElements.length; i++) {
+                if (i === activeSlideIndex) {
+                    dotsElements[i].classList.remove('bg-slate-700');
+                    dotsElements[i].classList.add('bg-white', 'scale-110');
+                } else {
+                    dotsElements[i].classList.remove('bg-white', 'scale-110');
+                    dotsElements[i].classList.add('bg-slate-700');
+                }
+            }
+        }
+
+        function moveSlide(direction) {
+            activeSlideIndex += direction;
+            if (activeSlideIndex >= totalSlides) activeSlideIndex = 0;
+            if (activeSlideIndex < 0) activeSlideIndex = totalSlides - 1;
+            updateCarouselUI();
+        }
+
+        function setSlide(index) {
+            activeSlideIndex = index;
+            updateCarouselUI();
+        }
+
+        // Run UI sync on load execution mounting window
+        updateCarouselUI();
+    </script>
+</body>
+</html>
