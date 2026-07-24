@@ -159,7 +159,9 @@
         </div>
 
         <div class="controls">
-            <input type="file" id="imageInput" accept="image/*" multiple capture="environment">
+            <!-- <input type="file" id="imageInput" accept="image/*" multiple capture="environment"> -->
+            <!-- NEW: Opens file picker / gallery on mobile, allowing multiple selections -->
+            <input type="file" id="imageInput" accept="image/*" multiple>
             <button class="btn" id="computeBtn" onclick="processImages()">Compute Total Sales</button>
             <button class="btn btn-success" id="printBtn" onclick="window.print()" style="display:none;">Print to A4</button>
         </div>
