@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Sales Summary & A4 Print</title>
+    <style>
+        /* Base Page Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            margin-top: 0;
+            color: #1a252f;
+        }
+
+        .controls {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #eef2f5;
+            border-radius: 6px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        input[type="file"], input[type="password"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex-grow: 1;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn:hover { background-color: #0056b3; }
+        .btn-success { background-color: #28a745; }
+        .btn-success:hover { background-color: #218838; }
+        .btn:disabled { background-color: #cccccc; cursor: not-allowed; }
+
+        .image-preview {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .image-preview img {
+            max-width: 90px;
+            max-height: 90px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        #status {
+            font-weight: bold;
+            margin: 10px 0;
+            color: #007bff;
+        }
+
+        /* Printable Table Styling */
+        .printable-area {
+            margin-top: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+
+        /* A4 Portrait Print Optimization */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 15mm;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+
+            table {
+                page-break-inside: auto;
+            }
+
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+
+            th {
+                background-color: #eee !important;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Non-Printable Controls Header -->
+    <div class="no-print">
+        <h1>Product Sales Aggregator</h1>
+        
+        <div class="controls">
+            <label for="apiKey"><strong>Gemini API Key:</strong></label>
+            <input type="password" id="apiKey" placeholder="Enter API key (saved locally in browser)">
+        </div>
+
+        <div class="controls">
+            <input type="file" id="imageInput" accept="image/*" multiple capture="environment">
+            <button class="btn" id="computeBtn" onclick="processImages()">Compute Total Sales</button>
+            <button class="btn btn-success" id="printBtn" onclick="window.print()" style="display:none;">Print to A4</button>
+        </div>
+
+        <div id="imagePreview" class="image-preview"></div>
+        <div id="status"></div>
+    </div>
+
+    <!-- Output Section (Optimized for A4 Printing) -->
+    <div class="printable-area" id="printableArea" style="display:none;">
+        <h2 style="text-align: center;">Total Units Sales Report</h2>
+        <p style="font-size: 12px; margin-bottom: 15px;" id="reportDate"></p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 8%;" class="text-center">row</th>
+                    <th style="width: 20%;">sku_plu</th>
+                    <th style="width: 25%;">barcode</th>
+                    <th>description</th>
+                    <th style="width: 15%;" class="text-center">Total qty</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right"><strong>Grand Total Units:</strong></td>
+                    <td class="text-center"><strong id="grandTotalQty">0</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<script>
+    const apiKeyInput = document.getElementById('apiKey');
+    const imageInput = document.getElementById('imageInput');
+    const imagePreview = document.getElementById('imagePreview');
+
+    // 1. Load API Key from localStorage on startup
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedKey = localStorage.getItem('gemini_api_key');
+        if (savedKey) {
+            apiKeyInput.value = savedKey;
+        }
+    });
+
+    // 2. Save API Key to localStorage whenever user changes it
+    apiKeyInput.addEventListener('input', (e) => {
+        localStorage.setItem('gemini_api_key', e.target.value.trim());
+    });
+
+    // Display image previews when files are selected
+    imageInput.addEventListener('change', () => {
+        imagePreview.innerHTML = '';
+        Array.from(imageInput.files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                imagePreview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
+    // Convert file object to Base64 payload for API call
+    function fileToGenerativePart(file) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const base64Data = reader.result.split(',')[1];
+                resolve({
+                    inlineData: {
+                        data: base64Data,
+                        mimeType: file.type
+                    }
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // Main extraction & processing logic
+    async function processImages() {
+        const apiKey = apiKeyInput.value.trim();
+        const files = imageInput.files;
+        const status = document.getElementById('status');
+
+        if (!apiKey) {
+            alert('Please enter your Gemini API key.');
+            return;
+        }
+
+        if (files.length === 0) {
+            alert('Please snap or upload at least one image.');
+            return;
+        }
+
+        document.getElementById('computeBtn').disabled = true;
+        
+        // Structure prompt to force visual segregation of handwritten artifacts
+        const prompt = `
+You are a precise document OCR reader.
+Extract all line item rows from this image.
+
+CRITICAL QUANTITY EXTRACTION RULES:
+1. "qty": Extract ONLY the small printed black integer in the quantity column (which comes directly before the "x").
+2. "handwritten_left": Store any handwritten text or pen numbers appearing on the left side of the quantity column.
+3. "handwritten_right": Store any handwritten text or pen numbers appearing on the right side of the quantity column.
+
+Return ONLY a valid JSON array of objects:
+[
+  {
+    "sku_plu": "string",
+    "barcode": "string",
+    "description": "string",
+    "qty": number,
+    "handwritten_left": "string or null",
+    "handwritten_right": "string or null"
+  }
+]
+`;
+
+        try {
+            const consolidatedMap = {};
+
+            // Loop through each image individually to avoid multi-image context bleed
+            for (let i = 0; i < files.length; i++) {
+                status.innerText = `Processing image ${i + 1} of ${files.length}... Please wait.`;
+                
+                const imagePart = await fileToGenerativePart(files[i]);
+
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [
+                                { text: prompt },
+                                imagePart
+                            ]
+                        }],
+                        generationConfig: {
+                            temperature: 0, // Deterministic mode
+                            responseMimeType: "application/json"
+                        }
+                    })
+                });
+
+                const data = await response.json();
+                if (data.error) throw new Error(data.error.message);
+
+                const rawItems = JSON.parse(data.candidates[0].content.parts[0].text);
+
+                // Aggregate using JS logic based strictly on the 'qty' field
+                rawItems.forEach(item => {
+                    const sku = (item.sku_plu || '').trim();
+                    if (!sku) return;
+
+                    const printedQty = parseInt(item.qty, 10) || 0;
+
+                    if (!consolidatedMap[sku]) {
+                        consolidatedMap[sku] = {
+                            sku_plu: sku,
+                            barcode: item.barcode || '',
+                            description: item.description || '',
+                            total_qty: 0
+                        };
+                    }
+                    consolidatedMap[sku].total_qty += printedQty;
+                });
+            }
+
+            const finalItems = Object.values(consolidatedMap);
+            renderTable(finalItems);
+            status.innerText = 'Processing complete!';
+        } catch (err) {
+            console.error(err);
+            status.innerText = 'Error processing request: ' + err.message;
+        } finally {
+            document.getElementById('computeBtn').disabled = false;
+        }
+    }
+
+    function renderTable(items) {
+        const tableBody = document.getElementById('tableBody');
+        tableBody.innerHTML = '';
+
+        let grandTotal = 0;
+
+        items.forEach((item, index) => {
+            const row = document.createElement('tr');
+            const qty = item.total_qty || 0;
+            grandTotal += qty;
+
+            row.innerHTML = `
+                <td class="text-center">${index + 1}</td>
+                <td>${item.sku_plu || ''}</td>
+                <td>${item.barcode || ''}</td>
+                <td>${item.description || ''}</td>
+                <td class="text-center">${qty}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        document.getElementById('grandTotalQty').innerText = grandTotal;
+        document.getElementById('reportDate').innerText = `Generated on: ${new Date().toLocaleString()}`;
+        
+        document.getElementById('printableArea').style.display = 'block';
+        document.getElementById('printBtn').style.display = 'inline-block';
+    }
+</script>
+
+</body>
+</html>
