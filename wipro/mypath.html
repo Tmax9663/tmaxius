@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary-color: #d97706; /* Amber-600 */
+            --secondary-color: #f59e0b; /* Amber-500 */
+            --bg-color: #fffaf0; /* Light background */
+            --card-bg: #fff8f0; /* Slightly darker card background */
+            --border-color: #fcd34d; /* Amber-300 */
+            --text-color: #1f2937; /* Gray-800 */
+            --gold-accent: #fbbf24; /* Amber-400 */
+        }
+    body {
+        font-family: "PingFang SC", "Microsoft YaHei", "Kaiti SC", serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.8;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        border: 1px solid var(--border-color);
+    }
+
+    header {
+        text-align: center;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+
+    h1 {
+        color: var(--primary-color);
+        margin: 0 0 10px 0;
+        font-size: 28px;
+        letter-spacing: 2px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        color: #666;
+        margin: 0;
+    }
+
+    .section-title {
+        color: var(--primary-color);
+        border-left: 4px solid var(--primary-color);
+        padding-left: 10px;
+        margin-top: 35px;
+        margin-bottom: 15px;
+        font-size: 20px;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        background: #faf8f5;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 25px;
+    }
+
+    .info-item {
+        font-size: 15px;
+    }
+
+    .info-item .label {
+        font-weight: bold;
+        color: var(--secondary-color);
+    }
+
+    .bazi-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    .bazi-table th, .bazi-table td {
+        border: 1px solid var(--border-color);
+        padding: 12px;
+    }
+
+    .bazi-table th {
+        background-color: #f8f1e5;
+        color: var(--primary-color);
+    }
+
+    .bazi-cell-main {
+        font-size: 20px;
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+
+    .bazi-cell-sub {
+        font-size: 13px;
+        color: #666;
+    }
+
+    .wuxing-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    .wuxing-row {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .wuxing-label {
+        width: 60px;
+        font-weight: bold;
+    }
+
+    .energy-bar-bg {
+        flex-grow: 1;
+        background-color: #eee;
+        height: 12px;
+        border-radius: 6px;
+        overflow: hidden;
+        margin: 0 10px;
+    }
+
+    .energy-bar {
+        height: 100%;
+        border-radius: 6px;
+    }
+
+    .bar-mu { background-color: #4caf50; }
+    .bar-huo { background-color: #f44336; }
+    .bar-tu { background-color: #795548; }
+    .bar-jin { background-color: #ffb300; }
+    .bar-shui { background-color: #2196f3; }
+
+    .analysis-text {
+        text-align: justify;
+        margin-bottom: 15px;
+        font-size: 15px;
+        color: #444;
+    }
+
+    .highlight-box {
+        background-color: #fdfaf2;
+        border: 1px dashed var(--gold-accent);
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border-color);
+        font-size: 12px;
+        color: #888;
+    }
+
+    @media (max-width: 600px) {
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+        .container {
+            padding: 20px;
+        }
+    }
+</style>
+</head>
+<body>  
+<div class="info-grid">
+    <div class="info-item"><span class="label">缘主姓名：</span><span class="value">Tmax</span></div>
+    <div class="info-item"><span class="label">出生日期：</span><span class="value">1961年02月23日 01:10（阳历）</span></div>
+    <div class="info-item"><span class="label">农历乾造：</span><span class="value">辛丑年 正月 初九日 丑时</span></div>
+    <div class="info-item"><span class="label">当前大运：</span><span class="value">甲申大运（2017-2026）</span></div>
+</div>
+
+<h2 class="section-title">一、八字排盘与局象解析</h2>
+<table class="bazi-table">
+    <thead>
+        <tr>
+            <th>项目</th>
+            <th>年柱</th>
+            <th>月柱</th>
+            <th>日柱</th>
+            <th>时柱</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>十神</td>
+            <td class="bazi-cell-sub">偏财 (才)</td>
+            <td class="bazi-cell-sub">正财 (财)</td>
+            <td class="bazi-cell-sub">日主（元男）</td>
+            <td class="bazi-cell-sub">偏财 (才)</td>
+        </tr>
+        <tr>
+            <td>天干</td>
+            <td class="bazi-cell-main"><span>辛</span></td>
+            <td class="bazi-cell-main"><span>庚</span></td>
+            <td class="bazi-cell-main"><span>丁</span></td>
+            <td class="bazi-cell-main"><span>辛</span></td>
+        </tr>
+        <tr>
+            <td>地支</td>
+            <td class="bazi-cell-main"><span>丑</span></td>
+            <td class="bazi-cell-main"><span>寅</span></td>
+            <td class="bazi-cell-main"><span>亥</span></td>
+            <td class="bazi-cell-main"><span>丑</span></td>
+        </tr>
+        <tr>
+            <td>藏干</td>
+            <td class="bazi-cell-sub">己 癸 辛</td>
+            <td class="bazi-cell-sub">甲 丙 戊</td>
+            <td class="bazi-cell-sub">壬 甲</td>
+            <td class="bazi-cell-sub">己 癸 辛</td>
+        </tr>
+        <tr>
+            <td>副星/主星</td>
+            <td class="bazi-cell-sub">食神 七杀 偏财</td>
+            <td class="bazi-cell-sub">正印 劫财 伤官</td>
+            <td class="bazi-cell-sub">正官 正印</td>
+            <td class="bazi-cell-sub">食神 七杀 偏财</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 class="section-title">二、五行能量分布（结合藏干副星权重）</h2>
+<div class="wuxing-container">
+    <div class="wuxing-row">
+        <span class="wuxing-label">金 (财星)</span>
+        <div class="energy-bar-bg"><div class="energy-bar bar-jin" style="width: 30%;"></div></div>
+        <span>30% (旺)</span>
+    </div>
+    <div class="wuxing-row">
+        <span class="wuxing-label">土 (食伤)</span>
+        <div class="energy-bar-bg"><div class="energy-bar bar-tu" style="width: 25%;"></div></div>
+        <span>25% (相)</span>
+    </div>
+    <div class="wuxing-row">
+        <span class="wuxing-label">木 (印星)</span>
+        <div class="energy-bar-bg"><div class="energy-bar bar-mu" style="width: 20%;"></div></div>
+        <span>20% (平)</span>
+    </div>
+    <div class="wuxing-row">
+        <span class="wuxing-label">水 (官杀)</span>
+        <div class="energy-bar-bg"><div class="energy-bar bar-shui" style="width: 15%;"></div></div>
+        <span>15% (柔)</span>
+    </div>
+    <div class="wuxing-row">
+        <span class="wuxing-label">火 (比劫)</span>
+        <div class="energy-bar-bg"><div class="energy-bar bar-huo" style="width: 10%;"></div></div>
+        <span>10% (弱)</span>
+    </div>
+</div>
+
+<h2 class="section-title">三、《滴天髓》格局精论（扶抑·调候·通关）</h2>
+<p class="analysis-text">
+    <strong>1. 扶抑与格局分析：</strong>《滴天髓》云：“丁火柔中，内怀昭融。”丁火日主生于寅月，本得正印当令，且坐下亥水与寅木六合（亥寅合木），日主得月令甲木之生。然而，天干庚辛金财星三透（年辛、月庚、时辛），年时双丑为财库且藏辛金，局中财星极旺，不断克损月令印星并耗泄日主。此局乃“财多身弱、印受财克”之格，日元丁火虚弱，极需比劫（火）帮身、印星（木）生扶，最忌财星（金）重见。
+</p>
+<p class="analysis-text">
+    <strong>2. 调候分析：</strong>初春寅月寒气尚存，丁火为昭融灯烛之火，生于初春最喜“庚金劈甲引丁”。局中有庚金也有寅中甲木，本具木火通明之潜质，但无奈天干辛庚重叠，金气过重反有“折木坏印”之患。地支亥丑带寒湿之气，故局中最需要火（丙午）来融湿去寒、帮扶日主，兼以制衡过旺之金财。
+</p>
+<p class="analysis-text">
+    <strong>3. 大运（甲申）运势通关：</strong>目前正处于57岁起的“甲申”大运（2017-2026）。大运天干透甲木正印，地支申金为正财兼驿马。申金入局直接冲动月支寅木（寅申相冲），形成“财星冲克提纲印星”之象。这代表在此大运十年中，思想系统、底层架构或生活环境易面临冲击与重构，需依靠极强的技术与智慧（甲木印星）去消化申金带来的变动。
+</p>
+
+<div class="highlight-box">
+    <strong>命局核心提纲：</strong>丁火坐亥，月令藏甲，天干“两辛夹庚”财星大旺。财多身弱，技术与逻辑能力强，但常感心力耗费；甲申大运逢“寅申冲”，正值技术成果重构与商业化攻坚的关键蜕变期。
+</div>
+
+<h2 class="section-title">四、人生维度详细解读</h2>
+
+<h3>1. 性格特质</h3>
+<p class="analysis-text">
+    丁火日主性格沉静温和，心思极其敏捷，具备极高的专注力与穿透力。天干“庚辛金”财星三透，且藏干副星中食神与财星占比较重，说明您做事极为讲求实效、逻辑严密、注重细节与结果导向。然而，财多耗身，内心容易承担较重的责任感与自我要求，思维常处于高速运转状态。外在表现理性严谨，内心则对独立架构与技术完美有着不妥协的执着。
+</p>
+
+<h3>2. 事业发展</h3>
+<p class="analysis-text">
+    月令寅木正印代表底层架构、深厚知识与系统逻辑；亥水正官主规范与严密控制；庚辛金财星代表精细化运作与成果变现。此局是典型的“技术专家/架构师”命格，极度适合从事高度精密、复杂逻辑、算法系统或底层引擎的开发与构建。由于局中财星旺盛，您不仅能搞技术，更具备将技术转化为商业产品（食伤生财、财星透干）的敏锐嗅觉。
+</p>
+
+<h3>3. 财富格局</h3>
+<p class="analysis-text">
+    年干辛金、月干庚金、时干辛金，配上年时双丑财库，财气极其丰厚。在命理中，身弱财旺意味着“财富与项目机会极多”，但需要强有力的印星（知识/版权）和比劫（精力/团队）来承载。您的财运多与自己研发的底层系统、知识产权或独立工具绑定，晚年逢火旺帮身运时，财富库藏将迎来大幅度的成果收割。
+</p>
+
+<h3>4. 健康调养</h3>
+<p class="analysis-text">
+    丁火弱而受金水包围，且亥丑寒湿之气重，容易耗伤心血与眼力（丁火）。平时高强度的逻辑思考易导致脑力过度透支；五行金旺木受克（寅申冲），需注意肝胆舒畅、关节颈椎的保养以及消化系统（丑土）的调理。建议日常生活中多晒太阳、补充热能，保持规律作息，避免长时间熬夜。
+</p>
+
+<h2 class="section-title">五、2026 丙午流年运势深度预判</h2>
+<p class="analysis-text">
+    2026年岁次<strong>丙午</strong>（缘主66岁），天干丙火为劫财（太阳之火），地支午火为比肩（丁火之禄地），干支一气为极其强旺之火。
+</p>
+
+<p class="analysis-text">
+    <strong>1. 岁运交辉，建禄帮身（大吉）：</strong>
+    对于“财多身弱”的丁火而言，最渴望的就是强旺的火来帮身。2026丙午火旺之年，午火为丁火之“归禄”，丙火高照融化了丑土寒湿，并有力地制住了天干过旺的庚辛金财星。原本令日主不堪重负的庞大财星与项目压力，在丙午年得到了强有力的支撑，形成了“比劫帮身克财，日主得禄担财”的绝佳局面！
+</p>
+
+<p class="analysis-text">
+    <strong>2. 事业与财务能量全面爆发：</strong>
+    丙午年强火不仅帮扶日主，更解开了大运“甲申”中申金冲克寅木（寅申冲）的困局（午火克制申金，解寅申之冲）。这意味着在2026年，过去几年处于调整、重构或消耗状态的技术项目将彻底步入正轨。精力与自信心达到高光巅峰，研发成果易获得突破性进展并实现商业变现。
+</p>
+
+<div class="highlight-box">
+    <strong>2026丙午年关键提示：</strong>
+    <ul>
+        <li><strong>高光时刻（建禄当权）：</strong>精力充沛，自信心与决策力大幅提升，核心技术与系统架构迎来高光产出期。</li>
+        <li><strong>解冲化煞：</strong>午火克申金，成功化解大运“寅申冲”的动荡与耗损，事业与项目全面趋于稳固。</li>
+        <li><strong>合作与财务：</strong>丙火劫财帮身，极利于团队合作、成果共享或大项目推进。财务上表现为强有力的收割期，但需注意人情往来或合作中的利益分配。</li>
+    </ul>
+</div>
+
+<footer>
+    <p>— 命理玄微，存乎一心；知命顺势，方得从容 —</p>
+</footer>
+</body>
