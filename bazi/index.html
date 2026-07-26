@@ -371,286 +371,219 @@
     <iframe id="report-preview"></iframe>
 
     <script>
-     const API_ENDPOINT = "https://bazi-report-backend.tmaxius.workers.dev/generate-report";
-      const STORAGE_PROFILES_KEY = "bazi_user_profiles";
-      const STORAGE_API_KEY = "bazi_gemini_api_key";
+  const API_ENDPOINT = "https://bazi-report-backend.tmaxius.workers.dev/generate-report";
+  const STORAGE_PROFILES_KEY = "bazi_user_profiles";
+  const STORAGE_API_KEY = "bazi_gemini_api_key";
 
-      // On DOM Loaded
-      document.addEventListener("DOMContentLoaded", () => {
-        loadProfilesDropdown();
-        checkAndApplySavedApiKey(); // Check localStorage on load
+  // 1. On DOM Loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    loadProfilesDropdown();
+    checkAndApplySavedApiKey();
 
-        const now = new Date();
-        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-        document.getElementById("datetime").value = now
-          .toISOString()
-          .slice(0, 16);
-      });
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    document.getElementById("datetime").value = now
+      .toISOString()
+      .slice(0, 16);
+  });
 
-      // 1. Check & Apply Saved API Key
-      function checkAndApplySavedApiKey() {
-        const savedKey = localStorage.getItem(STORAGE_API_KEY);
-        if (savedKey && savedKey.trim() !== "") {
-          document.getElementById("apiKey").value = savedKey;
-          hideApiKeyInput(savedKey);
-        } else {
-          showApiKeyInput();
-        }
-      }
-
-     // 2. Hide Input Field and Show Badge
-function hideApiKeyInput(key) {
-  const inputWrapper = document.getElementById("apiKeyInputWrapper");
-  const savedWrapper = document.getElementById("apiKeySavedWrapper");
-  const maskedKeySpan = document.getElementById("maskedKey");
-  const apiKeyInput = document.getElementById("apiKey");
-
-  // Keep the hidden input value in sync with the saved key
-  if (key) {
-    apiKeyInput.value = key;
+  // 2. Check & Apply Saved API Key
+  function checkAndApplySavedApiKey() {
+    const savedKey = localStorage.getItem(STORAGE_API_KEY);
+    if (savedKey && savedKey.trim() !== "") {
+      document.getElementById("apiKey").value = savedKey;
+      hideApiKeyInput(savedKey);
+    } else {
+      showApiKeyInput();
+    }
   }
 
-  // Mask key (e.g., show "AQ.A...x82F" or "AIza...x82F")
-  if (key && key.length > 8) {
-    maskedKeySpan.textContent = `${key.slice(0, 4)}...${key.slice(-4)}`;
-  } else {
-    maskedKeySpan.textContent = "••••••••";
-  }
+  // 3. Hide Input Field and Show Badge
+  function hideApiKeyInput(key) {
+    const inputWrapper = document.getElementById("apiKeyInputWrapper");
+    const savedWrapper = document.getElementById("apiKeySavedWrapper");
+    const maskedKeySpan = document.getElementById("maskedKey");
+    const apiKeyInput = document.getElementById("apiKey");
 
-  inputWrapper.style.display = "none";
-  savedWrapper.style.display = "flex";
-  
-  // Remove HTML5 required constraint so hidden input doesn't block submit
-  apiKeyInput.removeAttribute("required"); 
-}
-
-      // 3. Show Input Field when user clicks "更换 Key"
-      function showApiKeyInput() {
-        const inputWrapper = document.getElementById("apiKeyInputWrapper");
-        const savedWrapper = document.getElementById("apiKeySavedWrapper");
-
-        inputWrapper.style.display = "block";
-        savedWrapper.style.display = "none";
-        document.getElementById("apiKey").setAttribute("required", "true");
-      }
-
-      // 4. Edit Key Action
-      function editApiKey() {
-        showApiKeyInput();
-        const input = document.getElementById("apiKey");
-        input.focus();
-        input.select();
-      }
-
-      // 5. Updated Handle Live Typing (Supports both AIza... and AQ... keys)
-function handleApiKeyInput(event) {
-  const val = event.target.value.trim();
-  
-  // Accept standard AIza... keys OR new AQ... authentication keys
-  if (val.length >= 30 && (val.startsWith("AIza") || val.startsWith("AQ."))) {
-    localStorage.setItem(STORAGE_API_KEY, val);
-    hideApiKeyInput(val);
-  }
-}
-
-// 6. Form Submission Handler
-async function handleFormSubmit(e) {
-  e.preventDefault();
-
-  // Retrieve key from hidden input or localStorage
-  let apiKey =
-    localStorage.getItem(STORAGE_API_KEY) ||
-    document.getElementById("apiKey").value.trim();
-
-  if (!apiKey) {
-    alert("请配置 Gemini API Key");
-    showApiKeyInput();
-    return;
-  }
-
-  // Save key to localStorage
-  localStorage.setItem(STORAGE_API_KEY, apiKey);
-  hideApiKeyInput(apiKey);
-
-  const name = document.getElementById("userName").value.trim();
-  const gender = document.querySelector('input[name="gender"]:checked').value;
-  const datetimeRaw = document.getElementById("datetime").value;
-  const datetime = datetimeRaw.replace("T", " ");
-
-  saveProfile(name, gender, datetimeRaw);
-
-  const submitBtn = document.getElementById("submitBtn");
-  const loadingText = document.getElementById("loading");
-  const iframe = document.getElementById("report-preview");
-  const printBtn = document.getElementById("printBtn");
-
-  submitBtn.disabled = true;
-  loadingText.style.display = "block";
-  iframe.style.display = "none";
-  printBtn.style.display = "none";
-
-  try {
-    const response = await fetch(API_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, gender, datetime, apiKey, advance: true }),
-    });
-
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error || "Server error");
+    if (key) {
+      apiKeyInput.value = key;
     }
 
-    const htmlContent = await response.text();
+    if (key && key.length > 8) {
+      maskedKeySpan.textContent = `${key.slice(0, 4)}...${key.slice(-4)}`;
+    } else {
+      maskedKeySpan.textContent = "••••••••";
+    }
 
-    iframe.style.display = "block";
-    printBtn.style.display = "inline-block";
-
-    const doc = iframe.contentWindow.document;
-    doc.open();
-    doc.write(htmlContent);
-    doc.close();
-
-    iframe.scrollIntoView({ behavior: "smooth" });
-  } catch (err) {
-    alert("生成失败: " + err.message);
-  } finally {
-    submitBtn.disabled = false;
-    loadingText.style.display = "none";
+    inputWrapper.style.display = "none";
+    savedWrapper.style.display = "flex";
+    apiKeyInput.removeAttribute("required"); 
   }
-}
-      function toggleHelpModal(show) {
-        const modal = document.getElementById("helpModal");
-        modal.style.display = show ? "flex" : "none";
+
+  // 4. Show Input Field
+  function showApiKeyInput() {
+    const inputWrapper = document.getElementById("apiKeyInputWrapper");
+    const savedWrapper = document.getElementById("apiKeySavedWrapper");
+
+    inputWrapper.style.display = "block";
+    savedWrapper.style.display = "none";
+    document.getElementById("apiKey").setAttribute("required", "true");
+  }
+
+  // 5. Edit Key Action
+  function editApiKey() {
+    showApiKeyInput();
+    const input = document.getElementById("apiKey");
+    input.focus();
+    input.select();
+  }
+
+  // 6. Handle Live Typing (Supports both AIza... and AQ... keys)
+  function handleApiKeyInput(event) {
+    const val = event.target.value.trim();
+    if (val.length >= 25 && (val.startsWith("AIza") || val.startsWith("AQ"))) {
+      localStorage.setItem(STORAGE_API_KEY, val);
+      hideApiKeyInput(val);
+    }
+  }
+
+  // 7. SINGLE Form Submission Handler
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+
+    // Get key from localStorage first, fallback to input value
+    let apiKey =
+      localStorage.getItem(STORAGE_API_KEY) ||
+      document.getElementById("apiKey").value.trim();
+
+    if (!apiKey) {
+      alert("请配置 Gemini API Key");
+      showApiKeyInput();
+      return;
+    }
+
+    localStorage.setItem(STORAGE_API_KEY, apiKey);
+    hideApiKeyInput(apiKey);
+
+    const name = document.getElementById("userName").value.trim();
+    const gender = document.querySelector('input[name="gender"]:checked').value;
+    const datetimeRaw = document.getElementById("datetime").value;
+    const datetime = datetimeRaw.replace("T", " ");
+
+    saveProfile(name, gender, datetimeRaw);
+
+    const submitBtn = document.getElementById("submitBtn");
+    const loadingText = document.getElementById("loading");
+    const iframe = document.getElementById("report-preview");
+    const printBtn = document.getElementById("printBtn");
+
+    submitBtn.disabled = true;
+    loadingText.style.display = "block";
+    iframe.style.display = "none";
+    printBtn.style.display = "none";
+
+    try {
+      const response = await fetch(API_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, gender, datetime, apiKey, advance: true }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || `Server returned ${response.status}`);
       }
 
-      // Close modal if user clicks outside the modal content box
-      window.onclick = function (event) {
-        const modal = document.getElementById("helpModal");
-        if (event.target === modal) {
-          modal.style.display = "none";
-        }
-      };
-      function loadSavedApiKey() {
-        const savedKey = localStorage.getItem(STORAGE_API_KEY);
-        if (savedKey) document.getElementById("apiKey").value = savedKey;
-      }
+      const htmlContent = await response.text();
 
-      function getProfiles() {
-        return JSON.parse(localStorage.getItem(STORAGE_PROFILES_KEY) || "[]");
-      }
+      iframe.style.display = "block";
+      printBtn.style.display = "inline-block";
 
-      function loadProfilesDropdown() {
-        const profiles = getProfiles();
-        const select = document.getElementById("userProfiles");
-        select.innerHTML = '<option value="">-- 选择已保存缘主 --</option>';
-        profiles.forEach((p, idx) => {
-          const opt = document.createElement("option");
-          opt.value = idx;
-          opt.textContent = `${p.name} (${p.gender}) - ${p.datetime.replace("T", " ")}`;
-          select.appendChild(opt);
-        });
-      }
+      const doc = iframe.contentWindow.document;
+      doc.open();
+      doc.write(htmlContent);
+      doc.close();
 
-      function loadSelectedProfile() {
-        const idx = document.getElementById("userProfiles").value;
-        if (idx === "") return;
-        const p = getProfiles()[idx];
-        if (p) {
-          document.getElementById("userName").value = p.name;
-          document.querySelector(
-            `input[name="gender"][value="${p.gender}"]`,
-          ).checked = true;
-          document.getElementById("datetime").value = p.datetime;
-        }
-      }
+      iframe.scrollIntoView({ behavior: "smooth" });
+    } catch (err) {
+      alert("生成失败: " + err.message);
+    } finally {
+      submitBtn.disabled = false;
+      loadingText.style.display = "none";
+    }
+  }
 
-      function saveProfile(name, gender, datetime) {
-        let profiles = getProfiles();
-        const idx = profiles.findIndex(
-          (p) => p.name === name && p.datetime === datetime,
-        );
-        if (idx > -1) profiles[idx] = { name, gender, datetime };
-        else profiles.unshift({ name, gender, datetime });
-        localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
-        loadProfilesDropdown();
-      }
+  // Helper Functions
+  function toggleHelpModal(show) {
+    const modal = document.getElementById("helpModal");
+    modal.style.display = show ? "flex" : "none";
+  }
 
-      function deleteSelectedProfile() {
-        const idx = document.getElementById("userProfiles").value;
-        if (idx === "") return alert("请选择要删除的缘主");
-        let profiles = getProfiles();
-        profiles.splice(idx, 1);
-        localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
-        loadProfilesDropdown();
-      }
+  window.onclick = function (event) {
+    const modal = document.getElementById("helpModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
 
-      async function handleFormSubmit(e) {
-        e.preventDefault();
-        const apiKey = document.getElementById("apiKey").value.trim();
-        const name = document.getElementById("userName").value.trim();
-        const gender = document.querySelector(
-          'input[name="gender"]:checked',
-        ).value;
-        const datetimeRaw = document.getElementById("datetime").value;
-        const datetime = datetimeRaw.replace("T", " ");
+  function getProfiles() {
+    return JSON.parse(localStorage.getItem(STORAGE_PROFILES_KEY) || "[]");
+  }
 
-        localStorage.setItem(STORAGE_API_KEY, apiKey);
-        saveProfile(name, gender, datetimeRaw);
+  function loadProfilesDropdown() {
+    const profiles = getProfiles();
+    const select = document.getElementById("userProfiles");
+    select.innerHTML = '<option value="">-- 选择已保存缘主 --</option>';
+    profiles.forEach((p, idx) => {
+      const opt = document.createElement("option");
+      opt.value = idx;
+      opt.textContent = `${p.name} (${p.gender}) - ${p.datetime.replace("T", " ")}`;
+      select.appendChild(opt);
+    });
+  }
 
-        const submitBtn = document.getElementById("submitBtn");
-        const loadingText = document.getElementById("loading");
-        const iframe = document.getElementById("report-preview");
-        const printBtn = document.getElementById("printBtn");
+  function loadSelectedProfile() {
+    const idx = document.getElementById("userProfiles").value;
+    if (idx === "") return;
+    const p = getProfiles()[idx];
+    if (p) {
+      document.getElementById("userName").value = p.name;
+      document.querySelector(
+        `input[name="gender"][value="${p.gender}"]`
+      ).checked = true;
+      document.getElementById("datetime").value = p.datetime;
+    }
+  }
 
-        submitBtn.disabled = true;
-        loadingText.style.display = "block";
-        iframe.style.display = "none";
-        printBtn.style.display = "none";
+  function saveProfile(name, gender, datetime) {
+    let profiles = getProfiles();
+    const idx = profiles.findIndex(
+      (p) => p.name === name && p.datetime === datetime
+    );
+    if (idx > -1) profiles[idx] = { name, gender, datetime };
+    else profiles.unshift({ name, gender, datetime });
+    localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
+    loadProfilesDropdown();
+  }
 
-        try {
-          const response = await fetch(API_ENDPOINT, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, gender, datetime, apiKey ,"advance": true}),
-          });
+  function deleteSelectedProfile() {
+    const idx = document.getElementById("userProfiles").value;
+    if (idx === "") return alert("请选择要删除的缘主");
+    let profiles = getProfiles();
+    profiles.splice(idx, 1);
+    localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
+    loadProfilesDropdown();
+  }
 
-          if (!response.ok) {
-            const err = await response.json();
-            throw new Error(err.error || "Server error");
-          }
-
-          const htmlContent = await response.text();
-
-          iframe.style.display = "block";
-          printBtn.style.display = "inline-block";
-
-          const doc = iframe.contentWindow.document;
-          doc.open();
-          doc.write(htmlContent);
-          doc.close();
-
-          iframe.scrollIntoView({ behavior: "smooth" });
-        } catch (err) {
-          alert("生成失败: " + err.message);
-        } finally {
-          submitBtn.disabled = false;
-          loadingText.style.display = "none";
-        }
-      }
-
-      // PRINT IFRAME TO PDF FUNCTION WITH PROPER PAGE BREAKS
-      function printIframeToPDF() {
-        const iframe = document.getElementById("report-preview");
-        if (!iframe || iframe.style.display === "none") {
-          alert("没有可供打印的报告");
-          return;
-        }
-
-        // Trigger print window directly targeting the frame's window
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
-      }
-    </script>
+  function printIframeToPDF() {
+    const iframe = document.getElementById("report-preview");
+    if (!iframe || iframe.style.display === "none") {
+      alert("没有可供打印的报告");
+      return;
+    }
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+  }
+</script>
   </body>
 </html>
