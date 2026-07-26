@@ -448,10 +448,9 @@
   }
 
   // 7. SINGLE Form Submission Handler
-  async function handleFormSubmit(e) {
+ async function handleFormSubmit(e) {
     e.preventDefault();
 
-    // Get key from localStorage first, fallback to input value
     let apiKey =
       localStorage.getItem(STORAGE_API_KEY) ||
       document.getElementById("apiKey").value.trim();
@@ -486,12 +485,18 @@
       const response = await fetch(API_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, gender, datetime, apiKey, advance: true }),
+        body: JSON.stringify({ name, gender, datetime, apiKey }),
       });
 
       if (!response.ok) {
-        const err = await response.json();
-        throw new Error(err.error || `Server returned ${response.status}`);
+        let errorMsg = `Server status ${response.status}`;
+        try {
+          const errData = await response.json();
+          errorMsg = errData.error || errData.details || errorMsg;
+        } catch (_) {
+          errorMsg = await response.text();
+        }
+        throw new Error(errorMsg);
       }
 
       const htmlContent = await response.text();
