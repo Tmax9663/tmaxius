@@ -398,23 +398,31 @@
         }
       }
 
-      // 2. Hide Input Field and Show Badge
-      function hideApiKeyInput(key) {
-        const inputWrapper = document.getElementById("apiKeyInputWrapper");
-        const savedWrapper = document.getElementById("apiKeySavedWrapper");
-        const maskedKeySpan = document.getElementById("maskedKey");
+     // 2. Hide Input Field and Show Badge
+function hideApiKeyInput(key) {
+  const inputWrapper = document.getElementById("apiKeyInputWrapper");
+  const savedWrapper = document.getElementById("apiKeySavedWrapper");
+  const maskedKeySpan = document.getElementById("maskedKey");
+  const apiKeyInput = document.getElementById("apiKey");
 
-        // Mask key (e.g., show "AIza...x82F")
-        if (key.length > 8) {
-          maskedKeySpan.textContent = `${key.slice(0, 4)}...${key.slice(-4)}`;
-        } else {
-          maskedKeySpan.textContent = "••••••••";
-        }
+  // Keep the hidden input value in sync with the saved key
+  if (key) {
+    apiKeyInput.value = key;
+  }
 
-        inputWrapper.style.display = "none";
-        savedWrapper.style.display = "flex";
-        document.getElementById("apiKey").removeAttribute("required"); // Remove HTML5 required check when hidden
-      }
+  // Mask key (e.g., show "AQ.A...x82F" or "AIza...x82F")
+  if (key && key.length > 8) {
+    maskedKeySpan.textContent = `${key.slice(0, 4)}...${key.slice(-4)}`;
+  } else {
+    maskedKeySpan.textContent = "••••••••";
+  }
+
+  inputWrapper.style.display = "none";
+  savedWrapper.style.display = "flex";
+  
+  // Remove HTML5 required constraint so hidden input doesn't block submit
+  apiKeyInput.removeAttribute("required"); 
+}
 
       // 3. Show Input Field when user clicks "更换 Key"
       function showApiKeyInput() {
