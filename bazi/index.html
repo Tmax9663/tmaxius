@@ -370,85 +370,34 @@
     <!-- Iframe Preview -->
     <iframe id="report-preview"></iframe>
 
-    <script>
-  const API_ENDPOINT = "https://bazi-report-backend.tmaxius.workers.dev/generate-report";
-  const STORAGE_PROFILES_KEY = "bazi_user_profiles";
-  const STORAGE_API_KEY = "bazi_gemini_api_key";
+   <script>
+  const API_ENDPOINT = "https://your-cloudflare-worker-domain.workers.dev/generate-report"; // Replace with your Worker URL
+  const STORAGE_API_KEY = "gemini_api_key";
 
-  // 1. On DOM Loaded
   document.addEventListener("DOMContentLoaded", () => {
-    loadProfilesDropdown();
-    checkAndApplySavedApiKey();
-
-    const now = new Date();
-    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-    document.getElementById("datetime").value = now
-      .toISOString()
-      .slice(0, 16);
+    const savedApiKey = localStorage.getItem(STORAGE_API_KEY);
+    if (savedApiKey) {
+      hideApiKeyInput(savedApiKey);
+    }
   });
 
-  // 2. Check & Apply Saved API Key
-  function checkAndApplySavedApiKey() {
-    const savedKey = localStorage.getItem(STORAGE_API_KEY);
-    if (savedKey && savedKey.trim() !== "") {
-      document.getElementById("apiKey").value = savedKey;
-      hideApiKeyInput(savedKey);
-    } else {
-      showApiKeyInput();
-    }
-  }
-
-  // 3. Hide Input Field and Show Badge
   function hideApiKeyInput(key) {
-    const inputWrapper = document.getElementById("apiKeyInputWrapper");
-    const savedWrapper = document.getElementById("apiKeySavedWrapper");
-    const maskedKeySpan = document.getElementById("maskedKey");
-    const apiKeyInput = document.getElementById("apiKey");
-
-    if (key) {
-      apiKeyInput.value = key;
-    }
-
-    if (key && key.length > 8) {
-      maskedKeySpan.textContent = `${key.slice(0, 4)}...${key.slice(-4)}`;
-    } else {
-      maskedKeySpan.textContent = "••••••••";
-    }
-
-    inputWrapper.style.display = "none";
-    savedWrapper.style.display = "flex";
-    apiKeyInput.removeAttribute("required"); 
+    document.getElementById("apiKeySection").style.display = "none";
+    document.getElementById("hasKeySection").style.display = "block";
+    document.getElementById("keyMasked").innerText = key.slice(0, 4) + "..." + key.slice(-4);
   }
 
-  // 4. Show Input Field
   function showApiKeyInput() {
-    const inputWrapper = document.getElementById("apiKeyInputWrapper");
-    const savedWrapper = document.getElementById("apiKeySavedWrapper");
-
-    inputWrapper.style.display = "block";
-    savedWrapper.style.display = "none";
-    document.getElementById("apiKey").setAttribute("required", "true");
+    document.getElementById("apiKeySection").style.display = "block";
+    document.getElementById("hasKeySection").style.display = "none";
   }
 
-  // 5. Edit Key Action
-  function editApiKey() {
-    showApiKeyInput();
-    const input = document.getElementById("apiKey");
-    input.focus();
-    input.select();
+  function saveProfile(name, gender, datetime) {
+    const profile = { name, gender, datetime };
+    localStorage.setItem("user_profile", JSON.stringify(profile));
   }
 
-  // 6. Handle Live Typing (Supports both AIza... and AQ... keys)
-  function handleApiKeyInput(event) {
-    const val = event.target.value.trim();
-    if (val.length >= 25 && (val.startsWith("AIza") || val.startsWith("AQ"))) {
-      localStorage.setItem(STORAGE_API_KEY, val);
-      hideApiKeyInput(val);
-    }
-  }
-
-  // 7. SINGLE Form Submission Handler
- async function handleFormSubmit(e) {
+  async function handleFormSubmit(e) {
     e.preventDefault();
 
     let apiKey =
@@ -516,78 +465,6 @@
       submitBtn.disabled = false;
       loadingText.style.display = "none";
     }
-  }
-
-  // Helper Functions
-  function toggleHelpModal(show) {
-    const modal = document.getElementById("helpModal");
-    modal.style.display = show ? "flex" : "none";
-  }
-
-  window.onclick = function (event) {
-    const modal = document.getElementById("helpModal");
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  };
-
-  function getProfiles() {
-    return JSON.parse(localStorage.getItem(STORAGE_PROFILES_KEY) || "[]");
-  }
-
-  function loadProfilesDropdown() {
-    const profiles = getProfiles();
-    const select = document.getElementById("userProfiles");
-    select.innerHTML = '<option value="">-- 选择已保存缘主 --</option>';
-    profiles.forEach((p, idx) => {
-      const opt = document.createElement("option");
-      opt.value = idx;
-      opt.textContent = `${p.name} (${p.gender}) - ${p.datetime.replace("T", " ")}`;
-      select.appendChild(opt);
-    });
-  }
-
-  function loadSelectedProfile() {
-    const idx = document.getElementById("userProfiles").value;
-    if (idx === "") return;
-    const p = getProfiles()[idx];
-    if (p) {
-      document.getElementById("userName").value = p.name;
-      document.querySelector(
-        `input[name="gender"][value="${p.gender}"]`
-      ).checked = true;
-      document.getElementById("datetime").value = p.datetime;
-    }
-  }
-
-  function saveProfile(name, gender, datetime) {
-    let profiles = getProfiles();
-    const idx = profiles.findIndex(
-      (p) => p.name === name && p.datetime === datetime
-    );
-    if (idx > -1) profiles[idx] = { name, gender, datetime };
-    else profiles.unshift({ name, gender, datetime });
-    localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
-    loadProfilesDropdown();
-  }
-
-  function deleteSelectedProfile() {
-    const idx = document.getElementById("userProfiles").value;
-    if (idx === "") return alert("请选择要删除的缘主");
-    let profiles = getProfiles();
-    profiles.splice(idx, 1);
-    localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
-    loadProfilesDropdown();
-  }
-
-  function printIframeToPDF() {
-    const iframe = document.getElementById("report-preview");
-    if (!iframe || iframe.style.display === "none") {
-      alert("没有可供打印的报告");
-      return;
-    }
-    iframe.contentWindow.focus();
-    iframe.contentWindow.print();
   }
 </script>
   </body>
