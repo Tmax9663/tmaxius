@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Author" content="tmax@tmaxius.com">
+    <link rel="icon" href="favicon.ico" />
+    <title>Velo - The Ultimate Driver's Co-Pilot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+        }
+        /* Style for device screenshots */
+        .device-screenshot {
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border: 4px solid #fff;
+            border-radius: 1.5rem;
+        }
+        /* Hide element based on active language language */
+        body[data-lang="en"] .lang-zh { display: none !important; }
+        body[data-lang="zh"] .lang-en { display: none !important; }
+
+        /* Carousel scroll behavior override */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased" data-lang="en">
+
+    <header class="bg-[#113a47] text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center gap-2">
+            <div class="flex items-center space-x-2 flex-shrink-0">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-inner">
+                    <img src="logo.png" alt="Velo Logo" class="w-8 h-8 sm:w-10 sm:h-10">
+                </div>
+                <div class="flex items-baseline space-x-1">
+                    <span class="text-xl sm:text-2xl font-bold tracking-wide">Velo</span>
+                    <span class="text-[10px] sm:text-xs font-normal text-gray-300">v4.19</span>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8 font-medium items-center">
+                <a href="#features" class="hover:text-[#e8be23] transition">
+                    <span class="lang-en">Features</span>
+                    <span class="lang-zh">核心功能</span>
+                </a>
+                <a href="#download" class="hover:text-[#e8be23] transition">
+                    <span class="lang-en">Download</span>
+                    <span class="lang-zh">软件下载</span>
+                </a>
+                <a href="#installation" class="hover:text-[#e8be23] transition">
+                    <span class="lang-en">Installation Guide</span>
+                    <span class="lang-zh">安装指南</span>
+                </a>
+            </nav>
+
+            <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
+                <button onclick="toggleLanguage()" class="flex items-center justify-center space-x-1 border border-white/30 rounded-lg px-2 py-1.5 sm:px-3 text-xs sm:text-sm hover:border-white transition bg-white/5 min-w-[40px] sm:min-w-auto">
+                    <i class="fa-solid fa-language text-base sm:text-lg text-[#e8be23]"></i>
+                    <span class="hidden xs:inline lang-en font-medium">中文</span>
+                    <span class="hidden xs:inline lang-zh font-medium">EN</span>
+                    <span class="xs:hidden lang-en font-medium text-[10px]">中</span>
+                    <span class="xs:hidden lang-zh font-medium text-[10px]">EN</span>
+                </button>
+
+                <a href="#download" class="bg-[#e8be23] text-[#113a47] font-bold text-xs sm:text-sm px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full hover:bg-yellow-400 transition shadow whitespace-nowrap">
+                    <span class="lang-en">Get APK</span>
+                    <span class="lang-zh">获取 APK</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-b from-[#113a47] to-[#1a5466] text-white py-16 px-6 overflow-hidden">
+        <div class="container mx-auto max-w-7xl">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left">
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight leading-tight">
+                        <span class="lang-en">Eliminate Language Barriers <br class="hidden md:inline">From the Driver's Seat</span>
+                        <span class="lang-zh">在驾驶位上<br class="hidden md:inline">彻底消除语言隔阂</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto md:mx-0 mb-10 leading-relaxed">
+                        <span class="lang-en">Velo is the premium co-pilot built to eliminate language barriers from the driver’s seat. Break down communication gaps instantly with high-utility preset driving phrases, or use seamless voice-to-voice translation without missing a beat.</span>
+                        <span class="lang-zh">Velo 是专为驾驶员量身打造的高级出行副驾。通过极具实用性的预设车载短语组合，让您瞬间打破沟通瓶颈；更有无缝衔接的实时语音对译功能，伴您稳健前行，不漏掉任何关键信息。</span>
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center md:justify-start items-center gap-4">
+                        <a href="#download" class="w-full sm:w-auto bg-[#e8be23] text-[#113a47] text-lg font-bold px-8 py-4 rounded-xl hover:bg-yellow-400 transition transform hover:-translate-y-1 shadow-lg flex items-center justify-center space-x-3">
+                            <i class="fa-solid fa-download"></i>
+                            <span class="lang-en">Download Velo APK</span>
+                            <span class="lang-zh">下载 Velo APK 固件</span>
+                        </a>
+                        <a href="#installation" class="w-full sm:w-auto border-2 border-white/40 hover:border-white text-white font-medium px-8 py-4 rounded-xl transition flex items-center justify-center space-x-2">
+                            <span class="lang-en">How to Install</span>
+                            <span class="lang-zh">查看安装引导</span>
+                            <i class="fa-solid fa-arrow-down text-sm"></i>
+                        </a>
+                    </div>
+                    <p class="text-xs text-gray-300 mt-4 font-light tracking-wide">
+                        <span class="lang-en">A Next-Gen Driving Utility by Tmaxius.</span>
+                        <span class="lang-zh">由 Tmaxius 倾力打造的次世代驾驶效率工具。</span>
+                    </p>
+                </div>
+
+                <div>
+                    <div class="relative mt-12 md:mt-0 hidden sm:flex justify-center items-center scale-90 lg:scale-100 h-[480px]">
+                        <div class="absolute w-[180px] h-auto rotate-[-12deg] -left-10 top-24 z-10">
+                            <img src="setting.jpg" alt="Velo Settings" class="device-screenshot w-full opacity-80 transition hover:opacity-100 duration-200" loading="eager"> 
+                        </div>
+                        <div class="absolute w-[190px] h-auto -rotate-[4deg] -left-2 top-8 z-20">
+                            <img src="offlineLanguage.jpg" alt="Velo Offline Installer" class="device-screenshot w-full opacity-90 transition hover:opacity-100 duration-200" loading="eager">
+                        </div>
+                        <div class="absolute w-[190px] h-auto rotate-[6deg] right-4 top-8 z-20">
+                            <img src="quickPhrase.jpg" alt="Velo Phrasebook" class="device-screenshot w-full opacity-90 transition hover:opacity-100 duration-200" loading="eager"> 
+                        </div>
+                        <div class="absolute w-[240px] h-auto z-30 shadow-2xl">
+                            <img src="home.jpg" alt="Velo Home Screen Translation" class="device-screenshot w-full" loading="eager">
+                        </div>
+                    </div>
+
+                    <div class="relative mt-8 sm:hidden px-4">
+                        <button onclick="moveSlide(-1)" class="absolute left-0 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-10 h-10 rounded-full flex items-center justify-center z-40 transition border border-white/20">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="moveSlide(1)" class="absolute right-0 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-10 h-10 rounded-full flex items-center justify-center z-40 transition border border-white/20">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+
+                        <div class="w-[260px] mx-auto overflow-hidden">
+                            <div id="carouselTrack" class="flex transition-transform duration-300 ease-out" style="transform: translateX(0%);">
+                                <div class="w-[260px] flex-shrink-0 px-2">
+                                    <img src="home.jpg" alt="Velo Home Screen" class="device-screenshot w-full shadow-lg" loading="eager">
+                                    <p class="text-center text-xs text-gray-300 mt-2 font-medium">Home View</p>
+                                </div>
+                                <div class="w-[260px] flex-shrink-0 px-2">
+                                    <img src="quickPhrase.jpg" alt="Velo Phrasebook" class="device-screenshot w-full shadow-lg" loading="eager">
+                                    <p class="text-center text-xs text-gray-300 mt-2 font-medium">Preset Phrases</p>
+                                </div>
+                                <div class="w-[260px] flex-shrink-0 px-2">
+                                    <img src="offlineLanguage.jpg" alt="Velo Offline Engine" class="device-screenshot w-full shadow-lg" loading="eager">
+                                    <p class="text-center text-xs text-gray-300 mt-2 font-medium">Offline Localization</p>
+                                </div>
+                                <div class="w-[260px] flex-shrink-0 px-2">
+                                    <img src="setting.jpg" alt="Velo Settings Panel" class="device-screenshot w-full shadow-lg" loading="eager">
+                                    <p class="text-center text-xs text-gray-300 mt-2 font-medium">System Settings</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center space-x-2.5 mt-4">
+                            <span class="dot-indicator w-2.5 h-2.5 rounded-full bg-white transition-all duration-200" onclick="setSlide(0)"></span>
+                            <span class="dot-indicator w-2.5 h-2.5 rounded-full bg-white/40 transition-all duration-200" onclick="setSlide(1)"></span>
+                            <span class="dot-indicator w-2.5 h-2.5 rounded-full bg-white/40 transition-all duration-200" onclick="setSlide(2)"></span>
+                            <span class="dot-indicator w-2.5 h-2.5 rounded-full bg-white/40 transition-all duration-200" onclick="setSlide(3)"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-20 bg-white">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">
+                <span class="lang-en">Engineered For Road Performance</span>
+                <span class="lang-zh">专为复杂路况行车设计</span>
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-6 bg-gray-50 rounded-2xl border border-gray-100 shadow-sm">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-xl mb-4">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">
+                        <span class="lang-en">Preset Driving Phrases</span>
+                        <span class="lang-zh">高频预设车载短语</span>
+                    </h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        <span class="lang-en">Quickly trigger critical route updates, price adjustments, and ETA alerts with zero typing required.</span>
+                        <span class="lang-zh">无需打字输入，一键触发关键路线变更、资费调整变动以及预计到达时间（ETA）等行车温馨提示。</span>
+                    </p>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-2xl border border-gray-100 shadow-sm">
+                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 text-xl mb-4">
+                        <i class="fa-solid fa-microphone"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">
+                        <span class="lang-en">Voice-to-Voice</span>
+                        <span class="lang-zh">无缝双向语音对译</span>
+                    </h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        <span class="lang-en">Seamless real-time verbal communication. Tap, speak, and let Velo translate immediately for your passenger.</span>
+                        <span class="lang-zh">行云流水般的实时口语沟通体验。只需点击、说话，Velo 就能立刻为您的乘客翻译清晰的语音。</span>
+                    </p>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-2xl border border-gray-100 shadow-sm">
+                    <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 text-xl mb-4">
+                        <i class="fa-solid fa-wifi-slash"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">
+                        <span class="lang-en">100% Offline Support</span>
+                        <span class="lang-zh">纯离线平稳运行</span>
+                    </h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        <span class="lang-en">Download offline packages for Malay, Chinese, English, Tamil, Thai, Japanese, and more to translate without cell service.</span>
+                        <span class="lang-zh">支持预下载马来语、中文、英语、印地语、泰语、日语等完全离线包，确保在没有移动网络信号时依旧能翻译。</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="py-16 bg-gray-100 border-y border-gray-200">
+        <div class="container mx-auto px-6 text-center max-w-xl">
+            <h2 class="text-3xl font-bold mb-4">
+                <span class="lang-en">Ready to hit the road?</span>
+                <span class="lang-zh">准备好启程了吗？</span>
+            </h2>
+            <p class="text-gray-600 mb-8">
+                <span class="lang-en">Get the latest, verified release of Velo direct safely onto your Android device below.</span>
+                <span class="lang-zh">点击下方直接将安全且经过官方验证的最新版 Velo 固件包下载至您的安卓设备中。</span>
+            </p>
+            
+            <a href="https://github.com/Tmax9663/velo-downloads/releases/download/v4.19/Velo_v4.19.apk"  download class="block w-full bg-[#113a47] text-white text-xl font-bold py-5 rounded-2xl hover:bg-[#1a5466] transition shadow-md duration-200">
+                <i class="fa-solid fa-file-arrow-down mr-2"></i> 
+                <span class="lang-en">Download Velo v4.19 APK</span>
+                <span class="lang-zh">下载 Velo v4.19 官方正版 APK</span>
+            </a>
+            <span class="text-xs text-gray-500 block mt-3">
+                <span class="lang-en">Compatible with Android 8.0 and above</span>
+                <span class="lang-zh">支持 Android 8.0 及以上系统版本</span>
+            </span>
+        </div>
+    </section>
+
+    <section id="installation" class="py-20 bg-white">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">
+                <span class="lang-en">Android Installation Guide</span>
+                <span class="lang-zh">安卓系统手动安装指南</span>
+            </h2>
+            
+            <div class="space-y-8">
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 w-8 h-8 bg-[#113a47] text-white rounded-full flex items-center justify-center font-bold">1</div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800">
+                            <span class="text-lg font-semibold text-gray-800 lang-en">Download the APK File</span>
+                            <span class="text-lg font-semibold text-gray-800 lang-zh">获取包体文件</span>
+                        </h4>
+                        <p class="text-gray-600 mt-1">
+                            <span class="lang-en">Click the download button above to grab the <code class="bg-gray-100 text-red-600 px-1 rounded font-mono text-sm">.apk</code> file. If prompted by your browser, confirm that you wish to keep the file download.</span>
+                            <span class="lang-zh">点击上方下载按钮获取扩展名为 <code class="bg-gray-100 text-red-600 px-1 rounded font-mono text-sm">.apk</code> 的安装包。如果浏览器弹出潜在提示，请选择“保留”或“信任该文件”。</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 w-8 h-8 bg-[#113a47] text-white rounded-full flex items-center justify-center font-bold">2</div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800">
+                            <span class="text-lg font-semibold text-gray-800 lang-en">Enable Unknown Sources</span>
+                            <span class="text-lg font-semibold text-gray-800 lang-zh">允许安装未知来源应用</span>
+                        </h4>
+                        <p class="text-gray-600 mt-1">
+                            <span class="lang-en">Because this is a direct package installer outside the Play Store, Android requires permission. Go to <strong>Settings &gt; Security</strong> (or Apps) and toggle on <strong>"Install Unknown Apps"</strong> for your browser or file manager.</span>
+                            <span class="lang-zh">由于该软件属于非商店直连包，系统默认触发保护机制。请前往手机的 <strong>设置 &gt; 安全性与隐私</strong>（或应用管理），开启当前浏览器或文件管理器的 <strong>“允许安装未知来源应用”</strong> 权限。</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 w-8 h-8 bg-[#113a47] text-white rounded-full flex items-center justify-center font-bold">3</div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800">
+                            <span class="text-lg font-semibold text-gray-800 lang-en">Install and Launch</span>
+                            <span class="text-lg font-semibold text-gray-800 lang-zh">确认安装并运行</span>
+                        </h4>
+                        <p class="text-gray-600 mt-1">
+                            <span class="lang-en">Open your device's <strong>Downloads</strong> folder, tap the downloaded Velo file, and select <strong>Install</strong>. Once complete, tap open to begin driving safely.</span>
+                            <span class="lang-zh">在手机自带的 <strong>文件管理 &gt; 下载</strong> 目录中找到刚刚下载好的 Velo 安装包，轻触它并选择 <strong>“安装”</strong>。安装成功后，便可开启 Velo 安全上路。</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 w-8 h-8 bg-[#113a47] text-white rounded-full flex items-center justify-center font-bold">4</div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800">
+                            <span class="text-lg font-semibold text-gray-800 lang-en">Setup Offline Packs (Recommended)</span>
+                            <span class="text-lg font-semibold text-gray-800 lang-zh">配置离线资源包 (推荐)</span>
+                        </h4>
+                        <p class="text-gray-600 mt-1">
+                            <span class="lang-en">Navigate to the <strong>Install</strong> tab within Velo to download necessary language profiles. This ensures functionality even in dead zones or underground passes.</span>
+                            <span class="lang-zh">首次打开应用后，请前往底部导航栏的 <strong>Install (安装)</strong> 选项卡卡，提前下载您所需的国家/地区离线语音语言包，以便随时随地脱网使用。</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-12 text-center text-sm border-t border-gray-800">
+        <p class="mb-2">&copy; 2026 Tmaxius. All rights reserved.</p>
+        <p class="text-xs text-gray-600">
+            <span class="lang-en">Velo is a utility tool designed to aid safe vehicular communication. Keep your focus on road conditions at all times.</span>
+            <span class="lang-zh">Velo 仅作为辅助行车安全沟通的效能工具。驾驶途中，请务必时刻将视线和注意力集中于当前路况。</span>
+        </p>
+    </footer>
+
+    <script>
+        // Language Toggle System
+        function toggleLanguage() {
+            const body = document.body;
+            const currentLang = body.getAttribute('data-lang');
+            const newLang = currentLang === 'en' ? 'zh' : 'en';
+            body.setAttribute('data-lang', newLang);
+        }
+
+        // Mobile Slider Engine Logic
+        let activeSlideIndex = 0;
+        const totalSlides = 4;
+        const trackElement = document.getElementById('carouselTrack');
+        const dotsElements = document.getElementsByClassName('dot-indicator');
+
+        function updateCarouselUI() {
+            // Shift track layout
+            trackElement.style.transform = `translateX(-${activeSlideIndex * 100}%)`;
+            
+            // Adjust pagination dots opacity states
+            for (let i = 0; i < dotsElements.length; i++) {
+                if (i === activeSlideIndex) {
+                    dotsElements[i].classList.remove('bg-white/40');
+                    dotsElements[i].classList.add('bg-white', 'scale-110');
+                } else {
+                    dotsElements[i].classList.remove('bg-white', 'scale-110');
+                    dotsElements[i].classList.add('bg-white/40');
+                }
+            }
+        }
+
+        function moveSlide(direction) {
+            activeSlideIndex += direction;
+            if (activeSlideIndex >= totalSlides) activeSlideIndex = 0;
+            if (activeSlideIndex < 0) activeSlideIndex = totalSlides - 1;
+            updateCarouselUI();
+        }
+
+        function setSlide(index) {
+            activeSlideIndex = index;
+            updateCarouselUI();
+        }
+
+        // Initialize indicator state on document mount
+        updateCarouselUI();
+    </script>
+</body>
+</html>
