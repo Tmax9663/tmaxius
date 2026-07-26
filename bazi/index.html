@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>命理分析平台</title>
+    <style>
+      :root {
+        --primary-color: #8c1c13;
+        --primary-hover: #a82318;
+        --bg-color: #f8f6f0;
+        --card-bg: #ffffff;
+        --text-color: #333333;
+        --border-color: #ddd;
+        --radius: 8px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 600px;
+        background: var(--card-bg);
+        padding: 24px;
+        border-radius: var(--radius);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+      }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+        font-size: 0.9rem;
+      }
+
+      input[type="text"],
+      input[type="datetime-local"],
+      select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        font-size: 1rem;
+        outline: none;
+        background: #fff;
+      }
+
+      .gender-options {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        padding: 5px 0;
+      }
+      .gender-options label {
+        font-weight: normal;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .btn-submit {
+        width: 100%;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 12px;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .btn-submit:hover {
+        background-color: var(--primary-hover);
+      }
+
+      .profile-bar {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        background-color: #f0ede6;
+        padding: 10px;
+        border-radius: var(--radius);
+        margin-bottom: 20px;
+      }
+
+      .btn-danger {
+        background: #d9534f;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: var(--radius);
+        cursor: pointer;
+      }
+      .btn-print {
+        background: #2b2d42;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        border-radius: var(--radius);
+        cursor: pointer;
+        font-weight: bold;
+        margin-bottom: 15px;
+        display: none;
+      }
+
+      #report-preview {
+        width: 100%;
+        max-width: 900px;
+        height: 850px;
+        border: none;
+        border-radius: var(--radius);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background: #fff;
+        display: none;
+      }
+
+      .loading-text {
+        text-align: center;
+        color: var(--primary-color);
+        font-weight: bold;
+        display: none;
+        margin: 15px 0;
+      }
+      /* Help Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        background-color: #ffffff;
+        padding: 24px;
+        border-radius: var(--radius);
+        max-width: 500px;
+        width: 90%;
+        position: relative;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        line-height: 1.6;
+      }
+
+      .modal-content h3 {
+        color: var(--primary-color);
+        margin-bottom: 12px;
+      }
+
+      .modal-content ol {
+        padding-left: 20px;
+        margin-bottom: 15px;
+      }
+
+      .modal-content li {
+        margin-bottom: 8px;
+      }
+
+      .close-btn {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #888;
+      }
+
+      .close-btn:hover {
+        color: #000;
+      }
+      .api-key-badge {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #e8f5e9;
+        border: 1px solid #c8e6c9;
+        padding: 8px 12px;
+        border-radius: var(--radius);
+        font-size: 0.9rem;
+      }
+
+      .btn-small-link {
+        background: none;
+        border: none;
+        color: var(--primary-color);
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: bold;
+      }
+
+      .btn-small-link:hover {
+        color: var(--primary-hover);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>八字经典命理分析</h2>
+
+      <div class="profile-bar">
+        <select id="userProfiles" onchange="loadSelectedProfile()">
+          <option value="">-- 选择已保存缘主 --</option>
+        </select>
+        <button
+          type="button"
+          class="btn-danger"
+          onclick="deleteSelectedProfile()"
+        >
+          删除
+        </button>
+      </div>
+
+      <form id="baziForm" onsubmit="handleFormSubmit(event)">
+        <!-- Inside the baziForm -->
+        <!-- API Key Section -->
+        <div class="form-group" id="apiKeyContainer">
+          <label for="apiKey">
+            Gemini API Key
+            <a
+              href="#"
+              onclick="toggleHelpModal(true)"
+              style="font-size: 0.85rem; color: #8c1c13; margin-left: 8px"
+              >(如何获取 API Key？)</a
+            >
+          </label>
+
+          <!-- Input Field (Visible by default until key is set) -->
+          <div id="apiKeyInputWrapper">
+            <input
+              type="password"
+              id="apiKey"
+              placeholder="输入 AIzaSy... API Key"
+              oninput="handleApiKeyInput(event)"
+            />
+          </div>
+
+          <!-- Active/Saved Status Badge (Hidden by default) -->
+          <div
+            id="apiKeySavedWrapper"
+            class="api-key-badge"
+            style="display: none"
+          >
+            <span
+              ><strong style="color: #2e7d32">✓ API Key 已配置</strong> (<span
+                id="maskedKey"
+                >••••••••</span
+              >)</span
+            >
+            <button type="button" class="btn-small-link" onclick="editApiKey()">
+              更换 Key
+            </button>
+          </div>
+        </div>
+
+        <!-- Modal Dialog for Instructions -->
+        <div id="helpModal" class="modal">
+          <div class="modal-content">
+            <span class="close-btn" onclick="toggleHelpModal(false)"
+              >&times;</span
+            >
+            <h3>如何免费获取 Gemini API Key</h3>
+            <ol>
+              <li>
+                前往
+                <a
+                  href="https://aistudio.google.com/app/apikey"
+                  target="_blank"
+                  rel="noopener"
+                  >Google AI Studio</a
+                >
+                并使用 Google 账号登录。
+              </li>
+              <li>
+                点击页面左上方或右上方的
+                <strong>"Create API key" (创建 API 密钥)</strong> 按钮。
+              </li>
+              <li>
+                选择
+                <strong>"Create API key in new project"</strong> (或选择已有的
+                Google Cloud 项目)。
+              </li>
+              <li>复制生成的以 <code>AIzaSy...</code> 开头的长字符串。</li>
+              <li>
+                粘贴到本页面的
+                <strong>Gemini API Key</strong>
+                输入框中即可（系统会自动保存在本地浏览器中）。
+              </li>
+            </ol>
+            <p style="font-size: 0.85rem; color: #666; margin-top: 10px">
+              * 注：Gemini 提供免费额度（Free
+              Tier），无需绑定信用卡即可直接使用。
+            </p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="userName">缘主姓名</label>
+          <input type="text" id="userName" placeholder="例如: 张三" required />
+        </div>
+
+        <div class="form-group">
+          <label>性别</label>
+          <div class="gender-options">
+            <label
+              ><input type="radio" name="gender" value="男" checked /> 乾造
+              (男)</label
+            >
+            <label
+              ><input type="radio" name="gender" value="女" /> 坤造 (女)</label
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="datetime">阳历出生时间</label>
+          <input type="datetime-local" id="datetime" required />
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-submit">
+          生成命理分析报告
+        </button>
+      </form>
+
+      <div id="loading" class="loading-text">
+        ☯ 正在汇集四家经典精析排盘，请稍候...
+      </div>
+    </div>
+
+    <!-- PDF Print Action Button -->
+    <button id="printBtn" class="btn-print" onclick="printIframeToPDF()">
+      🖨 导出 / 打印 PDF 报告
+    </button>
+
+    <!-- Iframe Preview -->
+    <iframe id="report-preview"></iframe>
+
+    <script>
+     const API_ENDPOINT = "https://bazi-report-backend.tmaxius.workers.dev/generate-report";
+      const STORAGE_PROFILES_KEY = "bazi_user_profiles";
+      const STORAGE_API_KEY = "bazi_gemini_api_key";
+
+      // On DOM Loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        loadProfilesDropdown();
+        checkAndApplySavedApiKey(); // Check localStorage on load
+
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById("datetime").value = now
+          .toISOString()
+          .slice(0, 16);
+      });
+
+      // 1. Check & Apply Saved API Key
+      function checkAndApplySavedApiKey() {
+        const savedKey = localStorage.getItem(STORAGE_API_KEY);
+        if (savedKey && savedKey.trim() !== "") {
+          document.getElementById("apiKey").value = savedKey;
+          hideApiKeyInput(savedKey);
+        } else {
+          showApiKeyInput();
+        }
+      }
+
+      // 2. Hide Input Field and Show Badge
+      function hideApiKeyInput(key) {
+        const inputWrapper = document.getElementById("apiKeyInputWrapper");
+        const savedWrapper = document.getElementById("apiKeySavedWrapper");
+        const maskedKeySpan = document.getElementById("maskedKey");
+
+        // Mask key (e.g., show "AIza...x82F")
+        if (key.length > 8) {
+          maskedKeySpan.textContent = `${key.slice(0, 4)}...${key.slice(-4)}`;
+        } else {
+          maskedKeySpan.textContent = "••••••••";
+        }
+
+        inputWrapper.style.display = "none";
+        savedWrapper.style.display = "flex";
+        document.getElementById("apiKey").removeAttribute("required"); // Remove HTML5 required check when hidden
+      }
+
+      // 3. Show Input Field when user clicks "更换 Key"
+      function showApiKeyInput() {
+        const inputWrapper = document.getElementById("apiKeyInputWrapper");
+        const savedWrapper = document.getElementById("apiKeySavedWrapper");
+
+        inputWrapper.style.display = "block";
+        savedWrapper.style.display = "none";
+        document.getElementById("apiKey").setAttribute("required", "true");
+      }
+
+      // 4. Edit Key Action
+      function editApiKey() {
+        showApiKeyInput();
+        const input = document.getElementById("apiKey");
+        input.focus();
+        input.select();
+      }
+
+      // 5. Handle Live Typing (If user pastes/keys in a valid key format)
+      function handleApiKeyInput(event) {
+        const val = event.target.value.trim();
+        // Auto-save and hide once the typed key reaches typical Gemini key length (~39 chars)
+        if (val.length >= 35 && val.startsWith("AIza")) {
+          localStorage.setItem(STORAGE_API_KEY, val);
+          hideApiKeyInput(val);
+        }
+      }
+
+      // 6. Updated Submit Handler (Extract key from input or localStorage)
+      async function handleFormSubmit(e) {
+        e.preventDefault();
+
+        // Get API Key from localStorage or input
+        let apiKey =
+          localStorage.getItem(STORAGE_API_KEY) ||
+          document.getElementById("apiKey").value.trim();
+
+        if (!apiKey) {
+          alert("请配置 Gemini API Key");
+          showApiKeyInput();
+          return;
+        }
+
+        // Save key to localStorage
+        localStorage.setItem(STORAGE_API_KEY, apiKey);
+        hideApiKeyInput(apiKey);
+
+        const name = document.getElementById("userName").value.trim();
+        const gender = document.querySelector(
+          'input[name="gender"]:checked',
+        ).value;
+        const datetimeRaw = document.getElementById("datetime").value;
+        const datetime = datetimeRaw.replace("T", " ");
+
+        saveProfile(name, gender, datetimeRaw);
+
+        // Proceed with fetch request...
+      }
+      function toggleHelpModal(show) {
+        const modal = document.getElementById("helpModal");
+        modal.style.display = show ? "flex" : "none";
+      }
+
+      // Close modal if user clicks outside the modal content box
+      window.onclick = function (event) {
+        const modal = document.getElementById("helpModal");
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      };
+      function loadSavedApiKey() {
+        const savedKey = localStorage.getItem(STORAGE_API_KEY);
+        if (savedKey) document.getElementById("apiKey").value = savedKey;
+      }
+
+      function getProfiles() {
+        return JSON.parse(localStorage.getItem(STORAGE_PROFILES_KEY) || "[]");
+      }
+
+      function loadProfilesDropdown() {
+        const profiles = getProfiles();
+        const select = document.getElementById("userProfiles");
+        select.innerHTML = '<option value="">-- 选择已保存缘主 --</option>';
+        profiles.forEach((p, idx) => {
+          const opt = document.createElement("option");
+          opt.value = idx;
+          opt.textContent = `${p.name} (${p.gender}) - ${p.datetime.replace("T", " ")}`;
+          select.appendChild(opt);
+        });
+      }
+
+      function loadSelectedProfile() {
+        const idx = document.getElementById("userProfiles").value;
+        if (idx === "") return;
+        const p = getProfiles()[idx];
+        if (p) {
+          document.getElementById("userName").value = p.name;
+          document.querySelector(
+            `input[name="gender"][value="${p.gender}"]`,
+          ).checked = true;
+          document.getElementById("datetime").value = p.datetime;
+        }
+      }
+
+      function saveProfile(name, gender, datetime) {
+        let profiles = getProfiles();
+        const idx = profiles.findIndex(
+          (p) => p.name === name && p.datetime === datetime,
+        );
+        if (idx > -1) profiles[idx] = { name, gender, datetime };
+        else profiles.unshift({ name, gender, datetime });
+        localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
+        loadProfilesDropdown();
+      }
+
+      function deleteSelectedProfile() {
+        const idx = document.getElementById("userProfiles").value;
+        if (idx === "") return alert("请选择要删除的缘主");
+        let profiles = getProfiles();
+        profiles.splice(idx, 1);
+        localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
+        loadProfilesDropdown();
+      }
+
+      async function handleFormSubmit(e) {
+        e.preventDefault();
+        const apiKey = document.getElementById("apiKey").value.trim();
+        const name = document.getElementById("userName").value.trim();
+        const gender = document.querySelector(
+          'input[name="gender"]:checked',
+        ).value;
+        const datetimeRaw = document.getElementById("datetime").value;
+        const datetime = datetimeRaw.replace("T", " ");
+
+        localStorage.setItem(STORAGE_API_KEY, apiKey);
+        saveProfile(name, gender, datetimeRaw);
+
+        const submitBtn = document.getElementById("submitBtn");
+        const loadingText = document.getElementById("loading");
+        const iframe = document.getElementById("report-preview");
+        const printBtn = document.getElementById("printBtn");
+
+        submitBtn.disabled = true;
+        loadingText.style.display = "block";
+        iframe.style.display = "none";
+        printBtn.style.display = "none";
+
+        try {
+          const response = await fetch(API_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, gender, datetime, apiKey ,"advance": true}),
+          });
+
+          if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.error || "Server error");
+          }
+
+          const htmlContent = await response.text();
+
+          iframe.style.display = "block";
+          printBtn.style.display = "inline-block";
+
+          const doc = iframe.contentWindow.document;
+          doc.open();
+          doc.write(htmlContent);
+          doc.close();
+
+          iframe.scrollIntoView({ behavior: "smooth" });
+        } catch (err) {
+          alert("生成失败: " + err.message);
+        } finally {
+          submitBtn.disabled = false;
+          loadingText.style.display = "none";
+        }
+      }
+
+      // PRINT IFRAME TO PDF FUNCTION WITH PROPER PAGE BREAKS
+      function printIframeToPDF() {
+        const iframe = document.getElementById("report-preview");
+        if (!iframe || iframe.style.display === "none") {
+          alert("没有可供打印的报告");
+          return;
+        }
+
+        // Trigger print window directly targeting the frame's window
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+      }
+    </script>
+  </body>
+</html>
