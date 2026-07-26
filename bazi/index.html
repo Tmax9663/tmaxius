@@ -434,46 +434,83 @@
         input.select();
       }
 
-      // 5. Handle Live Typing (If user pastes/keys in a valid key format)
-      function handleApiKeyInput(event) {
-        const val = event.target.value.trim();
-        // Auto-save and hide once the typed key reaches typical Gemini key length (~39 chars)
-        if (val.length >= 35 && val.startsWith("AIza")) {
-          localStorage.setItem(STORAGE_API_KEY, val);
-          hideApiKeyInput(val);
-        }
-      }
+      // 5. Updated Handle Live Typing (Supports both AIza... and AQ... keys)
+function handleApiKeyInput(event) {
+  const val = event.target.value.trim();
+  
+  // Accept standard AIza... keys OR new AQ... authentication keys
+  if (val.length >= 30 && (val.startsWith("AIza") || val.startsWith("AQ."))) {
+    localStorage.setItem(STORAGE_API_KEY, val);
+    hideApiKeyInput(val);
+  }
+}
 
-      // 6. Updated Submit Handler (Extract key from input or localStorage)
-      async function handleFormSubmit(e) {
-        e.preventDefault();
+// 6. Form Submission Handler
+async function handleFormSubmit(e) {
+  e.preventDefault();
 
-        // Get API Key from localStorage or input
-        let apiKey =
-          localStorage.getItem(STORAGE_API_KEY) ||
-          document.getElementById("apiKey").value.trim();
+  // Retrieve key from hidden input or localStorage
+  let apiKey =
+    localStorage.getItem(STORAGE_API_KEY) ||
+    document.getElementById("apiKey").value.trim();
 
-        if (!apiKey) {
-          alert("请配置 Gemini API Key");
-          showApiKeyInput();
-          return;
-        }
+  if (!apiKey) {
+    alert("请配置 Gemini API Key");
+    showApiKeyInput();
+    return;
+  }
 
-        // Save key to localStorage
-        localStorage.setItem(STORAGE_API_KEY, apiKey);
-        hideApiKeyInput(apiKey);
+  // Save key to localStorage
+  localStorage.setItem(STORAGE_API_KEY, apiKey);
+  hideApiKeyInput(apiKey);
 
-        const name = document.getElementById("userName").value.trim();
-        const gender = document.querySelector(
-          'input[name="gender"]:checked',
-        ).value;
-        const datetimeRaw = document.getElementById("datetime").value;
-        const datetime = datetimeRaw.replace("T", " ");
+  const name = document.getElementById("userName").value.trim();
+  const gender = document.querySelector('input[name="gender"]:checked').value;
+  const datetimeRaw = document.getElementById("datetime").value;
+  const datetime = datetimeRaw.replace("T", " ");
 
-        saveProfile(name, gender, datetimeRaw);
+  saveProfile(name, gender, datetimeRaw);
 
-        // Proceed with fetch request...
-      }
+  const submitBtn = document.getElementById("submitBtn");
+  const loadingText = document.getElementById("loading");
+  const iframe = document.getElementById("report-preview");
+  const printBtn = document.getElementById("printBtn");
+
+  submitBtn.disabled = true;
+  loadingText.style.display = "block";
+  iframe.style.display = "none";
+  printBtn.style.display = "none";
+
+  try {
+    const response = await fetch(API_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, gender, datetime, apiKey, advance: true }),
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.error || "Server error");
+    }
+
+    const htmlContent = await response.text();
+
+    iframe.style.display = "block";
+    printBtn.style.display = "inline-block";
+
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(htmlContent);
+    doc.close();
+
+    iframe.scrollIntoView({ behavior: "smooth" });
+  } catch (err) {
+    alert("生成失败: " + err.message);
+  } finally {
+    submitBtn.disabled = false;
+    loadingText.style.display = "none";
+  }
+}
       function toggleHelpModal(show) {
         const modal = document.getElementById("helpModal");
         modal.style.display = show ? "flex" : "none";
