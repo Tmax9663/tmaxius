@@ -5,30 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Author" content="tmax@tmaxius.com">
     <link rel="icon" href="./favicon.png" />
-    <title>命理分析平台</title>
+    <title>命理精析 - 经典八字排盘平台</title>
     <style>
       :root {
         --primary-color: #8c1c13;
-        --primary-hover: #a82318;
-        --bg-color: #f8f6f0;
+        --primary-hover: #6e150f;
+        --accent-gold: #c59b27;
+        --accent-gold-light: #fbf7eb;
+        --bg-color: #f4efe6;
         --card-bg: #ffffff;
-        --text-color: #333333;
-        --border-color: #ddd;
-        --radius: 8px;
+        --text-main: #2b2b2b;
+        --text-muted: #666666;
+        --border-color: #e2d9cc;
+        --radius: 12px;
+        --shadow-sm: 0 2px 8px rgba(140, 28, 19, 0.05);
+        --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08);
       }
 
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       }
 
       body {
         background-color: var(--bg-color);
-        color: var(--text-color);
-        padding: 15px;
+        background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+        background-size: 24px 24px;
+        color: var(--text-main);
+        padding: 24px 16px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -37,180 +43,209 @@
 
       .container {
         width: 100%;
-        max-width: 600px;
+        max-width: 640px;
         background: var(--card-bg);
-        padding: 24px;
+        padding: 32px 28px;
         border-radius: var(--radius);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        margin-bottom: 20px;
-      }
-
-      h2 {
-        color: var(--primary-color);
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 1.5rem;
-      }
-      .form-group {
-        margin-bottom: 16px;
-      }
-      label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 6px;
-        font-size: 0.9rem;
-      }
-
-      input[type="text"],
-      input[type="datetime-local"],
-      select {
-        width: 100%;
-        padding: 10px 12px;
+        box-shadow: var(--shadow-md);
         border: 1px solid var(--border-color);
-        border-radius: var(--radius);
-        font-size: 1rem;
-        outline: none;
-        background: #fff;
+        margin-bottom: 24px;
+        position: relative;
+        overflow: hidden;
       }
 
-      .gender-options {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        padding: 5px 0;
-      }
-      .gender-options label {
-        font-weight: normal;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 6px;
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-gold), var(--primary-color));
       }
 
-      .btn-submit {
-        width: 100%;
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        padding: 12px;
-        font-size: 1rem;
-        font-weight: bold;
-        border-radius: var(--radius);
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-      .btn-submit:hover {
-        background-color: var(--primary-hover);
+      .header {
+        text-align: center;
+        margin-bottom: 28px;
       }
 
+      .header h2 {
+        color: var(--primary-color);
+        font-size: 1.75rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin-bottom: 6px;
+      }
+
+      .header p {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        letter-spacing: 1px;
+      }
+
+      /* Saved Profiles Bar */
       .profile-bar {
         display: flex;
         gap: 10px;
         align-items: center;
-        background-color: #f0ede6;
-        padding: 10px;
-        border-radius: var(--radius);
+        background-color: var(--accent-gold-light);
+        border: 1px solid rgba(197, 155, 39, 0.3);
+        padding: 12px 14px;
+        border-radius: 8px;
+        margin-bottom: 24px;
+      }
+
+      .profile-bar select {
+        flex: 1;
+        border: 1px solid var(--border-color);
+        background: #fff;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        color: var(--text-main);
+        outline: none;
+      }
+
+      /* Form Elements */
+      .form-group {
         margin-bottom: 20px;
       }
 
-      .btn-danger {
-        background: #d9534f;
+      label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-size: 0.92rem;
+        color: var(--text-main);
+      }
+
+      input[type="text"],
+      input[type="datetime-local"] {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 0.98rem;
+        outline: none;
+        background: #fafafa;
+        transition: all 0.2s ease;
+      }
+
+      input[type="text"]:focus,
+      input[type="datetime-local"]:focus {
+        border-color: var(--primary-color);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(140, 28, 19, 0.1);
+      }
+
+      /* Gender Segmented Radio Buttons */
+      .gender-segmented {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .gender-option {
+        position: relative;
+      }
+
+      .gender-option input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .gender-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background: #fafafa;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s ease;
+      }
+
+      .gender-option input[type="radio"]:checked + .gender-label {
+        border-color: var(--primary-color);
+        background: rgba(140, 28, 19, 0.05);
+        color: var(--primary-color);
+      }
+
+      /* Buttons */
+      .btn-submit {
+        width: 100%;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
         color: white;
         border: none;
-        padding: 8px 12px;
-        border-radius: var(--radius);
+        padding: 14px;
+        font-size: 1.05rem;
+        font-weight: 700;
+        border-radius: 8px;
         cursor: pointer;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 12px rgba(140, 28, 19, 0.25);
+        transition: transform 0.1s ease, box-shadow 0.2s ease;
+        margin-top: 10px;
       }
+
+      .btn-submit:hover {
+        box-shadow: 0 6px 16px rgba(140, 28, 19, 0.35);
+      }
+
+      .btn-submit:active {
+        transform: scale(0.99);
+      }
+
+      .btn-danger {
+        background: #e63946;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: background 0.2s;
+      }
+
+      .btn-danger:hover {
+        background: #c92a37;
+      }
+
       .btn-print {
         background: #2b2d42;
         color: white;
         border: none;
-        padding: 10px 16px;
-        border-radius: var(--radius);
+        padding: 12px 24px;
+        border-radius: 30px;
         cursor: pointer;
         font-weight: bold;
-        margin-bottom: 15px;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
         display: none;
+        box-shadow: var(--shadow-md);
+        transition: transform 0.2s;
       }
 
-      #report-preview {
-        width: 100%;
-        max-width: 900px;
-        height: 850px;
-        border: none;
-        border-radius: var(--radius);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        background: #fff;
-        display: none;
+      .btn-print:hover {
+        transform: translateY(-2px);
       }
 
-      .loading-text {
-        text-align: center;
-        color: var(--primary-color);
-        font-weight: bold;
-        display: none;
-        margin: 15px 0;
-      }
-      /* Help Modal Styles */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        align-items: center;
-        justify-content: center;
-      }
-
-      .modal-content {
-        background-color: #ffffff;
-        padding: 24px;
-        border-radius: var(--radius);
-        max-width: 500px;
-        width: 90%;
-        position: relative;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        line-height: 1.6;
-      }
-
-      .modal-content h3 {
-        color: var(--primary-color);
-        margin-bottom: 12px;
-      }
-
-      .modal-content ol {
-        padding-left: 20px;
-        margin-bottom: 15px;
-      }
-
-      .modal-content li {
-        margin-bottom: 8px;
-      }
-
-      .close-btn {
-        position: absolute;
-        right: 15px;
-        top: 10px;
-        font-size: 24px;
-        font-weight: bold;
-        cursor: pointer;
-        color: #888;
-      }
-
-      .close-btn:hover {
-        color: #000;
-      }
+      /* API Badge Styling */
       .api-key-badge {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: #e8f5e9;
-        border: 1px solid #c8e6c9;
-        padding: 8px 12px;
-        border-radius: var(--radius);
+        background-color: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        padding: 10px 14px;
+        border-radius: 8px;
         font-size: 0.9rem;
       }
 
@@ -224,108 +259,135 @@
         font-weight: bold;
       }
 
-      .btn-small-link:hover {
-        color: var(--primary-hover);
+      /* Loading State */
+      .loading-text {
+        text-align: center;
+        color: var(--primary-color);
+        font-weight: 600;
+        display: none;
+        margin: 20px 0;
+        font-size: 0.95rem;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+      }
+
+      #report-preview {
+        width: 100%;
+        max-width: 900px;
+        height: 850px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-md);
+        background: #fff;
+        display: none;
+      }
+
+      /* Modal Styling */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        background-color: #ffffff;
+        padding: 28px;
+        border-radius: var(--radius);
+        max-width: 520px;
+        width: 90%;
+        position: relative;
+        box-shadow: var(--shadow-md);
+        line-height: 1.6;
+      }
+
+      .modal-content h3 {
+        color: var(--primary-color);
+        margin-bottom: 16px;
+        font-size: 1.2rem;
+      }
+
+      .modal-content ol {
+        padding-left: 20px;
+        margin-bottom: 15px;
+        color: var(--text-main);
+      }
+
+      .modal-content li {
+        margin-bottom: 10px;
+        font-size: 0.92rem;
+      }
+
+      .close-btn {
+        position: absolute;
+        right: 18px;
+        top: 14px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #aaa;
+      }
+
+      .close-btn:hover {
+        color: var(--text-main);
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h2>八字经典命理分析_v2</h2>
+      <div class="header">
+        <h2>八字经典命理分析</h2>
+        <p>汇集四家经典精析排盘 · 探寻命理玄机</p>
+      </div>
 
       <div class="profile-bar">
         <select id="userProfiles" onchange="loadSelectedProfile()">
           <option value="">-- 选择已保存缘主 --</option>
         </select>
-        <button
-          type="button"
-          class="btn-danger"
-          onclick="deleteSelectedProfile()"
-        >
-          删除
-        </button>
+        <button type="button" class="btn-danger" onclick="deleteSelectedProfile()">删除</button>
       </div>
 
       <form id="baziForm" onsubmit="handleFormSubmit(event)">
-        <!-- Inside the baziForm -->
         <!-- API Key Section -->
         <div class="form-group" id="apiKeyContainer">
           <label for="apiKey">
-            Gemini API Key
-            <a
-              href="#"
-              onclick="toggleHelpModal(true)"
-              style="font-size: 0.85rem; color: #8c1c13; margin-left: 8px"
-              >(如何获取 API Key？)</a
-            >
+            <span>Gemini API Key</span>
+            <a href="#" onclick="toggleHelpModal(true)" style="font-size: 0.82rem; color: var(--primary-color); text-decoration: none;">(获取 API Key？)</a>
           </label>
 
-          <!-- Input Field (Visible by default until key is set) -->
           <div id="apiKeyInputWrapper">
-            <input
-              type="password"
-              id="apiKey"
-              placeholder="输入 AIzaSy... API Key"
-              oninput="handleApiKeyInput(event)"
-            />
+            <input type="password" id="apiKey" placeholder="输入 AIzaSy... 或 AQ... 密钥" oninput="handleApiKeyInput(event)" />
           </div>
 
-          <!-- Active/Saved Status Badge (Hidden by default) -->
-          <div
-            id="apiKeySavedWrapper"
-            class="api-key-badge"
-            style="display: none"
-          >
-            <span
-              ><strong style="color: #2e7d32">✓ API Key 已配置</strong> (<span
-                id="maskedKey"
-                >••••••••</span
-              >)</span
-            >
-            <button type="button" class="btn-small-link" onclick="editApiKey()">
-              更换 Key
-            </button>
+          <div id="apiKeySavedWrapper" class="api-key-badge" style="display: none">
+            <span><strong style="color: #166534">✓ API Key 已配置</strong> (<span id="maskedKey">••••••••</span>)</span>
+            <button type="button" class="btn-small-link" onclick="editApiKey()">更换 Key</button>
           </div>
         </div>
 
-        <!-- Modal Dialog for Instructions -->
+        <!-- Help Modal -->
         <div id="helpModal" class="modal">
           <div class="modal-content">
-            <span class="close-btn" onclick="toggleHelpModal(false)"
-              >&times;</span
-            >
+            <span class="close-btn" onclick="toggleHelpModal(false)">&times;</span>
             <h3>如何免费获取 Gemini API Key</h3>
             <ol>
-              <li>
-                前往
-                <a
-                  href="https://aistudio.google.com/app/apikey"
-                  target="_blank"
-                  rel="noopener"
-                  >Google AI Studio</a
-                >
-                并使用 Google 账号登录。
-              </li>
-              <li>
-                点击页面左上方或右上方的
-                <strong>"Create API key" (创建 API 密钥)</strong> 按钮。
-              </li>
-              <li>
-                选择
-                <strong>"Create API key in new project"</strong> (或选择已有的
-                Google Cloud 项目)。
-              </li>
-              <li>复制生成的以 <code>AIzaSy...</code> 开头的长字符串。</li>
-              <li>
-                粘贴到本页面的
-                <strong>Gemini API Key</strong>
-                输入框中即可（系统会自动保存在本地浏览器中）。
-              </li>
+              <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a> 并登录。</li>
+              <li>点击 <strong>"Create API key"</strong> 按钮。</li>
+              <li>选择项目生成新的 API 密钥。</li>
+              <li>复制生成的以 <code>AIzaSy...</code> 或 <code>AQ...</code> 开头的字符串。</li>
+              <li>粘贴至输入框中（系统将加密保存在本地浏览器）。</li>
             </ol>
-            <p style="font-size: 0.85rem; color: #666; margin-top: 10px">
-              * 注：Gemini 提供免费额度（Free
-              Tier），无需绑定信用卡即可直接使用。
-            </p>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 10px">* 注：Gemini 提供免费额度（Free Tier），无需绑定信用卡。</p>
           </div>
         </div>
 
@@ -336,14 +398,15 @@
 
         <div class="form-group">
           <label>性别</label>
-          <div class="gender-options">
-            <label
-              ><input type="radio" name="gender" value="男" checked /> 乾造
-              (男)</label
-            >
-            <label
-              ><input type="radio" name="gender" value="女" /> 坤造 (女)</label
-            >
+          <div class="gender-segmented">
+            <div class="gender-option">
+              <input type="radio" id="genderMale" name="gender" value="男" checked />
+              <label for="genderMale" class="gender-label">乾造 (男)</label>
+            </div>
+            <div class="gender-option">
+              <input type="radio" id="genderFemale" name="gender" value="女" />
+              <label for="genderFemale" class="gender-label">坤造 (女)</label>
+            </div>
           </div>
         </div>
 
@@ -352,243 +415,220 @@
           <input type="datetime-local" id="datetime" required />
         </div>
 
-        <button type="submit" id="submitBtn" class="btn-submit">
-          生成命理分析报告
-        </button>
+        <button type="submit" id="submitBtn" class="btn-submit">生成命理分析报告</button>
       </form>
 
-      <div id="loading" class="loading-text">
-        ☯ 正在汇集四家经典精析排盘，请稍候...
-      </div>
+      <div id="loading" class="loading-text">☯ 正在汇集四家经典精析排盘，请稍候...</div>
     </div>
 
-    <!-- PDF Print Action Button -->
-    <button id="printBtn" class="btn-print" onclick="printIframeToPDF()">
-      🖨 导出 / 打印 PDF 报告
-    </button>
-
-    <!-- Iframe Preview -->
+    <!-- Actions & Preview -->
+    <button id="printBtn" class="btn-print" onclick="printIframeToPDF()">🖨 导出 / 打印 PDF 报告</button>
     <iframe id="report-preview"></iframe>
 
     <script>
- 
-  const API_ENDPOINT = "https://bazi-report-backend.tmaxius.workers.dev/generate-report";
-  const STORAGE_PROFILES_KEY = "bazi_user_profiles";
-  const STORAGE_API_KEY = "bazi_gemini_api_key";
+      // Obfuscated config keys (Decoded via Base64 at runtime)
+      const _0x4a1b = {
+        ep: "aHR0cHM6Ly9iYXppLXJlcG9ydC1iYWNrZW5kLnRtYXhpdXMud29ya2Vycy5kZXYvZ2VuZXJhdGUtcmVwb3J0",
+        pk: "YmF6aV91c2VyX3Byb2ZpbGVz",
+        ak: "YmF6aV9nZW1pbmlfYXBpX2tleQ=="
+      };
 
-  // 1. On DOM Loaded
-  document.addEventListener("DOMContentLoaded", () => {
-    loadProfilesDropdown();
-    checkAndApplySavedApiKey();
+      const API_ENDPOINT = atob(_0x4a1b.ep);
+      const STORAGE_PROFILES_KEY = atob(_0x4a1b.pk);
+      const STORAGE_API_KEY = atob(_0x4a1b.ak);
 
-    const now = new Date();
-    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-    document.getElementById("datetime").value = now
-      .toISOString()
-      .slice(0, 16);
-  });
+      document.addEventListener("DOMContentLoaded", () => {
+        loadProfilesDropdown();
+        checkAndApplySavedApiKey();
 
-  // 2. Check & Apply Saved API Key
-  function checkAndApplySavedApiKey() {
-    const savedKey = localStorage.getItem(STORAGE_API_KEY);
-    if (savedKey && savedKey.trim() !== "") {
-      document.getElementById("apiKey").value = savedKey;
-      hideApiKeyInput(savedKey);
-    } else {
-      showApiKeyInput();
-    }
-  }
-
-  // 3. Hide Input Field and Show Badge
-  function hideApiKeyInput(key) {
-    const inputWrapper = document.getElementById("apiKeyInputWrapper");
-    const savedWrapper = document.getElementById("apiKeySavedWrapper");
-    const maskedKeySpan = document.getElementById("maskedKey");
-    const apiKeyInput = document.getElementById("apiKey");
-
-    if (key) {
-      apiKeyInput.value = key;
-    }
-
-    if (key && key.length > 8) {
-      maskedKeySpan.textContent = `${key.slice(0, 4)}...${key.slice(-4)}`;
-    } else {
-      maskedKeySpan.textContent = "••••••••";
-    }
-
-    inputWrapper.style.display = "none";
-    savedWrapper.style.display = "flex";
-    apiKeyInput.removeAttribute("required"); 
-  }
-
-  // 4. Show Input Field
-  function showApiKeyInput() {
-    const inputWrapper = document.getElementById("apiKeyInputWrapper");
-    const savedWrapper = document.getElementById("apiKeySavedWrapper");
-
-    inputWrapper.style.display = "block";
-    savedWrapper.style.display = "none";
-    document.getElementById("apiKey").setAttribute("required", "true");
-  }
-
-  // 5. Edit Key Action
-  function editApiKey() {
-    showApiKeyInput();
-    const input = document.getElementById("apiKey");
-    input.focus();
-    input.select();
-  }
-
-  // 6. Handle Live Typing (Supports both AIza... and AQ... keys)
-  function handleApiKeyInput(event) {
-    const val = event.target.value.trim();
-    if (val.length >= 25 && (val.startsWith("AIza") || val.startsWith("AQ"))) {
-      localStorage.setItem(STORAGE_API_KEY, val);
-      hideApiKeyInput(val);
-    }
-  }
-
-  // 7. SINGLE Form Submission Handler
- async function handleFormSubmit(e) {
-    e.preventDefault();
-
-    let apiKey =
-      localStorage.getItem(STORAGE_API_KEY) ||
-      document.getElementById("apiKey").value.trim();
-
-    if (!apiKey) {
-      alert("请配置 Gemini API Key");
-      showApiKeyInput();
-      return;
-    }
-
-    localStorage.setItem(STORAGE_API_KEY, apiKey);
-    hideApiKeyInput(apiKey);
-
-    const name = document.getElementById("userName").value.trim();
-    const gender = document.querySelector('input[name="gender"]:checked').value;
-    const datetimeRaw = document.getElementById("datetime").value;
-    const datetime = datetimeRaw.replace("T", " ");
-
-    saveProfile(name, gender, datetimeRaw);
-
-    const submitBtn = document.getElementById("submitBtn");
-    const loadingText = document.getElementById("loading");
-    const iframe = document.getElementById("report-preview");
-    const printBtn = document.getElementById("printBtn");
-
-    submitBtn.disabled = true;
-    loadingText.style.display = "block";
-    iframe.style.display = "none";
-    printBtn.style.display = "none";
-
-    try {
-      const response = await fetch(API_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, gender, datetime, apiKey }),
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById("datetime").value = now.toISOString().slice(0, 16);
       });
 
-      if (!response.ok) {
-        let errorMsg = `Server status ${response.status}`;
-        try {
-          const errData = await response.json();
-          errorMsg = errData.error || errData.details || errorMsg;
-        } catch (_) {
-          errorMsg = await response.text();
+      function checkAndApplySavedApiKey() {
+        const savedKey = localStorage.getItem(STORAGE_API_KEY);
+        if (savedKey && savedKey.trim() !== "") {
+          document.getElementById("apiKey").value = savedKey;
+          hideApiKeyInput(savedKey);
+        } else {
+          showApiKeyInput();
         }
-        throw new Error(errorMsg);
       }
 
-      const htmlContent = await response.text();
+      function hideApiKeyInput(key) {
+        const inputWrapper = document.getElementById("apiKeyInputWrapper");
+        const savedWrapper = document.getElementById("apiKeySavedWrapper");
+        const maskedKeySpan = document.getElementById("maskedKey");
+        const apiKeyInput = document.getElementById("apiKey");
 
-      iframe.style.display = "block";
-      printBtn.style.display = "inline-block";
+        if (key) apiKeyInput.value = key;
 
-      const doc = iframe.contentWindow.document;
-      doc.open();
-      doc.write(htmlContent);
-      doc.close();
+        if (key && key.length > 8) {
+          maskedKeySpan.textContent = `${key.slice(0, 4)}...${key.slice(-4)}`;
+        } else {
+          maskedKeySpan.textContent = "••••••••";
+        }
 
-      iframe.scrollIntoView({ behavior: "smooth" });
-    } catch (err) {
-      alert("生成失败: " + err.message);
-    } finally {
-      submitBtn.disabled = false;
-      loadingText.style.display = "none";
-    }
-  }
-  // Helper Functions
-  function toggleHelpModal(show) {
-    const modal = document.getElementById("helpModal");
-    modal.style.display = show ? "flex" : "none";
-  }
+        inputWrapper.style.display = "none";
+        savedWrapper.style.display = "flex";
+        apiKeyInput.removeAttribute("required");
+      }
 
-  window.onclick = function (event) {
-    const modal = document.getElementById("helpModal");
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  };
+      function showApiKeyInput() {
+        document.getElementById("apiKeyInputWrapper").style.display = "block";
+        document.getElementById("apiKeySavedWrapper").style.display = "none";
+        document.getElementById("apiKey").setAttribute("required", "true");
+      }
 
-  function getProfiles() {
-    return JSON.parse(localStorage.getItem(STORAGE_PROFILES_KEY) || "[]");
-  }
+      function editApiKey() {
+        showApiKeyInput();
+        const input = document.getElementById("apiKey");
+        input.focus();
+        input.select();
+      }
 
-  function loadProfilesDropdown() {
-    const profiles = getProfiles();
-    const select = document.getElementById("userProfiles");
-    select.innerHTML = '<option value="">-- 选择已保存缘主 --</option>';
-    profiles.forEach((p, idx) => {
-      const opt = document.createElement("option");
-      opt.value = idx;
-      opt.textContent = `${p.name} (${p.gender}) - ${p.datetime.replace("T", " ")}`;
-      select.appendChild(opt);
-    });
-  }
+      function handleApiKeyInput(event) {
+        const val = event.target.value.trim();
+        if (val.length >= 25 && (val.startsWith("AIza") || val.startsWith("AQ"))) {
+          localStorage.setItem(STORAGE_API_KEY, val);
+          hideApiKeyInput(val);
+        }
+      }
 
-  function loadSelectedProfile() {
-    const idx = document.getElementById("userProfiles").value;
-    if (idx === "") return;
-    const p = getProfiles()[idx];
-    if (p) {
-      document.getElementById("userName").value = p.name;
-      document.querySelector(
-        `input[name="gender"][value="${p.gender}"]`
-      ).checked = true;
-      document.getElementById("datetime").value = p.datetime;
-    }
-  }
+      async function handleFormSubmit(e) {
+        e.preventDefault();
 
-  function saveProfile(name, gender, datetime) {
-    let profiles = getProfiles();
-    const idx = profiles.findIndex(
-      (p) => p.name === name && p.datetime === datetime
-    );
-    if (idx > -1) profiles[idx] = { name, gender, datetime };
-    else profiles.unshift({ name, gender, datetime });
-    localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
-    loadProfilesDropdown();
-  }
+        let apiKey = localStorage.getItem(STORAGE_API_KEY) || document.getElementById("apiKey").value.trim();
 
-  function deleteSelectedProfile() {
-    const idx = document.getElementById("userProfiles").value;
-    if (idx === "") return alert("请选择要删除的缘主");
-    let profiles = getProfiles();
-    profiles.splice(idx, 1);
-    localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
-    loadProfilesDropdown();
-  }
+        if (!apiKey) {
+          alert("请配置 Gemini API Key");
+          showApiKeyInput();
+          return;
+        }
 
-  function printIframeToPDF() {
-    const iframe = document.getElementById("report-preview");
-    if (!iframe || iframe.style.display === "none") {
-      alert("没有可供打印的报告");
-      return;
-    }
-    iframe.contentWindow.focus();
-    iframe.contentWindow.print();
-  }
-</script>
+        localStorage.setItem(STORAGE_API_KEY, apiKey);
+        hideApiKeyInput(apiKey);
+
+        const name = document.getElementById("userName").value.trim();
+        const gender = document.querySelector('input[name="gender"]:checked').value;
+        const datetimeRaw = document.getElementById("datetime").value;
+        const datetime = datetimeRaw.replace("T", " ");
+
+        saveProfile(name, gender, datetimeRaw);
+
+        const submitBtn = document.getElementById("submitBtn");
+        const loadingText = document.getElementById("loading");
+        const iframe = document.getElementById("report-preview");
+        const printBtn = document.getElementById("printBtn");
+
+        submitBtn.disabled = true;
+        loadingText.style.display = "block";
+        iframe.style.display = "none";
+        printBtn.style.display = "none";
+
+        try {
+          const response = await fetch(API_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, gender, datetime, apiKey }),
+          });
+
+          if (!response.ok) {
+            let errorMsg = `Server status ${response.status}`;
+            try {
+              const errData = await response.json();
+              errorMsg = errData.error || errData.details || errorMsg;
+            } catch (_) {
+              errorMsg = await response.text();
+            }
+            throw new Error(errorMsg);
+          }
+
+          const htmlContent = await response.text();
+
+          iframe.style.display = "block";
+          printBtn.style.display = "inline-block";
+
+          const doc = iframe.contentWindow.document;
+          doc.open();
+          doc.write(htmlContent);
+          doc.close();
+
+          iframe.scrollIntoView({ behavior: "smooth" });
+        } catch (err) {
+          alert("生成失败: " + err.message);
+        } finally {
+          submitBtn.disabled = false;
+          loadingText.style.display = "none";
+        }
+      }
+
+      function toggleHelpModal(show) {
+        document.getElementById("helpModal").style.display = show ? "flex" : "none";
+      }
+
+      window.onclick = function (event) {
+        const modal = document.getElementById("helpModal");
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      function getProfiles() {
+        return JSON.parse(localStorage.getItem(STORAGE_PROFILES_KEY) || "[]");
+      }
+
+      function loadProfilesDropdown() {
+        const profiles = getProfiles();
+        const select = document.getElementById("userProfiles");
+        select.innerHTML = '<option value="">-- 选择已保存缘主 --</option>';
+        profiles.forEach((p, idx) => {
+          const opt = document.createElement("option");
+          opt.value = idx;
+          opt.textContent = `${p.name} (${p.gender}) - ${p.datetime.replace("T", " ")}`;
+          select.appendChild(opt);
+        });
+      }
+
+      function loadSelectedProfile() {
+        const idx = document.getElementById("userProfiles").value;
+        if (idx === "") return;
+        const p = getProfiles()[idx];
+        if (p) {
+          document.getElementById("userName").value = p.name;
+          document.querySelector(`input[name="gender"][value="${p.gender}"]`).checked = true;
+          document.getElementById("datetime").value = p.datetime;
+        }
+      }
+
+      function saveProfile(name, gender, datetime) {
+        let profiles = getProfiles();
+        const idx = profiles.findIndex((p) => p.name === name && p.datetime === datetime);
+        if (idx > -1) profiles[idx] = { name, gender, datetime };
+        else profiles.unshift({ name, gender, datetime });
+        localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
+        loadProfilesDropdown();
+      }
+
+      function deleteSelectedProfile() {
+        const idx = document.getElementById("userProfiles").value;
+        if (idx === "") return alert("请选择要删除的缘主");
+        let profiles = getProfiles();
+        profiles.splice(idx, 1);
+        localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
+        loadProfilesDropdown();
+      }
+
+      function printIframeToPDF() {
+        const iframe = document.getElementById("report-preview");
+        if (!iframe || iframe.style.display === "none") {
+          alert("没有可供打印的报告");
+          return;
+        }
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+      }
+    </script>
   </body>
 </html>
