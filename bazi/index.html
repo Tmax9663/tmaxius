@@ -1,805 +1,814 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="Author" content="tmax@tmaxius.com">
+    <meta name="Author" content="tmax@tmaxius.com" />
     <link rel="icon" href="./favicon.png" />
-    <title>命理精析 - 经典八字排盘平台</title>
+    <title>命理精析 · 经典八字排盘</title>
     <style>
-      :root {
-        --primary-color: #8c1c13;
-        --primary-hover: #6e150f;
-        --accent-gold: #c59b27;
-        --accent-gold-light: #fbf7eb;
-        --bg-color: #f4efe6;
-        --card-bg: #ffffff;
-        --text-main: #2b2b2b;
-        --text-muted: #666666;
-        --border-color: #e2d9cc;
-        --radius: 12px;
-        --shadow-sm: 0 2px 8px rgba(140, 28, 19, 0.05);
-        --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08);
-      }
+        /* ─── Reset & Variables ─── */
+        :root {
+            --primary: #8c1c13;
+            --primary-hover: #6e150f;
+            --gold: #c59b27;
+            --gold-light: #fbf7eb;
+            --bg: #f4efe6;
+            --card: #ffffff;
+            --text: #2b2b2b;
+            --muted: #666666;
+            --border: #e2d9cc;
+            --radius: 12px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        }
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-      body {
-        background-color: var(--bg-color);
-        background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
-        background-size: 24px 24px;
-        color: var(--text-main);
-        padding: 24px 16px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-      }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: var(--text);
+            padding: 20px 12px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-      .container {
-        width: 100%;
-        max-width: 640px;
-        background: var(--card-bg);
-        padding: 32px 28px;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow-md);
-        border: 1px solid var(--border-color);
-        margin-bottom: 24px;
-        position: relative;
-        overflow: hidden;
-      }
+        /* ─── Container ─── */
+        .container {
+            width: 100%;
+            max-width: 680px;
+            background: var(--card);
+            padding: 28px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
 
-      .container::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 5px;
-        background: linear-gradient(90deg, var(--primary-color), var(--accent-gold), var(--primary-color));
-      }
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--gold), var(--primary));
+        }
 
-      .header {
-        text-align: center;
-        margin-bottom: 28px;
-      }
+        /* ─── Header ─── */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
 
-      .header h2 {
-        color: var(--primary-color);
-        font-size: 1.75rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        margin-bottom: 6px;
-      }
+        .header-left h2 {
+            color: var(--primary);
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
 
-      .header p {
-        font-size: 0.88rem;
-        color: var(--text-muted);
-        letter-spacing: 1px;
-      }
-      .header-title {
-        display: flex;
-  justify-content: space-between;
-      }
+        .header-left p {
+            font-size: 0.82rem;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+        }
 
-      /* Saved Profiles Bar */
-      .profile-bar {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        background-color: var(--accent-gold-light);
-        border: 1px solid rgba(197, 155, 39, 0.3);
-        padding: 12px 14px;
-        border-radius: 8px;
-        margin-bottom: 24px;
-      }
+        .settings-btn {
+            background: transparent;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: background 0.2s, transform 0.1s;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-      .profile-bar select {
-        flex: 1;
-        border: 1px solid var(--border-color);
-        background: #fff;
-        padding: 8px 12px;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        color: var(--text-main);
-        outline: none;
-      }
+        .settings-btn:hover {
+            background: #f0f0f0;
+            transform: scale(1.05);
+        }
 
-      /* Form Elements */
-      .form-group {
-        margin-bottom: 20px;
-      }
+        /* ─── Profile Bar ─── */
+        .profile-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            background: var(--gold-light);
+            border: 1px solid rgba(197, 155, 39, 0.3);
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 22px;
+        }
 
-      label {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-weight: 600;
-        margin-bottom: 8px;
-        font-size: 0.92rem;
-        color: var(--text-main);
-      }
+        .profile-bar select {
+            flex: 1 1 160px;
+            min-width: 120px;
+            border: 1px solid var(--border);
+            background: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--text);
+            outline: none;
+        }
 
-      input[type="text"],
-      input[type="datetime-local"] {
-        width: 100%;
-        padding: 12px 14px;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        font-size: 0.98rem;
-        outline: none;
-        background: #fafafa;
-        transition: all 0.2s ease;
-      }
+        .profile-bar .btn-danger {
+            flex-shrink: 0;
+            background: #e63946;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
 
-      input[type="text"]:focus,
-      input[type="datetime-local"]:focus {
-        border-color: var(--primary-color);
-        background: #fff;
-        box-shadow: 0 0 0 3px rgba(140, 28, 19, 0.1);
-      }
+        .profile-bar .btn-danger:hover {
+            background: #c92a37;
+        }
 
-      /* Gender Segmented Radio Buttons */
-      .gender-segmented {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-      }
+        /* ─── Form ─── */
+        .form-group {
+            margin-bottom: 18px;
+        }
 
-      .gender-option {
-        position: relative;
-      }
+        label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.92rem;
+            color: var(--text);
+        }
 
-      .gender-option input[type="radio"] {
-        position: absolute;
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
+        input[type="text"],
+        input[type="datetime-local"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.98rem;
+            outline: none;
+            background: #fafafa;
+            transition: border 0.2s, box-shadow 0.2s;
+        }
 
-      .gender-label {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        background: #fafafa;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.2s ease;
-      }
+        input:focus {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(140, 28, 19, 0.1);
+        }
 
-      .gender-option input[type="radio"]:checked + .gender-label {
-        border-color: var(--primary-color);
-        background: rgba(140, 28, 19, 0.05);
-        color: var(--primary-color);
-      }
+        /* Gender segmented */
+        .gender-segmented {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
 
-      /* Buttons */
-      .btn-submit {
-        width: 100%;
-        background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
-        color: white;
-        border: none;
-        padding: 14px;
-        font-size: 1.05rem;
-        font-weight: 700;
-        border-radius: 8px;
-        cursor: pointer;
-        letter-spacing: 1px;
-        box-shadow: 0 4px 12px rgba(140, 28, 19, 0.25);
-        transition: transform 0.1s ease, box-shadow 0.2s ease;
-        margin-top: 10px;
-      }
+        .gender-option {
+            position: relative;
+        }
 
-      .btn-submit:hover {
-        box-shadow: 0 6px 16px rgba(140, 28, 19, 0.35);
-      }
+        .gender-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
 
-      .btn-submit:active {
-        transform: scale(0.99);
-      }
+        .gender-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #fafafa;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
 
-      .btn-danger {
-        background: #e63946;
-        color: white;
-        border: none;
-        padding: 8px 14px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 0.85rem;
-        font-weight: 600;
-        transition: background 0.2s;
-      }
+        .gender-option input[type="radio"]:checked+.gender-label {
+            border-color: var(--primary);
+            background: rgba(140, 28, 19, 0.06);
+            color: var(--primary);
+        }
 
-      .btn-danger:hover {
-        background: #c92a37;
-      }
+        /* Submit */
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: #fff;
+            border: none;
+            padding: 14px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(140, 28, 19, 0.25);
+            transition: transform 0.1s, box-shadow 0.2s;
+            margin-top: 6px;
+        }
 
-      .btn-print {
-        background: #2b2d42;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 30px;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 0.95rem;
-        margin-bottom: 20px;
-        display: none;
-        box-shadow: var(--shadow-md);
-        transition: transform 0.2s;
-      }
+        .btn-submit:hover {
+            box-shadow: 0 6px 16px rgba(140, 28, 19, 0.35);
+        }
 
-      .btn-print:hover {
-        transform: translateY(-2px);
-      }
+        .btn-submit:active {
+            transform: scale(0.99);
+        }
 
-      /* API Badge Styling */
-      .api-key-badge {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color: #f0fdf4;
-        border: 1px solid #bbf7d0;
-        padding: 10px 14px;
-        border-radius: 8px;
-        font-size: 0.9rem;
-      }
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
 
-      .btn-small-link {
-        background: none;
-        border: none;
-        color: var(--primary-color);
-        text-decoration: underline;
-        cursor: pointer;
-        font-size: 0.85rem;
-        font-weight: bold;
-      }
+        /* Loading */
+        .loading-text {
+            text-align: center;
+            color: var(--primary);
+            font-weight: 600;
+            display: none;
+            margin: 18px 0 8px;
+            font-size: 0.95rem;
+            animation: pulse 1.5s infinite;
+        }
 
-      /* Loading State */
-      .loading-text {
-        text-align: center;
-        color: var(--primary-color);
-        font-weight: 600;
-        display: none;
-        margin: 20px 0;
-        font-size: 0.95rem;
-        animation: pulse 1.5s infinite;
-      }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
 
-      @keyframes pulse {
-        0%, 100% { opacity: 0.6; }
-        50% { opacity: 1; }
-      }
+        /* Report iframe & print */
+        #report-preview {
+            width: 100%;
+            max-width: 900px;
+            height: 750px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            background: #fff;
+            display: none;
+        }
 
-      #report-preview {
-        width: 100%;
-        max-width: 900px;
-        height: 850px;
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow-md);
-        background: #fff;
-        display: none;
-      }
+        .btn-print {
+            background: #2b2d42;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            display: none;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, background 0.2s;
+        }
 
-      /* Modal Styling */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(4px);
-        align-items: center;
-        justify-content: center;
-      }
+        .btn-print:hover {
+            transform: translateY(-2px);
+            background: #1e1f2e;
+        }
 
-      .modal-content {
-        background-color: #ffffff;
-        padding: 28px;
-        border-radius: var(--radius);
-        max-width: 520px;
-        width: 90%;
-        position: relative;
-        box-shadow: var(--shadow-md);
-        line-height: 1.6;
-      }
+        /* ─── API Key Modal ─── */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
 
-      .modal-content h3 {
-        color: var(--primary-color);
-        margin-bottom: 16px;
-        font-size: 1.2rem;
-      }
+        .modal-card {
+            background: #ffffff;
+            padding: 28px 24px;
+            border-radius: 12px;
+            max-width: 460px;
+            width: 92%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
 
-      .modal-content ol {
-        padding-left: 20px;
-        margin-bottom: 15px;
-        color: var(--text-main);
-      }
+        .modal-title {
+            margin-top: 0;
+            margin-bottom: 14px;
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
 
-      .modal-content li {
-        margin-bottom: 10px;
-        font-size: 0.92rem;
-      }
+        .modal-instruction {
+            font-size: 0.9rem;
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
 
-      .close-btn {
-        position: absolute;
-        right: 18px;
-        top: 14px;
-        font-size: 24px;
-        cursor: pointer;
-        color: #aaa;
-      }
+        .modal-instruction ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
 
-      .close-btn:hover {
-        color: var(--text-main);
-      }
+        .modal-instruction li {
+            margin-bottom: 8px;
+        }
 
-      /* Settings Trigger Button */
-.settings-btn {
-  background: transparent;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: background 0.2s;
-}
-.settings-btn:hover {
-  background: #f0f0f0;
-}
+        .modal-instruction a {
+            color: var(--primary);
+        }
 
-/* Modal Overlay */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
+        .modal-input-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
 
-/* Modal Card */
-.modal-card {
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 12px;
-  max-width: 440px;
-  width: 90%;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
 
-.modal-title {
-  margin-top: 0;
-  margin-bottom: 16px;
-  font-size: 1.25rem;
-}
+        .btn {
+            padding: 8px 18px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
 
-.modal-instruction {
-  font-size: 0.9rem;
-  color: #444;
-  line-height: 1.5;
-  margin-bottom: 16px;
-}
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
 
-.modal-input-group input {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-sizing: border-box;
-  font-size: 0.95rem;
-  margin-bottom: 20px;
-}
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
 
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
 
-.btn {
-  padding: 8px 16px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
 
-.btn-secondary {
-  background: #e0e0e0;
-  color: #333;
-}
+        /* ─── Responsive ─── */
+        @media (max-width: 640px) {
+            body {
+                padding: 12px 6px;
+            }
 
-.btn-primary {
-  background: #2563eb;
-  color: #ffffff;
-}
+            .container {
+                padding: 20px 14px;
+                border-radius: 10px;
+            }
 
-.btn-primary:hover {
-  background: #1d4ed8;
-}
-    
+            .header-left h2 {
+                font-size: 1.3rem;
+            }
+
+            .header-left p {
+                font-size: 0.75rem;
+            }
+
+            .settings-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1.1rem;
+            }
+
+            .profile-bar {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 12px;
+            }
+
+            .profile-bar select {
+                flex: 1 1 auto;
+                min-width: unset;
+            }
+
+            .profile-bar .btn-danger {
+                align-self: flex-end;
+            }
+
+            .gender-segmented {
+                gap: 8px;
+            }
+
+            .gender-label {
+                padding: 10px;
+                font-size: 0.88rem;
+            }
+
+            input[type="text"],
+            input[type="datetime-local"] {
+                padding: 10px 12px;
+                font-size: 0.92rem;
+            }
+
+            .btn-submit {
+                padding: 12px;
+                font-size: 0.98rem;
+            }
+
+            #report-preview {
+                height: 520px;
+            }
+
+            .btn-print {
+                padding: 10px 20px;
+                font-size: 0.88rem;
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
+            }
+
+            .modal-card {
+                padding: 20px 16px;
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 16px 10px;
+            }
+
+            .header-left h2 {
+                font-size: 1.1rem;
+            }
+
+            .gender-segmented {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+
+            .gender-label {
+                padding: 8px;
+                font-size: 0.82rem;
+            }
+
+            #report-preview {
+                height: 400px;
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+            .container,
+            .btn-print,
+            .profile-bar,
+            .loading-text,
+            #report-preview {
+                display: none !important;
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
+
+    <!-- ─── Main Container ─── -->
     <div class="container">
-      <div class="header">
-        <div class="header-title">
-        <h2>八字经典命理分析</h2>
-        <!-- Settings Button -->
-<button id="openSettingsBtn" class="settings-btn" title="设置 API Key">⚙️</button>
-        </div>
-        <p>汇集四家经典精析排盘 · 探寻命理玄机</p>
-      </div>
 
-      <div class="profile-bar">
-        <select id="userProfiles" onchange="loadSelectedProfile()">
-          <option value="">-- 选择已保存缘主 --</option>
-        </select>
-        <button type="button" class="btn-danger" onclick="deleteSelectedProfile()">删除</button>
-      </div>
-
-
-<!-- Modal Overlay & Form -->
-<div id="apiKeyModal" class="modal-overlay" style="display: none;">
-  <div class="modal-card">
-    <h3 class="modal-title">🔑 设置 Gemini API Key</h3>
-    
-    <div class="modal-instruction">
-
-            <span class="close-btn" onclick="toggleHelpModal(false)">&times;</span>
-            <h3>如何免费获取 Gemini API Key</h3>
-            <ol>
-              <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a> 并登录。</li>
-              <li>点击 <strong>"Create API key"</strong> 按钮。</li>
-              <li>选择项目生成新的 API 密钥。</li>
-              <li>复制生成的以 <code>AIzaSy...</code> 或 <code>AQ...</code> 开头的字符串。</li>
-              <li>粘贴至输入框中（系统将加密保存在本地浏览器）。</li>
-            </ol>
-            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 10px">* 注：Gemini 提供免费额度（Free Tier），无需绑定信用卡。</p>
-          
-    </div>
-
-    <div class="modal-input-group">
-      <input type="password" id="apiKeyInput" placeholder="输入 AIzaSy... 或 AQ... 密钥" />
-    </div>
-
-    <div class="modal-actions">
-      <button type="button" id="cancelApiKeyBtn" class="btn btn-secondary">取消</button>
-      <button type="button" id="saveApiKeyBtn" class="btn btn-primary">保存</button>
-    </div>
-  </div>
-</div>
-      <form id="baziForm" onsubmit="handleFormSubmit(event)" >
-        
-        <!-- API Key Section -->
-        <div class="form-group" id="apiKeyContainer" style="display:none;">
-          <label for="apiKey">
-            <span>Gemini API Key</span>
-            <a href="#" onclick="toggleHelpModal(true)" style="font-size: 0.82rem; color: var(--primary-color); text-decoration: none;">(获取 API Key？)</a>
-          </label>
-
-          <div id="apiKeyInputWrapper">
-            <input type="password" id="apiKey" placeholder="输入 AIzaSy... 或 AQ... 密钥" oninput="handleApiKeyInput(event)" />
-          </div>
-
-          <div id="apiKeySavedWrapper" class="api-key-badge" style="display: none">
-            <span><strong style="color: #166534">✓ API Key 已配置</strong> (<span id="maskedKey">••••••••</span>)</span>
-            <button type="button" class="btn-small-link" onclick="editApiKey()">更换 Key</button>
-          </div>
-        </div>
-
-        <!-- Help Modal -->
-        <div id="helpModal" class="modal">
-          <div class="modal-content">
-            <span class="close-btn" onclick="toggleHelpModal(false)">&times;</span>
-            <h3>如何免费获取 Gemini API Key</h3>
-            <ol>
-              <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a> 并登录。</li>
-              <li>点击 <strong>"Create API key"</strong> 按钮。</li>
-              <li>选择项目生成新的 API 密钥。</li>
-              <li>复制生成的以 <code>AIzaSy...</code> 或 <code>AQ...</code> 开头的字符串。</li>
-              <li>粘贴至输入框中（系统将加密保存在本地浏览器）。</li>
-            </ol>
-            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 10px">* 注：Gemini 提供免费额度（Free Tier），无需绑定信用卡。</p>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="userName">缘主姓名</label>
-          <input type="text" id="userName" placeholder="例如: 张三" required />
-        </div>
-
-        <div class="form-group">
-          <label>性别</label>
-          <div class="gender-segmented">
-            <div class="gender-option">
-              <input type="radio" id="genderMale" name="gender" value="男" checked />
-              <label for="genderMale" class="gender-label">乾造 (男)</label>
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <h2>八字经典命理分析</h2>
+                <p>汇集四家经典精析排盘 · 探寻命理玄机</p>
             </div>
-            <div class="gender-option">
-              <input type="radio" id="genderFemale" name="gender" value="女" />
-              <label for="genderFemale" class="gender-label">坤造 (女)</label>
+            <button id="openSettingsBtn" class="settings-btn" title="设置 Gemini API Key">⚙️</button>
+        </div>
+
+        <!-- Profile Bar -->
+        <div class="profile-bar">
+            <select id="userProfiles" onchange="loadSelectedProfile()">
+                <option value="">-- 选择已保存缘主 --</option>
+            </select>
+            <button type="button" class="btn-danger" onclick="deleteSelectedProfile()">删除</button>
+        </div>
+
+        <!-- Main Form -->
+        <form id="baziForm" onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+                <label for="userName">缘主姓名</label>
+                <input type="text" id="userName" placeholder="例如: 张三" required />
             </div>
-          </div>
-        </div>
 
-        <div class="form-group">
-          <label for="datetime">阳历出生时间</label>
-          <input type="datetime-local" id="datetime" required />
-        </div>
+            <div class="form-group">
+                <label>性别</label>
+                <div class="gender-segmented">
+                    <div class="gender-option">
+                        <input type="radio" id="genderMale" name="gender" value="男" checked />
+                        <label for="genderMale" class="gender-label">乾造 (男)</label>
+                    </div>
+                    <div class="gender-option">
+                        <input type="radio" id="genderFemale" name="gender" value="女" />
+                        <label for="genderFemale" class="gender-label">坤造 (女)</label>
+                    </div>
+                </div>
+            </div>
 
-        <button type="submit" id="submitBtn" class="btn-submit">生成命理分析报告</button>
-      </form>
+            <div class="form-group">
+                <label for="datetime">阳历出生时间</label>
+                <input type="datetime-local" id="datetime" required />
+            </div>
 
-      <div id="loading" class="loading-text">☯ 正在汇集四家经典精析排盘，请稍候...</div>
+            <button type="submit" id="submitBtn" class="btn-submit">生成命理分析报告</button>
+        </form>
+
+        <div id="loading" class="loading-text">☯ 正在汇集四家经典精析排盘，请稍候…</div>
     </div>
 
-    <!-- Actions & Preview -->
+    <!-- ─── Print & Report ─── -->
     <button id="printBtn" class="btn-print" onclick="printIframeToPDF()">🖨 导出 / 打印 PDF 报告</button>
     <iframe id="report-preview"></iframe>
 
+    <!-- ─── API Key Modal ─── -->
+    <div id="apiKeyModal" class="modal-overlay">
+        <div class="modal-card">
+            <h3 class="modal-title">设置 Gemini API Key 🔑</h3>
+            <div class="modal-instruction">
+                <h4 style="margin-top:0;">如何免费获取 Gemini API Key</h4>
+                <ol>
+                    <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a> 并登录。</li>
+                    <li>点击 <strong>"Create API key"</strong> 按钮。</li>
+                    <li>选择项目生成新的 API 密钥。</li>
+                    <li>复制生成的以 <code>AIzaSy...</code> 或 <code>AQ...</code> 开头的字符串。</li>
+                    <li>粘贴至下方输入框（密钥仅保存在本地浏览器）。</li>
+                </ol>
+                <p style="font-size:0.82rem; color:var(--muted);">* Gemini 提供免费额度（Free Tier），无需绑定信用卡。</p>
+            </div>
+            <div class="modal-input-group">
+                <input type="password" id="apiKeyInput" placeholder="输入 AIzaSy... 或 AQ... 密钥" />
+            </div>
+            <div class="modal-actions">
+                <button type="button" id="cancelApiKeyBtn" class="btn btn-secondary">取消</button>
+                <button type="button" id="saveApiKeyBtn" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-      // Obfuscated config keys (Decoded via Base64 at runtime)
-      const _0x4a1b = {
-        ep: "aHR0cHM6Ly9iYXppLXJlcG9ydC1iYWNrZW5kLnRtYXhpdXMud29ya2Vycy5kZXYvZ2VuZXJhdGUtcmVwb3J0",
-        pk: "YmF6aV91c2VyX3Byb2ZpbGVz",
-        ak: "YmF6aV9nZW1pbmlfYXBpX2tleQ=="
-      };
+        // ─── Constants ───
+        const API_ENDPOINT = 'https://bazi-report-backend.tmaxius.workers.dev/generate-report';
+        const STORAGE_PROFILES_KEY = 'bazi_user_profiles';
+        const STORAGE_API_KEY = 'bazi_gemini_api_key';
 
-      const API_ENDPOINT = atob(_0x4a1b.ep);
-      const STORAGE_PROFILES_KEY = atob(_0x4a1b.pk);
-      const STORAGE_API_KEY = atob(_0x4a1b.ak);
-document.addEventListener("DOMContentLoaded", () => {
-  const openSettingsBtn = document.getElementById("openSettingsBtn");
-  const apiKeyModal = document.getElementById("apiKeyModal");
-  const apiKeyInput = document.getElementById("apiKeyInput");
-  const saveApiKeyBtn = document.getElementById("saveApiKeyBtn");
-  const cancelApiKeyBtn = document.getElementById("cancelApiKeyBtn");
+        // ─── DOM refs ───
+        const form = document.getElementById('baziForm');
+        const userName = document.getElementById('userName');
+        const datetime = document.getElementById('datetime');
+        const submitBtn = document.getElementById('submitBtn');
+        const loading = document.getElementById('loading');
+        const iframe = document.getElementById('report-preview');
+        const printBtn = document.getElementById('printBtn');
+        const profilesSelect = document.getElementById('userProfiles');
 
-  // Helper to open modal with current saved key
-  function openModal() {
-    const savedKey = localStorage.getItem(STORAGE_API_KEY) || "";
-    apiKeyInput.value = savedKey;
-    apiKeyModal.style.display = "flex";
-  }
+        // ─── Modal refs ───
+        const apiKeyModal = document.getElementById('apiKeyModal');
+        const apiKeyInput = document.getElementById('apiKeyInput');
+        const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
+        const cancelApiKeyBtn = document.getElementById('cancelApiKeyBtn');
+        const openSettingsBtn = document.getElementById('openSettingsBtn');
 
-  // Helper to close modal
-  function closeModal() {
-    apiKeyModal.style.display = "none";
-  }
+        // ─── Initialize ───
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProfilesDropdown();
 
-  // Event Listeners
-  openSettingsBtn.addEventListener("click", openModal);
+            // Set default datetime to now (local)
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            datetime.value = now.toISOString().slice(0, 16);
 
-  cancelApiKeyBtn.addEventListener("click", closeModal);
-
-  saveApiKeyBtn.addEventListener("click", () => {
-    const keyVal = apiKeyInput.value.trim();
-    if (keyVal) {
-      localStorage.setItem(STORAGE_API_KEY, keyVal);
-    } else {
-      localStorage.removeItem(STORAGE_API_KEY);
-    }
-    closeModal();
-  });
-
-  // Optional: Close modal when clicking on backdrop
-  apiKeyModal.addEventListener("click", (e) => {
-    if (e.target === apiKeyModal) {
-      closeModal();
-    }
-  });
-});
-      document.addEventListener("DOMContentLoaded", () => {
-        loadProfilesDropdown();
-        checkAndApplySavedApiKey();
-
-        const now = new Date();
-        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-        document.getElementById("datetime").value = now.toISOString().slice(0, 16);
-      });
-
-      function checkAndApplySavedApiKey() {
-        const savedKey = localStorage.getItem(STORAGE_API_KEY);
-        if (savedKey && savedKey.trim() !== "") {
-          document.getElementById("apiKey").value = savedKey;
-          hideApiKeyInput(savedKey);
-        } else {
-          showApiKeyInput();
-        }
-      }
-
-      function hideApiKeyInput(key) {
-        const inputWrapper = document.getElementById("apiKeyInputWrapper");
-        const savedWrapper = document.getElementById("apiKeySavedWrapper");
-        const maskedKeySpan = document.getElementById("maskedKey");
-        const apiKeyInput = document.getElementById("apiKey");
-
-        if (key) apiKeyInput.value = key;
-
-        if (key && key.length > 8) {
-          maskedKeySpan.textContent = `${key.slice(0, 4)}...${key.slice(-4)}`;
-        } else {
-          maskedKeySpan.textContent = "••••••••";
-        }
-
-        inputWrapper.style.display = "none";
-        savedWrapper.style.display = "flex";
-        apiKeyInput.removeAttribute("required");
-      }
-
-      function showApiKeyInput() {
-        document.getElementById("apiKeyInputWrapper").style.display = "block";
-        document.getElementById("apiKeySavedWrapper").style.display = "none";
-        document.getElementById("apiKey").setAttribute("required", "true");
-      }
-
-      function editApiKey() {
-        showApiKeyInput();
-        const input = document.getElementById("apiKey");
-        input.focus();
-        input.select();
-      }
-
-      function handleApiKeyInput(event) {
-        const val = event.target.value.trim();
-        if (val.length >= 25 && (val.startsWith("AIza") || val.startsWith("AQ"))) {
-          localStorage.setItem(STORAGE_API_KEY, val);
-          hideApiKeyInput(val);
-        }
-      }
-
-      async function handleFormSubmit(e) {
-        e.preventDefault();
-
-        let apiKey = localStorage.getItem(STORAGE_API_KEY) || document.getElementById("apiKey").value.trim();
-
-        if (!apiKey) {
-          alert("请配置 Gemini API Key");
-          showApiKeyInput();
-          return;
-        }
-
-        localStorage.setItem(STORAGE_API_KEY, apiKey);
-        hideApiKeyInput(apiKey);
-
-        const name = document.getElementById("userName").value.trim();
-        const gender = document.querySelector('input[name="gender"]:checked').value;
-        const datetimeRaw = document.getElementById("datetime").value;
-        const datetime = datetimeRaw.replace("T", " ");
-
-        saveProfile(name, gender, datetimeRaw);
-
-        const submitBtn = document.getElementById("submitBtn");
-        const loadingText = document.getElementById("loading");
-        const iframe = document.getElementById("report-preview");
-        const printBtn = document.getElementById("printBtn");
-
-        submitBtn.disabled = true;
-        loadingText.style.display = "block";
-        iframe.style.display = "none";
-        printBtn.style.display = "none";
-
-        try {
-          const response = await fetch(API_ENDPOINT, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, gender, datetime, apiKey }),
-          });
-
-          if (!response.ok) {
-            let errorMsg = `Server status ${response.status}`;
-            try {
-              const errData = await response.json();
-              errorMsg = errData.error || errData.details || errorMsg;
-            } catch (_) {
-              errorMsg = await response.text();
-            }
-            throw new Error(errorMsg);
-          }
-
-          const htmlContent = await response.text();
-
-          iframe.style.display = "block";
-          printBtn.style.display = "inline-block";
-
-          const doc = iframe.contentWindow.document;
-          doc.open();
-          doc.write(htmlContent);
-          doc.close();
-
-          iframe.scrollIntoView({ behavior: "smooth" });
-        } catch (err) {
-          alert("生成失败: " + err.message);
-        } finally {
-          submitBtn.disabled = false;
-          loadingText.style.display = "none";
-        }
-      }
-
-      function toggleHelpModal(show) {
-        document.getElementById("helpModal").style.display = show ? "flex" : "none";
-      }
-
-      window.onclick = function (event) {
-        const modal = document.getElementById("helpModal");
-        if (event.target === modal) {
-          modal.style.display = "none";
-        }
-      };
-
-      function getProfiles() {
-        return JSON.parse(localStorage.getItem(STORAGE_PROFILES_KEY) || "[]");
-      }
-
-      function loadProfilesDropdown() {
-        const profiles = getProfiles();
-        const select = document.getElementById("userProfiles");
-        select.innerHTML = '<option value="">-- 选择已保存缘主 --</option>';
-        profiles.forEach((p, idx) => {
-          const opt = document.createElement("option");
-          opt.value = idx;
-          opt.textContent = `${p.name} (${p.gender}) - ${p.datetime.replace("T", " ")}`;
-          select.appendChild(opt);
+            // Pre-fill API key input with saved key (if any)
+            const savedKey = localStorage.getItem(STORAGE_API_KEY) || '';
+            if (savedKey) apiKeyInput.value = savedKey;
         });
-      }
 
-      function loadSelectedProfile() {
-        const idx = document.getElementById("userProfiles").value;
-        if (idx === "") return;
-        const p = getProfiles()[idx];
-        if (p) {
-          document.getElementById("userName").value = p.name;
-          document.querySelector(`input[name="gender"][value="${p.gender}"]`).checked = true;
-          document.getElementById("datetime").value = p.datetime;
+        // ─── API Key Modal logic ───
+        function openModal() {
+            apiKeyInput.value = localStorage.getItem(STORAGE_API_KEY) || '';
+            apiKeyModal.style.display = 'flex';
         }
-      }
 
-      function saveProfile(name, gender, datetime) {
-        let profiles = getProfiles();
-        const idx = profiles.findIndex((p) => p.name === name && p.datetime === datetime);
-        if (idx > -1) profiles[idx] = { name, gender, datetime };
-        else profiles.unshift({ name, gender, datetime });
-        localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
-        loadProfilesDropdown();
-      }
-
-      function deleteSelectedProfile() {
-        const idx = document.getElementById("userProfiles").value;
-        if (idx === "") return alert("请选择要删除的缘主");
-        let profiles = getProfiles();
-        profiles.splice(idx, 1);
-        localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
-        loadProfilesDropdown();
-      }
-
-      function printIframeToPDF() {
-        const iframe = document.getElementById("report-preview");
-        if (!iframe || iframe.style.display === "none") {
-          alert("没有可供打印的报告");
-          return;
+        function closeModal() {
+            apiKeyModal.style.display = 'none';
         }
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
-      }
+
+        openSettingsBtn.addEventListener('click', openModal);
+        cancelApiKeyBtn.addEventListener('click', closeModal);
+
+        saveApiKeyBtn.addEventListener('click', () => {
+            const key = apiKeyInput.value.trim();
+            if (key) {
+                localStorage.setItem(STORAGE_API_KEY, key);
+            } else {
+                localStorage.removeItem(STORAGE_API_KEY);
+            }
+            closeModal();
+        });
+
+        // Close modal on backdrop click
+        apiKeyModal.addEventListener('click', (e) => {
+            if (e.target === apiKeyModal) closeModal();
+        });
+
+        // ─── Profile helpers ───
+        function getProfiles() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_PROFILES_KEY) || '[]');
+            } catch {
+                return [];
+            }
+        }
+
+        function saveProfiles(profiles) {
+            localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
+        }
+
+        function loadProfilesDropdown() {
+            const profiles = getProfiles();
+            profilesSelect.innerHTML = '<option value="">-- 选择已保存缘主 --</option>';
+            profiles.forEach((p, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx;
+                opt.textContent = `${p.name} (${p.gender}) · ${p.datetime.replace('T', ' ')}`;
+                profilesSelect.appendChild(opt);
+            });
+        }
+
+        function loadSelectedProfile() {
+            const idx = profilesSelect.value;
+            if (idx === '') return;
+            const p = getProfiles()[idx];
+            if (p) {
+                userName.value = p.name;
+                document.querySelector(`input[name="gender"][value="${p.gender}"]`).checked = true;
+                datetime.value = p.datetime;
+            }
+        }
+
+        function saveProfile(name, gender, datetimeVal) {
+            let profiles = getProfiles();
+            const existing = profiles.findIndex(p => p.name === name && p.datetime === datetimeVal);
+            if (existing > -1) {
+                profiles[existing] = { name, gender, datetime: datetimeVal };
+            } else {
+                profiles.unshift({ name, gender, datetime: datetimeVal });
+            }
+            saveProfiles(profiles);
+            loadProfilesDropdown();
+        }
+
+        function deleteSelectedProfile() {
+            const idx = profilesSelect.value;
+            if (idx === '') return alert('请选择要删除的缘主');
+            const profiles = getProfiles();
+            profiles.splice(idx, 1);
+            saveProfiles(profiles);
+            loadProfilesDropdown();
+        }
+
+        // ─── Form submit ───
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+
+            // Get API key from localStorage
+            const apiKey = localStorage.getItem(STORAGE_API_KEY);
+            if (!apiKey) {
+                alert('请先设置 Gemini API Key（点击右上角齿轮按钮）');
+                openModal();
+                return;
+            }
+
+            const name = userName.value.trim();
+            if (!name) {
+                alert('请输入缘主姓名');
+                userName.focus();
+                return;
+            }
+
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const datetimeRaw = datetime.value;
+            if (!datetimeRaw) {
+                alert('请选择出生时间');
+                datetime.focus();
+                return;
+            }
+            const datetimeStr = datetimeRaw.replace('T', ' ');
+
+            // Save profile
+            saveProfile(name, gender, datetimeRaw);
+
+            // UI loading state
+            submitBtn.disabled = true;
+            loading.style.display = 'block';
+            iframe.style.display = 'none';
+            printBtn.style.display = 'none';
+
+            try {
+                const resp = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, gender, datetime: datetimeStr, apiKey }),
+                });
+
+                if (!resp.ok) {
+                    let msg = `伺服器回應 ${resp.status}`;
+                    try {
+                        const err = await resp.json();
+                        msg = err.error || err.details || msg;
+                    } catch (_) {
+                        msg = await resp.text();
+                    }
+                    throw new Error(msg);
+                }
+
+                const html = await resp.text();
+
+                iframe.style.display = 'block';
+                printBtn.style.display = 'inline-block';
+
+                const doc = iframe.contentWindow.document;
+                doc.open();
+                doc.write(html);
+                doc.close();
+
+                iframe.scrollIntoView({ behavior: 'smooth' });
+
+            } catch (err) {
+                alert('生成失敗: ' + err.message);
+            } finally {
+                submitBtn.disabled = false;
+                loading.style.display = 'none';
+            }
+        }
+
+        // ─── Print ───
+        function printIframeToPDF() {
+            if (!iframe || iframe.style.display === 'none') {
+                alert('没有可供打印的报告');
+                return;
+            }
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+        }
     </script>
-  </body>
+
+</body>
 </html>
