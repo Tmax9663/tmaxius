@@ -561,7 +561,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Helper to open modal with current saved key
   function openModal() {
-    const savedKey = localStorage.getItem("gemini_api_key") || "";
+    const savedKey = localStorage.getItem(STORAGE_API_KEY) || "";
     apiKeyInput.value = savedKey;
     apiKeyModal.style.display = "flex";
   }
@@ -579,9 +579,9 @@ document.addEventListener("DOMContentLoaded", () => {
   saveApiKeyBtn.addEventListener("click", () => {
     const keyVal = apiKeyInput.value.trim();
     if (keyVal) {
-      localStorage.setItem("gemini_api_key", keyVal);
+      localStorage.setItem(STORAGE_API_KEY, keyVal);
     } else {
-      localStorage.removeItem("gemini_api_key");
+      localStorage.removeItem(STORAGE_API_KEY);
     }
     closeModal();
   });
