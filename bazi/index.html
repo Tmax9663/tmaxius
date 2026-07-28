@@ -431,9 +431,7 @@
 .btn-primary:hover {
   background: #1d4ed8;
 }
-      #baziForm{
-        display: none;
-      }
+    
     </style>
   </head>
   <body>
@@ -477,7 +475,7 @@
       <form id="baziForm" onsubmit="handleFormSubmit(event)" >
         
         <!-- API Key Section -->
-        <div class="form-group" id="apiKeyContainer">
+        <div class="form-group" id="apiKeyContainer" style="display:none;">
           <label for="apiKey">
             <span>Gemini API Key</span>
             <a href="#" onclick="toggleHelpModal(true)" style="font-size: 0.82rem; color: var(--primary-color); text-decoration: none;">(获取 API Key？)</a>
