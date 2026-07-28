@@ -463,14 +463,22 @@
     <h3 class="modal-title">🔑 设置 Gemini API Key</h3>
     
     <div class="modal-instruction">
-      如需生成报告，请提供您的 <b>Gemini API Key</b>。<br><br>
-      1. 前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a> 获取免费 Key。<br>
-      2. 复制 Key 并粘贴到下方输入框。<br>
-      <i>注：Key 将安全保存在本地设备中。</i>
+
+            <span class="close-btn" onclick="toggleHelpModal(false)">&times;</span>
+            <h3>如何免费获取 Gemini API Key</h3>
+            <ol>
+              <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a> 并登录。</li>
+              <li>点击 <strong>"Create API key"</strong> 按钮。</li>
+              <li>选择项目生成新的 API 密钥。</li>
+              <li>复制生成的以 <code>AIzaSy...</code> 或 <code>AQ...</code> 开头的字符串。</li>
+              <li>粘贴至输入框中（系统将加密保存在本地浏览器）。</li>
+            </ol>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 10px">* 注：Gemini 提供免费额度（Free Tier），无需绑定信用卡。</p>
+          
     </div>
 
     <div class="modal-input-group">
-      <input type="password" id="apiKeyInput" placeholder="请输入 AI Studio API Key..." />
+      <input type="password" id="apiKeyInput" placeholder="输入 AIzaSy... 或 AQ... 密钥" />
     </div>
 
     <div class="modal-actions">
