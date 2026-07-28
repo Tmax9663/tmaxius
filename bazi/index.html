@@ -341,6 +341,96 @@
       .close-btn:hover {
         color: var(--text-main);
       }
+
+      /* Settings Trigger Button */
+.settings-btn {
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.2s;
+}
+.settings-btn:hover {
+  background: #f0f0f0;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal Card */
+.modal-card {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  max-width: 440px;
+  width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.modal-title {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+}
+
+.modal-instruction {
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.modal-input-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-secondary {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
     </style>
   </head>
   <body>
@@ -356,8 +446,33 @@
         </select>
         <button type="button" class="btn-danger" onclick="deleteSelectedProfile()">删除</button>
       </div>
+<!-- Settings Button -->
+<button id="openSettingsBtn" class="settings-btn" title="设置 API Key">⚙️</button>
 
+<!-- Modal Overlay & Form -->
+<div id="apiKeyModal" class="modal-overlay" style="display: none;">
+  <div class="modal-card">
+    <h3 class="modal-title">🔑 设置 Gemini API Key</h3>
+    
+    <div class="modal-instruction">
+      如需生成报告，请提供您的 <b>Gemini API Key</b>。<br><br>
+      1. 前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a> 获取免费 Key。<br>
+      2. 复制 Key 并粘贴到下方输入框。<br>
+      <i>注：Key 将安全保存在本地设备中。</i>
+    </div>
+
+    <div class="modal-input-group">
+      <input type="password" id="apiKeyInput" placeholder="请输入 AI Studio API Key..." />
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" id="cancelApiKeyBtn" class="btn btn-secondary">取消</button>
+      <button type="button" id="saveApiKeyBtn" class="btn btn-primary">保存</button>
+    </div>
+  </div>
+</div>
       <form id="baziForm" onsubmit="handleFormSubmit(event)">
+        
         <!-- API Key Section -->
         <div class="form-group" id="apiKeyContainer">
           <label for="apiKey">
@@ -436,7 +551,47 @@
       const API_ENDPOINT = atob(_0x4a1b.ep);
       const STORAGE_PROFILES_KEY = atob(_0x4a1b.pk);
       const STORAGE_API_KEY = atob(_0x4a1b.ak);
+document.addEventListener("DOMContentLoaded", () => {
+  const openSettingsBtn = document.getElementById("openSettingsBtn");
+  const apiKeyModal = document.getElementById("apiKeyModal");
+  const apiKeyInput = document.getElementById("apiKeyInput");
+  const saveApiKeyBtn = document.getElementById("saveApiKeyBtn");
+  const cancelApiKeyBtn = document.getElementById("cancelApiKeyBtn");
 
+  // Helper to open modal with current saved key
+  function openModal() {
+    const savedKey = localStorage.getItem("gemini_api_key") || "";
+    apiKeyInput.value = savedKey;
+    apiKeyModal.style.display = "flex";
+  }
+
+  // Helper to close modal
+  function closeModal() {
+    apiKeyModal.style.display = "none";
+  }
+
+  // Event Listeners
+  openSettingsBtn.addEventListener("click", openModal);
+
+  cancelApiKeyBtn.addEventListener("click", closeModal);
+
+  saveApiKeyBtn.addEventListener("click", () => {
+    const keyVal = apiKeyInput.value.trim();
+    if (keyVal) {
+      localStorage.setItem("gemini_api_key", keyVal);
+    } else {
+      localStorage.removeItem("gemini_api_key");
+    }
+    closeModal();
+  });
+
+  // Optional: Close modal when clicking on backdrop
+  apiKeyModal.addEventListener("click", (e) => {
+    if (e.target === apiKeyModal) {
+      closeModal();
+    }
+  });
+});
       document.addEventListener("DOMContentLoaded", () => {
         loadProfilesDropdown();
         checkAndApplySavedApiKey();
