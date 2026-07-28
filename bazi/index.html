@@ -82,6 +82,10 @@
         color: var(--text-muted);
         letter-spacing: 1px;
       }
+      .header-title {
+        display: flex;
+  justify-content: space-between;
+      }
 
       /* Saved Profiles Bar */
       .profile-bar {
@@ -437,7 +441,11 @@
   <body>
     <div class="container">
       <div class="header">
+        <div class="header-title">
         <h2>八字经典命理分析</h2>
+        <!-- Settings Button -->
+<button id="openSettingsBtn" class="settings-btn" title="设置 API Key">⚙️</button>
+        </div>
         <p>汇集四家经典精析排盘 · 探寻命理玄机</p>
       </div>
 
@@ -447,8 +455,7 @@
         </select>
         <button type="button" class="btn-danger" onclick="deleteSelectedProfile()">删除</button>
       </div>
-<!-- Settings Button -->
-<button id="openSettingsBtn" class="settings-btn" title="设置 API Key">⚙️</button>
+
 
 <!-- Modal Overlay & Form -->
 <div id="apiKeyModal" class="modal-overlay" style="display: none;">
