@@ -618,6 +618,7 @@
         const iframe = document.getElementById('report-preview');
         const printBtn = document.getElementById('printBtn');
         const profilesSelect = document.getElementById('userProfiles');
+        const genderRadios = document.querySelectorAll('input[name="gender"]');
 
         // ─── Modal refs ───
         const apiKeyModal = document.getElementById('apiKeyModal');
@@ -625,6 +626,42 @@
         const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
         const cancelApiKeyBtn = document.getElementById('cancelApiKeyBtn');
         const openSettingsBtn = document.getElementById('openSettingsBtn');
+
+        // ─── 🆕 清空报告区域 ───
+        function clearReport() {
+            // 隐藏打印按钮
+            printBtn.style.display = 'none';
+            // 隐藏 iframe
+            iframe.style.display = 'none';
+            // 清空 iframe 内容
+            try {
+                const doc = iframe.contentWindow.document;
+                doc.open();
+                doc.write('');
+                doc.close();
+            } catch (e) {
+                // 如果跨域无法操作，至少隐藏 iframe
+                iframe.src = 'about:blank';
+            }
+            // 隐藏 loading（如果显示中）
+            loading.style.display = 'none';
+        }
+
+        // ─── 🆕 监听表单变化，自动清空报告 ───
+        function bindClearOnChange() {
+            // 监听所有文本输入、下拉选择、单选按钮的变化
+            const inputs = [userName, datetime, profilesSelect, ...genderRadios];
+            inputs.forEach(el => {
+                el.addEventListener('change', clearReport);
+                // 对于文本输入，也监听 input 事件（更实时）
+                if (el.tagName === 'INPUT' && el.type !== 'radio' && el.type !== 'datetime-local') {
+                    el.addEventListener('input', clearReport);
+                }
+                if (el.type === 'datetime-local') {
+                    el.addEventListener('input', clearReport);
+                }
+            });
+        }
 
         // ─── Initialize ───
         document.addEventListener('DOMContentLoaded', () => {
@@ -638,6 +675,9 @@
             // Pre-fill API key input with saved key (if any)
             const savedKey = localStorage.getItem(STORAGE_API_KEY) || '';
             if (savedKey) apiKeyInput.value = savedKey;
+
+            // 绑定清空事件
+            bindClearOnChange();
         });
 
         // ─── API Key Modal logic ───
@@ -701,6 +741,8 @@
                 document.querySelector(`input[name="gender"][value="${p.gender}"]`).checked = true;
                 datetime.value = p.datetime;
             }
+            // 🆕 加载后清空旧报告
+            clearReport();
         }
 
         function saveProfile(name, gender, datetimeVal) {
@@ -722,11 +764,16 @@
             profiles.splice(idx, 1);
             saveProfiles(profiles);
             loadProfilesDropdown();
+            // 🆕 删除后清空报告
+            clearReport();
         }
 
         // ─── Form submit ───
         async function handleFormSubmit(e) {
             e.preventDefault();
+
+            // 🆕 清空旧报告（避免残留）
+            clearReport();
 
             // Get API key from localStorage
             const apiKey = localStorage.getItem(STORAGE_API_KEY);
@@ -808,6 +855,21 @@
             iframe.contentWindow.focus();
             iframe.contentWindow.print();
         }
+
+        // ─── 🆕 响应式 iframe 自适应高度（可选） ───
+        // 由于报告内容可能很长，监听 iframe load 事件动态调整高度
+        iframe.addEventListener('load', function() {
+            try {
+                // 尝试获取 iframe 内容高度（同源策略允许）
+                const doc = iframe.contentWindow.document;
+                const height = doc.body.scrollHeight || doc.documentElement.scrollHeight;
+                if (height > 100) {
+                    iframe.style.height = Math.max(height + 40, 750) + 'px';
+                }
+            } catch (e) {
+                // 跨域时忽略，保持默认高度
+            }
+        });
     </script>
 
 </body>
