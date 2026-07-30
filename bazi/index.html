@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Author" content="tmax@tmaxius.com" />
     <link rel="icon" href="./favicon.png" />
-    <title>命理精析 · 经典八字排盘</title>
+    <title>命理精析 · 經典八字排盤</title>
     <style>
         /* ─── Reset & Variables ─── */
         :root {
@@ -532,29 +532,29 @@
         <!-- Header -->
         <div class="header">
             <div class="header-left">
-                <h2>八字经典命理分析</h2>
-                <p>汇集四家经典精析排盘 · 探寻命理玄机</p>
+                <h2>八字經典命理分析</h2>
+                <p>匯集四家經典精析排盤 · 探尋命理玄機</p>
             </div>
-            <button id="openSettingsBtn" class="settings-btn" title="设置 Gemini API Key">⚙️</button>
+            <button id="openSettingsBtn" class="settings-btn" title="設置 Gemini API Key">⚙️</button>
         </div>
 
         <!-- Profile Bar -->
         <div class="profile-bar">
             <select id="userProfiles" onchange="loadSelectedProfile()">
-                <option value="">-- 选择已保存缘主 --</option>
+                <option value="">-- 選擇已保存緣主 --</option>
             </select>
-            <button type="button" class="btn-danger" onclick="deleteSelectedProfile()">删除</button>
+            <button type="button" class="btn-danger" onclick="deleteSelectedProfile()">刪除</button>
         </div>
 
         <!-- Main Form -->
         <form id="baziForm" onsubmit="handleFormSubmit(event)">
             <div class="form-group">
-                <label for="userName">缘主姓名</label>
-                <input type="text" id="userName" placeholder="例如: 张三" required />
+                <label for="userName">緣主姓名</label>
+                <input type="text" id="userName" placeholder="例如: 張三" required />
             </div>
 
             <div class="form-group">
-                <label>性别</label>
+                <label>性別</label>
                 <div class="gender-segmented">
                     <div class="gender-option">
                         <input type="radio" id="genderMale" name="gender" value="男" checked />
@@ -568,37 +568,37 @@
             </div>
 
             <div class="form-group">
-                <label for="datetime">阳历出生时间</label>
+                <label for="datetime">陽曆出生時間</label>
                 <input type="datetime-local" id="datetime" required />
             </div>
 
-            <button type="submit" id="submitBtn" class="btn-submit">生成命理分析报告</button>
+            <button type="submit" id="submitBtn" class="btn-submit">生成命理分析報告</button>
         </form>
 
-        <div id="loading" class="loading-text">☯ 正在汇集四家经典精析排盘，请稍候…</div>
+        <div id="loading" class="loading-text">☯ 正在匯集四家經典精析排盤，請稍候…</div>
     </div>
 
     <!-- ─── Print & Report ─── -->
-    <button id="printBtn" class="btn-print" onclick="printIframeToPDF()">🖨 导出 / 打印 PDF 报告</button>
+    <button id="printBtn" class="btn-print" onclick="printIframeToPDF()">🖨 導出 / 打印 PDF 報告</button>
     <iframe id="report-preview"></iframe>
 
     <!-- ─── API Key Modal ─── -->
     <div id="apiKeyModal" class="modal-overlay">
         <div class="modal-card">
-            <h3 class="modal-title">设置 Gemini API Key 🔑</h3>
+            <h3 class="modal-title">設置 Gemini API Key 🔑</h3>
             <div class="modal-instruction">
-                <h4 style="margin-top:0;">如何免费获取 Gemini API Key</h4>
+                <h4 style="margin-top:0;">如何免費獲取 Gemini API Key</h4>
                 <ol>
-                    <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a> 并登录。</li>
-                    <li>点击 <strong>"Create API key"</strong> 按钮。</li>
-                    <li>选择项目生成新的 API 密钥。</li>
-                    <li>复制生成的以 <code>AIzaSy...</code> 或 <code>AQ...</code> 开头的字符串。</li>
-                    <li>粘贴至下方输入框（密钥仅保存在本地浏览器）。</li>
+                    <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a> 並登錄。</li>
+                    <li>點擊 <strong>"Create API key"</strong> 按鈕。</li>
+                    <li>選擇項目生成新的 API 密鑰。</li>
+                    <li>複製生成的以 <code>AIzaSy...</code> 或 <code>AQ...</code> 開頭的字串。</li>
+                    <li>粘貼至下方輸入框（密鑰僅保存在本地瀏覽器）。</li>
                 </ol>
-                <p style="font-size:0.82rem; color:var(--muted);">* Gemini 提供免费额度（Free Tier），无需绑定信用卡。</p>
+                <p style="font-size:0.82rem; color:var(--muted);">* Gemini 提供免費額度（Free Tier），無需綁定信用卡。</p>
             </div>
             <div class="modal-input-group">
-                <input type="password" id="apiKeyInput" placeholder="输入 AIzaSy... 或 AQ... 密钥" />
+                <input type="password" id="apiKeyInput" placeholder="輸入 AIzaSy... 或 AQ... 密鑰" />
             </div>
             <div class="modal-actions">
                 <button type="button" id="cancelApiKeyBtn" class="btn btn-secondary">取消</button>
@@ -631,33 +631,33 @@
         const cancelApiKeyBtn = document.getElementById('cancelApiKeyBtn');
         const openSettingsBtn = document.getElementById('openSettingsBtn');
 
-        // ─── 🆕 清空报告区域 ───
+        // ─── 🆕 清空報告區域 ───
         function clearReport() {
-            // 隐藏打印按钮
+            // 隱藏打印按鈕
             printBtn.style.display = 'none';
-            // 隐藏 iframe
+            // 隱藏 iframe
             iframe.style.display = 'none';
-            // 清空 iframe 内容
+            // 清空 iframe 內容
             try {
                 const doc = iframe.contentWindow.document;
                 doc.open();
                 doc.write('');
                 doc.close();
             } catch (e) {
-                // 如果跨域无法操作，至少隐藏 iframe
+                // 如果跨域無法操作，至少隱藏 iframe
                 iframe.src = 'about:blank';
             }
-            // 隐藏 loading（如果显示中）
+            // 隱藏 loading（如果顯示中）
             loading.style.display = 'none';
         }
 
-        // ─── 🆕 监听表单变化，自动清空报告 ───
+        // ─── 🆕 監聽表單變化，自動清空報告 ───
         function bindClearOnChange() {
-            // 监听所有文本输入、下拉选择、单选按钮的变化
+            // 監聽所有文字輸入、下拉選擇、單選按鈕的變化
             const inputs = [userName, datetime, profilesSelect, ...genderRadios];
             inputs.forEach(el => {
                 el.addEventListener('change', clearReport);
-                // 对于文本输入，也监听 input 事件（更实时）
+                // 對於文字輸入，也監聽 input 事件（更即時）
                 if (el.tagName === 'INPUT' && el.type !== 'radio' && el.type !== 'datetime-local') {
                     el.addEventListener('input', clearReport);
                 }
@@ -680,7 +680,7 @@
             const savedKey = localStorage.getItem(STORAGE_API_KEY) || '';
             if (savedKey) apiKeyInput.value = savedKey;
 
-            // 绑定清空事件
+            // 綁定清空事件
             bindClearOnChange();
         });
 
@@ -727,7 +727,7 @@
 
         function loadProfilesDropdown() {
             const profiles = getProfiles();
-            profilesSelect.innerHTML = '<option value="">-- 选择已保存缘主 --</option>';
+            profilesSelect.innerHTML = '<option value="">-- 選擇已保存緣主 --</option>';
             profiles.forEach((p, idx) => {
                 const opt = document.createElement('option');
                 opt.value = idx;
@@ -745,7 +745,7 @@
                 document.querySelector(`input[name="gender"][value="${p.gender}"]`).checked = true;
                 datetime.value = p.datetime;
             }
-            // 🆕 加载后清空旧报告
+            // 🆕 載入後清空舊報告
             clearReport();
         }
 
@@ -763,12 +763,12 @@
 
         function deleteSelectedProfile() {
             const idx = profilesSelect.value;
-            if (idx === '') return alert('请选择要删除的缘主');
+            if (idx === '') return alert('請選擇要刪除的緣主');
             const profiles = getProfiles();
             profiles.splice(idx, 1);
             saveProfiles(profiles);
             loadProfilesDropdown();
-            // 🆕 删除后清空报告
+            // 🆕 刪除後清空報告
             clearReport();
         }
 
@@ -776,20 +776,20 @@
         async function handleFormSubmit(e) {
             e.preventDefault();
 
-            // 🆕 清空旧报告（避免残留）
+            // 🆕 清空舊報告（避免殘留）
             clearReport();
 
             // Get API key from localStorage
             const apiKey = localStorage.getItem(STORAGE_API_KEY);
             if (!apiKey) {
-                alert('请先设置 Gemini API Key（点击右上角齿轮按钮）');
+                alert('請先設置 Gemini API Key（點擊右上角齒輪按鈕）');
                 openModal();
                 return;
             }
 
             const name = userName.value.trim();
             if (!name) {
-                alert('请输入缘主姓名');
+                alert('請輸入緣主姓名');
                 userName.focus();
                 return;
             }
@@ -797,7 +797,7 @@
             const gender = document.querySelector('input[name="gender"]:checked').value;
             const datetimeRaw = datetime.value;
             if (!datetimeRaw) {
-                alert('请选择出生时间');
+                alert('請選擇出生時間');
                 datetime.focus();
                 return;
             }
@@ -853,25 +853,25 @@
         // ─── Print ───
         function printIframeToPDF() {
             if (!iframe || iframe.style.display === 'none') {
-                alert('没有可供打印的报告');
+                alert('沒有可供打印的報告');
                 return;
             }
             iframe.contentWindow.focus();
             iframe.contentWindow.print();
         }
 
-        // ─── 🆕 响应式 iframe 自适应高度（可选） ───
-        // 由于报告内容可能很长，监听 iframe load 事件动态调整高度
+        // ─── 🆕 響應式 iframe 自適應高度（可選） ───
+        // 由於報告內容可能很長，監聽 iframe load 事件動態調整高度
         iframe.addEventListener('load', function() {
             try {
-                // 尝试获取 iframe 内容高度（同源策略允许）
+                // 嘗試獲取 iframe 內容高度（同源策略允許）
                 const doc = iframe.contentWindow.document;
                 const height = doc.body.scrollHeight || doc.documentElement.scrollHeight;
                 if (height > 100) {
                     iframe.style.height = Math.max(height + 40, 750) + 'px';
                 }
             } catch (e) {
-                // 跨域时忽略，保持默认高度
+                // 跨域時忽略，保持預設高度
             }
         });
     </script>
