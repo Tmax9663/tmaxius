@@ -20,7 +20,8 @@
             --border: #e2d9cc;
             --radius: 12px;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            --font: "Zen Maru Gothic";
+            /* -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; */
         }
 
         * {
@@ -28,7 +29,10 @@
             margin: 0;
             padding: 0;
         }
-
+         @font-face {
+            font-family: "Zen Maru Gothic";
+            src: URL("./ZenMaruGothic-Light.ttf") format("truetype");
+          }
         body {
             font-family: var(--font);
             background: var(--bg);
