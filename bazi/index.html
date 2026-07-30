@@ -577,11 +577,11 @@
         <div id="loading" class="loading-text">☯ 正在匯集四家經典精析排盤，請稍候…</div>
     </div>
 
-    <!-- ─── Print & Report ─── -->
-    <!-- <button id="printBtn" class="btn-print" onclick="printIframeToPDF()">🖨 導出 / 打印 PDF 報告</button> -->
-    <div id="printBtn">
-        <button class="btn-print" onclick="printIframeToPDF('color')">🖨️ 打印彩色 PDF</button>
-        <button class="btn-print" onclick="printIframeToPDF('mono')">🖨️ 打印黑白 PDF</button>
+    <div id="printBtn" style="display:none;">
+        <div style="display:flex; gap:10px;">
+            <button class="btn-print" onclick="printIframeToPDF('color')">🖨️ 打印彩色 PDF</button>
+            <button class="btn-print" onclick="printIframeToPDF('mono')">🖨️ 打印黑白 PDF</button>
+        </div>
     </div>
     <iframe id="report-preview"></iframe>
 
