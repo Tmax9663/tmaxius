@@ -580,8 +580,10 @@
 
     <!-- ─── Print & Report ─── -->
     <!-- <button id="printBtn" class="btn-print" onclick="printIframeToPDF()">🖨 導出 / 打印 PDF 報告</button> -->
-    <button class="btn-print" onclick="printIframeToPDF('color')">🖨️ 打印彩色 PDF</button>
-    <button class="btn-print" onclick="printIframeToPDF('mono')">🖨️ 打印黑白 PDF</button>
+    <div id="printBtn">
+        <button class="btn-print" onclick="printIframeToPDF('color')">🖨️ 打印彩色 PDF</button>
+        <button class="btn-print" onclick="printIframeToPDF('mono')">🖨️ 打印黑白 PDF</button>
+    </div>
     <iframe id="report-preview"></iframe>
 
     <!-- ─── API Key Modal ─── -->
@@ -622,7 +624,7 @@
         const submitBtn = document.getElementById('submitBtn');
         const loading = document.getElementById('loading');
         const iframe = document.getElementById('report-preview');
-        const printBtn = document.querySelectorAll('.btn-print');
+        const printBtn = document.getElementById('printBtn');
         const profilesSelect = document.getElementById('userProfiles');
         const genderRadios = document.querySelectorAll('input[name="gender"]');
 
