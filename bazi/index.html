@@ -579,7 +579,9 @@
     </div>
 
     <!-- ─── Print & Report ─── -->
-    <button id="printBtn" class="btn-print" onclick="printIframeToPDF()">🖨 導出 / 打印 PDF 報告</button>
+    <!-- <button id="printBtn" class="btn-print" onclick="printIframeToPDF()">🖨 導出 / 打印 PDF 報告</button> -->
+    <button class="btn-print" onclick="printIframeToPDF('color')">🖨️ 打印彩色 PDF</button>
+    <button class="btn-print" onclick="printIframeToPDF('mono')">🖨️ 打印黑白 PDF</button>
     <iframe id="report-preview"></iframe>
 
     <!-- ─── API Key Modal ─── -->
@@ -851,14 +853,41 @@
         }
 
         // ─── Print ───
-        function printIframeToPDF() {
-            if (!iframe || iframe.style.display === 'none') {
-                alert('沒有可供打印的報告');
+        // function printIframeToPDF() {
+        //     if (!iframe || iframe.style.display === 'none') {
+        //         alert('沒有可供打印的報告');
+        //         return;
+        //     }
+        //     iframe.contentWindow.focus();
+        //     iframe.contentWindow.print();
+        // }
+        function printIframeToPDF(mode) {
+              const iframe = document.getElementById("report-preview");
+              if (!iframe || iframe.style.display === "none") {
+                alert("没有可供打印的报告");
                 return;
+              }
+            
+              const doc = iframe.contentWindow.document;
+              
+              // 获取两个样式表 link 元素（须确保它们在 iframe 内已加载）
+              const colorfulLink = doc.getElementById('colorful-print');
+              const monoLink = doc.getElementById('monochrome-print');
+            
+              if (colorfulLink && monoLink) {
+                if (mode === 'color') {
+                  colorfulLink.disabled = false;   // 启用彩色
+                  monoLink.disabled = true;        // 禁用黑白
+                } else { // 'mono'
+                  colorfulLink.disabled = true;    // 禁用彩色
+                  monoLink.disabled = false;       // 启用黑白
+                }
+              }
+            
+              // 触发 iframe 打印
+              iframe.contentWindow.focus();
+              iframe.contentWindow.print();
             }
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
-        }
 
         // ─── 🆕 響應式 iframe 自適應高度（可選） ───
         // 由於報告內容可能很長，監聽 iframe load 事件動態調整高度
