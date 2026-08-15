@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/mypaths/static/css/main.621c6adf.css",
-    "main.js": "/mypaths/static/js/main.0b67b30f.js",
+    "main.css": "/mypaths/static/css/main.a4200cad.css",
+    "main.js": "/mypaths/static/js/main.cd83b024.js",
     "static/js/206.0add2a24.chunk.js": "/mypaths/static/js/206.0add2a24.chunk.js",
     "static/media/ZenMaruGothic-Light.ttf": "/mypaths/static/media/ZenMaruGothic-Light.9b2bbdffa28e8e8bf356.ttf",
     "index.html": "/mypaths/index.html"
   },
   "entrypoints": [
-    "static/css/main.621c6adf.css",
-    "static/js/main.0b67b30f.js"
+    "static/css/main.a4200cad.css",
+    "static/js/main.cd83b024.js"
   ]
 }
