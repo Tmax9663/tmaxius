@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/mypaths/static/css/main.a4200cad.css",
-    "main.js": "/mypaths/static/js/main.c1dc97b4.js",
+    "main.js": "/mypaths/static/js/main.0e0e1a93.js",
     "static/js/206.0add2a24.chunk.js": "/mypaths/static/js/206.0add2a24.chunk.js",
     "static/media/ZenMaruGothic-Light.ttf": "/mypaths/static/media/ZenMaruGothic-Light.9b2bbdffa28e8e8bf356.ttf",
     "index.html": "/mypaths/index.html"
   },
   "entrypoints": [
     "static/css/main.a4200cad.css",
-    "static/js/main.c1dc97b4.js"
+    "static/js/main.0e0e1a93.js"
   ]
 }
