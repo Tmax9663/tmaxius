@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyPaths 生命數據庫 · 使用者指南（分 Tab 逐頁版）</title>
+<style>
+  @font-face {
+    font-family: "Zen Maru Gothic";
+    src: url("../public/ZenMaruGothic-Light.ttf") format("truetype");
+  }
+  :root {
+    --teal: #0b5b53;
+    --teal-dark: #083c30;
+    --gold: #c97b10;
+    --gold-light: #f0a020;
+    --cream: #e8dfc4;
+    --ink: #26302b;
+    --gray: #6b7a70;
+    --box-green: #e7f2ec;
+    --box-gold: #fdf3e0;
+    --row-alt: #f2f7f4;
+    --line: #cfe0d6;
+    --red: #b0413e;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Zen Maru Gothic", "Microsoft JhengHei", "Noto Sans TC", "PingFang TC", sans-serif;
+    color: var(--ink);
+    background: #dfe7e1;
+    line-height: 1.65;
+    font-size: 11.5px;
+  }
+
+  /* ── 列印設定：A4 直式 ── */
+  @page { size: A4 portrait; margin: 10mm 11mm 10mm 11mm; }
+  .page {
+    width: 210mm;
+    min-height: 285mm;
+    margin: 0 auto 8mm;
+    background: #fff;
+    padding: 9mm 11mm 7mm;
+    position: relative;
+    page-break-after: always;
+    overflow: hidden;
+  }
+  .page:last-child { page-break-after: auto; }
+  @media print {
+    body { background: #fff; }
+    .page {
+      margin: 0; width: auto; min-height: auto;
+      overflow: visible !important;
+      padding: 0;
+    }
+    .no-print { display: none !important; }
+  }
+  .screen-nav {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--teal-dark);
+    padding: 8px 12px;
+    display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+  }
+  .screen-nav a {
+    color: #e8dfc4; text-decoration: none; font-size: 11px;
+    background: rgba(255,255,255,.08);
+    padding: 3px 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,.15);
+    white-space: nowrap;
+  }
+  .screen-nav a:hover { background: var(--gold); color: #fff; }
+  .screen-nav .printbtn {
+    margin-left: auto; background: var(--gold); color: #fff;
+    border: none; border-radius: 12px; padding: 4px 14px;
+    font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+  }
+
+  /* ── 頁頭 ── */
+  .phead {
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 2.5px solid var(--teal);
+    padding-bottom: 5px; margin-bottom: 8px;
+  }
+  .pnum {
+    background: var(--teal); color: #fff; font-weight: 700;
+    border-radius: 7px; padding: 2px 9px; font-size: 13px; letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+  .phead h1 { margin: 0; font-size: 17px; color: var(--teal-dark); letter-spacing: 1px; }
+  .phead .tag {
+    margin-left: auto; font-size: 9.5px; color: var(--teal); font-weight: 700;
+    border: 1px solid var(--teal); border-radius: 10px; padding: 1px 8px; white-space: nowrap;
+  }
+  .phead .tag.orange { color: var(--gold); border-color: var(--gold); }
+  .psub { font-size: 10.5px; color: var(--gray); margin: 2px 0 8px; }
+  .footer {
+    position: absolute; bottom: 4mm; left: 11mm; right: 11mm;
+    display: flex; justify-content: space-between;
+    border-top: 1px solid var(--line); padding-top: 3px;
+    font-size: 8.5px; color: var(--gray); letter-spacing: 1px;
+  }
+
+  /* ── 共用輸入列 mock ── */
+  .mockbar {
+    display: flex; gap: 5px; align-items: center; flex-wrap: wrap;
+    background: var(--box-green); border: 1px solid var(--line);
+    border-radius: 8px; padding: 6px 8px; margin: 6px 0 8px;
+  }
+  .mockbar .fld {
+    background: #fff; border: 1px solid #a9c6b4; border-radius: 5px;
+    padding: 2px 7px; font-size: 10.5px; font-weight: 700; color: var(--teal-dark);
+  }
+  .mockbar .fld b { color: var(--gold); }
+  .mockbar .btn {
+    background: linear-gradient(180deg,#f0a020,#c97b10); color: #fff;
+    border: none; border-radius: 6px; padding: 4px 12px;
+    font-weight: 700; font-size: 11px; letter-spacing: 2px;
+  }
+  .mockbar .sep { width: 1px; height: 16px; background: #b9d0c2; }
+
+  /* ── 區塊 ── */
+  .sect { margin: 7px 0 5px; }
+  .sect > h2 {
+    font-size: 12px; color: #fff; background: var(--teal);
+    border-radius: 5px; padding: 3px 10px; margin: 8px 0 5px;
+    letter-spacing: 1px;
+  }
+  .sect > h2 .en { font-weight: 400; font-size: 9px; opacity: .8; margin-left: 6px; letter-spacing: 0; }
+  h3 { font-size: 11px; color: var(--gold); margin: 6px 0 2px; letter-spacing: .5px; }
+  p { margin: 3px 0; }
+  ul, ol { margin: 3px 0; padding-left: 20px; }
+  li { margin: 2px 0; }
+  .stepnum {
+    display: inline-block; background: var(--gold); color: #fff;
+    border-radius: 50%; width: 14px; height: 14px; text-align: center;
+    font-size: 9.5px; font-weight: 700; line-height: 14px; margin-right: 4px;
+  }
+  .steps { counter-reset: st; }
+  .steps .st { display: flex; gap: 6px; margin: 5px 0; }
+  .steps .st .n {
+    flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%;
+    background: var(--teal); color: #fff; font-size: 10px; font-weight: 700;
+    text-align: center; line-height: 16px; margin-top: 1px;
+  }
+  .steps .st .b { flex: 1; }
+  .steps .st .b b { color: var(--teal-dark); }
+
+  .box {
+    border: 1px solid var(--line); border-radius: 7px;
+    padding: 6px 10px; margin: 6px 0;
+  }
+  .box.g { background: var(--box-green); }
+  .box.y { background: var(--box-gold); border-color: #e8d9a8; }
+  .box .bt {
+    font-weight: 700; font-size: 10.5px; color: var(--teal-dark);
+    margin-bottom: 2px;
+  }
+  .box.y .bt { color: #8a6410; }
+
+  table.tbl { width: 100%; border-collapse: collapse; margin: 4px 0; }
+  .tbl th {
+    background: var(--teal); color: #fff; font-size: 9.5px; font-weight: 700;
+    padding: 3px 6px; text-align: left; border: 1px solid #fff;
+  }
+  .tbl td {
+    border: 1px solid var(--line); padding: 3px 6px; font-size: 10px;
+    vertical-align: top;
+  }
+  .tbl tr:nth-child(even) td { background: var(--row-alt); }
+  .mini { font-size: 9px; color: var(--gray); }
+  .k { color: var(--gold); font-weight: 700; }
+
+  .pill4 {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 4px; margin: 4px 0;
+  }
+  .pill4 div {
+    border: 1px solid var(--line); border-radius: 6px; text-align: center;
+    padding: 3px 2px; background: #fff;
+  }
+  .pill4 .t { font-size: 9px; color: var(--gray); }
+  .pill4 .v { font-size: 12.5px; font-weight: 700; color: var(--teal-dark); }
+  .pill4 .c { font-size: 9px; }
+
+  /* 頁面專用微調 */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .fangs { font-size: 10px; }
+</style>
+</head>
+<body>
+
+<!-- 螢幕用導覽（列印時隱藏） -->
+<nav class="screen-nav no-print">
+  <a href="#p1">P1 總覽輸入</a><a href="#p2">八字</a><a href="#p3">五行</a>
+  <a href="#p4">格局</a><a href="#p5">運勢</a><a href="#p6">飛星</a>
+  <a href="#p7">V數</a><a href="#p8">易占</a><a href="#p9">AI</a>
+  <a href="#p10">擇日</a><a href="#p11">個人</a>
+  <button class="printbtn" onclick="window.print()">🖨 列印全部（A4 直式）</button>
+</nav>
+
+<!-- ════════════ P1 總覽 ════════════ -->
+<div class="page" id="p1">
+  <div class="phead">
+    <span class="pnum">P1</span>
+    <h1>總覽：如何輸入生辰並開始分析</h1>
+    <span class="tag">必讀</span>
+  </div>
+  <p class="psub">本章說明網站的共用輸入列（DOB／時間／性別）與「開始分析」的規則。所有分頁的資料都來自這裡。</p>
+
+  <div class="sect">
+    <h2>STEP 1 — 打開網站，找到輸入列</h2>
+    <p>瀏覽器開啟 <b>mypaths.tmaxius.workers.dev</b>。畫面最上方（深綠色長條）即為共用輸入列，App 內所有分析皆以它為準：</p>
+    <div class="mockbar">
+      <span class="fld">年 <b>1990</b></span>
+      <span class="fld">月 <b>05</b></span>
+      <span class="fld">日 <b>20</b></span>
+      <span class="fld">時 <b>14</b></span>
+      <span class="fld">分 <b>30</b></span>
+      <span class="sep"></span>
+      <span class="fld">♂ 男 / ♀ 女</span>
+      <span class="sep"></span>
+      <span class="btn">開 始 分 析</span>
+    </div>
+    <div class="steps">
+      <div class="st"><span class="n">1</span><div class="b"><b>出生日期（DOB）</b>：選「年／月／日」。這是排四柱的基本盤。</div></div>
+      <div class="st"><span class="n">2</span><div class="b"><b>出生時間（Time）</b>：選「時＋分」。分鐘很重要——接近<b>節氣交界</b>時，差 10 分鐘月柱就不同。</div></div>
+      <div class="st"><span class="n">3</span><div class="b"><b>性別（Gender）</b>：選 男／女。影響大運<b>順排／逆排</b>與部分神煞（如元辰）判定。</div></div>
+      <div class="st"><span class="n">4</span><div class="b"><b>「八字」分頁即時顯示</b>：輸入完畢不需按任何鍵，年／月／日／時四柱立即更新（本地即時運算）。</div></div>
+      <div class="st"><span class="n">5</span><div class="b"><b>按「開始分析」</b>：五行、格局、運勢、飛星、V數、易占、AI、擇日等分頁需先按此鍵，伺服器才會運算並解鎖顯示。</div></div>
+    </div>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 2 — 認識「開始分析」的行為</h2>
+    <table class="tbl">
+      <tr><th style="width:34%">情況</th><th>畫面行為</th></tr>
+      <tr><td>尚未分析</td><td>顯示金黃色「開始分析」按鈕，其餘分頁顯示「請先點擊開始分析」提示</td></tr>
+      <tr><td>分析完成</td><td>按鈕消失，改顯示「✓ 已分析」</td></tr>
+      <tr><td>分析後修改任何輸入</td><td>「開始分析」按鈕重新出現，提醒你重新分析（保證結果對應最新生辰）</td></tr>
+    </table>
+    <div class="box y">
+      <div class="bt">💡 計次規則（免費版）</div>
+      每次「開始分析」計 1 次：<b>每天 30 次、每分鐘 5 次</b>；10 分鐘內同一組資料重複分析不重複扣。右上角 👤「個人」可查看今日已用與剩餘。
+    </div>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 3 — 分頁總覽（本指南各頁索引）</h2>
+    <table class="tbl">
+      <tr><th>分頁</th><th>核心內容</th><th>使用前置</th></tr>
+      <tr><td><b>八字</b>（P2）</td><td>四柱排盤：主星、藏干、納音、星運、神煞、大運序列</td><td>即時顯示，不需開始分析</td></tr>
+      <tr><td><b>五行</b>（P3）</td><td>五行分數、身強弱、喜用神、命理詞彙庫</td><td>需開始分析</td></tr>
+      <tr><td><b>格局</b>（P4）</td><td>日主強弱、流月排盤、大運流年、今日運勢／合婚</td><td>需開始分析</td></tr>
+      <tr><td><b>運勢</b>（P5）</td><td>年度命理方案報告、吉凶月份、大師建議</td><td>需開始分析</td></tr>
+      <tr><td><b>飛星</b>（P6）</td><td>玄空九宮飛星：年／月／日／時星、四星合盤</td><td>需開始分析</td></tr>
+      <tr><td><b>V數</b>（P7）</td><td>生命數字命盤、九年運程</td><td>需開始分析</td></tr>
+      <tr><td><b>易占</b>（P8）</td><td>梅花易數起卦（本卦／互卦／變卦）斷吉凶</td><td>需開始分析</td></tr>
+      <tr><td><b>AI</b>（P9）</td><td>AI 命理解說報告（需 Gemini API Key）</td><td>需開始分析</td></tr>
+      <tr><td><b>擇日</b>（P10）</td><td>農民曆月曆、宜忌、沖煞、吉神方位</td><td>需開始分析</td></tr>
+      <tr><td><b>個人</b>（P11）</td><td>等級／用量、API Key、管理後台</td><td>隨時可看</td></tr>
+    </table>
+  </div>
+
+  <div class="footer"><span>MyPaths 生命數據庫 · 使用者指南</span><span>P1 · 總覽與輸入</span></div>
+</div>
+
+<!-- ════════════ P2 八字 ════════════ -->
+<div class="page" id="p2">
+  <div class="phead">
+    <span class="pnum">P2</span>
+    <h1>八字分頁：四柱排盤即時看</h1>
+    <span class="tag">即時顯示</span>
+  </div>
+  <p class="psub">八字分頁是唯一天生「即時」的分頁——輸入生日後立刻排盤，不需按「開始分析」。</p>
+
+  <div class="sect">
+    <h2>STEP 1 — 設定生辰（見 P1 輸入列）</h2>
+    <p>年／月／日／時／分／性別設定完成，本頁立即顯示完整命盤。頂端資訊包含：</p>
+    <div class="box g">
+      <div class="bt">畫面最上方資訊列</div>
+      <ul>
+        <li><b>農曆</b>：你的出生日的農曆換算。</li>
+        <li><b>節氣提示</b>：顯示當天落在哪個節氣前後（例如「立春」）——年柱／月柱的切換基準。</li>
+        <li><b>起運 X 歲 X 月・順運／逆運</b>：由月柱與性別決定；<span class="k">順運＝綠色、逆運＝紅色</span>。</li>
+        <li><b>當前大運</b>：目前所在的大運干支及其年份區間（例：壬午（2020–2029））。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 2 — 讀懂四柱表格</h2>
+    <p>表格第一欄為 <b>乾造（男）／坤造（女）</b>，之後每欄一柱：<b>年、月、日、時、大運、流年</b>。逐列向下讀：</p>
+    <table class="tbl">
+      <tr><th style="width:16%">列名</th><th>說明</th></tr>
+      <tr><td><b>主星</b></td><td>以「日干」為中心，看每柱天干相對日干的十神（正官／偏財／食神…）。日干本身那格顯示「日主」。</td></tr>
+      <tr><td><b>天干／地支</b></td><td>該柱的干支字（例：甲午、庚寅）。干支顏色代表五行屬性。</td></tr>
+      <tr><td><b>藏干</b></td><td>地支內藏的干（如「午」藏 丁、己）。看地支實力的重要來源。</td></tr>
+      <tr><td><b>副星</b></td><td>藏干相對日干的十神。</td></tr>
+      <tr><td><b>納音</b></td><td>干支納音五行（如「沙中金」），用於合婚與擇日參考。</td></tr>
+      <tr><td><b>星運</b></td><td>日干在地支的長生十二宮狀態（長生／沐浴／帝旺…）。</td></tr>
+      <tr><td><b>神煞</b></td><td>該柱出現的神煞（天乙貴人、文昌、桃花、魁罡…），逐欄列出。</td></tr>
+    </table>
+    <div class="box y">
+      <div class="bt">🔎 節氣精準示範（課堂最愛）</div>
+      1955-02-04 22:08 → 年柱 <b>甲午</b>、月柱 <b>丁丑</b>（立春前）<br>
+      1955-02-04 22:44 → 年柱 <b>乙未</b>、月柱 <b>戊寅</b>（立春後，立春為 22:18）<br>
+      只差 36 分鐘、跨過立春那一刻，年柱月柱完全不同——所以「分鐘」很重要。
+    </div>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 3 — 看下方「大運序列」</h2>
+    <ul>
+      <li>列出每十年一柱的大運：起運歲數、干支、該柱主星／藏干等。</li>
+      <li>可用來回答「我現在走什麼運」「哪個大運對我最有利」。</li>
+    </ul>
+    <div class="box g">
+      <div class="bt">小提醒</div>
+      「大運」欄與「流年」欄在表格右側獨立顯示目前大運與查詢年流年，方便與四柱對照作用關係（詳見 P4 格局的大運流年分析）。
+    </div>
+  </div>
+
+  <div class="footer"><span>MyPaths 生命數據庫 · 使用者指南</span><span>P2 · 八字</span></div>
+</div>
+
+<!-- ════════════ P3 五行 ════════════ -->
+<div class="page" id="p3">
+  <div class="phead">
+    <span class="pnum">P3</span>
+    <h1>五行分頁：分數、身強弱與喜用神</h1>
+    <span class="tag orange">需先「開始分析」</span>
+  </div>
+  <p class="psub">此頁回答「我的命五行怎麼分佈、日主強還是弱、該補什麼五行」。記得先在輸入列按「開始分析」。</p>
+
+  <div class="sect">
+    <h2>STEP 1 — 頂部三張資訊卡</h2>
+    <div class="pill4">
+      <div><div class="t">生肖</div><div class="v">🐅 虎</div><div class="c">年支對應</div></div>
+      <div><div class="t">星座</div><div class="v">♊ 雙子</div><div class="c">陽曆生日</div></div>
+      <div><div class="t">日柱</div><div class="v">庚申</div><div class="c">五行＋納音</div></div>
+      <div><div class="t">陰陽（四柱）</div><div class="v">陰3 陽5</div><div class="c">含藏干</div></div>
+    </div>
+    <ul>
+      <li><b>生肖</b>＝年支生肖；<b>星座</b>＝陽曆星座。</li>
+      <li><b>日柱</b>＝日干五行與日柱納音（例：庚＝金，庚申＝石榴木）。</li>
+      <li><b>陰陽計數</b>：四柱干支（含地支藏干）中陰陽字的數量，粗看命格調性。</li>
+    </ul>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 2 — 身強弱判定卡</h2>
+    <p>系統以三項計分推導日主強弱（五級：極旺／偏旺／中和／偏弱／極弱），並顯示算式明細：</p>
+    <table class="tbl">
+      <tr><th style="width:26%">計分項</th><th>含義</th></tr>
+      <tr><td><b>月令</b></td><td>日干在出生月份（月支）的旺相程度，權重最高</td></tr>
+      <tr><td><b>通根</b></td><td>四柱地支藏干中有多少與日干同五行（根氣）</td></tr>
+      <tr><td><b>得助</b></td><td>其他天干與藏干是否生扶日干（印、比劫）</td></tr>
+    </table>
+    <div class="box g"><div class="bt">判讀</div>
+      分數越高越強。進度條與「身強／身弱」標籤直接告訴你：<b>強</b>（綠色）宜剋泄耗、<b>弱</b>（紅色）宜生扶。分數下面並列出 月令＋通根＋得助 的明細算式。</div>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 3 — 五行分數圓餅圖與十神計數</h2>
+    <ul>
+      <li>圓餅圖＝金木水火土能量比例（五色）。</li>
+      <li>右側列出各五行對應的十神計數（例：金→比肩 3、劫財 1…），點出哪類十神多。</li>
+    </ul>
+    <div class="box y">
+      <div class="bt">⭐ 喜用神怎麼看（全站共用邏輯）</div>
+      身強 → 喜「剋泄耗」的五行；身弱 → 喜「生扶」的五行。喜用神會連動 <b>幸運色、幸運方位、幸運數字、幸運星</b>（本頁下方與運勢報告都會用到）。
+    </div>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 4 — 星運數（長生／冠帶／帝旺／墓庫）</h2>
+    <p>由四柱推出的四組星運數列（例：長生 4478）。屬趣味參考，與飛星（P6）的長生／帝旺數字同一來源概念。</p>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 5 — 命理詞彙庫（本命解讀字典）</h2>
+    <p>頁面最下方「命理詞彙庫」分四個標籤，且<b>已依你的命盤自動篩選</b>：</p>
+    <table class="tbl">
+      <tr><th style="width:22%">標籤</th><th>內容</th></tr>
+      <tr><td><b>十神</b></td><td>命盤中出現的十神與出現次數（進度條），附生活建議；點擊展開【命理】原理</td></tr>
+      <tr><td><b>神煞</b></td><td>完整神煞列表（與八字頁同步）：吉凶徽章＋所在柱位（年／月／日／時／大運／流年）＋生活建議</td></tr>
+      <tr><td><b>十二長生</b></td><td>12 階段進度條標出日主現處階段；下方列出四柱各柱的星運</td></tr>
+      <tr><td><b>納音</b></td><td>四柱納音五行徽章與對應能量建議；日柱特別標示</td></tr>
+    </table>
+    <div class="box g"><div class="bt">使用方式</div>看到不懂的詞就切到對應標籤點開看——它是你的隨身命理字典，不用另外查書。</div>
+  </div>
+
+  <div class="footer"><span>MyPaths 生命數據庫 · 使用者指南</span><span>P3 · 五行</span></div>
+</div>
+
+<!-- ════════════ P4 格局 ════════════ -->
+<div class="page" id="p4">
+  <div class="phead">
+    <span class="pnum">P4</span>
+    <h1>格局分頁：流月、大運流年與今日運勢</h1>
+    <span class="tag orange">需先「開始分析」</span>
+  </div>
+  <p class="psub">此頁整合「身強弱＋十神神煞＋流月＋大運流年作用」，並內建「今日運勢／合婚」雙模式。</p>
+
+  <div class="sect">
+    <h2>STEP 1 — 上方區：日主強弱與神煞</h2>
+    <ul>
+      <li><b>日主強弱五級判定</b>：與五行頁相同的強弱結論（極旺～極弱）。</li>
+      <li><b>喜用神／忌神</b>：綠色＝喜用（★ 為第一優先），紅色 ✕＝忌神。</li>
+      <li><b>五行分數列</b>與<b>神煞卡</b>（含事業建議，例如「將星：適合領導職」）。</li>
+      <li><b>四柱沖合刑害</b>：年／月／日／時支之間有無六沖、三合、刑害，顯示關係說明。</li>
+    </ul>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 2 — 查詢年切換（右上）＋ 流月排盤</h2>
+    <p>頁面右上「查詢年」可切換年份（例：2025）。切換後：</p>
+    <ul>
+      <li><b>{年份}年 流月排盤</b>：列出該年 1–12 月每月的干支（月柱）。</li>
+      <li>方便看「哪個月干支跟我的喜用神合」→ 對應實際農曆月份行動。</li>
+    </ul>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 3 — 大運流年作用分析（{查詢年}）</h2>
+    <table class="tbl">
+      <tr><th style="width:22%">區塊</th><th>內容</th></tr>
+      <tr><td><b>流年／大運</b></td><td>該年的流年干支與你目前的大運干支並列</td></tr>
+      <tr><td><b>作用分析</b></td><td>流年大運與原局干支的生剋合沖，逐條列出警示（紅色）或平穩（✅ 綠色）</td></tr>
+      <tr><td><b>流年與原局干支關係</b></td><td>逐柱標示沖／合／刑／害等關係</td></tr>
+    </table>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 4 — 今日運勢／合婚 雙模式（頁面下方按鈕切換）</h2>
+    <div class="two">
+      <div class="box g">
+        <div class="bt">🌤 今日運勢（預設）</div>
+        <p>比較「你的命盤 × 今天（日期可自選）」，五維度評分：</p>
+        <ul class="mini">
+          <li><b>天干地支關係</b>（生剋沖合）</li>
+          <li><b>喜用神匹配</b>（今日五行是否補你所需）</li>
+          <li><b>十神疊加</b>（今天十神活化哪些特質）</li>
+          <li><b>納音</b>（納音五行互動）</li>
+          <li><b>神煞</b>（今日神煞吉凶）</li>
+        </ul>
+        <p>輸出<b>綜合分數＋等級</b>（如 76 分・良好）與<b>📌 今日建議</b>（適合做什麼、避開什麼）。日期可用「今日」按鈕快速回今天。</p>
+      </div>
+      <div class="box y">
+        <div class="bt">💞 合婚（切換模式）</div>
+        <p>輸入<b>對方生辰</b>（日期時間性別），系統以同樣五維度比較兩張命盤：</p>
+        <ul class="mini">
+          <li>輸出<b>契合度分數與等級</b></li>
+          <li>附雙方<b>相處建議</b>（誰遷就誰、互補點、衝突點）</li>
+        </ul>
+        <p>課堂／情侶互動神器：把兩人的生日都輸入看看。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer"><span>MyPaths 生命數據庫 · 使用者指南</span><span>P4 · 格局</span></div>
+</div>
+
+<!-- ════════════ P5 運勢 ════════════ -->
+<div class="page" id="p5">
+  <div class="phead">
+    <span class="pnum">P5</span>
+    <h1>運勢分頁：年度命理方案報告</h1>
+    <span class="tag orange">需先「開始分析」</span>
+  </div>
+  <p class="psub">此頁把整份命盤濃縮成「{查詢年} 年命理方案」報告：一頁式深度分析＋大師建議，右上角 🖨 可列印分享。</p>
+
+  <div class="sect">
+    <h2>STEP 1 — 設定查詢年並閱讀報告頭</h2>
+    <ul>
+      <li>標題：<b>{年份} 年命理方案</b>・年度深度分析・個人行動建議。</li>
+      <li>右上「查詢年」可切換要看的年度；副標顯示「{年份}年 {身強弱} 之命」。</li>
+    </ul>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 2 — 逐區閱讀（由上而下）</h2>
+    <table class="tbl">
+      <tr><th style="width:30%">區塊</th><th>讀法</th></tr>
+      <tr><td><b>🌗 五行分佈與十神</b></td><td>金木水火土強度條；標示 喜用（綠）／忌神（紅）</td></tr>
+      <tr><td><b>喜用神・開運方位</b></td><td>本命該補的五行與對應方位（喜用神元素 → 東／南／西／北）</td></tr>
+      <tr><td><b>四柱主神煞</b></td><td>每柱最重要的神煞與其意義；含「適合」事業建議</td></tr>
+      <tr><td><b>⚖ 命局格局分析</b></td><td>格局名稱（吉／凶標色）與說明（如食神制殺等）</td></tr>
+      <tr><td><b>星運四數（長生／冠帶／帝旺／墓庫）</b></td><td>四組幸運數字列（趣味參考）</td></tr>
+      <tr><td><b>{年}年流年運勢</b></td><td>大圓環分數（如 76 分）＋ 流年干支 ＋ 吉凶月份表（📅 12 個月逐一標色）</td></tr>
+      <tr><td><b>⚡ 大運流年預警</b></td><td>該年大運＋流年是否沖剋原局——警示項目或「✅ 平穩」</td></tr>
+      <tr><td><b>大師建議</b></td><td>年度總結語氣 ＋ 事業／財運／感情／健康／五行補充五大建議，逐項可讀</td></tr>
+    </table>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 3 — 使用與列印</h2>
+    <ul>
+      <li>看「吉凶月份」→ 挑旺月行動、弱月保守。</li>
+      <li>看「大師建議」→ 直接當年度規劃參考。</li>
+      <li>按 <b>🖨</b> 輸出 A4 報告給朋友或自己留檔。</li>
+    </ul>
+    <div class="box y"><div class="bt">提醒</div>內容為命理參考性質，投資／感情／健康重大決定請以專業意見為準。</div>
+  </div>
+
+  <div class="footer"><span>MyPaths 生命數據庫 · 使用者指南</span><span>P5 · 運勢</span></div>
+</div>
+
+<!-- ════════════ P6 飛星 ════════════ -->
+<div class="page" id="p6">
+  <div class="phead">
+    <span class="pnum">P6</span>
+    <h1>飛星分頁：玄空九宮飛星盤</h1>
+    <span class="tag orange">需先「開始分析」</span>
+  </div>
+  <p class="psub">顯示年／月／日／時四張九宮飛星盤，可切換南北向、並用「四星合盤」一次看四層星。</p>
+
+  <div class="sect">
+    <h2>STEP 1 — 控制列</h2>
+    <ul>
+      <li>顯示你的四柱干支（例：庚寅年 辛巳月 戊午日 丁巳時）。</li>
+      <li>勾選「<b>北上南下</b>」可將整盤 <b>180° 翻轉</b>：南上北下＝傳統風水坐向；北上南下＝地圖習慣。宮位名稱與星位會一起旋轉。</li>
+    </ul>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 2 — 認識一張飛星盤（九宮格）</h2>
+    <ul>
+      <li>每張盤＝3×3 九宮，中央為<b>中宮</b>（該盤的入中星），其餘八宮按洛書軌跡排列。</li>
+      <li>每格顯示：宮位名稱（坎／坤／震…）、飛星數字（1 白～9 紫）、吉凶顏色。</li>
+      <li>口訣：<b>1 白吉・2 黑病・3 碧是非・4 綠文昌・5 黃煞・6 白武曲・7 赤破軍・8 白財・9 紫喜</b>。</li>
+    </ul>
+    <div class="box g"><div class="bt">四張盤與你的八字同步</div>
+      <ul class="mini">
+        <li><b>年飛星盤</b>：以立春為界；若出生在<b>丑月（立春前）</b>則用上年星——與八字年柱一致。</li>
+        <li><b>月飛星盤</b>：依<b>八字月支</b>查表（與八字月柱連動）。</li>
+        <li><b>日／時飛星盤</b>：由當日干支與時辰推出，並依<b>夏至前後</b>判斷陰陽遁（陽遁 1·4·7 順行／陰遁 9·6·3 逆行）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 3 — 四星合盤（頁面最後一張）</h2>
+    <p>每宮以 2×2 顯示 <b>年／月／日／時</b> 四顆星，一眼看出該方位四個時間層次的能量：</p>
+    <ul>
+      <li>例：想知「我書桌這個方位這一年+這個月+今天+此刻」的吉凶——看四星合盤該宮即可。</li>
+      <li>用法：先找<b>5 黃煞位</b>（病符）避開，再找<b>8 白／9 紫</b>旺位善用。</li>
+    </ul>
+    <div class="box y"><div class="bt">時星分組規則（進階）</div>
+      時辰地支分三組定入中序：<b>四正（子午卯酉）→ 上元 1·4·7</b>、<b>四庫（辰戌丑未）→ 中元 2·5·8</b>、<b>四生（寅申巳亥）→ 下元 3·6·9</b>；再依陰陽遁決定順行或逆行。
+    </div>
+  </div>
+
+  <div class="footer"><span>MyPaths 生命數據庫 · 使用者指南</span><span>P6 · 飛星</span></div>
+</div>
+
+<!-- ════════════ P7 V數 ════════════ -->
+<div class="page" id="p7">
+  <div class="phead">
+    <span class="pnum">P7</span>
+    <h1>V數分頁：生命數字命盤</h1>
+    <span class="tag orange">需先「開始分析」</span>
+  </div>
+  <p class="psub">以出生年月日為輸入的生命數字（V 數）系統——不須時辰與性別，重點在「數字能量」與性格特質。</p>
+
+  <div class="sect">
+    <h2>STEP 1 — 輸入與取數</h2>
+    <ul>
+      <li>只需<b>出生年月日</b>（時辰、性別不影響本頁）。</li>
+      <li>按「開始分析」後，系統由出生年月日推算出命盤中的數字結構。</li>
+    </ul>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 2 — 讀數字命盤</h2>
+    <ul>
+      <li>畫面呈現各數字（1–9）的能量位置與對應說明（個性、天賦、人際模式）。</li>
+      <li><b>「過多」數字</b>：紅色提示——該數字特質過剩的注意點（例：數字 5 過多→過度頑固）。</li>
+      <li><b>「缺乏」數字</b>：白色提示——該數字能量的補強建議。</li>
+      <li>點開數字可看詳細性格解說（如「個性數字 5…勇氣、意志力、頑強」）。</li>
+    </ul>
+    <div class="box g"><div class="bt">與八字的關係</div>V數與八字是「同一張命盤的兩種讀法」：八字看五行生剋，V數看數字能量；兩者可互相印證性格描述。</div>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 3 — 九年運程</h2>
+    <ul>
+      <li>頁面下方顯示<b>九年運程</b>：未來九年每年的流年數字與運勢重點。</li>
+      <li>用途：看今年走到哪個流年數字、該數字的開運重點（事業年／桃花年／重整年…）。</li>
+    </ul>
+  </div>
+
+  <div class="footer"><span>MyPaths 生命數據庫 · 使用者指南</span><span>P7 · V數</span></div>
+</div>
+
+<!-- ════════════ P8 易占 ════════════ -->
+<div class="page" id="p8">
+  <div class="phead">
+    <span class="pnum">P8</span>
+    <h1>易占分頁：梅花易數起卦斷吉凶</h1>
+    <span class="tag orange">需先「開始分析」</span>
+  </div>
+  <p class="psub">以出生年月日時起卦（梅花易數・年月日時法），得出本卦／互卦／變卦與體用生剋。</p>
+
+  <div class="sect">
+    <h2>STEP 1 — 輸入與起卦</h2>
+    <ul>
+      <li>需設定<b>年月日時</b>（性別不影響）。</li>
+      <li>頂端顯示農曆換算、歲數，並列出起卦算式（例：年支 X + 月 Y + 日 Z = 上卦數 + 時支 W = 動爻數）。</li>
+    </ul>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 2 — 三張卦卡</h2>
+    <div class="pill4">
+      <div><div class="t">本卦</div><div class="v" style="font-size:11px">䷰ 革</div><div class="c">現況主體</div></div>
+      <div><div class="t">互卦</div><div class="v" style="font-size:11px">䷫ 姤</div><div class="c">中間過程</div></div>
+      <div><div class="t">變卦</div><div class="v" style="font-size:11px">䷆ 師</div><div class="c">發展結果</div></div>
+      <div><div class="t">動爻</div><div class="v">3爻</div><div class="c">關鍵轉折</div></div>
+    </div>
+    <ul>
+      <li><b>本卦</b>＝問事當下狀態；<b>互卦</b>＝發展中的過程；<b>變卦</b>＝最終趨勢（有動爻才產生）。</li>
+      <li>動爻標示在卦畫上——它是整個占卜的「題眼」。</li>
+    </ul>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 3 — 體用五行與吉凶百分比</h2>
+    <table class="tbl">
+      <tr><th style="width:26%">項目</th><th>判讀</th></tr>
+      <tr><td><b>本卦屬／體／用</b></td><td>卦的五行屬性；「體」＝自己、「用」＝所問之事</td></tr>
+      <tr><td><b>體用關係</b></td><td>比和（吉）／用生體（吉）／體生用（耗）／體克用（勞）／用克體（凶）</td></tr>
+      <tr><td><b>吉凶比例</b></td><td>吉 % ／ 凶 % 環狀圖＋進度條</td></tr>
+      <tr><td><b>卦象解析</b></td><td>本卦【卦名】等級（大吉～大凶）＋互卦／變卦的白話解讀與整體結論</td></tr>
+    </table>
+    <div class="box y"><div class="bt">使用心法</div>
+      想問「今年運勢」就看本卦與變卦；吉凶比例超過 70% 吉＝大吉之年，50–70＝平順年，低於 50＝宜守不宜攻。
+    </div>
+  </div>
+
+  <div class="footer"><span>MyPaths 生命數據庫 · 使用者指南</span><span>P8 · 易占</span></div>
+</div>
+
+<!-- ════════════ P9 AI ════════════ -->
+<div class="page" id="p9">
+  <div class="phead">
+    <span class="pnum">P9</span>
+    <h1>AI 分頁：八字 AI 命理解說</h1>
+    <span class="tag orange">需「開始分析」＋自備 Gemini API Key</span>
+  </div>
+  <p class="psub">用 Google Gemini 依你的命盤（八字＋五行＋身強弱＋喜用神）生成詳細命理解說報告。</p>
+
+  <div class="sect">
+    <h2>STEP 1 — 設置 Gemini API Key（第一次使用必做）</h2>
+    <div class="steps">
+      <div class="st"><span class="n">1</span><div class="b">點畫面右上角<b>齒輪 ⚙ 按鈕</b>開啟設定視窗。</div></div>
+      <div class="st"><span class="n">2</span><div class="b">到 <b>aistudio.google.com/apikey</b>（免費）登入 Google 帳號。</div></div>
+      <div class="st"><span class="n">3</span><div class="b">點「<b>Create API key</b>」→ 選專案 → 複製金鑰（AIzaSy…或 AQ…開頭）。</div></div>
+      <div class="st"><span class="n">4</span><div class="b">貼回本頁輸入框並儲存。金鑰只存在<b>你自己的瀏覽器</b>（localStorage），不會上傳。</div></div>
+    </div>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 2 — 確認緣主資料與次數</h2>
+    <ul>
+      <li>輸入列須有完整<b>姓名＋出生年月日時</b>（AI 會把命盤摘要傳給 Gemini 當背景）。</li>
+      <li>畫面顯示用量：<b>今日已用 X / 每日 Y</b> 與 <b>本分鐘剩餘</b>——每日額度依你的等級（免費 10 次/日為例）。</li>
+      <li>若顯示「今日已用滿」或「本分鐘剩餘 0」，請明日再試或升級等級。</li>
+    </ul>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 3 — 產生報告與列印</h2>
+    <ul>
+      <li>點<b>生成報告</b>：等待約 10–30 秒，結果以 HTML 報告顯示在頁內。</li>
+      <li>報告含：命盤摘要、五行分析、性格事業建議、流年提示等（依 Gemini 生成，內容每次略有不同）。</li>
+      <li>下方提供<b>列印按鈕</b>，可輸出成 PDF 存檔。</li>
+    </ul>
+    <div class="box g"><div class="bt">提醒</div>
+      <ul class="mini">
+        <li>AI 回答屬生成式內容，僅供參考；重大決定請以專業意見為準。</li>
+        <li>Gemini API 免費額度由 Google 決定，用量大時可能需付費方案。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer"><span>MyPaths 生命數據庫 · 使用者指南</span><span>P9 · AI</span></div>
+</div>
+
+<!-- ════════════ P10 擇日 ════════════ -->
+<div class="page" id="p10">
+  <div class="phead">
+    <span class="pnum">P10</span>
+    <h1>擇日分頁：農民曆宜忌與吉日挑選</h1>
+    <span class="tag orange">需先「開始分析」</span>
+  </div>
+  <p class="psub">月曆式顯示每日宜忌、沖煞、節氣與吉神方位，方便為搬家、開業、簽約、結婚挑日子。</p>
+
+  <div class="sect">
+    <h2>STEP 1 — 選月份</h2>
+    <ul>
+      <li>預設停在輸入列的年份月份；用月曆上方的 <b>‹ › 箭頭</b>切換月份。</li>
+      <li>「回到今天」按鈕可快速跳回當月；今天日期會特別標示。</li>
+    </ul>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 2 — 讀每日格子</h2>
+    <ul>
+      <li>每格顯示：<b>陽曆日＋農曆日</b>；逢<b>節氣</b>以紅字顯示節名（立春、驚蟄…）。</li>
+      <li><b>宜／忌</b>列於格子內（宜嫁娶、宜開市…；忌作灶、忌出行…）。</li>
+      <li>特殊日會標示：<b>天赦日</b>（金黃色）＝大吉日；<b>四離／四絕日</b>＝諸事不宜。</li>
+    </ul>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 3 — 點選日期看詳情（右側／下方面板）</h2>
+    <table class="tbl">
+      <tr><th style="width:34%">項目</th><th>內容</th></tr>
+      <tr><td><b>陽曆／農曆</b></td><td>點選日的完整換算與干支</td></tr>
+      <tr><td><b>宜／忌</b></td><td>該日完整的宜忌事項清單</td></tr>
+      <tr><td><b>吉神方位</b></td><td>喜神、財神、福神、陽貴、陰貴 的方位（例：財神在正南）</td></tr>
+      <tr><td><b>沖煞</b></td><td>沖何生肖、煞何方（例：沖羊、煞東）——避開沖到自己生肖的日子</td></tr>
+      <tr><td><b>天赦日列表</b></td><td>該年所有天赦日與總數（例：2025 年共 6 天）</td></tr>
+      <tr><td><b>四離／四絕</b></td><td>該年四離日（春分夏至前後）與四絕日（立春立秋前後）清單，宜避</td></tr>
+    </table>
+    <div class="box g"><div class="bt">挑日三步驟</div>
+      ① 避開沖自己生肖／四離四絕 → ② 優先選「宜」含目標事項（開市、入宅）→ ③ 對照 P5 的吉凶月份／喜用神，旺月旺日最佳。
+    </div>
+  </div>
+
+  <div class="footer"><span>MyPaths 生命數據庫 · 使用者指南</span><span>P10 · 擇日</span></div>
+</div>
+
+<!-- ════════════ P11 個人 ════════════ -->
+<div class="page" id="p11">
+  <div class="phead">
+    <span class="pnum">P11</span>
+    <h1>個人分頁：等級、API Key 與管理後台</h1>
+    <span class="tag">隨時可看</span>
+  </div>
+  <p class="psub">點右上角 👤 進入。管理自己的個人資料、等級與用量；管理員可進「控制台」看統計與金鑰。</p>
+
+  <div class="sect">
+    <h2>STEP 1 — 個人資料與 API Key</h2>
+    <ul>
+      <li>填寫<b>姓名／Email</b>並按儲存（只存本機）。</li>
+      <li><b>API Key</b>欄：填入向管理員申請的金鑰（見下）即可啟用等級權益；留空＝以訪客身份使用（免費額度）。</li>
+      <li>儲存後系統會驗證金鑰並顯示你的等級。</li>
+    </ul>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 2 — 用量與等級額度</h2>
+    <table class="tbl">
+      <tr><th>等級</th><th>每日分析</th><th>每分鐘</th><th>說明</th></tr>
+      <tr><td>免費 free</td><td>30</td><td>5</td><td>訪客／未設金鑰</td></tr>
+      <tr><td>Plus</td><td>100</td><td>10</td><td>一般進階</td></tr>
+      <tr><td>進階 premium</td><td>300</td><td>30</td><td>重度用戶</td></tr>
+      <tr><td>管理員 admin</td><td>5000</td><td>300</td><td>營運者</td></tr>
+    </table>
+    <p>帳戶卡片顯示：<b>今日已用 X / 剩餘</b>（每日＋每分鐘）。</p>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 3 — 申請 API Key（WhatsApp）</h2>
+    <ol>
+      <li>填好上方姓名／Email，選擇想要的等級（free / plus / premium）。</li>
+      <li>按<b>「WhatsApp 申請」</b>按鈕 → 會自動開啟與管理員的對話並帶入申請內容。</li>
+      <li>管理員審核後把金鑰發給你，貼回本頁儲存即可。</li>
+    </ol>
+  </div>
+
+  <div class="sect">
+    <h2>STEP 4 — 控制台（管理員限定）</h2>
+    <p>點「控制台」進入管理後台：</p>
+    <ul>
+      <li><b>狀態／設定</b>：顯示服務狀態，可自動生成或輪換<b>管理員金鑰</b>（建議定期輪換）。</li>
+      <li><b>用戶統計</b>：各等級（free／plus／premium／admin）用戶人數。</li>
+      <li><b>流量統計</b>：今日分析次數、累計分析次數、今日活躍用戶、今日／累計已分析用戶。</li>
+      <li><b>API Key 管理</b>：列出所有金鑰（等級、持有人、建立時間），可刪除。</li>
+    </ul>
+    <div class="box y"><div class="bt">安全提醒</div>管理員金鑰＝最高權限，等同系統密碼；請勿張貼在公開處。金鑰等級務必審慎授權。</div>
+  </div>
+
+  <div class="footer"><span>MyPaths 生命數據庫 · 使用者指南</span><span>P11 · 個人／管理</span></div>
+</div>
+
+</body>
+</html>
