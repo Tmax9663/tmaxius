@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>八字十神解说 · 完整整理</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#2b2620;
+    --ink-soft:#5a5148;
+    --line:#e3dbcd;
+    --accent:#8a6d3b;
+    --accent-soft:#c8a86b;
+    --accent-bg:#f3ecdd;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Songti SC","Noto Serif TC","Source Han Serif TC",Georgia,"PingFang TC","Microsoft JhengHei",serif;
+    line-height:1.9;
+    font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px 90px;}
+
+  /* ── 封面 ── */
+  header.cover{
+    text-align:center;
+    padding:70px 22px 50px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:54px;
+    background:radial-gradient(circle at 50% 0%, #fff9ec 0%, rgba(255,249,236,0) 70%);
+  }
+  header.cover .kicker{
+    font-size:.82rem;letter-spacing:.42em;color:var(--accent);
+    margin:0 0 20px;text-indent:.42em;
+  }
+  header.cover h1{
+    font-size:2.5rem;margin:0 0 14px;letter-spacing:.14em;font-weight:600;
+  }
+  header.cover h1 small{
+    display:block;font-size:1rem;letter-spacing:.3em;color:var(--ink-soft);
+    font-weight:400;margin-top:16px;text-indent:.3em;
+  }
+  header.cover .sub{
+    color:var(--ink-soft);font-size:.95rem;max-width:600px;margin:22px auto 0;
+  }
+
+  /* ── 目錄 ── */
+  nav.toc{
+    background:var(--paper);border:1px solid var(--line);border-radius:10px;
+    padding:26px 30px;margin-bottom:56px;box-shadow:0 2px 14px rgba(120,100,70,.05);
+  }
+  nav.toc h2{
+    font-size:.85rem;letter-spacing:.3em;color:var(--accent);
+    margin:0 0 18px;font-weight:600;text-indent:.3em;
+  }
+  nav.toc .toc-group{margin-bottom:14px;}
+  nav.toc .toc-group:last-child{margin-bottom:0;}
+  nav.toc .toc-group h3{
+    font-size:.74rem;letter-spacing:.22em;color:#a08c62;margin:0 0 6px;
+    font-weight:600;border:none;padding:0;
+  }
+  nav.toc ul{
+    list-style:none;margin:0;padding:0;
+    display:flex;flex-wrap:wrap;gap:4px 8px;
+  }
+  nav.toc ul li{font-size:.92rem;}
+  nav.toc ul li a{
+    color:var(--ink-soft);text-decoration:none;
+    border:1px solid transparent;border-radius:20px;
+    padding:2px 12px;display:inline-block;transition:.15s;
+  }
+  nav.toc ul li a:hover{
+    color:var(--accent);border-color:var(--accent-soft);background:#fbf7ee;
+  }
+
+  /* ── 標題 ── */
+  h2.sec{
+    font-size:1.5rem;letter-spacing:.08em;margin:78px 0 8px;
+    padding-bottom:14px;border-bottom:2px solid var(--accent-soft);
+    position:relative;font-weight:600;scroll-margin-top:20px;
+  }
+  h2.sec::before{
+    content:"";position:absolute;left:0;bottom:-2px;
+    width:76px;height:2px;background:var(--accent);
+  }
+  h2.sec .num{
+    display:inline-block;font-size:.76rem;letter-spacing:.2em;color:var(--accent);
+    vertical-align:middle;margin-right:12px;border:1px solid var(--accent-soft);
+    border-radius:4px;padding:2px 9px;position:relative;top:-3px;font-weight:400;
+  }
+  h3{
+    font-size:1.14rem;margin:44px 0 12px;letter-spacing:.05em;
+    color:var(--ink);font-weight:600;padding-left:14px;
+    border-left:4px solid var(--accent-soft);
+  }
+  h4{
+    font-size:1rem;margin:30px 0 8px;color:var(--accent);
+    letter-spacing:.06em;font-weight:600;
+  }
+
+  p{margin:0 0 16px;text-align:justify;}
+  .lead{font-size:1.05rem;color:var(--ink-soft);}
+  ul,ol{margin:0 0 18px;padding-left:1.6em;}
+  li{margin-bottom:7px;}
+  strong{color:#1f1a15;font-weight:600;}
+  em{font-style:normal;color:var(--accent);font-weight:600;}
+
+  /* ── 卡片 ── */
+  .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:10px;
+    padding:26px 30px;margin:24px 0;box-shadow:0 2px 12px rgba(120,100,70,.045);
+  }
+  .card > :first-child{margin-top:0;}
+  .card > :last-child{margin-bottom:0;}
+
+  .quote{
+    background:var(--accent-bg);border-left:4px solid var(--accent-soft);
+    padding:18px 24px;margin:24px 0;color:#4a3f31;
+    border-radius:0 8px 8px 0;font-size:.98rem;
+  }
+  .quote p:last-child{margin-bottom:0;}
+
+  .note{
+    background:#fbf6ea;border:1px dashed var(--accent-soft);border-radius:8px;
+    padding:16px 22px;font-size:.92rem;color:var(--ink-soft);margin:24px 0;
+  }
+  .note strong{color:var(--accent);}
+
+  /* ── 表格 ── */
+  .tbl-wrap{overflow-x:auto;margin:26px 0;}
+  table{
+    width:100%;border-collapse:collapse;font-size:.93rem;background:var(--paper);
+    border:1px solid var(--line);border-radius:8px;overflow:hidden;
+  }
+  caption{
+    caption-side:top;text-align:left;font-size:.85rem;letter-spacing:.16em;
+    color:var(--accent);padding-bottom:10px;
+  }
+  th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;}
+  thead th{
+    background:var(--accent-bg);color:#4a3f31;font-weight:600;
+    letter-spacing:.06em;white-space:nowrap;
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:nth-child(even){background:#fdfbf5;}
+
+  /* ── 十神卡片 ── */
+  .god-card{
+    border:1px solid var(--line);border-radius:10px;background:var(--paper);
+    margin:28px 0;overflow:hidden;box-shadow:0 3px 16px rgba(120,100,70,.06);
+  }
+  .god-card .head{
+    display:flex;align-items:baseline;gap:14px;padding:20px 28px;
+    background:linear-gradient(180deg,#f6efe1,#f1e8d6);
+    border-bottom:1px solid var(--line);flex-wrap:wrap;
+  }
+  .god-card .head .glyph{
+    font-size:1.7rem;letter-spacing:.1em;font-weight:600;color:#3a3128;
+  }
+  .god-card .head .en{
+    font-size:.78rem;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;
+  }
+  .god-card .head .role{
+    font-size:.82rem;color:var(--ink-soft);margin-left:auto;
+    border:1px solid var(--accent-soft);border-radius:20px;
+    padding:2px 12px;white-space:nowrap;
+  }
+  .god-card .body{padding:8px 28px 24px;}
+  .god-card .body > :first-child{margin-top:18px;}
+
+  .kv{
+    display:grid;grid-template-columns:88px 1fr;gap:4px 16px;
+    font-size:.93rem;margin:18px 0;padding:16px 0;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .kv dt{color:var(--accent);font-weight:600;}
+  .kv dd{margin:0;color:var(--ink-soft);}
+
+  .en-block{
+    margin-top:26px;padding-top:20px;border-top:1px dashed var(--line);
+    font-size:.9rem;color:#6d6459;font-family:Georgia,"Times New Roman",serif;
+    line-height:1.85;
+  }
+  .en-block h4{
+    font-family:inherit;color:#8a7c68;letter-spacing:.02em;
+    font-size:.95rem;margin:0 0 8px;
+  }
+
+  .two-col{
+    display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:22px 0;
+  }
+  .two-col .box{
+    background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    padding:18px 20px;
+  }
+  .two-col .box h4{margin-top:0;}
+  .two-col .box ul{margin-bottom:0;font-size:.93rem;}
+
+  .three-col{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:22px 0;
+  }
+  .three-col .box{
+    background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    padding:18px 20px;
+  }
+  .three-col .box h4{margin-top:0;font-size:.95rem;}
+  .three-col .box p{font-size:.9rem;margin-bottom:0;}
+
+  hr.sep{
+    border:none;height:1px;
+    background:linear-gradient(90deg,transparent,var(--accent-soft),transparent);
+    margin:64px 0;
+  }
+
+  .pair-compare{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;margin:26px 0;
+    border:1px solid var(--line);border-radius:10px;overflow:hidden;
+    background:var(--paper);
+  }
+  .pair-compare > div{padding:22px 24px;}
+  .pair-compare > div:first-child{border-right:1px solid var(--line);}
+  .pair-compare h4{margin-top:0;font-size:1.05rem;letter-spacing:.1em;}
+  .pair-compare ul{padding-left:1.2em;margin-bottom:0;font-size:.94rem;}
+
+  footer{
+    margin-top:80px;padding-top:28px;border-top:1px solid var(--line);
+    font-size:.86rem;color:#8d8478;text-align:center;
+  }
+
+  @media (max-width:640px){
+    body{font-size:16px;}
+    header.cover{padding:48px 18px 36px;}
+    header.cover h1{font-size:1.8rem;}
+    nav.toc{padding:22px;}
+    .card{padding:20px 20px;}
+    .god-card .head{padding:16px 20px;}
+    .god-card .body{padding:8px 20px 20px;}
+    .two-col,.three-col{grid-template-columns:1fr;}
+    .pair-compare{grid-template-columns:1fr;}
+    .pair-compare > div:first-child{border-right:none;border-bottom:1px solid var(--line);}
+    .kv{grid-template-columns:76px 1fr;}
+    h2.sec{font-size:1.28rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <p class="kicker">八字命理 · 十神</p>
+  <h1>十神解说
+    <small>从「我」与世界的关系，看懂人际、性格与人生</small>
+  </h1>
+  <p class="sub">以日元为「我」，观察我与八字中其他五行之间的生克关系——生我、我生、我克、克我、同我，由此展开十神的人生关系图。</p>
+</header>
+
+<div class="wrap">
+
+  <nav class="toc">
+    <h2>目 錄</h2>
+
+    <div class="toc-group">
+      <h3>總 論</h3>
+      <ul>
+        <li><a href="#s1">什么是十神</a></li>
+        <li><a href="#s2">十神关系总表</a></li>
+      </ul>
+    </div>
+
+    <div class="toc-group">
+      <h3>同 我 · 比 劫</h3>
+      <ul>
+        <li><a href="#s3">比肩</a></li>
+        <li><a href="#s4">劫财</a></li>
+        <li><a href="#s5">比肩与劫财对照</a></li>
+      </ul>
+    </div>
+
+    <div class="toc-group">
+      <h3>我 生 · 食 伤</h3>
+      <ul>
+        <li><a href="#s6">食神</a></li>
+        <li><a href="#s7">伤官</a></li>
+        <li><a href="#s8">伤官配印</a></li>
+        <li><a href="#s9">食神生财</a></li>
+        <li><a href="#s10">枭神夺食</a></li>
+      </ul>
+    </div>
+
+    <div class="toc-group">
+      <h3>我 克 · 财 星</h3>
+      <ul>
+        <li><a href="#s11">正财</a></li>
+        <li><a href="#s12">偏财</a></li>
+        <li><a href="#s13">财多身子弱</a></li>
+      </ul>
+    </div>
+
+    <div class="toc-group">
+      <h3>克 我 · 官 杀</h3>
+      <ul>
+        <li><a href="#s14">正官</a></li>
+        <li><a href="#s15">七杀</a></li>
+        <li><a href="#s16">正官与七杀对照</a></li>
+      </ul>
+    </div>
+
+    <div class="toc-group">
+      <h3>生 我 · 印 星</h3>
+      <ul>
+        <li><a href="#s17">正印</a></li>
+        <li><a href="#s18">偏印</a></li>
+      </ul>
+    </div>
+
+    <div class="toc-group">
+      <h3>综 合</h3>
+      <ul>
+        <li><a href="#s19">日柱与夫妻宫</a></li>
+        <li><a href="#s20">四柱分别代表什么</a></li>
+        <li><a href="#s21">十神：一张人生关系图</a></li>
+        <li><a href="#s22">名人八字参考</a></li>
+        <li><a href="#s23">结语：知己知彼</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══════════ 1 ══════════ -->
+  <h2 class="sec" id="s1"><span class="num">一</span>什么是十神</h2>
+
+  <p class="lead">这里所说的「十神」，与神鬼没有任何关系。</p>
+
+  <p>简单来说，十神就是以我们的日元——也就是「我」——为中心，观察「我」与八字中其他五行之间所形成的生克关系。</p>
+
+  <p>因此，看一个人的性格、思维方式以及人生际遇，不能只看他的日元是什么，也需要观察八字中出现了哪些十神、它们处在什么位置，以及彼此之间的力量和关系。</p>
+
+  <h3>十神从哪里来</h3>
+
+  <p>十神最有意思的地方，就是它把人与人之间的关系，用五行的生克制化表现出来。简单来说：</p>
+
+  <ul>
+    <li><strong>生我者为印</strong>——滋养、保护、教育、知识</li>
+    <li><strong>我生者为食伤</strong>——表达、创造、输出</li>
+    <li><strong>我克者为财</strong>——现实、资源、责任</li>
+    <li><strong>克我者为官杀</strong>——规则、责任、压力与约束</li>
+    <li><strong>同我者为比劫</strong>——同辈、朋友、竞争</li>
+  </ul>
+
+  <p>因此，十神并不是孤立存在的。它们彼此相生、彼此相克，就形成了我们人生中各种不同的关系。</p>
+
+  <h3>看见十神，只是第一步</h3>
+
+  <p>真正学习八字，不能只靠数十神。看见十神只是第一步，看懂十神之间的关系，才是真正开始进入八字的世界。</p>
+
+  <p>判断一个十神，不能简单地说「这个好」或者「那个不好」，而应该看它在整个八字中的位置、力量、组合以及是否达到平衡。这个基本原则，同样可以应用在所有十神的分析上。</p>
+
+  <div class="quote">
+    <p>没有一个十神是绝对的好，也没有一个十神是绝对的坏。</p>
+    <p>关键不是你有什么十神，而是这个十神在你的八字里面，是不是用得好。</p>
+  </div>
+
+  <!-- ══════════ 2 ══════════ -->
+  <h2 class="sec" id="s2"><span class="num">二</span>十神关系总表</h2>
+
+  <p>以日元为「我」，依五行生克与阴阳同异，得出十个神。下表以<strong>甲木日元</strong>为例：</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <caption>十神对应关系（以甲木日元为例）</caption>
+      <thead>
+        <tr>
+          <th>关系</th>
+          <th>十神</th>
+          <th>阴阳</th>
+          <th>甲木日元举例</th>
+          <th>主要象征</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="2">生我<br><span style="font-size:.82rem;color:#8d8478;">（印）</span></td>
+          <td>正印</td>
+          <td>异性</td>
+          <td>癸水</td>
+          <td>母亲、知识、保护、福气</td>
+        </tr>
+        <tr>
+          <td>偏印</td>
+          <td>同性</td>
+          <td>壬水（亥中壬水）</td>
+          <td>养母、偏门技能、玄学宗教</td>
+        </tr>
+        <tr>
+          <td rowspan="2">我生<br><span style="font-size:.82rem;color:#8d8478;">（食伤）</span></td>
+          <td>伤官</td>
+          <td>异性</td>
+          <td>丁火</td>
+          <td>才华、表达、改革、挑战规则</td>
+        </tr>
+        <tr>
+          <td>食神</td>
+          <td>同性</td>
+          <td>丙火</td>
+          <td>才艺、福气、温和输出</td>
+        </tr>
+        <tr>
+          <td rowspan="2">我克<br><span style="font-size:.82rem;color:#8d8478;">（财）</span></td>
+          <td>正财</td>
+          <td>异性</td>
+          <td>己土（丑、未主气）</td>
+          <td>固定收入、正妻、踏实</td>
+        </tr>
+        <tr>
+          <td>偏财</td>
+          <td>同性</td>
+          <td>戊土（辰、戌主气）</td>
+          <td>不固定收入、生意、情人</td>
+        </tr>
+        <tr>
+          <td rowspan="2">克我<br><span style="font-size:.82rem;color:#8d8478;">（官杀）</span></td>
+          <td>正官</td>
+          <td>异性</td>
+          <td>辛金</td>
+          <td>规则、名分、正夫</td>
+        </tr>
+        <tr>
+          <td>七杀</td>
+          <td>同性</td>
+          <td>庚金</td>
+          <td>压力、魄力、偏夫</td>
+        </tr>
+        <tr>
+          <td rowspan="2">同我<br><span style="font-size:.82rem;color:#8d8478;">（比劫）</span></td>
+          <td>比肩</td>
+          <td>同性</td>
+          <td>甲木</td>
+          <td>兄弟、同辈、自我</td>
+        </tr>
+        <tr>
+          <td>劫财</td>
+          <td>异性</td>
+          <td>乙木</td>
+          <td>竞争、合伙、分夺</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="sep">
+
+  <!-- ══════════ 3 比肩 ══════════ -->
+  <h2 class="sec" id="s3"><span class="num">三</span>比肩——我自己来</h2>
+
+  <div class="god-card">
+    <div class="head">
+      <span class="glyph">比肩</span>
+      <span class="en">Friend / Peer</span>
+      <span class="role">同我 · 阴阳同性</span>
+    </div>
+    <div class="body">
+
+      <div class="kv">
+        <dt>五行定义</dt>
+        <dd>与日元同一种五行，阴阳同性</dd>
+        <dt>举例</dt>
+        <dd>日元甲木，甲木即为比肩</dd>
+        <dt>主要象征</dt>
+        <dd>兄弟姐妹、朋友、同辈、同事，以及与自己能力条件接近的人</dd>
+      </div>
+
+      <h4>一、同肩、同辈，也带比较</h4>
+
+      <p>比肩顾名思义，就是跟我同肩、同辈的人。所以在传统八字里，比肩也可以代表兄弟姐妹、朋友、同辈、同事，以及与自己能力和条件比较接近的人。</p>
+
+      <p>而「比」这个字，本身也有比较的意思。所以，比肩虽然是同肩、同辈，但同时也带有比较与竞争的性质。</p>
+
+      <div class="quote">
+        <p>就好像你跟朋友或者兄弟姐妹一起玩游戏，大家都是朋友，但是玩到最后，还是会想知道：</p>
+        <p><strong>到底谁赢？</strong></p>
+      </div>
+
+      <h4>二、独立、自主、有主见</h4>
+
+      <p>比肩格的人通常比较有自己的想法。他们独立、自主、有主见、有原则，也比较有自己的坚持。他们不喜欢受到太多规则和限制。</p>
+
+      <p>所以，如果你是一位老板，而你的员工是比肩性质很强的人，你给他一个明确的目标以后，反而可以放手让他自己去做。</p>
+
+      <p>为什么？因为比肩强的人，往往比较能够自己思考、自己判断、自己承担。你如果给他太多框框，他反而发挥不好。但是如果你告诉他：「这是我们的目标，你自己想办法完成。」他可能做得更加好。</p>
+
+      <p>因此，比肩性质强的人，往往也很适合个人品牌、自由职业、创业，甚至成为网红或自媒体创作者。因为他们需要的是一个可以让自己发挥的空间。他们不喜欢完全依附别人，更喜欢靠自己的能力去完成事情。</p>
+
+      <h4>三、自尊心与原则</h4>
+
+      <p>比肩强的人，也往往非常有自尊心和原则。他们不一定很在意别人怎么看自己。</p>
+
+      <p>之前我们讲过正官格的人，通常比较在意规则，也比较在意社会怎么看自己。但是比肩太旺的人，很多时候想的是：</p>
+
+      <div class="quote">
+        <p><strong>「这是我的人生，我认为对就去做。」</strong></p>
+      </div>
+
+      <p>所以他们不会因为别人不认同，就轻易改变自己的想法。这也是他们的优点，同时也是他们比较容易出现的问题。</p>
+
+      <div class="two-col">
+        <div class="box">
+          <h4>优点</h4>
+          <ul>
+            <li>有原则、有骨气</li>
+            <li>不容易随波逐流</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h4>缺点</h4>
+          <ul>
+            <li>容易固执、主观</li>
+            <li>我行我素</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>他们一旦认定了一件事情，就会坚持到底。朋友多的时候，他们也非常讲义气，对朋友很好。可是与他相处久了，你可能会发现：「这个人真的很有自己的想法。」甚至有时候会觉得他太固执。</p>
+
+      <h4>四、合伙，要特别小心</h4>
+
+      <p>比肩强的人通常不喜欢依附别人，他们比较喜欢靠自己。所以如果要跟别人合伙做生意，也要特别注意彼此的性格。</p>
+
+      <p>因为大家如果都是非常有主见的人，就容易出现：你有你的想法，我有我的想法。最后到底听谁的？</p>
+
+      <p>所以比肩太旺的人，并不是不能合伙，而是合伙的时候一定要把<strong>权责、方向和决定权</strong>讲清楚。否则，朋友变成竞争对手，也是很常见的事情。</p>
+
+      <h4>五、认识我的人很多，了解我的人却很少</h4>
+
+      <p>比肩还有一个很特别的地方。很多比肩强的人，身边其实不缺朋友。但是他们心里面往往会有一种感觉：</p>
+
+      <div class="quote">
+        <p><strong>「认识我的人很多，真正了解我的人却很少。」</strong></p>
+      </div>
+
+      <p>因为他们表面上看起来很独立、很坚强，好像什么事情都可以自己解决。可是他们真正内心的想法，却不一定愿意轻易告诉别人。</p>
+
+      <p>所以，比肩其实是一个很有意思的十神。它代表的不只是竞争，更代表一种：<em>「我靠自己。」</em></p>
+
+    </div>
+  </div>
+
+  <!-- ══════════ 4 劫财 ══════════ -->
+  <h2 class="sec" id="s4"><span class="num">四</span>劫财——大家一起来</h2>
+
+  <div class="god-card">
+    <div class="head">
+      <span class="glyph">劫财</span>
+      <span class="en">Rob Wealth</span>
+      <span class="role">同我 · 阴阳异性</span>
+    </div>
+    <div class="body">
+
+      <div class="kv">
+        <dt>五行定义</dt>
+        <dd>与日元同一种五行，阴阳异性</dd>
+        <dt>举例</dt>
+        <dd>日元甲木，乙木即为劫财</dd>
+        <dt>主要象征</dt>
+        <dd>朋友、同事、合作伙伴、竞争者、人脉</dd>
+      </div>
+
+      <h4>一、我自己来 vs 我们一起来</h4>
+
+      <p>劫财和比肩一样，都是与日元相同的五行。但是比肩是同性，劫财则是异性。所以劫财和比肩其实是「同类」，但是表现出来的方式却不一样。</p>
+
+      <div class="quote">
+        <p>如果说比肩比较像：<strong>「我自己来。」</strong></p>
+        <p>那么劫财比较像：<strong>「我们一起来。」</strong></p>
+      </div>
+
+      <p>劫财的人通常比较有行动力，也比较喜欢与人互动、合作、竞争。他不会让你占到他的便宜。</p>
+
+      <p>他们反应快、胆量比较大，也比较敢冒险。很多时候他们不会像比肩一样想了很久才决定，而是看到机会以后就会：</p>
+
+      <div class="quote">
+        <p><strong>「先做了再说！」</strong></p>
+      </div>
+
+      <p>所以劫财很容易出现一种很强的开创精神。</p>
+
+      <h4>二、朋友、人脉与竞争</h4>
+
+      <p>劫财最大的特点之一，就是朋友、人脉和竞争。因为劫财也是与自己同类的人，所以在现实生活中，它可以代表朋友、同事、合作伙伴，也可以代表竞争者。</p>
+
+      <p>所以劫财强的人，通常不会喜欢一个人孤孤单单地做事情。他们比较容易认识很多人，也比较懂得利用人脉。他们有时候一句话、一个想法，就可以找到人一起做。</p>
+
+      <p>所以如果你发现一个人很喜欢交朋友、很喜欢认识不同的人，而且看到机会就敢冲，这种性格往往就有比较明显的劫财特质。</p>
+
+      <h4>三、财来财去——赚得到，未必守得住</h4>
+
+      <p>但是，劫财也有一个需要特别注意的地方，就是：<strong>财来财去。</strong></p>
+
+      <p>为什么叫「劫财」？因为财星是我所克的五行，而劫财与我是同类，它跟我一起去面对财。</p>
+
+      <p>所以劫财旺的人，赚钱的能力不一定差，反而有时候很敢赚钱、敢投资、敢做生意。但是问题就在于：赚得到，也未必守得住。</p>
+
+      <p>因为他们喜欢朋友，也容易为了朋友、合作、机会而花钱。有时候看到一个机会，就很想投资；看到朋友有困难，又想帮忙。</p>
+
+      <div class="quote">
+        <p>所以劫财旺的人，最重要的不是完全不做，而是要学习：<strong>如何赚钱，更要学习如何守财。</strong></p>
+        <p>因此劫财格的人最好找一个<strong>正财格</strong>的人来当他的财务经理，他只要把赚到的钱给会守财的正财格的人来帮他守着财。</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ 5 比肩劫財對照 ══════════ -->
+  <h2 class="sec" id="s5"><span class="num">五</span>比肩与劫财对照</h2>
+
+  <p>比肩和劫财最大的不同，我会这样简单地形容：</p>
+
+  <div class="pair-compare">
+    <div>
+      <h4>比肩</h4>
+      <p style="font-size:1.05rem;color:var(--accent);font-weight:600;margin-top:0;">「我自己来。」</p>
+      <ul>
+        <li>比较重视自己的想法、原则和独立性</li>
+        <li>往往是一个人也可以做得很好</li>
+        <li>独立判断、坚持方向</li>
+      </ul>
+    </div>
+    <div>
+      <h4>劫财</h4>
+      <p style="font-size:1.05rem;color:var(--accent);font-weight:600;margin-top:0;">「大家一起来。」</p>
+      <ul>
+        <li>比较重视行动、人脉、机会和竞争</li>
+        <li>往往是一群人一起做，力量更大</li>
+        <li>开拓市场、建立人脉、寻找机会</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>所以一个企业里面，如果能够把比肩和劫财用得好，其实也是非常好的组合：有比肩的人负责坚持方向、独立判断；有劫财的人负责开拓市场、建立人脉、寻找机会。</p>
+
+  <p>这就是十神真正有趣的地方。没有一个十神是绝对的好，也没有一个十神是绝对的坏。关键不是你有什么十神，而是这个十神在你的八字里面，是不是用得好。</p>
+
+  <hr class="sep">
+
+  <!-- ══════════ 6 食神 ══════════ -->
+  <h2 class="sec" id="s6"><span class="num">六</span>食神——把兴趣变成才华</h2>
+
+  <div class="god-card">
+    <div class="head">
+      <span class="glyph">食神</span>
+      <span class="en">Eating God</span>
+      <span class="role">我生 · 阴阳同性</span>
+    </div>
+    <div class="body">
+
+      <div class="kv">
+        <dt>五行定义</dt>
+        <dd>我生的五行，阴阳同性</dd>
+        <dt>举例</dt>
+        <dd>日元甲木，木生火，丙火为食神</dd>
+        <dt>主要象征</dt>
+        <dd>才华、兴趣、优雅、享受生活；女命亦代表女儿</dd>
+      </div>
+
+      <h4>一、食神格，有「富神格」之称</h4>
+
+      <p>食神、伤官都是我所生，代表我们向外表达、发挥、创造和展现出来的能量。对于女命来说，食神也代表女儿。</p>
+
+      <p>所谓食神格，就是一个人能够很自然地把自己的才华发挥出来，把兴趣、创意和能力展现给别人。在传统命理中，食神格也有<strong>「富神格」</strong>之称。</p>
+
+      <p>食神是我所生的五行，但与日元属于阴阳同性。例如，一个人的日元是甲木，木能够生火，所以火就是甲木的食伤。其中，丙火为食神，丁火为伤官。</p>
+
+      <h4>二、什么样的人是食神格？</h4>
+
+      <p>如果一个女孩子具有食神格，她通常比较懂得享受生活。</p>
+
+      <p>她喜欢把自己打扮得漂亮，说话比较慢、比较温柔，给人一种优雅、有气质的感觉。她喜欢美好的事物、美食、音乐、艺术，也比较重视生活上的情趣。</p>
+
+      <p>这类人通常不喜欢与别人争执，性格比较温和、乐观，而且兴趣广泛。她们可能喜欢美食、音乐、绘画、写作、舞蹈、唱歌等，并且能够从自己的兴趣中找到精神上的满足。</p>
+
+      <p>食神代表「我所生」，所以在女命当中，食神也代表女儿。如果一个母亲本身拥有优雅而好的食神能量，她所生的孩子也比较容易承接到这种好的气，我们称之为<em>「好气」</em>。</p>
+
+      <h4>三、食神与才华</h4>
+
+      <p>食神格的人一般比较斯文、有气质，也比较聪明。他们通常不喜欢受到太多控制，更喜欢做自己真正喜欢的事情。因此，他们在艺术、语言、歌舞、绘画、写作、烹饪等方面，往往比较容易发挥自己的天分。</p>
+
+      <p>所以，这类人可能适合从事艺术家、作家、舞蹈家、歌唱家、厨师、创作者或自由业者等工作。为什么？因为他们能够把自己的兴趣发挥成才华。</p>
+
+      <h4>四、食神生财</h4>
+
+      <p>所以八字里面有一句很重要的话：<em>「食神生财。」</em></p>
+
+      <p>简单来说，就是一个人能够做自己喜欢的事情，把兴趣变成才华，再把才华发挥出来，最后创造财富。</p>
+
+      <p>例如，一个人很喜欢烹饪，而且烹饪刚好也是他的天分，那么他就可以通过自己的兴趣和能力来赚钱。</p>
+
+      <div class="quote">
+        <p>这就是我常说的：<strong>「以嗜好赚钱，以才华得财。」</strong></p>
+        <p>财富，是由自己的能力生出来的。</p>
+      </div>
+
+      <p>如果你的命格属于强财格，而在流年或十年大运中出现你所需要的食神能量，就有机会形成食神生财的好现象。</p>
+
+      <h4>五、但是，食神太旺也不好</h4>
+
+      <p>不过，凡事都有两面。如果食神太旺，或者受到刑、冲、害、克，又或者在大运、流年遇到偏印来克制食神，就可能产生不好的现象。</p>
+
+      <p>八字里面有一个很重要的名词，叫做：<strong>「枭神夺食。」</strong>（详见<a href="#s10" style="color:var(--accent);">专节</a>）</p>
+
+      <div class="en-block">
+        <h4>Eating God — Turning Interest into Talent</h4>
+        <p>Eating God (食神) belongs to the Output group, representing the energy we express, create and show to the world. In a female chart, it also represents daughters.</p>
+        <p>A person with a strong Eating God tends to enjoy life, appreciate beauty, food, music and art, and has a gentle, optimistic and elegant character. They often excel in arts, language, dance, painting, writing and cooking.</p>
+        <p>The classical principle: <strong>"Eating God generates Wealth" (食神生财).</strong> A person does what they love, turns interest into talent, expresses that talent, and ultimately creates wealth — "make money from your hobby, gain wealth through your talent."</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ 7 傷官 ══════════ -->
+  <h2 class="sec" id="s7"><span class="num">七</span>伤官——敢于挑战规则的力量</h2>
+
+  <div class="god-card">
+    <div class="head">
+      <span class="glyph">伤官</span>
+      <span class="en">Hurting Officer</span>
+      <span class="role">我生 · 阴阳异性</span>
+    </div>
+    <div class="body">
+
+      <div class="kv">
+        <dt>五行定义</dt>
+        <dd>我生的五行，阴阳异性</dd>
+        <dt>举例</dt>
+        <dd>日元甲木，木生火，丁火为伤官</dd>
+        <dt>主要象征</dt>
+        <dd>创意、才华、聪明、独特思想、不墨守成规</dd>
+      </div>
+
+      <h4>一、什么叫做「伤官」？</h4>
+
+      <p>要讲伤官之前必须要讲讲官杀，官杀在八字十神里，是克我的五行。例如我（日元）是木，克我者就是金。为什么？因为斧头可以砍掉大树。</p>
+
+      <p>所以，官杀就是管制我的人，也代表规则、管理、约束。在女命里，官杀也代表丈夫、情人，以及我们的领导。</p>
+
+      <p>那么顾名思义，什么叫做伤官？就是——<strong>「伤害管理者」</strong>。</p>
+
+      <p>伤官不喜欢被管理、不喜欢被约束，也不喜欢受到太多规则的限制。</p>
+
+      <p>因此，如果女命的伤官坐在夫妻宫，也就是我们之前所说的「伤官克官」，这类女性在婚姻生活中往往比较容易出现矛盾和不如意，因为她天生就比较不喜欢被另一半管束。</p>
+
+      <h4>二、伤官并不完全是负面的</h4>
+
+      <p>但是，伤官并不完全是负面的。因为伤官是我所生，和食神一样，都是从我们自己身上所释放出来的能量。</p>
+
+      <p>所以，伤官也代表创意、才华、聪明、独特的思想，以及不墨守成规的精神。</p>
+
+      <p>伤官格的人往往很有自己的想法，喜欢 think out of the box，不会轻易跟着别人走，而是喜欢自己走出一条新的路线。</p>
+
+      <p>最明显的例子，就是苹果的乔布斯，以及腾讯的马化腾。和之前所说的食神一样，食伤生财。他们都是靠自己的才华、创意和独特的想法，把自己的能力转化成财富。</p>
+
+      <h4>三、伤官就像一匹千里野马</h4>
+
+      <p>伤官就像一匹千里野马。它不顾一切向前奔腾，不服管、不服输，也不喜欢受到束缚。它敢于打破旧有的规则，有自己一套聪明的想法，不喜欢随波逐流。</p>
+
+      <p>所以，伤官太旺的人，通常非常爱自由，不喜欢被约束；兴趣广泛，说话直接，有时候甚至因为说话太直，无意中得罪了别人，自己却不知道。他们不按常理出牌，因此在别人眼里，往往会显得比较叛逆。</p>
+
+      <p>但是，换一个角度来看，正是这种敢于挑战权威、不受陈腐规则束缚，以及敢于质疑的精神，往往也是创造大事业的重要力量。</p>
+
+      <div class="quote">
+        <p>很多新的东西，都是因为有人敢问：</p>
+        <p><strong>「为什么一定要这样做？」</strong></p>
+        <p>然后，才有了新的突破。</p>
+      </div>
+
+      <h4>四、伤官是一把双刃剑</h4>
+
+      <p>不过，伤官就像一把双刃剑。伤官的人通常很有自信、能言善辩，而且很容易相信自己：「没有什么事情是我做不到的。」</p>
+
+      <p>这种自信如果运用得好，是一种非常强大的能力；但是如果太过，就容易把事情弄僵，也容易在人际关系和职场上吃亏。</p>
+
+      <p>所以，伤官太旺的人，往往不太适合朝九晚五、规规矩矩、处处受到约束的工作。他们更适合创业，或者从事需要创意、自由发挥和独立思考的工作。</p>
+
+      <p>尤其是<strong>伤官加七杀</strong>，往往更有创业和开创事业的气势。因为七杀是十神中非常勇往直前的一颗星，把它形容成一位将军，其实也不为过。</p>
+
+      <p>伤官的人还有一个特点，就是很容易提出批评性的意见，对很多事情容易产生反感。因为他们心里往往有自己的理想和标准，当理想与现实无法平衡的时候，就容易产生苦恼、不满，甚至对很多事情感到不平。</p>
+
+      <div class="en-block">
+        <h4>Hurting Officer — The Power to Challenge Rules</h4>
+        <p>Hurting Officer (伤官) literally means "the one who hurts the Officer." It dislikes being managed, restricted, or bound by too many rules.</p>
+        <p>Yet it is not purely negative. Because it is "what I generate," it also represents creativity, talent, intelligence, unique thinking and the spirit of not blindly following convention. People with strong Hurting Officer often think outside the box and prefer to carve out a new path rather than follow the crowd.</p>
+        <p>It is like a wild horse — it will not be tamed or accept defeat, and refuses to be bound. When used well, this is a powerful force for creation; when excessive, it can lead to conflict and career setbacks.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ 8 傷官配印 ══════════ -->
+  <h2 class="sec" id="s8"><span class="num">八</span>专题：伤官配印</h2>
+
+  <p>那么，伤官太旺要怎样化解呢？这就是八字里很重要的一句话：<em>伤官配印。</em></p>
+
+  <p>我之前解释过，印代表智慧、教育、修养与学习。伤官太旺，就需要通过教育、智慧、修养和定力来引导它。</p>
+
+  <p>因为真正的智慧，不是把伤官的个性压下去，而是要学会驾驭它。</p>
+
+  <div class="quote">
+    <p>就像一匹不顾一切奔腾的千里野马，如果没有缰绳，它可能会横冲直撞；但如果能够驯服它、引导它，它就能够跑得更远。</p>
+  </div>
+
+  <p>所以，伤官配印的真正意义，就是：</p>
+
+  <div class="quote">
+    <p><strong>不是要让这匹野马失去奔跑的能力，而是要让它学会——在对的地方奔跑，在对的地方叛逆。</strong></p>
+  </div>
+
+  <p>这才是伤官真正强大的地方。</p>
+
+  <!-- ══════════ 9 食神生財 ══════════ -->
+  <h2 class="sec" id="s9"><span class="num">九</span>专题：食神生财</h2>
+
+  <p>「食神生财」是八字里面一句非常重要的话。它不只是财的运行路线，更是一种人生的运作方式。</p>
+
+  <div class="three-col">
+    <div class="box">
+      <h4>第一步</h4>
+      <p>让兴趣变成才华。</p>
+    </div>
+    <div class="box">
+      <h4>第二步</h4>
+      <p>让才华创造价值。</p>
+    </div>
+    <div class="box">
+      <h4>第三步</h4>
+      <p>让价值转化为财富。</p>
+    </div>
+  </div>
+
+  <p>所以，食神最重要的精神就是：做自己喜欢的事情，把兴趣发挥成才华，再把才华发挥出来，最后创造财富。</p>
+
+  <!-- ══════════ 10 梟神奪食 ══════════ -->
+  <h2 class="sec" id="s10"><span class="num">十</span>专题：枭神夺食</h2>
+
+  <p>八字里面有一个很重要的名词，叫做：<strong>「枭神夺食。」</strong></p>
+
+  <p>所谓「枭神」，就是<strong>偏印</strong>。古人把偏印比喻成「枭」，因为枭鸟会夺取幼鸟的食物，所以用来形容偏印克制食神。</p>
+
+  <p>当一个人的食神受到压制时，他的才华和行动力可能无法正常发挥。这个人可能会变得比较被动，缺乏动力，喜欢依赖别人，甚至因为父母过度保护而缺乏独立成长的能力。</p>
+
+  <p>有些人整天没有事情做，就容易胡思乱想，心情低落，做什么事情都提不起精神。这就是所谓的「枭神夺食」。</p>
+
+  <h4>如何化解枭神夺食？</h4>
+
+  <p>还是回到刚才所说的：<em>「食神生财。」</em></p>
+
+  <p>最重要的是，不要让一个人长期无所事事。如果一个人本身拥有才华，就应该鼓励他去做自己喜欢的事情，让他的兴趣有机会发挥出来。</p>
+
+  <p>例如，一个人喜欢唱歌，就可以在网络上唱歌、拍视频，把自己的才华展现出来。当越来越多人看到他的才华之后，他甚至可能成为网络歌手、内容创作者，最后通过自己的兴趣和才华创造财富。</p>
+
+  <hr class="sep">
+
+  <!-- ══════════ 11 正財 ══════════ -->
+  <h2 class="sec" id="s11"><span class="num">十一</span>正财——稳定踏实的财务头脑</h2>
+
+  <div class="god-card">
+    <div class="head">
+      <span class="glyph">正财</span>
+      <span class="en">Direct Wealth</span>
+      <span class="role">我克 · 阴阳异性</span>
+    </div>
+    <div class="body">
+
+      <div class="kv">
+        <dt>五行定义</dt>
+        <dd>我克的五行，阴阳异性</dd>
+        <dt>举例</dt>
+        <dd>日元甲木，木克土，己土为正财；地支丑、未的主气为己土，属正财</dd>
+        <dt>主要象征</dt>
+        <dd>固定收入、俸禄、正妻、储蓄、原则</dd>
+      </div>
+
+      <h4>一、我克者为财</h4>
+
+      <p>我克者为财，因为财是要由我控制的，要我努力赚取的。正财好比一个人的俸禄，那是固定的收入；男命正财是正妻。</p>
+
+      <p>正财是我克的五行，是阴阳异性。例如一个人的日元是甲木，五行之中木克土，所以土就是甲木的财；对于甲木来说，己土为正财，戊土为偏财。地支方面，丑、未的主气为己土，所以属于正财；辰、戌的主气为戊土，所以属于偏财。</p>
+
+      <h4>二、性格特质</h4>
+
+      <ul>
+        <li>稳定踏实、节俭，不会乱花钱</li>
+        <li>重视储蓄，为人正派，不急躁</li>
+        <li>多数诚信，不会欺骗人</li>
+        <li>做事有原则，不爱冒险</li>
+        <li>喜欢一分一分地积累财富</li>
+      </ul>
+
+      <p>但是有的时候因为太重视金钱，会招人指责他比较冷淡无情；凡事思前想后，缺乏人生乐趣，有时候太过保守。</p>
+
+      <p>正财格的男性比较喜欢年长的女性。</p>
+
+      <div class="quote">
+        <p>如果我是一位大老板，我就会请正财格的人来当我的财务总监，因为他们很会理财，而且有以上的特点。</p>
+      </div>
+
+      <div class="en-block">
+        <h4>Direct Wealth — The Steady &amp; Disciplined Financial Mind</h4>
+        <p><strong>The logic:</strong> Elements that "I" control, with opposite polarity (e.g., Yang Wood controlling Yin Earth). It represents fixed salary, stable income, and a husband's lawful wife.</p>
+        <p><strong>Personality:</strong> Grounded, frugal, honest, and pragmatic. They dislike taking risks and prefer building wealth step-by-step. They make the ultimate CFOs.</p>
+        <p><strong>Drawbacks:</strong> Can be overly conservative, emotionally distant, or so focused on money that they forget to enjoy life. Men with dominant Direct Wealth often prefer older partners.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ 12 偏財 ══════════ -->
+  <h2 class="sec" id="s12"><span class="num">十二</span>偏财——豪爽大方的生意奇才</h2>
+
+  <div class="god-card">
+    <div class="head">
+      <span class="glyph">偏财</span>
+      <span class="en">Indirect Wealth</span>
+      <span class="role">我克 · 阴阳同性</span>
+    </div>
+    <div class="body">
+
+      <div class="kv">
+        <dt>五行定义</dt>
+        <dd>我克的五行，阴阳同性</dd>
+        <dt>举例</dt>
+        <dd>日元甲木，戊土为偏财；地支辰、戌的主气为戊土，属偏财</dd>
+        <dt>主要象征</dt>
+        <dd>不固定收入、生意、大财、情人、交际</dd>
+      </div>
+
+      <h4>一、正财与偏财之别</h4>
+
+      <p>偏财也是我克的五行，但是阴阳同性。例如一个人的日元是甲木，五行之中木克土，所以土就是甲木的财；对于甲木来说，戊土为偏财。地支方面，辰、戌的主气为戊土，所以属于偏财；丑、未的主气为己土，所以属于正财。</p>
+
+      <p>正财跟偏财不同之处是：<strong>正财是固定的收入，而偏财却是不固定的收入。</strong>如果正财最适合做财务总监，那么偏财格就是做生意的奇才。</p>
+
+      <h4>二、性格特质</h4>
+
+      <p>做生意一般上不会有固定的收入，遇到好时机就可能赚大钱。偏财格的人对赚钱的嗅觉非常灵敏。他们对小财并不在意，他们所看重的是大财。如果正财格的人是保守，那么偏财的人却非常豪爽大方。</p>
+
+      <ul>
+        <li>江湖气十足，交际手腕非常好</li>
+        <li>财来得快，去得也快</li>
+        <li>善用机会去赚钱，喜欢独创事业，事业心重</li>
+        <li>处理事情比较圆滑机智，口齿伶俐</li>
+        <li>喜欢与人谈笑风生</li>
+      </ul>
+
+      <p>之前说财为男命的女人，古时候大富人家三妻六妾，偏财就是妾。现今社会，偏财多的男人多数是有情人、小妾或者小三，因为他们口齿伶俐，喜欢谈笑风生、幽默，很容易就会吸引异性。</p>
+
+      <p>偏财的人多数应酬多，对钱不执着，而且比较浪费，因为他们认为财花去了，很快又可以赚回来。因此他们不吝啬。<strong>如果想要借钱，最好是找偏财格的人借。</strong></p>
+
+      <p>他们外交手腕非常好，凡事都以比较有弹性的态度去应对，平易近人，喜欢追求新鲜的事情，日子会过得很快活，很会享福——work smart, play hard。</p>
+
+      <div class="en-block">
+        <h4>Indirect Wealth — The Generous Business Genius</h4>
+        <p><strong>The logic:</strong> Elements that "I" control, with the same polarity (e.g., Yang Wood controlling Yang Earth). Unlike Direct Wealth (fixed salary), Indirect Wealth represents variable, large-scale gains.</p>
+        <p><strong>Personality:</strong> Sharp business instinct with no interest in small change—they play for high stakes. Excellent networkers, generous, charismatic, and born entrepreneurs.</p>
+        <p><strong>Drawbacks:</strong> Easy come, easy go. They tend to spend lavishly, believing money spent can always be earned back. In romance, Indirect Wealth represents mistresses or lovers. Their charm and humor naturally attract romantic attention. They live by the motto "Work smart, play hard."</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ 13 財多身子弱 ══════════ -->
+  <h2 class="sec" id="s13"><span class="num">十三</span>专题：为什么说「财多身子弱」？</h2>
+
+  <p class="lead">在命理领域有一句名言，就是我们常听到的「财多身子弱」。</p>
+
+  <p>其实它的含义是：如果八字里财多，那这个八字一般上是比较弱的，或者我们称它为<strong>身弱</strong>或<strong>身轻</strong>。</p>
+
+  <p>为什么呢？那是因为如果我的日元力量都去克其他元素了，那么我的力量就已经消耗了，因此为身轻或身弱。</p>
+
+  <h3>三种常见的呈现方式</h3>
+
+  <div class="card">
+    <h4>一、健康透支</h4>
+    <p>这样的人很可能会被财所连累，或者就是特别努力工作，耗尽了身体的健康，而把赚来的钱都花在健康上了。</p>
+
+    <h4>二、纵欲伤身</h4>
+    <p>之前说男命财为他的女人，那么可能这个男人就很好色，身体也弄垮了。</p>
+
+    <h4>三、资产富有，现金贫穷</h4>
+    <p>还有另外一种可能性，那就是你可能看起来就很有钱，住大房子、开大房车，但是这些都不是你的。你可能就住在祖上传下来的大房子里，但那是不动产。</p>
+  </div>
+
+  <div class="quote">
+    <p>以上说的「财多身子弱」，更加适合应用在<strong>偏财格</strong>的人身上。</p>
+  </div>
+
+  <div class="en-block">
+    <h4>Why "Too Much Wealth Makes a Weak Body"?</h4>
+    <p>In Bazi, controlling Wealth takes energy from your core element (Day Master). When there is too much Wealth in a chart, your personal energy becomes heavily depleted, creating a "Weak Body" state. This shows up in three main ways:</p>
+    <p><strong>1. Health Burnout:</strong> Working so hard to make money that you ruin your health, eventually spending all your earnings on medical bills.</p>
+    <p><strong>2. Indulgence:</strong> Since Wealth represents women for men, having too much of it can lead to overindulgence, harming physical well-being.</p>
+    <p><strong>3. Asset Rich, Cash Poor:</strong> Looking wealthy on the outside (e.g., living in an inherited mansion), but the assets aren't liquid or truly yours.</p>
+  </div>
+
+  <hr class="sep">
+
+  <!-- ══════════ 14 正官 ══════════ -->
+  <h2 class="sec" id="s14"><span class="num">十四</span>正官——规矩与秩序</h2>
+
+  <div class="god-card">
+    <div class="head">
+      <span class="glyph">正官</span>
+      <span class="en">Direct Officer</span>
+      <span class="role">克我 · 阴阳异性</span>
+    </div>
+    <div class="body">
+
+      <div class="kv">
+        <dt>五行定义</dt>
+        <dd>克我的五行，阴阳异性</dd>
+        <dt>举例</dt>
+        <dd>日元甲木，金克木，辛金为正官</dd>
+        <dt>主要象征</dt>
+        <dd>规则、秩序、管理、责任、名分；女命亦代表丈夫</dd>
+      </div>
+
+      <h4>一、官杀是克我的五行</h4>
+
+      <p>官杀在八字十神里，是克我的五行。例如我的日元是木，克我的就是金，因为斧头可以砍掉大树。</p>
+
+      <p>所以，官杀就是管制我的力量，也代表规则、秩序、管理、约束和权威。在女命里，官杀也代表丈夫、情人，因为从传统阴阳五行的角度来看，官杀就是克我的异性力量。</p>
+
+      <p>正官是阴阳异性相克，而七杀是阴阳同性相克。虽然两者都是克我的五行，但是性格和表现出来的力量却很不一样。</p>
+
+      <h4>二、正官像一位管理者或文官</h4>
+
+      <p>如果说七杀是一位将军，那么正官就是一位管理者或文官。</p>
+
+      <p>正官最重要的就是四个字：<em>规矩、秩序。</em></p>
+
+      <p>正官格的人通常比较服从规矩和秩序，做事情稳重、可靠、靠谱，不喜欢做出格的事情。他们给人的感觉，就像一位好好先生。</p>
+
+      <p>他们有责任感，分辨是非，也懂得什么事情应该做，什么事情不应该做。因此，正官格的人往往具有管理能力，也容易得到别人的认同。他们很适合做主管、管理层，甚至公务员。因为他们行为端正、守本分、品格稳重，而且通常能够以身作则。</p>
+
+      <h4>三、正官太旺的问题</h4>
+
+      <p>但是，正官太旺也有它的问题。因为他们太重视规矩，也太在意别人的眼光，所以很容易把自己活得很累。很多事情明明自己心里有另外一个想法，却因为：</p>
+
+      <div class="quote">
+        <p><strong>「别人会怎么看我？」</strong></p>
+      </div>
+
+      <p>而把真实的想法压下去。所以正官格的人，有时候可以说是：活得很体面，但是心里却不一定感觉到自由。</p>
+
+      <p>他们做事情通常都会经过深思熟虑，不会鲁莽冲动。这当然是优点，因为他们比较稳定，不容易做错决定。但是缺点就是——<strong>太过保守。</strong></p>
+
+      <p>因为害怕失败，所以有时候会变得优柔寡断；因为太遵守规矩，又不懂得变通，久而久之可能变得比较固执。机会来到的时候，他们也可能因为想得太多，而错过了最佳时机。</p>
+
+      <div class="quote">
+        <p>所以正官格的人最大的优点就是：<strong>稳。</strong></p>
+        <p>最大的缺点也是：<strong>太稳。</strong></p>
+      </div>
+
+      <p>人生过得平平稳稳当然很好，但是如果一个人永远只走熟悉的路，就很难有大的突破。尤其是当时代不断改变的时候，太过守旧反而会成为自己的束缚。</p>
+
+      <p>正官格的人也很爱面子，自尊心强，比较重视身份、地位和别人对自己的评价。所以有时候不是没有能力，而是因为太在意输赢、太在意别人怎么看，而不敢向前走。</p>
+
+      <p>因此，正官真正好的状态，并不是完全没有规矩，而是：<em>懂得守规矩，也懂得什么时候需要变通。</em></p>
+
+      <div class="en-block">
+        <h4>Direct Officer — Rules and Order</h4>
+        <p>Direct Officer (正官) represents the element that controls the Day Master, with opposite polarity. It is associated with rules, order, management, responsibility and authority. In a female chart, it also represents the husband.</p>
+        <p>If Seven Killings is a general, Direct Officer is an administrator or civil official. People with strong Direct Officer are usually stable, reliable, responsible and law-abiding. They make good managers, supervisors and public servants.</p>
+        <p><strong>The other side:</strong> Too much Direct Officer can make a person overly concerned with appearances and others' opinions, living a respectable but not necessarily free life. Their greatest strength is stability; their greatest weakness is being too stable.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ 15 七殺 ══════════ -->
+  <h2 class="sec" id="s15"><span class="num">十五</span>七杀——魄力与突破</h2>
+
+  <div class="god-card">
+    <div class="head">
+      <span class="glyph">七杀</span>
+      <span class="en">Seven Killings</span>
+      <span class="role">克我 · 阴阳同性</span>
+    </div>
+    <div class="body">
+
+      <div class="kv">
+        <dt>五行定义</dt>
+        <dd>克我的五行，阴阳同性</dd>
+        <dt>举例</dt>
+        <dd>日元甲木，金克木，庚金为七杀</dd>
+        <dt>主要象征</dt>
+        <dd>魄力、积极、竞争、突破、开创、压力</dd>
+      </div>
+
+      <h4>一、七杀就是一位将军</h4>
+
+      <p>如果正官代表的是规矩与秩序，七杀代表的就是：<em>魄力、积极、竞争、突破和开创。</em></p>
+
+      <p>如果正官是一位管理者或文官，那么七杀就是一位将军。将军面对的是战场。战场上没有那么多时间让你慢慢考虑，很多时候必须马上决定、马上行动。</p>
+
+      <p>所以七杀的人通常行动力很强，性格直接，不喜欢拖泥带水，凡事雷厉风行。他们有竞争心，不服输，争强好胜，也不怕面对困难。</p>
+
+      <h4>二、七杀也代表压力</h4>
+
+      <p>七杀也代表压力。但是压力不一定是坏事。因为很多时候，正是压力迫使一个人成长。</p>
+
+      <p>所以七杀格的人往往是在竞争激烈、困难重重的时候，更能够发挥自己的实力。别人觉得困难的时候，他反而觉得：</p>
+
+      <div class="quote">
+        <p><strong>「这个事情可以挑战一下。」</strong></p>
+      </div>
+
+      <p>这就是七杀的精神。</p>
+
+      <p>七杀就像一只冲锋的鹰，有勇气、有野心，敢于突破旧有的局面。所以七杀的人往往具有很强的开创能力，也比较有革新思想。他们不喜欢一直按照旧的方法做事情，而是喜欢想办法打开一个新的局面。</p>
+
+      <h4>三、七杀也是一把双刃剑</h4>
+
+      <p>但是七杀也是一把双刃剑。因为他们对自己要求高，对别人要求也高，所以很容易给别人压力。加上性格比较直、脾气比较急，讲话不喜欢拐弯抹角，有时候一句话说出口，就算前面是一条很困难的路，也会坚持到底。</p>
+
+      <p>这种性格用得好，就是：有魄力、有担当、说到做到。但是用不好，就容易变成：太强势、太冲动、太爱面子，也容易树立敌人。</p>
+
+      <p>七杀的人也容易有一种「我一定要赢」的心态。所以他们有时候会为了达到目标而不断向前冲，甚至容易出现以权力压迫别人的倾向。但是如果能够把这种力量用在正确的地方，他们往往可以成为非常有执行力和领导力的人。</p>
+
+      <h4>四、适合的工作</h4>
+
+      <p>所以七杀格的人特别适合一些需要勇气、决断、竞争和行动力的工作。例如军警、管理、创业，以及一些需要开创局面的行业。</p>
+
+      <div class="quote">
+        <p>如果说正官是：<strong>守住已经建立好的秩序，</strong></p>
+        <p>那么七杀就是：<strong>敢于打破旧局，建立新的秩序。</strong></p>
+      </div>
+
+      <div class="en-block">
+        <h4>Seven Killings — Courage and Breakthrough</h4>
+        <p>If Direct Officer represents rules and order, Seven Killings represents boldness, initiative, competition, breakthrough and pioneering. If Direct Officer is an administrator, Seven Killings is a general.</p>
+        <p>A general faces the battlefield. There is no time for prolonged deliberation—decisions must be made immediately. People with strong Seven Killings are action-oriented, direct, competitive, unyielding and unafraid of difficulties.</p>
+        <p>Seven Killings also represents pressure—but pressure is not always bad, because it often forces growth. People with strong Seven Killings tend to perform best under intense competition and difficult circumstances.</p>
+        <p>It is a double-edged sword: used well, it produces courage, decisiveness and执行力; used poorly, it becomes aggression, impulsiveness and the making of enemies. It suits careers requiring courage, decisiveness, competition and action—such as military, police, management and entrepreneurship.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ 16 正官與七殺對照 ══════════ -->
+  <h2 class="sec" id="s16"><span class="num">十六</span>正官与七杀对照</h2>
+
+  <p>所以我们可以简单地这样理解：</p>
+
+  <div class="pair-compare">
+    <div>
+      <h4>正官</h4>
+      <ul>
+        <li>守规矩</li>
+        <li>稳定</li>
+        <li>责任</li>
+        <li>像一位主管或文官</li>
+      </ul>
+    </div>
+    <div>
+      <h4>七杀</h4>
+      <ul>
+        <li>破局</li>
+        <li>突破</li>
+        <li>魄力</li>
+        <li>像一位将军</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- ══════════ 17 正印 ══════════ -->
+  <h2 class="sec" id="s17"><span class="num">十七</span>正印——母亲、滋养、保护与无条件的支持</h2>
+
+  <div class="god-card">
+    <div class="head">
+      <span class="glyph">正印</span>
+      <span class="en">Direct Resource</span>
+      <span class="role">生我 · 阴阳异性</span>
+    </div>
+    <div class="body">
+
+      <div class="kv">
+        <dt>五行定义</dt>
+        <dd>生我的五行，阴阳异性</dd>
+        <dt>举例</dt>
+        <dd>日元甲木，水生木，癸水即为正印</dd>
+        <dt>主要象征</dt>
+        <dd>母亲、师长、贵人、知识、文化、修养、精神世界</dd>
+      </div>
+
+      <h4>一、正印可以说是最好的十神</h4>
+
+      <p>正印可以说是最好的十神，也是智慧的代表，正印格多半聪明。</p>
+
+      <p>为什么正印常常代表母亲？因为在十神的关系里面，生我者为印。而母亲，正是那个给予我们生命、养育我们、保护我们、教育我们的人。</p>
+
+      <p>所以在传统命理中，正印不只是母亲的象征，也代表一种给予、滋养、保护、教育与支持的力量。</p>
+
+      <h4>二、母亲就像太阳与大地</h4>
+
+      <p>母亲就像太阳与大地一样。太阳不断发光发热，却不会因为给予而减少自己的光芒；大地不断承载万物、滋养万物，即使被挖掘、被利用，也依然默默承受。</p>
+
+      <p>这很接近《易经》所说的：<em>「厚德载物。」</em></p>
+
+      <p>所以，正印所代表的，其实是一种非常深厚的能量——它让一个人能够被滋养、被保护、被教育，也让一个人在成长过程中拥有可以依靠的力量。</p>
+
+      <h4>三、正印明显的人</h4>
+
+      <p>一个八字中正印力量明显的人，往往比较容易得到父母、长辈、老师或者贵人的帮助。他们在人生道路上，可能比较容易遇到愿意教导自己、提携自己、帮助自己的人。</p>
+
+      <p>而且，正印不只是「有人帮助」这么简单。它也代表一个人的学习能力、知识、文化、修养、思想以及内在精神世界。</p>
+
+      <p>所以正印明显的人，往往比较重视精神层面的满足，不太喜欢粗俗、粗野的环境，更容易对知识、文化、哲学、宗教、艺术以及思想产生兴趣。</p>
+
+      <div class="two-col">
+        <div class="box">
+          <h4>性格特质</h4>
+          <ul>
+            <li>善良、温和、有涵养</li>
+            <li>有同理心、重感情</li>
+            <li>有良知、心地柔软</li>
+            <li>比较愿意帮助别人</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h4>适合领域</h4>
+          <ul>
+            <li>教育、研究、学术</li>
+            <li>文化、哲学、艺术</li>
+            <li>其他需要知识与思考的领域</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>所以从好的方面来看，正印其实是一颗很有福气的星。它代表的不只是「母亲」，更代表一个人在成长过程中所获得的爱、知识、保护、教导与精神上的滋养。</p>
+
+      <h4>四、正印的另一面——保护与成长之间，需要取得平衡</h4>
+
+      <p>当然，十神都有阴阳两面。正印本身是好的，但任何好的东西如果过度，也可能产生另外一种倾向。</p>
+
+      <p>正印代表保护、照顾和支持。如果一个人在成长过程中一直受到非常周全的保护，可能就比较少经历挫折与磨炼。</p>
+
+      <p>因此，正印很强的人，有时候会比较容易相信别人，相信世界美好，也比较重视安全感。讲得好听一点，这是天真、善良与纯真；如果保护过度，才可能表现为比较依赖、顾虑较多，或者行动之前思考太久。</p>
+
+      <div class="quote">
+        <p>所以真正好的正印，并不是让一个人永远躲在保护之下，而是：</p>
+        <p><strong>先给予他养分，再让他成长；先给他力量，再让他走自己的路。</strong></p>
+      </div>
+
+      <p>同样是一个「印」，它可以是母亲、老师、贵人、知识、保护、智慧与福气。而当它过度的时候，才可能变成依赖。</p>
+
+      <h4>五、怎样判断自己的八字有没有明显的正印？</h4>
+
+      <p>一般来说，我们会先观察月令、月支，再看整个八字中正印出现的位置、数量、透藏以及力量。</p>
+
+      <p>如果八字中正印明显，而且能够<strong>透干</strong>（天干能够直接看到正印），同时地支又有<strong>根</strong>，那么正印的特质通常会更加明显。</p>
+
+      <p>不过，真正判断一个人是否属于所谓的「正印格」，绝对不能简单以「出现两个正印」作为标准。还必须结合：</p>
+
+      <ul>
+        <li>月令</li>
+        <li>旺衰</li>
+        <li>透藏</li>
+        <li>根气</li>
+        <li>组合</li>
+        <li>以及整个八字的生克制化</li>
+      </ul>
+
+      <p>这也是为什么真正学习八字，不能只靠数十神。看见十神只是第一步，看懂十神之间的关系，才是真正开始进入八字的世界。而这个基本原则，同样可以应用在其他十神的分析上。</p>
+
+      <div class="en-block">
+        <h4>Direct Resource — The Mother, Nurturing, Protection and Unconditional Support</h4>
+        <p>Direct Resource, or Zheng Yin (正印), represents the Five Element that generates the Day Master. For example, if your Day Master is Jia Wood (甲木), Water generates Wood. Therefore, Water is the Resource star; more specifically, Gui Water (癸水) represents Direct Resource for Jia Wood.</p>
+        <p>Why is Direct Resource traditionally associated with the mother? Because in the Ten Gods system, "That which generates me is Resource." And the mother is traditionally regarded as the person who gives us life, nurtures us, protects us and guides us.</p>
+        <p>A mother is like the sun and the earth. This reminds us of a principle from the I Ching: "Thick virtue carries all things."</p>
+        <p>People with a strong Direct Resource influence often value intellectual and spiritual fulfillment. In terms of personality, they often tend to be kind, gentle, compassionate, well-mannered, thoughtful, emotionally sensitive, principled, caring and willing to help others. From a career perspective, such qualities may make them naturally suited to education, research, academia, philosophy, culture, the arts and other fields that require knowledge, reflection and intellectual depth.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ 18 偏印 ══════════ -->
+  <h2 class="sec" id="s18"><span class="num">十八</span>偏印——不按常理出牌的技能大师</h2>
+
+  <div class="god-card">
+    <div class="head">
+      <span class="glyph">偏印</span>
+      <span class="en">Indirect Resource</span>
+      <span class="role">生我 · 阴阳同性</span>
+    </div>
+    <div class="body">
+
+      <div class="kv">
+        <dt>五行定义</dt>
+        <dd>生我的五行，阴阳同性</dd>
+        <dt>举例</dt>
+        <dd>日元甲木，壬水、亥中所藏的壬水即为偏印</dd>
+        <dt>主要象征</dt>
+        <dd>养母、继母、偏门知识、玄学、宗教、艺术、技能</dd>
+      </div>
+
+      <h4>一、偏印是什么</h4>
+
+      <p>之前说了正印，正印是母亲，偏印就是养母、继母，或者古代的嫡母、庶母，因为在古时候大富人家都会有三妻六妾。</p>
+
+      <p>偏印，也是生我的五行，但却是<strong>阴阳同性</strong>。例如一个人的日元是甲木，五行之中水生木，所以水就是甲木的印；对于甲木来说，壬水和亥中所藏的壬水就是偏印。</p>
+
+      <h4>二、正印给温暖，偏印给技能</h4>
+
+      <p>如果正印的人是聪明善良，那偏印的人就比较古怪。他们有古怪的点子，脑子转得特别快，反应快，不轻易赞同别人的看法，对一些偏门的知识特别有兴趣，喜欢正课以外的学习，因此对玄学、宗教、艺术特别有缘，也特别有天分。他们善变，喜欢弃旧立新。</p>
+
+      <div class="quote">
+        <p>如果母亲给你的是正课的知识，那么养母、继母给你的知识，就是不按常理出牌的知识，但并非无用的知识。</p>
+        <p><strong>正印给的是温暖；偏印给的是技能。</strong></p>
+      </div>
+
+      <h4>三、性格特质</h4>
+
+      <ul>
+        <li>不按部就班，容易无头无尾、无疾而终</li>
+        <li>钻牛角尖，具有个人主义色彩</li>
+        <li>不喜欢迎合社会一般的常理和道德观念</li>
+        <li>个性古怪，常会被别人认为是怪人，不受社会常规规范</li>
+        <li>自觉性强，很会思考，观察力敏锐，可以从人的脸色就窥见细微之处</li>
+        <li>警戒心强，所以这样的人学习玄学是一把手</li>
+        <li>有的时候会思考过度，三心两意，没有耐心，会犹豫不决</li>
+        <li>个性强，很有创意</li>
+      </ul>
+
+      <p>因此，适合从事宗教、心理研究等有关的工作。</p>
+
+      <div class="en-block">
+        <h4>Indirect Resource — The Unconventional Skill Master</h4>
+        <p>While Direct Resource represents a nurturing birth mother, Indirect Resource (Pian Yin) is like an adoptive mother or stepmother. The logic: elements that produce "Me", but with the same polarity (e.g., Yang Water producing Yang Wood).</p>
+        <p><strong>Personality:</strong> Unlike the gentle Direct Resource, people with Indirect Resource have quirky ideas and razor-sharp minds. They naturally excel in unconventional fields like metaphysics, religion, psychology, and the arts. They dislike following rules and are often seen as eccentric visionaries.</p>
+        <p><strong>Key difference:</strong> Direct Resource gives you warmth and standard education; Indirect Resource gives you specialized skills and out-of-the-box wisdom.</p>
+        <p><strong>Drawbacks:</strong> They tend to overthink, hesitate, and lack patience. However, their keen observation allows them to read people in an instant, making them top-tier talents for metaphysics and astrology.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- ══════════ 19 日柱 ══════════ -->
+  <h2 class="sec" id="s19"><span class="num">十九</span>从日柱看「我」和我的另一半</h2>
+
+  <p>八字里面，日柱非常重要。因为日元代表「我」，而日支则是距离日元最近的位置，传统命理中常用来观察<strong>夫妻宫</strong>，也就是我们与另一半之间的关系。</p>
+
+  <div class="quote">
+    <p>日元 ＝ 我</p>
+    <p>日支 ＝ 夫妻宫</p>
+  </div>
+
+  <p>传统命理中，男命通常以<strong>财星</strong>观察妻星，女命则通常以<strong>官杀</strong>观察夫星。</p>
+
+  <p>例如男命以正财作为正妻之象，如果日支坐正财，可以从这个组合去观察他与妻子的缘分以及互动模式。</p>
+
+  <p>男命正财为正妻，财为男命的女人，因此自古以来男人如果有了很多财就代表会有很多女人会出现。其实古人怎么会把财看成男人的女人呢？这是因为生理上男人是克女人的。</p>
+
+  <p>如果日支坐<strong>劫财</strong>，则可能显示夫妻关系中比较容易出现竞争意识、意见不同，或者共同财务方面的课题。</p>
+
+  <div class="note">
+    <strong>提醒：</strong>但这些都不能单独看一个位置就下定论。真正的判断，仍然必须结合整个八字。
+  </div>
+
+  <p>所以，八字其实非常有意思。我们可以通过十神之间的关系，看见一个人与父母、兄弟姐妹、夫妻、子女、朋友、上司以及社会环境之间的互动模式。</p>
+
+  <!-- ══════════ 20 四柱 ══════════ -->
+  <h2 class="sec" id="s20"><span class="num">二十</span>四柱分别代表什么？</h2>
+
+  <p>从传统四柱定位来看，可以简单理解为：</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <caption>四柱宫位对应</caption>
+      <thead>
+        <tr>
+          <th>柱位</th>
+          <th>传统定位</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>年柱</strong></td>
+          <td>祖辈、家族、早年环境</td>
+        </tr>
+        <tr>
+          <td><strong>月柱</strong></td>
+          <td>父母、长辈、成长环境，也常用来观察事业与社会环境</td>
+        </tr>
+        <tr>
+          <td><strong>日柱</strong></td>
+          <td>自己与夫妻关系</td>
+        </tr>
+        <tr>
+          <td><strong>时柱</strong></td>
+          <td>子女、晚辈、下属，以及人生后期</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>当然，不同门派、不同体系，在定位上也会有所不同。例如有些命理体系会把月柱更多用于观察兄弟姐妹，而把年柱作为父母宫参考。包括奇门遁甲以及一些现代命理师的取法，也可能有所不同。</p>
+
+  <p>所以我一直认为，学习八字最重要的，并不是死记一个固定答案，而是理解：</p>
+
+  <ul>
+    <li>为什么这样取象？</li>
+    <li>这个理论在实际命盘中是否能够得到验证？</li>
+  </ul>
+
+  <p>能够不断验证，才是真正属于自己的知识。</p>
+
+  <!-- ══════════ 21 人生關係圖 ══════════ -->
+  <h2 class="sec" id="s21"><span class="num">二十一</span>十神之间，其实就是一张「人生关系图」</h2>
+
+  <p>十神最有意思的地方，就是它把人与人之间的关系，用五行的生克制化表现出来。</p>
+
+  <h3>财克印</h3>
+
+  <p>在传统十神体系里，男命的财星可以代表妻子，而印星则可以代表母亲。因此，在传统命理的象法中，财与印之间的「克」，也经常被用来解释家庭关系中妻子与母亲之间可能出现的不同立场。</p>
+
+  <p>这就是十神很有趣的地方——很多看似复杂的人际关系，其实都可以从五行生克里面找到一个非常有意思的象。</p>
+
+  <p>另外，正印也常被视为一个人的良知、原则、知识与内在修养。所以当财星过旺而强力克印时，在传统象法中，也可以引申为一个人过度追求现实利益，而忽略了内在原则与良知。</p>
+
+  <div class="note">
+    <strong>提醒：</strong>当然，这同样不能单独凭一个「财克印」就判断一个人的好坏，仍然必须放回整个八字去看。
+  </div>
+
+  <h3>学八字，其实是在学习「我」与世界的关系</h3>
+
+  <p>年轻的时候学习八字，可能比较关注：有没有财？有没有官？有没有贵人？有没有婚姻？有没有事业？</p>
+
+  <p>但随着年龄和经验增加，我反而觉得：十神真正有价值的地方，是让我们看见自己与这个世界是怎样互动的。</p>
+
+  <ul>
+    <li><strong>印</strong>——是谁在帮助我、教育我、滋养我？</li>
+    <li><strong>比劫</strong>——是我与同辈、朋友之间的关系。</li>
+    <li><strong>食伤</strong>——是我如何表达自己、创造价值。</li>
+    <li><strong>财</strong>——是我如何面对现实、资源与责任。</li>
+    <li><strong>官杀</strong>——是社会规则、责任、压力与约束。</li>
+  </ul>
+
+  <p>当这些十神彼此生克制化的时候，就形成了一个人的性格，也形成了他与家人、朋友、事业以及社会之间的互动模式。</p>
+
+  <p>所以，八字真正有趣的地方，并不只是预测吉凶。当你把十神之间的关系看懂以后，你会慢慢发现：原来我们人生中许多人与人的关系，早已经可以用五行的生克制化来表达。</p>
+
+  <!-- ══════════ 22 名人 ══════════ -->
+  <h2 class="sec" id="s22"><span class="num">二十二</span>名人八字参考</h2>
+
+  <div class="note">
+    <strong>重要说明：</strong>有些名人的出生时间资料并不一定完全可靠，所以如果没有准确的出生时间，我们只能以他们的<strong>年月日三柱六字</strong>作为参考，不能当成完整的八字来论。
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <caption>名人十神格局参考（仅以年月日六字为据）</caption>
+      <thead>
+        <tr>
+          <th>人物</th>
+          <th>出生日期</th>
+          <th>格局参考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bill Gates</td>
+          <td>28/10/1955</td>
+          <td>七杀格</td>
+        </tr>
+        <tr>
+          <td>Elon Musk</td>
+          <td>28/6/1971</td>
+          <td>伤官＋七杀格</td>
+        </tr>
+        <tr>
+          <td>乔布斯（Apple）</td>
+          <td>—</td>
+          <td>食神、伤官、印都有</td>
+        </tr>
+        <tr>
+          <td>马化腾（腾讯）</td>
+          <td>—</td>
+          <td>很明显的伤官格；伤官生财，财再生官，非常好的格局</td>
+        </tr>
+        <tr>
+          <td>黄仁勋</td>
+          <td>—</td>
+          <td>财格很明显</td>
+        </tr>
+        <tr>
+          <td>巴菲特</td>
+          <td>—</td>
+          <td>劫财、偏印、食财格</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>从这些例子，我们也可以看到：不同的十神，会形成不同的性格和做事方式；而这些不同的性格，也可以走出不同的人生道路。</p>
+
+  <p>所以学八字，并不是简单地说某一个十神「好」或者「不好」。真正重要的是：<em>你有什么力量，如何把这个力量用在对的地方。</em>这才是八字真正有意思的地方。</p>
+
+  <!-- ══════════ 23 結語 ══════════ -->
+  <h2 class="sec" id="s23"><span class="num">二十三</span>结语：知己知彼</h2>
+
+  <p>这也是我这些年来不断研究八字以后，越来越深的一个体会：</p>
+
+  <div class="quote">
+    <p><strong>八字不是用来给自己贴标签，而是让我们更了解自己。</strong></p>
+  </div>
+
+  <p>知道自己的性格以后，懂得发挥自己的长处，也懂得修正自己的弱点。能够知己，也能够知人。这就是孙子兵法里面的「知己知彼，百战不殆」。</p>
+
+  <p>这样，八字才真正有它的意义。</p>
+
+  <p>学八字，其实就是学会从「我」出发，看懂我与父母、伴侣、子女、朋友、社会，以及这个世界之间的关系。</p>
+
+  <p>而当你真正看懂十神，你看的就不再只是一个人的命盘。你看到的，其实是一幅人生关系图。</p>
+
+  <footer>
+    <p>本篇整理自「十神」相关帖文与文章，涵盖比肩、劫财、食神、伤官、正财、偏财、正官、七杀、正印、偏印十神，<br>
+    以及「枭神夺食」「伤官配印」「食神生财」「财多身子弱」等专题论述。</p>
+    <p style="margin-top:12px;font-size:.8rem;letter-spacing:.1em;color:#a89c8a;">比肩 · 劫财 · 食神 · 伤官 · 正财 · 偏财 · 正官 · 七杀 · 正印 · 偏印</p>
+  </footer>
+
+</div>
+</body>
+</html>
