@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天干地支 · 正負解說</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#2b2620;
+    --ink-soft:#5a5148;
+    --line:#e3dbcd;
+    --accent:#8a6d3b;
+    --accent-soft:#c8a86b;
+    --accent-bg:#f3ecdd;
+    --pos:#3f6b4f;
+    --pos-bg:#eef5ef;
+    --neg:#9c4a3c;
+    --neg-bg:#faf0ed;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Songti SC","Noto Serif TC","Source Han Serif TC",Georgia,"PingFang TC","Microsoft JhengHei",serif;
+    line-height:1.9;font-size:17px;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px 90px;}
+
+  header.cover{
+    text-align:center;padding:64px 22px 46px;
+    border-bottom:1px solid var(--line);margin-bottom:48px;
+    background:radial-gradient(circle at 50% 0%, #fff9ec 0%, rgba(255,249,236,0) 70%);
+  }
+  header.cover .kicker{
+    font-size:.82rem;letter-spacing:.42em;color:var(--accent);
+    margin:0 0 18px;text-indent:.42em;
+  }
+  header.cover h1{
+    font-size:2.3rem;margin:0 0 12px;letter-spacing:.14em;font-weight:600;
+  }
+  header.cover h1 small{
+    display:block;font-size:.98rem;letter-spacing:.28em;color:var(--ink-soft);
+    font-weight:400;margin-top:14px;text-indent:.28em;
+  }
+  header.cover .sub{
+    color:var(--ink-soft);font-size:.95rem;max-width:620px;margin:20px auto 0;
+  }
+
+  nav.toc{
+    background:var(--paper);border:1px solid var(--line);border-radius:10px;
+    padding:22px 28px;margin-bottom:48px;box-shadow:0 2px 14px rgba(120,100,70,.05);
+  }
+  nav.toc h2{
+    font-size:.82rem;letter-spacing:.3em;color:var(--accent);
+    margin:0 0 14px;font-weight:600;text-indent:.3em;
+  }
+  nav.toc ul{
+    list-style:none;margin:0;padding:0;
+    display:flex;flex-wrap:wrap;gap:6px 10px;
+  }
+  nav.toc ul li a{
+    color:var(--ink-soft);text-decoration:none;font-size:.92rem;
+    border:1px solid transparent;border-radius:20px;padding:2px 12px;
+    display:inline-block;transition:.15s;
+  }
+  nav.toc ul li a:hover{
+    color:var(--accent);border-color:var(--accent-soft);background:#fbf7ee;
+  }
+
+  h2.sec{
+    font-size:1.5rem;letter-spacing:.08em;margin:72px 0 8px;
+    padding-bottom:14px;border-bottom:2px solid var(--accent-soft);
+    position:relative;font-weight:600;scroll-margin-top:20px;
+  }
+  h2.sec::before{
+    content:"";position:absolute;left:0;bottom:-2px;
+    width:76px;height:2px;background:var(--accent);
+  }
+  h2.sec .num{
+    display:inline-block;font-size:.76rem;letter-spacing:.2em;color:var(--accent);
+    vertical-align:middle;margin-right:12px;border:1px solid var(--accent-soft);
+    border-radius:4px;padding:2px 9px;position:relative;top:-3px;font-weight:400;
+  }
+
+  .item{
+    background:var(--paper);border:1px solid var(--line);border-radius:10px;
+    margin:28px 0;overflow:hidden;box-shadow:0 3px 16px rgba(120,100,70,.05);
+  }
+  .item > h3{
+    margin:0;padding:18px 26px;font-size:1.2rem;letter-spacing:.08em;
+    background:linear-gradient(180deg,#f6efe1,#f1e8d6);
+    border-bottom:1px solid var(--line);color:#3a3128;font-weight:600;
+  }
+  .item > h3 small{
+    display:block;font-size:.78rem;letter-spacing:.12em;color:var(--accent);
+    font-weight:400;margin-top:4px;
+  }
+  .pos-neg{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+  }
+  .pos-neg > div{padding:20px 26px 24px;}
+  .pos-neg > div:first-child{border-right:1px solid var(--line);}
+  .pos-neg h4{
+    font-size:.86rem;letter-spacing:.2em;margin:0 0 12px;
+    font-weight:600;text-indent:.2em;
+  }
+  .pos h4{color:var(--pos);}
+  .neg h4{color:var(--neg);}
+  .pos-neg ul{
+    margin:0;padding-left:1.2em;font-size:.94rem;
+  }
+  .pos-neg li{margin-bottom:7px;}
+  .pos-neg li:last-child{margin-bottom:0;}
+
+  .pos{background:var(--pos-bg);}
+  .neg{background:var(--neg-bg);}
+
+  .note{
+    background:#fbf6ea;border:1px dashed var(--accent-soft);border-radius:8px;
+    padding:16px 22px;font-size:.9rem;color:var(--ink-soft);margin:24px 0;
+  }
+  .note strong{color:var(--accent);}
+
+  footer{
+    margin-top:72px;padding-top:28px;border-top:1px solid var(--line);
+    font-size:.86rem;color:#8d8478;text-align:center;
+  }
+
+  @media (max-width:680px){
+    body{font-size:16px;}
+    header.cover{padding:46px 18px 34px;}
+    header.cover h1{font-size:1.75rem;}
+    .pos-neg{grid-template-columns:1fr;}
+    .pos-neg > div:first-child{
+      border-right:none;border-bottom:1px solid var(--line);
+    }
+    .item > h3{padding:16px 20px;font-size:1.08rem;}
+    .pos-neg > div{padding:18px 20px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <p class="kicker">天干 · 地支 · 正負解說</p>
+  <h1>天干地支性格解析
+    <small>正面特質 · 負面特質</small>
+  </h1>
+  <p class="sub">將十天干與十二地支的傳統解說，細分為正面與負面兩面，便於對照參考。原文未明列負面者，依其五行象徵合理生成，並以「（生成）」標註。</p>
+</header>
+
+<div class="wrap">
+
+  <nav class="toc">
+    <h2>目 錄</h2>
+    <ul>
+      <li><a href="#tg">十天干</a></li>
+      <li><a href="#jia">甲</a></li>
+      <li><a href="#yi">乙</a></li>
+      <li><a href="#bing">丙</a></li>
+      <li><a href="#ding">丁</a></li>
+      <li><a href="#wu">戊</a></li>
+      <li><a href="#ji">己</a></li>
+      <li><a href="#geng">庚</a></li>
+      <li><a href="#xin">辛</a></li>
+      <li><a href="#ren">壬</a></li>
+      <li><a href="#gui">癸</a></li>
+      <li><a href="#dz">十二地支</a></li>
+      <li><a href="#zi">子</a></li>
+      <li><a href="#chou">丑</a></li>
+      <li><a href="#yin">寅</a></li>
+      <li><a href="#mao">卯</a></li>
+      <li><a href="#chen">辰</a></li>
+      <li><a href="#si">巳</a></li>
+      <li><a href="#wu2">午</a></li>
+      <li><a href="#wei">未</a></li>
+      <li><a href="#shen">申</a></li>
+      <li><a href="#you">酉</a></li>
+      <li><a href="#xu">戌</a></li>
+      <li><a href="#hai">亥</a></li>
+    </ul>
+  </nav>
+
+  <div class="note">
+    <strong>說明：</strong>以下正負特質係根據原始解說文本拆分整理。部分條目原文兼含正負兩面，已分別歸類。若原文未明確列出負面特質，則依該天干、地支的五行特性與象徵合理生成，並標註「（生成）」。
+  </div>
+
+  <!-- ══════════ 十天干 ══════════ -->
+  <h2 class="sec" id="tg"><span class="num">天干</span>十天干</h2>
+
+  <!-- 甲 -->
+  <div class="item" id="jia">
+    <h3>甲 (陽木)<small>為領導格，心仁慈，為十天干之首</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>領導格，心仁慈，為十天干之首，領袖慾強</li>
+          <li>腳踏實地且心地善良，刻苦耐勞</li>
+          <li>外表平靜，內心不屈</li>
+          <li>喜當老闆，喜從事刺激的業務工作</li>
+          <li>想做的事情會事先講，可承擔責任，懂得照顧別人</li>
+          <li>喜歡腳踏實地，不喜隨意變動</li>
+          <li>心地軟，為人仁慈</li>
+          <li>單純淳樸，屹立不搖</li>
+          <li>懂得謙卑（需學習）</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>不喜歡被領導，不甘心屈於下，給人永不低頭之感</li>
+          <li>個性不服輸</li>
+          <li>心腸軟容易被利用</li>
+          <li>喜明爭，不喜暗鬥，偶有爭到了理，卻傷了感情</li>
+          <li>容易疲勞，須注意肝膽</li>
+          <li>一生中易犯傲慢</li>
+          <li>不喜歡受人約束</li>
+          <li>爛好人一個，怕眼淚，因過份仁慈而害死自己</li>
+          <li>受僱上班如不受重用會很鬱卒</li>
+          <li>東西須放置固定位置，如被移位即找不到</li>
+          <li>常變動、無法固定的事業則難成長</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 乙 -->
+  <div class="item" id="yi">
+    <h3>乙 (陰木)<small>柔弱之木，喜當幕後老闆，善參謀</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>柔弱之木，喜當幕後老闆，善參謀，謀略高</li>
+          <li>較為沉著並懂得順勢而上，有彈性</li>
+          <li>行事喜歡默默進行不欲人知，不愛出名</li>
+          <li>適合做導演、策劃</li>
+          <li>喜歡思考，好交友，朋友多，溫和謙柔並懂蓄勢待發</li>
+          <li>內在韌性極強，適應力較佳，身處苦境亦可以生存</li>
+          <li>喜附合他人並甘願做配角，不愛出頭，寧選擇默默策劃做出成績</li>
+          <li>一步一腳印，不須刻意教育，自然會朝目標前進</li>
+          <li>遇挫折阻礙，不會就此退縮，會以更多方法應對</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>喜暗鬥，不喜明取</li>
+          <li>容易疲勞及脖子酸痛，須注意頭、肝、膽、胃</li>
+          <li>表面柔弱，臉皮薄，不會刻意表達</li>
+          <li>怕熱，哪邊涼快哪邊站</li>
+          <li>要注意手指頭，否則易臨老時手指麻痺或中風傾向</li>
+          <li>注意脾胃，肝及脾胃不好就賺不到錢</li>
+          <li>屬木者要習定，以免三心二意取捨不定，終難成事</li>
+          <li>不喜歡受人管，心軟，因過份仁慈而害了自己</li>
+          <li>受僱上班如不受重用會很鬱卒</li>
+          <li>當老闆不適合在前面衝刺，會有氣無力</li>
+          <li>想做的事情還沒成功前會默默做，不會事先講，做錯了會推在一旁，當作沒一回事，如果做對了會跳出來承認</li>
+          <li>心不要想太多（負面：想太多）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 丙 -->
+  <div class="item" id="bing">
+    <h3>丙 (陽火)<small>熱情熱心，喜歡照顧別人，有愛心有禮貌</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>熱情熱心喜歡照顧別人，有愛心有禮貌，個性積極</li>
+          <li>好客，交友廣闊滿天下</li>
+          <li>性格不拘小節大而化之</li>
+          <li>為朋友的忠實聽眾</li>
+          <li>走到哪散發熱力，易吸引他人注意，極適合當公眾人物</li>
+          <li>丙火極有愛心，往往是最佳義工</li>
+          <li>為人熱情有禮</li>
+          <li>天生公關人才</li>
+          <li>喜照顧別人</li>
+          <li>公關能力強</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>好權勢並好色，好名</li>
+          <li>內心豐富而不善於表達於外</li>
+          <li>可惜知心無幾人</li>
+          <li>聽後常不當一回事，易這耳進那耳出</li>
+          <li>易發脾氣（但收得快）</li>
+          <li>須注意心、血壓、小腸、眼睛及肩的問題</li>
+          <li>聽完之後不善分析好與壞</li>
+          <li>因喜熱鬧特性而不知如何妥善收場，不善收斂</li>
+          <li>單獨一人時亦感孤獨</li>
+          <li>在細膩處不刻意，給人大而化之的感覺</li>
+          <li>有口無心，不堪別人諷刺</li>
+          <li>記性不好，常心不在焉，記性較差，易遺忘</li>
+          <li>會太溺愛小孩及部屬</li>
+          <li>很認真聽講，但頭殼易想其它事</li>
+          <li>遇丙辛合將軍格，講話會特別大聲，會更兇</li>
+          <li>不會拒絕別人</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 丁 -->
+  <div class="item" id="ding">
+    <h3>丁 (陰火)<small>有禮貌，知禮敬長，疼惜晚輩</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>有禮貌，知禮敬長，疼惜晚輩</li>
+          <li>為人熱心喜照顧關懷別人，且熱心公益</li>
+          <li>外表沉穩</li>
+          <li>有第六感，直覺性強，能洞察人心</li>
+          <li>重視第一印象且會靜觀其變</li>
+          <li>看別人很準確</li>
+          <li>燃燒自己照亮別人</li>
+          <li>記憶力強（細節式）</li>
+          <li>本身就像一盞明燈，為文明的象徵</li>
+          <li>沉著，重直覺，會選擇性記憶</li>
+          <li>遇事情會先觀察，靜靜聽講，清楚後再表達意見</li>
+          <li>看人較準確，對喜歡的人非常好</li>
+          <li>敏感性佳，具第六感</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>內心急躁，易樹敵</li>
+          <li>看別人很準確，往往看不清楚自己</li>
+          <li>內心感情豐富且不善表達於言詞，善忌妒，人稱悶騷型</li>
+          <li>須注意心、血壓、小腸、眼睛等問題</li>
+          <li>很容易看到外界是非，不想當是非人，卻容易捲入是非中</li>
+          <li>一旦翻臉就像翻書一樣</li>
+          <li>屬火好恨故容易傷心，恨鐵不成鋼</li>
+          <li>遇事情外表不急內心急</li>
+          <li>對不喜歡的人會不理睬</li>
+          <li>當討厭平常喜歡的人時，很難恢復昔日感情，用「起毛子」在做事情</li>
+          <li>太溺愛自己的孩子</li>
+          <li>不喜被太親近</li>
+          <li>常被最親近的人害了</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 戊 -->
+  <div class="item" id="wu">
+    <h3>戊 (陽土)<small>固執不自覺，易堅持己見，但富同化力</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>富同化力，會將他人思想同化之</li>
+          <li>沉著具雅量</li>
+          <li>善於照顧別人，心腸慈悲</li>
+          <li>適應力強且逆來順受</li>
+          <li>總默默耕耘</li>
+          <li>為人重誠信，憎恨不守信用之人</li>
+          <li>性格成熟適做文書</li>
+          <li>個性率直，直話直說，有包容心</li>
+          <li>為人講信用，不喜歡被騙或被爽約</li>
+          <li>執著、固執，事情慢慢做，最後會成功，比較不會攀親帶故</li>
+          <li>天生總務人才</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>固執不自覺，易堅持己見</li>
+          <li>外柔內剛，易親易離</li>
+          <li>易沉於情慾之中</li>
+          <li>可惜經常不受賞識，故常有懷才不遇之感</li>
+          <li>行事墨守成規且較收斂</li>
+          <li>須注意胃脾及腹部的毛病</li>
+          <li>外表沉靜時則內心急躁</li>
+          <li>因其喜歡舊事物，也不喜歡搬遷</li>
+          <li>做到流汗，被嫌到流涎</li>
+          <li>工作表現好，不易被發覺，如果摸魚偷懶馬上被逮到</li>
+          <li>喜歡受稱讚</li>
+          <li>自己常有懷才不遇的感覺</li>
+          <li>嫉妒心強，認為他人總沒自己做的好</li>
+          <li>喜歡他人讚美，不喜被批評</li>
+          <li>嫉妒心起，且會明白表達對對方的不滿</li>
+          <li>對他人要求要準時，卻不一定要求自己準時</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 己 -->
+  <div class="item" id="ji">
+    <h3>己 (陰土)<small>固執亦不自覺，易堅持己見，為人重義氣</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>為人重義氣並善理事，好溝通</li>
+          <li>包容性強</li>
+          <li>講信用</li>
+          <li>可塑性強，給予方向後即可堪造成器</li>
+          <li>交友廣闊，三教九流皆有</li>
+          <li>善打天下之人</li>
+          <li>土不畏木盛不畏水狂</li>
+          <li>有包容心</li>
+          <li>天生總務人材</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>固執亦不自覺，易堅持己見</li>
+          <li>會黏人</li>
+          <li>外表溫和，內帶猜忌且叛逆</li>
+          <li>常感懷才不遇</li>
+          <li>須注意脾胃腹部</li>
+          <li>其好怨，因覺四端因其而生卻不受重視</li>
+          <li>拖拉特性</li>
+          <li>缺乏安全感</li>
+          <li>做到流汗，被嫌到流涎</li>
+          <li>有叛逆的個性，較會抱怨，善猜忌</li>
+          <li>工作表現好，不易被發覺，如果摸魚偷懶馬上被逮到</li>
+          <li>非普通的固執，無法形容的固執與堅持，寧願將錯就錯</li>
+          <li>喜歡受稱讚，主觀意識強，四方的錢都想賺</li>
+          <li>自己常有懷才不遇的感覺</li>
+          <li>平常易怯場，有事才會找朋友，但喝酒後就不一樣</li>
+          <li>嫉妒心強，但不易透露</li>
+          <li>不喜他人比自己好</li>
+          <li>最講信用，也是最不講信用</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 庚 -->
+  <div class="item" id="geng">
+    <h3>庚 (陽金)<small>講義氣，是非分明，果斷勇決</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>講義氣，是非分明，果斷勇決，強行，不屈不畏困難，不畏強勢</li>
+          <li>言行喜歡直來直往，有話直說</li>
+          <li>作為非常強勢，對事件的批評喜歡單刀直入</li>
+          <li>個性不拘小節，卻眼光犀利，感覺敏銳，氣魄佳</li>
+          <li>目美音佳皮膚白皙，外表貴氣，性格內斂且無心機</li>
+          <li>白手起家</li>
+          <li>說話直接直指重點</li>
+          <li>喜歡親力親為</li>
+          <li>講義氣，不喜歡欠別人人情，刀子嘴豆腐心</li>
+          <li>不欠人情，吃軟不吃硬，吃飯都先去付帳</li>
+          <li>個性果斷，感覺敏銳，不畏強權</li>
+          <li>外表看似粗枝大葉，但是心思卻是很細膩</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>好權勢，好鬥爭，尤以申酉月生者更甚</li>
+          <li>故易得罪人</li>
+          <li>應注意筋骨及肺、支氣管、大腸、牙齒等問題</li>
+          <li>往往說出重點卻不知已得罪他人</li>
+          <li>若八字命盤土多則較難出頭</li>
+          <li>常因過份講義氣害死自己</li>
+          <li>容易輕易答應別人，決定事情太草率太快，考慮不週容易吃虧</li>
+          <li>煩惱多</li>
+          <li>沒有錢不太敢出門</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 辛 -->
+  <div class="item" id="xin">
+    <h3>辛 (陰金)<small>剛義勇邁，上進不虛榮，耐力佳</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>剛義勇邁，上進不虛榮，耐力佳，行事循序漸進，追求理想不遺餘力</li>
+          <li>重意氣，眼光犀利，感覺敏銳</li>
+          <li>溫文儒雅較柔性婉約，有氣質，有貴氣，口才佳</li>
+          <li>白手起家</li>
+          <li>講義氣，不喜歡欠別人人情</li>
+          <li>講話銳利，但較有氣質</li>
+          <li>口才一流</li>
+          <li>喜乾淨</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>拘小節</li>
+          <li>一生為金錢煩惱（有錢無錢均煩）</li>
+          <li>應注意筋骨、肺、支氣管、大腸、牙齒等毛病</li>
+          <li>非常神經質，睡眠品質欠佳，晚上難入眠</li>
+          <li>一但發揮其特質，會冷嘲熱諷令人難受</li>
+          <li>其命有兩極化，不是大好就是大壞</li>
+          <li>喜歡論斷對錯</li>
+          <li>容易輕易答應別人，決定事情太草率太快，考慮不週容易吃虧</li>
+          <li>對事情想太多，假設太多，煩惱過度，較無力承擔</li>
+          <li>講話不會直接切入重點</li>
+          <li>常會因為拐彎抹角而傷人</li>
+          <li>有神經質傾向，勞碌命</li>
+          <li>天生愛錢如命，善嘮叨</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 壬 -->
+  <div class="item" id="ren">
+    <h3>壬 (陽水)<small>才智高，理性佳，重責任，交際廣</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>才智高，理性佳，重責任，交際廣，人緣佳</li>
+          <li>反應靈敏</li>
+          <li>外表平靜，膽大心細</li>
+          <li>事業容易有成就</li>
+          <li>其為最佳業務員（適應力及韌性皆強）</li>
+          <li>走運時，企圖心強</li>
+          <li>有高度的才華及崇尚自然</li>
+          <li>非常聰明會讀書</li>
+          <li>做事野心大，成功機會也高</li>
+          <li>不喜歡被約束，人緣好，果斷力強，脾氣過了就算</li>
+          <li>人緣好，做人圓滑不易得罪人</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>能見風轉舵，善算計</li>
+          <li>好求變，易激動，定性差，個性不服輸</li>
+          <li>做事大而化之</li>
+          <li>易聰明反被聰明誤</li>
+          <li>應注意膀胱和腎（泌尿系統）</li>
+          <li>只相信自己，不易相信別人</li>
+          <li>見風轉舵，見危險即閃開，較不會接受別人的意見</li>
+          <li>賺錢快，虧錢也快</li>
+          <li>做事直接快速，欠缺慎思，多慮，故易壞事</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 癸 -->
+  <div class="item" id="gui">
+    <h3>癸 (陰水)<small>聰明，看似平靜，其實內心澎湃洶湧</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>聰明，巧於臨機應變，有遠見，細水長流</li>
+          <li>節儉，正直而踏實</li>
+          <li>交際廣人緣佳，善於經營事業，也很容易成功</li>
+          <li>頭腦清楚</li>
+          <li>其忍功一流，如滴水穿石</li>
+          <li>是個時事家，喜歡瀏覽時事資訊</li>
+          <li>個性內向，善忍，事業易成，人緣佳善交際</li>
+          <li>有生意頭腦</li>
+          <li>外冷內熱，要做就要做到最好</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>看似平靜，其實內心澎湃洶湧</li>
+          <li>個性內向保守，感情脆弱，有點神經質，喜歡幻想</li>
+          <li>有潔癖</li>
+          <li>如小溪流般彎彎曲曲，故容易想太多</li>
+          <li>也會聰明反被聰明誤</li>
+          <li>應注意膀胱、腎、足的毛病</li>
+          <li>流遍四處於是滄桑於心</li>
+          <li>平衡感較差，容易失去平衡感</li>
+          <li>超愛乾淨，反而容易生病</li>
+          <li>其好煩，大小事都要管</li>
+          <li>當腎及心臟不好就賺不到錢</li>
+          <li>只相信自己，不易相信別人</li>
+          <li>見風轉舵，見危險即閃開</li>
+          <li>賺錢快，虧錢也快</li>
+          <li>走路易翻腳刀</li>
+          <li>主觀意識濃，善計謀</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ 十二地支 ══════════ -->
+  <h2 class="sec" id="dz"><span class="num">地支</span>十二地支</h2>
+
+  <!-- 子 -->
+  <div class="item" id="zi">
+    <h3>子月（鼠）<small>屬水，機靈精算</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>機靈精算，善於保護自己</li>
+          <li>機警狡猾，聰明絕頂</li>
+          <li>晚上生的鼠，可保衣食無憂</li>
+          <li>非常聰明，反應很快</li>
+          <li>膽小，警覺性高</li>
+          <li>訓練自己，事情決定了就不要後悔</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>個性極端反覆不定，捉摸不定</li>
+          <li>太會盤算，常因小利而忽略大格局</li>
+          <li>易聰明反被聰明誤</li>
+          <li>善變，有始無終</li>
+          <li>做決定容易比人慢，損失很多機會，猶豫不決</li>
+          <li>白天出生的容易陷入困頓，若陷入往往很難脫困</li>
+          <li>對事情的決定常左右為難、猶豫不決、翻來覆去，決定後常變卦</li>
+          <li>事情做了後悔，不做也後悔</li>
+          <li>心思一日多變，故事業難以定根</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 丑 -->
+  <div class="item" id="chou">
+    <h3>丑月（牛）<small>屬土，本性善良，耐力十足</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>本性善良，耐力好，喜歡安定</li>
+          <li>任勞任怨，勤勞且腳踏實地</li>
+          <li>忍辱負重，隱藏實力</li>
+          <li>對地理、命理特別敏感，也容易學會</li>
+          <li>宜越挫越勇</li>
+          <li>做事認真，好問</li>
+          <li>任勞任怨</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>脾氣很大，堅持，固執</li>
+          <li>喜追根究底（打破砂鍋問到底）</li>
+          <li>主觀意識重</li>
+          <li>容易重提往事（好、壞都會提），很會查行蹤，翻舊賬</li>
+          <li>個性比較會碎碎唸，脾氣大，愛鑽牛角尖</li>
+          <li>學習速度慢，且廣，非學到很懂，不易輕易被帶動</li>
+          <li>自我意識過強，一切以自我為中心，而做出不自量力之事</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 寅 -->
+  <div class="item" id="yin">
+    <h3>寅月（虎）<small>屬木，能幹耐勞</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>能幹耐勞，樂觀積極又仁慈</li>
+          <li>自我期許高，屬完美主義者</li>
+          <li>既能幹又肯做事，不怕勞苦</li>
+          <li>沉著內斂，不會推卸責任，單打獨鬥，本事高</li>
+          <li>掌控能力強，為幕僚高手</li>
+          <li>心軟，仁慈，別人只要開口就會有，就會答應</li>
+          <li>有責任感與領導格，定下目標一定達成</li>
+          <li>愛吃美食，愛吃肉</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>為衝動派，好動，愛自由，勞碌命，坐不住</li>
+          <li>不服輸，喜當老大</li>
+          <li>野心大，愛做大事業</li>
+          <li>愛美，不安於室</li>
+          <li>若受壓力，會有「虎落平陽被犬欺」的感慨，甚至會傷到自己</li>
+          <li>爆發力強，但往往後繼無力</li>
+          <li>生性驕傲，明顯固執，不太能接受人家批評</li>
+          <li>勞碌命閒不住，太閒時會難過，脾氣不好，不喜歡囉嗦</li>
+          <li>味口大，喜做大事業</li>
+          <li>最恨被騙，一被騙恐會發狂</li>
+          <li>行動快，不好問，故常有溝通不夠，難成事之嘆</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 卯 -->
+  <div class="item" id="mao">
+    <h3>卯月（兔）<small>屬木，保護色強</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>智慧高，完美主義者</li>
+          <li>有衝勁，有人緣，有桃花，機警</li>
+          <li>不容易顯老，文靜，喜愛乾淨，心地善良</li>
+          <li>第六感很強，直覺性敏銳</li>
+          <li>善於裝蒜，善應對</li>
+          <li>喜歡羅曼蒂克，異性緣佳</li>
+          <li>眼睛銳利，眼光高</li>
+          <li>氣質好，品味高</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>狡猾善變</li>
+          <li>閒不住，防衛性強</li>
+          <li>只能接受成功，不能坦然面對失敗，容易有始無終</li>
+          <li>即使犯錯也不輕易認錯</li>
+          <li>常會吃窩邊草</li>
+          <li>為保護自己，偶而也會偽裝</li>
+          <li>對看不順眼或不喜歡的人不理睬</li>
+          <li>有潔癖，喜乾淨，家裡的東西喜移動</li>
+          <li>工作時不喜歡別人打擾而會中途停頓</li>
+          <li>心軟，龜毛，較會保護自己，較嬌氣，會計較</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 辰 -->
+  <div class="item" id="chen">
+    <h3>辰月（龍）<small>屬土帶木，個性捉摸不定</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>思想變化快，點子多，聰明</li>
+          <li>福報不錯，常化險為夷</li>
+          <li>多才多藝，學什麼像什麼，容易有成就</li>
+          <li>是事業上好夥伴及熱心助人的好友</li>
+          <li>有藝術天份</li>
+          <li>有第六感</li>
+          <li>說話講重點</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>喜當老大，非常自負，好高騖遠</li>
+          <li>喜奉承巴結，勢力</li>
+          <li>好面子，喜歡被尊重，喜歡人家「說好聽的話」</li>
+          <li>眼光高，看高不看低（做事不實際）</li>
+          <li>個性千變萬化，常給人神龍見首不見尾的神秘感</li>
+          <li>屬龍女性比男性更善變，內心世界不容易被察覺</li>
+          <li>有「精神潔癖」的傾向</li>
+          <li>不喜歡受人管束，喜歡當老大</li>
+          <li>神龍見首不見尾，稍不注意即不見人影，想離開時較不會辭行</li>
+          <li>做事有頭無尾，愛自由</li>
+          <li>主觀意識重，較鐵齒</li>
+          <li>光說卻未必會去執行</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 巳 -->
+  <div class="item" id="si">
+    <h3>巳月（蛇）<small>屬火，心思細密聰明</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>心思細密聰明</li>
+          <li>很會鑽研，分析力強</li>
+          <li>冷靜沉著，有眼光，有遠見</li>
+          <li>數字概念清楚，善於理財，為生意上好角色</li>
+          <li>適合做業務推動</li>
+          <li>屬蛇女性有一種神秘力量</li>
+          <li>包容力大</li>
+          <li>善於自處，且能力相當強</li>
+          <li>很沉著，口才非常好，公關好</li>
+          <li>沒有舞台時很靜，有舞台會發揮的很好</li>
+          <li>業務人才</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>喜歡聊天，好辯，不服輸，敏捷好辯又好訴訟</li>
+          <li>外表冷漠，內心如火</li>
+          <li>個性冰冷，城府很深，好辯，猜疑心重</li>
+          <li>主觀太強，很難約束</li>
+          <li>若觸怒之反撲力量很強</li>
+          <li>愛說話且說話快，性子急</li>
+          <li>遇到挫折就會放棄，沒有持續力</li>
+          <li>對不對味的人一句話都嫌多</li>
+          <li>愛抬槓</li>
+          <li>好勝心強</li>
+          <li>講話做事不直接，喜拐彎抹角</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 午 -->
+  <div class="item" id="wu2">
+    <h3>午月（馬）<small>屬火，憨直，性直，膽大</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>憨直，性直，心腸軟</li>
+          <li>敢衝敢拼，對朋友熱情</li>
+          <li>很樂觀，喜交際，有人緣</li>
+          <li>性格奔放，喜自由</li>
+          <li>若能修正心性調整處世，越老越有成就</li>
+          <li>屬馬男性異性緣好</li>
+          <li>午是桃花，女孩子大部份都長的漂亮也愛水，人緣好</li>
+          <li>第六感好，喜將事情提前做好</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>好勝心強，禁不起刺激，受刺激必有回應，口服心不服</li>
+          <li>急躁，容易被設計</li>
+          <li>奔波，勞碌</li>
+          <li>脾氣很拗</li>
+          <li>喜拍馬屁</li>
+          <li>性情不定，好惡分明，喜怒哀樂形於色，易招惹是非</li>
+          <li>急躁且欲速則不達</li>
+          <li>在同業中容易被排擠</li>
+          <li>屬馬女性多半帶有男性性格，膽子大，多操勞，閒不下來，老年時易變成嘮叨老人</li>
+          <li>好勝心強、不認輸，賭性堅強，比較極端</li>
+          <li>愛聽好話，自戀，愛美</li>
+          <li>喜歡受誇讚</li>
+          <li>受到刺激時脾氣一發，不可收拾，易受人煽動，容易頭痛</li>
+          <li>好勝心、自尊心強，自卑感重，不善於被批評</li>
+          <li>逢臨時事時易亂方寸、手腳</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 未 -->
+  <div class="item" id="wei">
+    <h3>未月（羊）<small>屬土又屬火，好出風頭，特立獨行</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>為人親切，富人情味，一絲不苟，行事謹慎</li>
+          <li>孝順</li>
+          <li>對感情專注忠貞</li>
+          <li>男性屬羊，多半聰明</li>
+          <li>重感情</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>好出風頭，特立獨行</li>
+          <li>不知如何表達，個性膽小</li>
+          <li>注重外表，喜鑽牛角尖</li>
+          <li>打破砂鍋問到底，愛生氣</li>
+          <li>內心喜歡當領導人物，但須依附他人方能成功</li>
+          <li>喜歡表現自己</li>
+          <li>追根究底，個性執著，主觀意識重</li>
+          <li>不喜歡別人或配偶批評父母親</li>
+          <li>沒有安全感</li>
+          <li>很會查行蹤，翻舊賬</li>
+          <li>有領導能力但表現不出來</li>
+          <li>遇到事情主觀意識重，喜別人認同自己想法，卻不明說己願</li>
+          <li>當他人意思無法如同所想，則不斷以問題扭轉對方觀念，促其共識己意</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 申 -->
+  <div class="item" id="shen">
+    <h3>申月（猴）<small>屬金，機靈過人</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>機靈過人</li>
+          <li>好動有衝勁，重義氣</li>
+          <li>善模仿，學習能力強</li>
+          <li>觀察力敏銳，心思細膩，富機智，能力強</li>
+          <li>異性緣好</li>
+          <li>屬猴女性頗有女人味</li>
+          <li>較沒心機</li>
+          <li>喜歡講重點</li>
+          <li>重朋友，模仿能力強</li>
+          <li>注意小細節，做事卻乾脆俐落</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>坐不住，沒一時閒著</li>
+          <li>只有三分鐘熱度，沒耐心</li>
+          <li>猴急，狡猾善變，喜走捷徑</li>
+          <li>欠缺穩重</li>
+          <li>喜歡招搖，帶點風騷</li>
+          <li>希望自己是群體中最受注目的焦點</li>
+          <li>急性子，沒耐心等待，想到就做</li>
+          <li>講話銳利，嘴快，二三句話就解決，易傷人自己卻不知道</li>
+          <li>靜不下來</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 酉 -->
+  <div class="item" id="you">
+    <h3>酉月（雞）<small>屬金，大小通吃，好管閒事</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>熱心喜服務人群，積極主動</li>
+          <li>很有審美觀</li>
+          <li>自信心強</li>
+          <li>第六感強</li>
+          <li>異性緣特別好</li>
+          <li>人緣很好，也很重視感覺</li>
+          <li>有愛心，做事投入</li>
+          <li>喜幫的事幫到底</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>沒有衝勁，較悲觀</li>
+          <li>雞婆個性，急躁，雙重個性</li>
+          <li>會較從自己利益著眼</li>
+          <li>自尊心、虛榮心都很強，喜歡被讚美</li>
+          <li>屬雞男性給人一種愛拈花惹草的感覺</li>
+          <li>屬雞女性多半帶點「雞婆」個性，喜歡替人出主意，喜歡湊熱鬧</li>
+          <li>過度熱心，只要有人拜託，可以自己的工作丟在一旁跑去幫忙別人，忙完了，別人也不會說聲謝謝，自己很鬱卒</li>
+          <li>有時說話傷人而不自知</li>
+          <li>不會拒絕別人的拜託</li>
+          <li>講話欠思考</li>
+          <li>神經質，話放不住，在乎別人的看法，八卦消息傳的快</li>
+          <li>喝酒有時會喝到滿意，不然就滴酒不沾</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 戌 -->
+  <div class="item" id="xu">
+    <h3>戌月（狗）<small>屬土，個性善良，喜歡照顧別人</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>個性善良，喜歡照顧別人</li>
+          <li>講忠心，信用佳，善良，重感情</li>
+          <li>是好朋友及好部屬</li>
+          <li>好惡分明，十分謹慎</li>
+          <li>常出現五行高手，對研究玄學很投入</li>
+          <li>人間福報好，無形福報多，常遇貴人逢凶化吉</li>
+          <li>賺錢不難，不容易缺錢</li>
+          <li>想法樂觀積極，不太會隱藏自己個性及秘密</li>
+          <li>特別喜歡照顧別人</li>
+          <li>對於有恩的人，會加倍償還恩情，十分忠心</li>
+          <li>顧家</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>想當老大，易突發奇想，率性而為，而有驚人之舉</li>
+          <li>固執</li>
+          <li>戒心很強，不隨便相信人</li>
+          <li>欠缺金錢觀，難有鉅額財富</li>
+          <li>有時會有狗改不了吃屎的習慣</li>
+          <li>死心眼，易單戀，或被戀愛衝昏頭</li>
+          <li>自尊心非常強，連自己的偶像都不可被別人批評</li>
+          <li>較不信天命（鐵齒），鬼點子多，不好溝通，臭屁</li>
+          <li>較古板不易變通，老走舊的模式難改變，自我內在意識過強</li>
+          <li>忠心，但卻也善於背後扯後腿</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 亥 -->
+  <div class="item" id="hai">
+    <h3>亥月（豬）<small>屬水，癡情想不開</small></h3>
+    <div class="pos-neg">
+      <div class="pos">
+        <h4>正面特質</h4>
+        <ul>
+          <li>很有智慧</li>
+          <li>非常注重原則</li>
+          <li>善利用別人，借力使力，為生意高手</li>
+          <li>很明理</li>
+          <li>口才好</li>
+          <li>眼光獨特，極有開創力</li>
+          <li>會扮豬吃老虎</li>
+          <li>個性很靜</li>
+          <li>沒有舞台時很靜，有舞台會發揮的很好</li>
+          <li>明理有智慧</li>
+        </ul>
+      </div>
+      <div class="neg">
+        <h4>負面特質</h4>
+        <ul>
+          <li>癡情想不開</li>
+          <li>不易溝通，常把事情放心裡</li>
+          <li>外表剛毅，內心脆弱，性格矛盾，不易了解</li>
+          <li>常追根究底，有時會很「番」，不講道理</li>
+          <li>好辯</li>
+          <li>很注重口腹之慾</li>
+          <li>自刑最嚴重，愛鑽牛角尖，完美主義</li>
+          <li>不可言語刺激，否則易走極端</li>
+          <li>一個亥明理，兩個亥歇斯底里</li>
+          <li>嘮叨、囉嗦、叮嚀不停</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>本整理根據原始天干地支解說文本，拆分為正面與負面特質。</p>
+    <p>部分原文未明列負面特質者，依其五行象徵與性格邏輯合理生成，並標註「（生成）」。</p>
+    <p style="margin-top:10px;font-size:.8rem;letter-spacing:.08em;color:#a89c8a;">
+      十天干 · 十二地支 · 正負對照
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
