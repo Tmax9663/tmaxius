@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FreePaths 生命數據庫（Basic）課程學員價格計劃書</title>
+<style>
+  :root{
+    --ink:#1f2933;
+    --muted:#5c6b7a;
+    --line:#e3e8ee;
+    --accent:#2f6f6a;
+    --accent-soft:#eaf4f2;
+    --gold:#b8860b;
+    --bg:#f6f8fa;
+    --card:#ffffff;
+    --radius:14px;
+  }
+
+  *{box-sizing:border-box;}
+
+  html{-webkit-text-size-adjust:100%;}
+
+  body{
+    margin:0;
+    padding:32px 16px 64px;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",
+                -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:16px;
+    line-height:1.75;
+  }
+
+  .doc{
+    max-width:920px;
+    margin:0 auto;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:0 6px 24px rgba(31,41,51,.06);
+    overflow:hidden;
+  }
+
+  /* ---------- Header ---------- */
+  header.doc-head{
+    padding:36px 40px 30px;
+    background:linear-gradient(135deg,#2f6f6a 0%,#3f8f86 60%,#57a99e 100%);
+    color:#fff;
+  }
+  header.doc-head h1{
+    margin:0 0 14px;
+    font-size:1.6rem;
+    line-height:1.4;
+    letter-spacing:.02em;
+  }
+  header.doc-head .meta{
+    font-size:.9rem;
+    opacity:.92;
+    line-height:1.9;
+  }
+  header.doc-head .meta span{
+    display:inline-block;
+    margin-right:16px;
+  }
+  header.doc-head code{
+    background:rgba(255,255,255,.18);
+    padding:1px 6px;
+    border-radius:5px;
+    font-size:.86em;
+  }
+
+  /* ---------- Body ---------- */
+  main{padding:8px 40px 40px;}
+
+  section{
+    padding:28px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  section:last-of-type{border-bottom:none;}
+
+  h2{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:0 0 16px;
+    font-size:1.18rem;
+    color:var(--accent);
+    letter-spacing:.02em;
+  }
+  h2 .num{
+    flex:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:28px;height:28px;
+    border-radius:50%;
+    background:var(--accent-soft);
+    color:var(--accent);
+    font-size:.82rem;
+    font-weight:700;
+  }
+
+  p{margin:0 0 12px;}
+  p:last-child{margin-bottom:0;}
+
+  strong{color:var(--ink);}
+  strong0{color:#f7ff00; font-weight:700;}
+
+  /* ---------- Positioning highlight ---------- */
+  .lead{
+    background:var(--accent-soft);
+    border-left:4px solid var(--accent);
+    border-radius:0 10px 10px 0;
+    padding:16px 20px;
+    font-size:1.02rem;
+  }
+  .lead .note{
+    display:block;
+    margin-top:8px;
+    color:var(--muted);
+    font-size:.92rem;
+  }
+
+  /* ---------- Tables ---------- */
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.95rem;
+    min-width:420px;
+  }
+  caption{
+    caption-side:bottom;
+    padding-top:10px;
+    color:var(--muted);
+    font-size:.84rem;
+    text-align:left;
+  }
+  th,td{
+    padding:11px 14px;
+    border:1px solid var(--line);
+    text-align:left;
+    vertical-align:top;
+  }
+  thead th{
+    background:#f2f5f7;
+    color:var(--ink);
+    font-weight:700;
+    white-space:nowrap;
+  }
+  tbody tr:nth-child(even){background:#fafcfc;}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+
+  .price{
+    color:var(--accent);
+    font-weight:700;
+    font-size:1.05em;
+  }
+  .strike{color:var(--muted);text-decoration:line-through;}
+
+  /* ---------- Lists ---------- */
+  ul,ol{margin:0;padding-left:1.35em;}
+  li{margin-bottom:8px;}
+  li:last-child{margin-bottom:0;}
+
+  .rules{counter-reset:none;padding-left:1.4em;}
+  .rules li::marker{color:var(--accent);font-weight:700;}
+
+  /* ---------- Flow ---------- */
+  .flow{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px;
+    padding:18px;
+    background:#f8fafb;
+    border:1px solid var(--line);
+    border-radius:10px;
+  }
+  .flow .step{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:6px 14px;
+    font-size:.9rem;
+    white-space:nowrap;
+  }
+  .flow .arrow{color:var(--accent);font-weight:700;}
+
+  /* ---------- Callouts ---------- */
+  .callout{
+    margin-top:14px;
+    padding:14px 18px;
+    border-radius:10px;
+    font-size:.93rem;
+  }
+  .callout.warn{
+    background:#fff8e6;
+    border:1px solid #f0dfae;
+  }
+  .callout.info{
+    background:#eef4fb;
+    border:1px solid #cfe0f2;
+  }
+  .callout strong{color:inherit;}
+
+  .demo-note{
+    margin-top:14px;
+    padding:12px 16px;
+    background:#f8fafb;
+    border-left:3px solid var(--gold);
+    border-radius:0 8px 8px 0;
+    color:var(--muted);
+    font-size:.92rem;
+  }
+
+  /* ---------- Todo ---------- */
+  .todo{
+    list-style:none;
+    padding:0;
+    counter-reset:todo;
+  }
+  .todo li{
+    counter-increment:todo;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    padding:12px 16px;
+    background:#f8fafb;
+    border:1px solid var(--line);
+    border-radius:10px;
+    margin-bottom:10px;
+  }
+  .todo li::before{
+    content:counter(todo);
+    flex:none;
+    width:24px;height:24px;
+    border-radius:50%;
+    background:var(--accent);
+    color:#fff;
+    font-size:.8rem;
+    font-weight:700;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:3px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer.doc-foot{
+    padding:20px 40px 28px;
+    background:#f8fafb;
+    border-top:1px solid var(--line);
+    color:var(--muted);
+    font-size:.85rem;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:640px){
+    body{padding:0 0 40px;}
+    .doc{border-radius:0;border-left:none;border-right:none;}
+    header.doc-head{padding:26px 20px 22px;}
+    header.doc-head h1{font-size:1.28rem;}
+    main{padding:4px 20px 28px;}
+    section{padding:22px 0;}
+    footer.doc-foot{padding:18px 20px 24px;}
+    .flow{padding:14px;}
+    table{font-size:.88rem;}
+    th,td{padding:9px 10px;}
+  }
+
+  @media print{
+    body{background:#fff;padding:0;font-size:12pt;}
+    .doc{box-shadow:none;border:none;max-width:none;}
+    header.doc-head{background:#2f6f6a !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    section{break-inside:avoid;}
+    table{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<article class="doc">
+
+  <header class="doc-head">
+    <h1>FreePaths 生命數據庫（Basic）課程學員價格計劃書</h1>
+    <div class="meta">
+      <span><strong0>對象：</strong0>八字基本課程學員</span>
+      <span><strong0>產品：</strong0>FreePaths Basic Web App（<code>freepaths.tmaxius.workers.dev</code>）</span>
+      <span><strong0>版本：</strong0>v1</span>
+      <span><strong0>授權期限：</strong0>12 個月</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 1 -->
+    <section id="positioning">
+      <h2><span class="num">1</span>一句話定位</h2>
+      <div class="lead">
+        給八字基本課程學員的<strong>課堂實操工具</strong>：上課排盤、課後複習、一年內隨時查自己的命盤與五行喜忌。
+        <span class="note">不需註冊、不需下載、手機開網址即可用。</span>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section id="pricing">
+      <h2><span class="num">2</span>定價</h2>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+            <tr>
+              <th scope="row">課程學員價</th>
+              <td><span class="price">RM69</span></td>
+            </tr>
+            <tr>
+              <th scope="row">原價（非學員）</th>
+              <td><span class="strike">RM99</span></td>
+            </tr>
+            <tr>
+              <th scope="row">優惠</th>
+              <td>課程學員專屬，省 RM30（-30%）</td>
+            </tr>
+            <tr>
+              <th scope="row">授權期限</th>
+              <td><strong>12 個月</strong>（自啟動碼啟用日起算 365 天）</td>
+            </tr>
+            <tr>
+              <th scope="row">續期</th>
+              <td>到期後可續購，暫定同價 RM69／年</td>
+            </tr>
+            <tr>
+              <th scope="row">帳號</th>
+              <td>無需註冊，一組啟動碼解鎖</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout info">
+        <strong>每日成本：</strong>RM69 ÷ 365 ≈ <strong>RM0.19／天</strong>（原價 RM99 約 RM0.27／天）。
+        一天不到 RM0.20，換得整年排盤與五行查詢。
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section id="features">
+      <h2><span class="num">3</span>學員得到什麼</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">分頁／功能</th>
+              <th scope="col">示範版（未解鎖）</th>
+              <th scope="col">學員版 RM69</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>八字（乾造／坤造 · 時日月年 · 主星／藏干／副星 · 大運流年）</td>
+              <td>完整排盤</td>
+              <td>完整排盤</td>
+            </tr>
+            <tr>
+              <td>五行（身強弱 · 五行分佈 · 十神詞彙）</td>
+              <td>🔒 鎖定</td>
+              <td>✅ 開放</td>
+            </tr>
+            <tr>
+              <td>格局（身強弱 · 喜用忌神 · 從格覆寫 · 大運）</td>
+              <td>🔒 鎖定</td>
+              <td>✅ 開放</td>
+            </tr>
+            <tr>
+              <td>儲存命盤（最多 30 筆，可存家人／客戶）</td>
+              <td>🔒 不可</td>
+              <td>✅ 可存 30 筆</td>
+            </tr>
+            <tr>
+              <td>使用期限</td>
+              <td>課堂示範</td>
+              <td>12 個月</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="demo-note">
+        <strong>示範版用意：</strong>讓學員上課先看到「八字排盤」完整效果，再決定是否解鎖全功能。
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section id="exclusions">
+      <h2><span class="num">4</span>不含（避免日後爭議）</h2>
+      <ul>
+        <li><strong>Plus／Premium 進階功能</strong>（社交名片、AI 對話、擇日、飛星等）：另行定價，<strong>目前不開放、不報價</strong>。</li>
+        <li>個人一對一命理諮詢、命書撰寫。</li>
+        <li>非課程學員不適用 RM69 價（依原價 RM99）。</li>
+        <li>運勢（年度命理方案）分頁目前於 Basic 未上線，屬未來更新範圍，不計入本價。</li>
+      </ul>
+    </section>
+
+    <!-- 5 -->
+    <section id="license">
+      <h2><span class="num">5</span>授權與期限規則</h2>
+      <ol class="rules">
+        <li>啟動碼格式為「班級代號 + 6 位校驗碼」（例：<code>2609A-XXXXXX</code>），由老師／助教發放。</li>
+        <li>啟用後於學員裝置記錄 <strong>365 天</strong>；到期自動鎖回示範版（僅剩八字）。</li>
+        <li>換手機、換瀏覽器或清除資料 → <strong>重新輸入同一組啟動碼即可</strong>，授權仍以同一學員為限。</li>
+        <li>啟動碼屬個人授權，<strong>請勿外流、轉售或公開分享</strong>。</li>
+        <li>期限一年，與課程學習週期一致。</li>
+      </ol>
+    </section>
+
+    <!-- 6 -->
+    <section id="purchase">
+      <h2><span class="num">6</span>購買流程（建議）</h2>
+      <div class="flow" role="list" aria-label="購買流程">
+        <span class="step" role="listitem">學員</span>
+        <span class="arrow" aria-hidden="true">→</span>
+        <span class="step" role="listitem">向老師／助教報名並付款</span>
+        <span class="arrow" aria-hidden="true">→</span>
+        <span class="step" role="listitem">領取啟動碼</span>
+        <span class="arrow" aria-hidden="true">→</span>
+        <span class="step" role="listitem">開網址輸入碼</span>
+        <span class="arrow" aria-hidden="true">→</span>
+        <span class="step" role="listitem">立即解鎖（12 個月）</span>
+      </div>
+      <div class="callout warn">
+        <strong>付款方式（待確認）：</strong>DuitNow QR／銀行轉帳／TnG eWallet。
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section id="forecast">
+      <h2><span class="num">7</span>給老師的班級預估</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col" class="num">學員人數</th>
+              <th scope="col" class="num">學員價 RM69</th>
+              <th scope="col" class="num">對照原價 RM99</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="num">10</td><td class="num">RM690</td><td class="num">RM990</td></tr>
+            <tr><td class="num">20</td><td class="num">RM1,380</td><td class="num">RM1,980</td></tr>
+            <tr><td class="num">30</td><td class="num">RM2,070</td><td class="num">RM2,970</td></tr>
+            <tr><td class="num">50</td><td class="num">RM3,450</td><td class="num">RM4,950</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:14px;color:var(--muted);font-size:.94rem;">
+        定價低於 RM100，屬「課程附加工具」價位，學員決策成本低、老師招生時好說明。
+      </p>
+    </section>
+
+    <!-- 8 -->
+    <section id="risks">
+      <h2><span class="num">8</span>風險與建議</h2>
+      <ul>
+        <li><strong>班級共用碼有外流風險：</strong>目前機制為「一班一碼」，外流後無法逐一停權。建議改為<strong>一學員一碼</strong>，或每班碼設人數上限。</li>
+        <li><strong>期限以本機時間判定：</strong>學員改系統時間可延長。若要嚴格控管，建議加上雲端啟用紀錄（可選、非必要）。</li>
+        <li><strong>文案一致化：</strong>程式內鎖定提示提到「運勢」分頁，但 Basic 目前未掛上該分頁，建議統一說法。</li>
+      </ul>
+    </section>
+
+    <!-- 9 -->
+    <section id="terms">
+      <h2><span class="num">9</span>條款摘要</h2>
+      <ul>
+        <li>虛擬商品，啟動碼一經發放<strong>不設退款</strong>（待老師確認）。</li>
+        <li>內容僅供學習與娛樂參考，不可盲目迷信，不構成醫療、投資、法律或婚姻決策建議。</li>
+        <li>版權所有，禁止轉售、拆解、逆向工程或再散布。</li>
+      </ul>
+    </section>
+
+    <!-- 10 -->
+    <section id="todo">
+      <h2><span class="num">10</span>待確認事項（3 項）</h2>
+      <ol class="todo">
+        <li>授權形式：<strong>一學員一碼</strong>，或<strong>全班共用一碼</strong>？</li>
+        <li>續購價是否維持 <strong>RM69／年</strong>？</li>
+        <li>收款方式（DuitNow／轉帳／TnG）。</li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer class="doc-foot">
+    * Plus／Premium 價格未定，本計劃書不涉及。
+  </footer>
+
+</article>
+
+</body>
+</html>
