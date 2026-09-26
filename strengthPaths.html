@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八字身强身弱计算详解 (动画演示)</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-main: #e0e0e0;
+            --gold: #d4af37;
+            --red: #c0392b;
+            --green: #27ae60;
+            --blue: #2980b9;
+            --highlight: #f1c40f;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--gold);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        /* ===== 顶部方法按钮 ===== */
+        .method-bar {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .method-btn {
+            flex: 1 1 0;
+            min-width: 110px;
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 10px;
+            font-size: 1.15em;
+            font-weight: bold;
+            font-family: inherit;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all .3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            line-height: 1.2;
+        }
+
+        .method-btn span {
+            font-size: .55em;
+            font-weight: normal;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        .method-btn:hover {
+            background: rgba(212, 175, 55, .15);
+            transform: translateY(-2px);
+        }
+
+        .method-btn.active {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 20px rgba(212, 175, 55, .55);
+        }
+
+        .method-btn.active span { color: #4a3a00; }
+
+        /* ===== 八字排盘 ===== */
+        .bazi-chart {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid #444;
+        }
+
+        .pillar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .pillar-label { font-size: 0.9em; color: #888; margin-bottom: 5px; }
+        .gan, .zhi { font-size: 2em; font-weight: bold; margin: 5px 0; transition: opacity .4s; }
+        .cang-gan { font-size: 0.8em; color: #aaa; display: flex; gap: 5px; padding: 4px 6px; border-radius: 6px; }
+
+        .day-master { color: var(--highlight); text-shadow: 0 0 10px var(--highlight); }
+        .month-branch { color: var(--red); }
+
+        /* 强高亮工具类 */
+        .hl-gold {
+            color: var(--highlight);
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--highlight);
+        }
+        .hl-orange {
+            color: #e67e22;
+            font-weight: bold;
+            text-shadow: 0 0 10px #e67e22;
+        }
+
+        /* ===== 柔和扫描光晕（全部藏干 / 全部天干） ===== */
+        .soft-glow {
+            animation: softPulse 1.4s ease-in-out infinite alternate;
+        }
+
+        @keyframes softPulse {
+            from {
+                text-shadow: 0 0 3px rgba(241, 196, 15, .25);
+            }
+            to {
+                text-shadow: 0 0 12px rgba(241, 196, 15, .85);
+            }
+        }
+
+        .cang-gan.soft-glow {
+            background: rgba(241, 196, 15, .07);
+            box-shadow: 0 0 10px rgba(241, 196, 15, .22);
+        }
+
+        /* ===== 步骤卡片 ===== */
+        .step-card {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--gold);
+        }
+
+        .step-card.active {
+            display: block;
+            animation: cardIn .45s ease-out both;
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-title {
+            font-size: 1.4em;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .score-box {
+            background: #000;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 0.65em;
+            color: var(--highlight);
+            white-space: nowrap;
+        }
+
+        .step-card.active .reveal {
+            animation: fadeIn .6s ease-out both;
+            animation-delay: var(--d, 0s);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-card p { line-height: 1.7; }
+        .step-card ul { line-height: 1.9; }
+
+        /* 日主呼吸高亮 */
+        .highlight-glow {
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px var(--highlight); transform: scale(1); }
+            to   { text-shadow: 0 0 20px var(--highlight), 0 0 30px var(--red); transform: scale(1.1); }
+        }
+
+        .calc-detail {
+            background: rgba(0,0,0,0.35);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 12px;
+            font-family: monospace;
+            font-size: 1.1em;
+            border: 1px dashed #444;
+        }
+
+        /* ===== 最终结果 ===== */
+        .final-result {
+            text-align: center;
+            font-size: 1.2em;
+            color: var(--text-main);
+            margin-top: 20px;
+            display: none;
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid var(--gold);
+        }
+
+        .final-result.show {
+            display: block;
+            animation: cardIn .6s ease-out both;
+        }
+
+        .final-result h2 { color: var(--gold); }
+
+        .hint {
+            text-align: center;
+            color: #777;
+            font-size: .9em;
+            margin-bottom: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>坤造：丁丑 乙巳 辛未 甲午 (日主：辛金)</h1>
+
+    <!-- 三个方法按钮 -->
+    <div class="method-bar">
+        <button class="method-btn" data-step="1" onclick="showStep(1)">得令 <span>月令旺衰</span></button>
+        <button class="method-btn" data-step="2" onclick="showStep(2)">得地 <span>地支通根</span></button>
+        <button class="method-btn" data-step="3" onclick="showStep(3)">得势 <span>印比帮扶</span></button>
+    </div>
+
+    <div class="hint">👆 点击按钮查看对应计算方法与动画演示</div>
+
+    <!-- 八字排盘 -->
+    <div class="bazi-chart">
+        <div class="pillar" id="p-hour">
+            <div class="pillar-label">时柱</div>
+            <div class="gan" id="h-gan">甲</div>
+            <div class="zhi" id="h-zhi">午</div>
+            <div class="cang-gan" id="h-cang">丁 己</div>
+        </div>
+        <div class="pillar" id="p-day">
+            <div class="pillar-label">日柱</div>
+            <div class="gan day-master" id="d-gan">辛</div>
+            <div class="zhi" id="d-zhi">未</div>
+            <div class="cang-gan" id="d-cang">己 丁 乙</div>
+        </div>
+        <div class="pillar" id="p-month">
+            <div class="pillar-label">月柱</div>
+            <div class="gan" id="m-gan">乙</div>
+            <div class="zhi month-branch" id="m-zhi">巳</div>
+            <div class="cang-gan" id="m-cang">丙 戊 庚</div>
+        </div>
+        <div class="pillar" id="p-year">
+            <div class="pillar-label">年柱</div>
+            <div class="gan" id="y-gan">丁</div>
+            <div class="zhi" id="y-zhi">丑</div>
+            <div class="cang-gan" id="y-cang">己 癸 辛</div>
+        </div>
+    </div>
+
+    <!-- 第一步：得令 -->
+    <div class="step-card" id="step1">
+        <div class="step-title">
+            第一步：得令分数计算 (月令旺衰)
+            <span class="score-box">满分 40</span>
+        </div>
+        <p class="reveal" style="--d:.15s">
+            动画聚焦：<span class="day-master">日主 辛</span> 与 <span class="month-branch">月支 巳</span> 的关系。
+        </p>
+        <p class="reveal" style="--d:.5s">
+            👉 月支 <strong>巳</strong> 中藏三干：
+            <span style="color:var(--red)">丙 (本气)</span>、
+            <span style="color:var(--gold)">戊 (中气)</span>、
+            <span style="color:var(--blue)">庚 (余气)</span>。
+        </p>
+        <p class="reveal" style="--d:.9s">
+            👉 查「日主 × 月支」系数表：辛金生巳月，火旺金熔，处于“死”地，系数为 <strong>1</strong>。
+        </p>
+        <div class="calc-detail reveal" style="--d:1.3s">
+            计算公式：系数 1 × 10 = <strong style="color:var(--highlight); font-size:1.5em;">10 分</strong>
+        </div>
+    </div>
+
+    <!-- 第二步：得地 -->
+    <div class="step-card" id="step2">
+        <div class="step-title">
+            第二步：得地分数计算 (通根)
+            <span class="score-box">满分 32</span>
+        </div>
+        <p class="reveal" style="--d:.15s">
+            动画聚焦：日主 <strong>辛金</strong> 在四柱地支藏干中是否有同类（金）。
+        </p>
+        <p class="reveal" style="--d:.5s">🔍 扫描地支藏干：</p>
+        <ul>
+            <li class="reveal" style="--d:.7s">
+                年支 <strong>丑</strong>：藏 己 癸 <span class="hl-gold">辛</span> (余气)。
+                权重：余气 0.1 × 年支 1.0 × 8 = <strong>0.8 分</strong>
+            </li>
+            <li class="reveal" style="--d:.95s">
+                月支 <strong>巳</strong>：藏 丙 戊 <span class="hl-gold">庚</span> (余气)。
+                权重：余气 0.1 × 月支 1.5 × 8 = <strong>1.2 分</strong>
+            </li>
+            <li class="reveal" style="--d:1.2s">
+                日支 <strong>未</strong>、时支 <strong>午</strong>：藏干无金，0 分。
+            </li>
+        </ul>
+        <div class="calc-detail reveal" style="--d:1.5s">
+            计算公式：0.8 + 1.2 = <strong style="color:var(--highlight); font-size:1.5em;">2 分</strong> (根气极弱)
+        </div>
+    </div>
+
+    <!-- 第三步：得势 -->
+    <div class="step-card" id="step3">
+        <div class="step-title">
+            第三步：得势分数计算 (印比帮扶)
+            <span class="score-box">满分 28</span>
+        </div>
+        <p class="reveal" style="--d:.15s">
+            动画聚焦：日主 <strong>辛金</strong> 与其他天干及地支藏干中的印星（土）、比劫（金）。
+        </p>
+        <p class="reveal" style="--d:.5s">
+            🔍 扫描天干：丁(火)、乙(木)、甲(木)。<strong>无印星、无比劫</strong>。天干得分 0。
+        </p>
+        <p class="reveal" style="--d:.8s">🔍 扫描地支藏干中的印星（土）：</p>
+        <ul>
+            <li class="reveal" style="--d:1s">年支丑藏 <span class="hl-orange">己</span> (偏印) → +2 分</li>
+            <li class="reveal" style="--d:1.15s">月支巳藏 <span class="hl-orange">戊</span> (正印) → +2 分</li>
+            <li class="reveal" style="--d:1.3s">日支未藏 <span class="hl-orange">己</span> (偏印) → +2 分</li>
+            <li class="reveal" style="--d:1.45s">时支午藏 <span class="hl-orange">己</span> (偏印) → +2 分</li>
+        </ul>
+        <div class="calc-detail reveal" style="--d:1.75s">
+            计算公式：4 个印星 × 2 分 = <strong style="color:var(--highlight); font-size:1.5em;">8 分</strong>
+        </div>
+    </div>
+
+    <!-- 总结 -->
+    <div class="final-result" id="final-result">
+        <h2>📊 三維總分：10 + 2 + 8 = 20 分</h2>
+        <p>判定标准：&lt; 25 分为极弱。</p>
+        <p style="font-size: 2em; color: var(--gold); margin: 10px 0;">结论：极弱 (身弱)</p>
+        <p>喜用神：喜 土(印)、金(比劫) 生扶。</p>
+    </div>
+</div>
+
+<script>
+    /* 藏干原始内容，用于每次复位 */
+    const ORIGINAL_CANG = {
+        'y-cang': '己 癸 辛',
+        'm-cang': '丙 戊 庚',
+        'd-cang': '己 丁 乙',
+        'h-cang': '丁 己'
+    };
+
+    const CANG_IDS = ['y-cang', 'm-cang', 'd-cang', 'h-cang'];
+    const GAN_IDS  = ['y-gan', 'm-gan', 'h-gan'];   // 日干单独处理
+
+    const visited = { 1: false, 2: false, 3: false };
+    let chartTimer = null;
+
+    /* ---------- 复位排盘：清除所有高亮与光晕 ---------- */
+    function resetChart() {
+        if (chartTimer) {
+            clearTimeout(chartTimer);
+            chartTimer = null;
+        }
+
+        document.getElementById('d-gan').classList.remove('highlight-glow');
+        document.getElementById('m-zhi').classList.remove('highlight-glow');
+
+        /* 天干复位 */
+        ['y-gan', 'm-gan', 'h-gan', 'd-gan'].forEach(id => {
+            const el = document.getElementById(id);
+            el.style.opacity = '1';
+            el.classList.remove('soft-glow');
+        });
+
+        /* 藏干复位 */
+        CANG_IDS.forEach(id => {
+            const el = document.getElementById(id);
+            el.innerHTML = ORIGINAL_CANG[id];
+            el.classList.remove('soft-glow');
+        });
+    }
+
+    /* ---------- 隐藏所有卡片与按钮激活态 ---------- */
+    function resetCards() {
+        document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+    }
+
+    /* ---------- 给全部藏干添加柔和光晕 ---------- */
+    function glowAllCang() {
+        CANG_IDS.forEach(id => document.getElementById(id).classList.add('soft-glow'));
+    }
+
+    /* ---------- 给全部天干添加柔和光晕 ---------- */
+    function glowAllGan() {
+        GAN_IDS.forEach(id => document.getElementById(id).classList.add('soft-glow'));
+    }
+
+    /* ---------- 主入口：点击按钮切换步骤 ---------- */
+    function showStep(step) {
+        resetChart();
+        resetCards();
+
+        document.getElementById('step' + step).classList.add('active');
+        document.querySelector('.method-btn[data-step="' + step + '"]').classList.add('active');
+
+        if (step === 1) {
+            /* 得令：日主 与 月支 对焦 */
+            document.getElementById('d-gan').classList.add('highlight-glow');
+            document.getElementById('m-zhi').classList.add('highlight-glow');
+        }
+        else if (step === 2) {
+            /* 得地：全部藏干先柔和发光，再点亮真正的金 */
+            document.getElementById('d-gan').classList.add('highlight-glow');
+            glowAllCang();
+
+            chartTimer = setTimeout(() => {
+                document.getElementById('y-cang').innerHTML = '己 癸 <span class="hl-gold">辛</span>';
+                document.getElementById('m-cang').innerHTML = '丙 戊 <span class="hl-gold">庚</span>';
+            }, 550);
+        }
+        else if (step === 3) {
+            /* 得势：全部天干 + 全部藏干柔和发光，再点亮真正的印星（土） */
+            document.getElementById('d-gan').classList.add('highlight-glow');
+            glowAllGan();
+            glowAllCang();
+
+            chartTimer = setTimeout(() => {
+                document.getElementById('y-cang').innerHTML = '<span class="hl-orange">己</span> 癸 辛';
+                document.getElementById('m-cang').innerHTML = '丙 <span class="hl-orange">戊</span> 庚';
+                document.getElementById('d-cang').innerHTML = '<span class="hl-orange">己</span> 丁 乙';
+                document.getElementById('h-cang').innerHTML = '丁 <span class="hl-orange">己</span>';
+            }, 550);
+        }
+
+        /* 三项都看过之后，自动给出最终结论 */
+        visited[step] = true;
+        if (visited[1] && visited[2] && visited[3]) {
+            setTimeout(() => {
+                document.getElementById('final-result').classList.add('show');
+            }, 700);
+        }
+    }
+</script>
+
+</body>
+</html>
