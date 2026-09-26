@@ -25,17 +25,56 @@ svg{width:min(96vw,700px);height:min(96vw,700px)}
 }
 .controls button:hover{background:rgba(240,192,96,.25);box-shadow:0 0 18px rgba(240,192,96,.3)}
 .controls button:active{transform:scale(.95)}
-#info{
-  margin-top:12px;padding:10px 22px;
-  background:rgba(255,255,255,.04);border:1px solid rgba(240,192,96,.15);
-  border-radius:8px;font-size:14px;color:#ccc;text-align:center;line-height:2;
+
+/* 表格容器 - 支持横向滚动 */
+.table-wrapper{
+  margin-top:12px;
+  width:100%;
+  max-width:700px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
 }
-#info b{color:#f0c060}
-.legend{display:flex;gap:18px;margin-top:8px;font-size:12px;color:#888}
+#info{
+  width:100%;
+  border-collapse:collapse;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(240,192,96,.15);
+  border-radius:8px;
+  overflow:hidden;
+}
+#info th,#info td{
+  padding:10px 8px;
+  text-align:center;
+  border:1px solid rgba(240,192,96,.1);
+  font-size:15px;
+}
+#info th{
+  background:rgba(240,192,96,.12);
+  color:#f0c060;
+  font-weight:600;
+  font-size:14px;
+}
+#info td{
+  font-weight:500;
+  font-size:16px;
+}
+#info td:first-child{
+  font-weight:600;
+}
+
+.legend{display:flex;gap:18px;margin-top:8px;font-size:12px;color:#888;flex-wrap:wrap;justify-content:center}
 .legend i{display:inline-block;width:28px;height:3px;border-radius:2px;vertical-align:middle;margin-right:3px}
 #inner-group{transition:transform .6s cubic-bezier(.4,0,.2,1)}
-/* 日主颜色平滑过渡 */
 #rz-circle, #rz-text, #rz-sub { transition: fill 0.6s ease, stroke 0.6s ease; }
+
+/* 移动端适配 */
+@media (max-width: 600px) {
+  h1{font-size:22px}
+  .sub{font-size:12px}
+  .controls button{padding:10px 20px;font-size:15px}
+  #info th{font-size:12px;padding:8px 4px}
+  #info td{font-size:14px;padding:8px 4px}
+}
 </style>
 </head>
 <body>
@@ -48,14 +87,18 @@ svg{width:min(96vw,700px);height:min(96vw,700px)}
   <button onclick="rotate(-1)">↺ 逆转 72°</button>
   <button onclick="rotate(1)">↻ 顺转 72°</button>
 </div>
-<div id="info"></div>
+
+<div class="table-wrapper">
+  <table id="info"></table>
+</div>
+
 <div class="legend">
   <span><i style="background:#4ade80"></i>相生</span>
   <span><i style="background:#f87171;border-top:2px dashed #f87171;height:0"></i>相克</span>
 </div>
 
 <script>
-const CX=350,CY=350,OR=232,IR=122,NOR=50,NIR=34; // NOR从44增大到50
+const CX=350,CY=350,OR=232,IR=122,NOR=50,NIR=34;
 const NS='http://www.w3.org/2000/svg';
 
 const TG=[
@@ -95,20 +138,17 @@ function build(){
     <radialGradient id="bg"><stop offset="0%" stop-color="#1e1e4a"/><stop offset="100%" stop-color="#0a0a1a"/></radialGradient>
   </defs>`;
 
-  // bg
   h+=`<circle cx="${CX}" cy="${CY}" r="340" fill="url(#bg)"/>`;
   h+=`<circle cx="${CX}" cy="${CY}" r="${OR+25}" fill="none" stroke="rgba(240,192,96,.08)" stroke-width="1"/>`;
   h+=`<circle cx="${CX}" cy="${CY}" r="${OR}" fill="none" stroke="rgba(240,192,96,.12)" stroke-width="1" stroke-dasharray="5,5"/>`;
   h+=`<circle cx="${CX}" cy="${CY}" r="${IR}" fill="none" stroke="rgba(100,200,255,.12)" stroke-width="1" stroke-dasharray="5,5"/>`;
 
-  // outer 相生 arrows
   const oA=OR+20, off=21*Math.PI/180;
   for(let i=0;i<5;i++){
     const j=(i+1)%5;
     h+=`<path d="${arc(oA,a(i)+off,a(j)-off)}" fill="none" stroke="#4ade80" stroke-width="2.5" marker-end="url(#ag)" opacity=".65"/>`;
   }
 
-  // outer 相克 arrows (star)
   for(let i=0;i<5;i++){
     const j=(i+2)%5;
     const p1=pt(i,OR-NOR-8),p2=pt(j,OR-NOR-8);
@@ -117,10 +157,8 @@ function build(){
     h+=`<line x1="${p1.x+ux*8}" y1="${p1.y+uy*8}" x2="${p2.x-ux*12}" y2="${p2.y-uy*12}" stroke="#f87171" stroke-width="1.5" stroke-dasharray="7,5" marker-end="url(#ar)" opacity=".45"/>`;
   }
 
-  // labels 相生/相克
   h+=`<text x="${CX}" y="42" text-anchor="middle" fill="#4ade80" font-size="12" opacity=".7">外环：十神相生（实线）· 相克（虚线）</text>`;
 
-  // Ten God nodes (字体增大)
   for(let i=0;i<5;i++){
     const p=pt(i,OR),t=TG[i];
     h+=`<circle cx="${p.x}" cy="${p.y}" r="${NOR}" fill="rgba(25,25,55,.92)" stroke="#f0c060" stroke-width="2" filter="url(#gl)"/>`;
@@ -129,17 +167,14 @@ function build(){
     h+=`<text x="${p.x}" y="${p.y+34}" text-anchor="middle" fill="rgba(240,192,96,.6)" font-size="12">〔${t.g}〕</text>`;
   }
 
-  // inner group
   h+=`<g id="inner-group" style="transform-origin:${CX}px ${CY}px">`;
 
-  // inner 相生 arrows
   const iA=IR+14, iOff=28*Math.PI/180;
   for(let i=0;i<5;i++){
     const j=(i+1)%5;
     h+=`<path d="${arc(iA,a(i)+iOff,a(j)-iOff)}" fill="none" stroke="#2dd4bf" stroke-width="2" marker-end="url(#at)" opacity=".55"/>`;
   }
 
-  // Five Element nodes
   for(let i=0;i<5;i++){
     const p=pt(i,IR),w=WX[i];
     h+=`<circle cx="${p.x}" cy="${p.y}" r="${NIR}" fill="${w.g}" stroke="${w.c}" stroke-width="2.5" filter="url(#gl)" opacity=".92"/>`;
@@ -147,7 +182,6 @@ function build(){
   }
   h+=`</g>`;
 
-  // center (日主) - 添加 ID 以便动态修改颜色
   h+=`<circle id="rz-circle" cx="${CX}" cy="${CY}" r="38" fill="#15803d" stroke="#22c55e" stroke-width="2.5" filter="url(#gl2)"/>`;
   h+=`<text id="rz-text" x="${CX}" y="${CY-2}" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">日主</text>`;
   h+=`<text id="rz-sub" x="${CX}" y="${CY+18}" text-anchor="middle" fill="rgba(255,255,255,.6)" font-size="11">太极</text>`;
@@ -160,18 +194,15 @@ function update(){
   const deg=steps*72;
   g.style.transform=`rotate(${deg}deg)`;
 
-  // counter-rotate texts
   g.querySelectorAll('.wt').forEach(t=>{
     const i=+t.dataset.i, p=pt(i,IR);
     t.setAttribute('transform',`rotate(${-deg},${p.x},${p.y})`);
   });
 
-  // 计算当前比劫位（索引0）对应的五行
   const bijieWi = ((-steps) % 5 + 5) % 5;
-  const bijieColor = WX[bijieWi].c; // 亮色（用于描边）
-  const bijieGrad = WX[bijieWi].g;  // 深色（用于填充）
+  const bijieColor = WX[bijieWi].c;
+  const bijieGrad = WX[bijieWi].g;
 
-  // 动态修改日主颜色
   const rzCircle = document.getElementById('rz-circle');
   const rzText = document.getElementById('rz-text');
   const rzSub = document.getElementById('rz-sub');
@@ -184,13 +215,24 @@ function update(){
     rzSub.setAttribute('fill', 'rgba(255,255,255,.7)');
   }
 
-  // info
-  const m=[];
+  // 构建表格
+  let tableHtml = '<tr><th>日主</th>';
+  for(let i=0;i<5;i++){
+    tableHtml += `<th>${TG[i].g}</th>`;
+  }
+  tableHtml += '</tr><tr>';
+  
+  // 日主列
+  tableHtml += `<td style="color:${bijieColor}">${WX[bijieWi].n}</td>`;
+  
+  // 其他十神列
   for(let i=0;i<5;i++){
     const wi=((i-steps)%5+5)%5;
-    m.push(`<b>${TG[i].g}</b>＝<span style="color:${WX[wi].c}">${WX[wi].n}</span>`);
+    tableHtml += `<td style="color:${WX[wi].c}">${WX[wi].n}</td>`;
   }
-  document.getElementById('info').innerHTML=m.join(' &nbsp;│&nbsp; ');
+  tableHtml += '</tr>';
+
+  document.getElementById('info').innerHTML = tableHtml;
 }
 
 function rotate(d){steps+=d;update();}
