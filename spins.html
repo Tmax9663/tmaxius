@@ -2,9 +2,17 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>🎰 数字老虎机 · Lucky Slots</title>
 <style>
+:root {
+  /* 桌面端默认尺寸 */
+  --rh: 110px; /* Reel/Digit Height */
+  --rw: 70px;  /* Reel Width */
+  --fs: 68px;  /* Font Size */
+  --machine-w: 380px;
+}
+
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   background:radial-gradient(ellipse at center,#1a0a2e 0%,#05010f 100%);
@@ -23,237 +31,157 @@ h1{
   -webkit-text-fill-color:transparent;
   background-clip:text;
   animation:shine 3s linear infinite;
-  text-shadow:0 0 30px rgba(244,114,182,.3);
   margin-bottom:4px;
   letter-spacing:2px;
+  text-align:center;
 }
-@keyframes shine{
-  0%{background-position:0% 50%}
-  100%{background-position:200% 50%}
-}
-.sub{font-size:13px;color:#888;margin-bottom:16px}
+@keyframes shine{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+.sub{font-size:13px;color:#888;margin-bottom:16px;text-align:center}
 
-/* 老虎机主体 */
+/* 机器主体 - 自适应宽度 */
 .machine{
   position:relative;
+  width:var(--machine-w);
+  max-width:95vw; /* 防止小屏幕溢出 */
   background:linear-gradient(145deg,#2a1a4a 0%,#1a0a2e 50%,#0f0520 100%);
   border:3px solid #fbbf24;
   border-radius:24px;
   padding:24px 20px 20px;
-  box-shadow:
-    0 0 40px rgba(251,191,36,.3),
-    inset 0 0 30px rgba(0,0,0,.6),
-    0 10px 40px rgba(0,0,0,.5);
-  margin-bottom:16px;
+  box-shadow:0 0 40px rgba(251,191,36,.3),inset 0 0 30px rgba(0,0,0,.6),0 10px 40px rgba(0,0,0,.5);
+  margin-bottom:20px;
 }
 .machine::before{
-  content:'';
-  position:absolute;
-  top:-3px;left:-3px;right:-3px;bottom:-3px;
+  content:'';position:absolute;top:-3px;left:-3px;right:-3px;bottom:-3px;
   border-radius:24px;
   background:linear-gradient(45deg,#fbbf24,#f472b6,#a78bfa,#fbbf24);
   background-size:300% 300%;
   animation:borderGlow 4s ease infinite;
-  z-index:-1;
-  opacity:.6;
-  filter:blur(8px);
+  z-index:-1;opacity:.6;filter:blur(8px);
 }
-@keyframes borderGlow{
-  0%,100%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-}
+@keyframes borderGlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
-/* 转轮容器 */
 .reels{
-  display:flex;
-  gap:10px;
-  background:#000;
-  padding:12px;
-  border-radius:14px;
-  border:2px solid #555;
+  display:flex;gap:10px;justify-content:center;
+  background:#000;padding:12px;
+  border-radius:14px;border:2px solid #555;
   box-shadow:inset 0 0 20px rgba(0,0,0,.9);
 }
 .reel{
   position:relative;
-  width:70px;
-  height:110px;
+  width:var(--rw);
+  height:var(--rh); /* 使用 CSS 变量 */
   background:linear-gradient(180deg,#0a0a15 0%,#1a1a2e 50%,#0a0a15 100%);
-  border-radius:8px;
-  overflow:hidden;
-  border:1px solid #333;
+  border-radius:8px;overflow:hidden;border:1px solid #333;
+  transition:box-shadow .3s;
+  flex-shrink:0;
 }
-/* 上下渐隐遮罩 */
 .reel::before,.reel::after{
-  content:'';
-  position:absolute;
-  left:0;right:0;
-  height:30px;
-  z-index:3;
-  pointer-events:none;
+  content:'';position:absolute;left:0;right:0;height:25px;z-index:3;pointer-events:none;
 }
-.reel::before{
-  top:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,0) 100%);
-}
-.reel::after{
-  bottom:0;
-  background:linear-gradient(0deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,0) 100%);
-}
-/* 中间高亮线 */
+.reel::before{top:0;background:linear-gradient(180deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,0) 100%)}
+.reel::after{bottom:0;background:linear-gradient(0deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,0) 100%)}
 .reel-highlight{
-  position:absolute;
-  top:50%;left:0;right:0;
-  height:2px;
+  position:absolute;top:50%;left:0;right:0;height:2px;
   background:linear-gradient(90deg,transparent,#fbbf24,transparent);
-  transform:translateY(-50%);
-  z-index:4;
-  pointer-events:none;
-  box-shadow:0 0 10px #fbbf24;
+  transform:translateY(-50%);z-index:4;pointer-events:none;
+  box-shadow:0 0 8px #fbbf24;
 }
 
-/* 数字条 */
-.strip{
-  position:absolute;
-  left:0;right:0;
-  will-change:transform;
-}
+.strip{position:absolute;left:0;right:0;will-change:transform}
 .digit{
-  height:110px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:64px;
-  font-weight:900;
-  font-family:'Arial Black',sans-serif;
-  text-shadow:0 0 15px currentColor;
+  height:var(--rh); /* 与 reel 同高，完美对齐 */
+  display:flex;align-items:center;justify-content:center;
+  font-size:var(--fs);
+  font-weight:900;font-family:'Arial Black',sans-serif;
+  text-shadow:0 0 20px currentColor,0 0 40px currentColor;
+  line-height:1;
 }
 
-/* 结果显示 */
 .result{
-  margin-top:16px;
-  padding:10px 20px;
-  background:rgba(0,0,0,.5);
-  border:1px solid #555;
-  border-radius:10px;
-  text-align:center;
-  min-height:50px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
+  margin-top:16px;padding:10px 20px;
+  background:rgba(0,0,0,.5);border:1px solid #555;border-radius:10px;
+  text-align:center;min-height:50px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  flex-wrap:wrap;
 }
-.result-label{
-  color:#888;
-  font-size:13px;
-}
-.result-numbers{
-  display:flex;
-  gap:6px;
-}
+.result-label{color:#888;font-size:13px}
+.result-numbers{display:flex;gap:6px}
 .result-digit{
-  font-size:32px;
-  font-weight:900;
-  font-family:'Arial Black',sans-serif;
-  min-width:32px;
-  text-align:center;
-  text-shadow:0 0 15px currentColor;
-  opacity:.3;
+  font-size:32px;font-weight:900;font-family:'Arial Black',sans-serif;
+  min-width:32px;text-align:center;
+  text-shadow:0 0 15px currentColor;opacity:.3;
   transition:opacity .3s,transform .3s;
 }
-.result-digit.landed{
-  opacity:1;
-  animation:digitPop .5s cubic-bezier(.34,1.56,.64,1);
-}
-@keyframes digitPop{
-  0%{transform:scale(1.5);opacity:0}
-  60%{transform:scale(.9)}
-  100%{transform:scale(1);opacity:1}
-}
+.result-digit.landed{opacity:1;animation:digitPop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes digitPop{0%{transform:scale(1.5);opacity:0}60%{transform:scale(.9)}100%{transform:scale(1);opacity:1}}
 
-/* SPIN 按钮 */
+/* SPIN 按钮 - 自然流式布局，无 scale hack */
 #spin-btn{
-  margin-top:16px;
-  padding:16px 48px;
-  font-size:22px;
+  margin-top:10px;
+  width:200px;
+  height:70px;
+  font-size:24px;
   font-weight:bold;
   font-family:inherit;
-  letter-spacing:4px;
+  letter-spacing:6px;
   color:#fff;
   background:linear-gradient(145deg,#dc2626,#991b1b);
   border:3px solid #fbbf24;
-  border-radius:50px;
+  border-radius:35px;
   cursor:pointer;
-  box-shadow:
-    0 0 20px rgba(220,38,38,.5),
-    inset 0 2px 10px rgba(255,255,255,.2),
-    0 6px 0 #7f1d1d;
+  box-shadow:0 0 20px rgba(220,38,38,.5),inset 0 2px 10px rgba(255,255,255,.2),0 6px 0 #7f1d1d;
   transition:all .15s;
   position:relative;
   overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 #spin-btn:hover:not(:disabled){
   transform:translateY(-2px);
-  box-shadow:
-    0 0 30px rgba(220,38,38,.8),
-    inset 0 2px 10px rgba(255,255,255,.3),
-    0 8px 0 #7f1d1d;
+  box-shadow:0 0 30px rgba(220,38,38,.8),inset 0 2px 10px rgba(255,255,255,.3),0 8px 0 #7f1d1d;
 }
 #spin-btn:active:not(:disabled){
   transform:translateY(4px);
-  box-shadow:
-    0 0 15px rgba(220,38,38,.5),
-    inset 0 2px 10px rgba(0,0,0,.3),
-    0 2px 0 #7f1d1d;
+  box-shadow:0 0 15px rgba(220,38,38,.5),inset 0 2px 10px rgba(0,0,0,.3),0 2px 0 #7f1d1d;
 }
-#spin-btn:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-  filter:grayscale(.5);
-}
+#spin-btn:disabled{opacity:.5;cursor:not-allowed;filter:grayscale(.5)}
 #spin-btn::before{
-  content:'';
-  position:absolute;
-  top:-50%;left:-100%;
-  width:50%;height:200%;
+  content:'';position:absolute;top:-50%;left:-100%;width:50%;height:200%;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
-  transform:skewX(-20deg);
-  animation:btnShine 3s ease-in-out infinite;
+  transform:skewX(-20deg);animation:btnShine 3s ease-in-out infinite;
 }
-@keyframes btnShine{
-  0%,100%{left:-100%}
-  50%{left:150%}
-}
+@keyframes btnShine{0%,100%{left:-100%}50%{left:150%}}
 
-/* 提示信息 */
 #message{
-  margin-top:12px;
-  padding:8px 20px;
-  font-size:15px;
-  color:#fbbf24;
-  min-height:32px;
-  text-align:center;
+  margin-top:12px;padding:8px 20px;font-size:15px;color:#fbbf24;
+  min-height:32px;text-align:center;
   text-shadow:0 0 10px rgba(251,191,36,.5);
-  opacity:0;
-  transition:opacity .4s;
+  opacity:0;transition:opacity .4s;
 }
 #message.show{opacity:1}
 
-/* 胜利烟花 */
-.firework{
-  position:fixed;
-  width:6px;height:6px;
-  border-radius:50%;
-  pointer-events:none;
-  z-index:100;
-}
+.firework{position:fixed;width:6px;height:6px;border-radius:50%;pointer-events:none;z-index:100}
 
-@media (max-width:480px){
-  h1{font-size:22px}
-  .reel{width:60px;height:95px}
-  .digit{height:95px;font-size:52px}
-  .reels{gap:8px;padding:10px}
-  .result-digit{font-size:26px;min-width:26px}
-  #spin-btn{padding:14px 36px;font-size:18px}
+/* 移动端真实响应式 - 修改 CSS 变量 */
+@media (max-width: 480px) {
+  :root {
+    --rh: 85px;   /* 移动端转轮高度 */
+    --rw: 55px;   /* 移动端转轮宽度 */
+    --fs: 52px;   /* 移动端字体大小 */
+  }
+  body { padding: 10px; }
+  h1 { font-size: 22px; }
+  .sub { font-size: 11px; }
+  .reels { gap: 6px; padding: 8px; }
+  .result-digit { font-size: 26px; min-width: 26px; }
+  #spin-btn {
+    width: 160px;
+    height: 56px;
+    font-size: 20px;
+    letter-spacing: 4px;
+  }
+  #message { font-size: 13px; padding: 6px 14px; }
 }
 </style>
 </head>
@@ -264,7 +192,7 @@ h1{
 <div class="machine">
   <div class="reels" id="reels"></div>
   <div class="result">
-    <span class="result-label">结果 ▸</span>
+    <span class="result-label">结果 </span>
     <div class="result-numbers" id="result-numbers">
       <div class="result-digit" data-i="0">-</div>
       <div class="result-digit" data-i="1">-</div>
@@ -278,31 +206,33 @@ h1{
 <div id="message"></div>
 
 <script>
-// ============ 配置 ============
 const DIGIT_COLORS=[
   '#ef4444','#f97316','#eab308','#84cc16','#22c55e',
   '#14b8a6','#06b6d4','#3b82f6','#8b5cf6','#ec4899'
 ];
 const REEL_COUNT=4;
-const DIGIT_HEIGHT=110; // 与 CSS 一致
-const REPEAT=8; // 数字条重复次数（保证足够滚动）
+const REPEAT=10;
 
-// 物理参数
-const MAX_VELOCITY=2400;  // px/s
-const ACCELERATION=3600;  // px/s²
-const FRICTION=0.985;
-const SNAP_THRESHOLD=280;
-const SNAP_STRENGTH=0.22;
-const STOP_THRESHOLD=6;
+// 动态读取 CSS 变量，确保 JS 物理引擎与 CSS 视觉 100% 同步
+function getCSSVar(name) {
+  return parseInt(getComputedStyle(document.documentElement).getPropertyValue(name));
+}
+let DIGIT_HEIGHT = getCSSVar('--rh');
+let REEL_HEIGHT = DIGIT_HEIGHT; // 始终相等
 
-// 每个转轮的状态
+const MAX_VELOCITY=6000;
+const ACCELERATION=14000;
+const FRICTION=0.94;
+const SNAP_THRESHOLD=500;
+const SNAP_STRENGTH=0.45;
+const STOP_THRESHOLD=12;
+
 const reels=[];
 let spinning=false;
-let stopSequence=[]; // 停止顺序时间
+let stopSequence=[];
 let lastTime=0;
 let resultNumbers=[];
 
-// ============ Web Audio ============
 let audioCtx=null,masterGain=null,spinOsc=null,spinGain=null;
 function initAudio(){
   if(audioCtx) return;
@@ -315,7 +245,6 @@ function initAudio(){
 function playStart(){
   if(!audioCtx) return;
   const t=audioCtx.currentTime;
-  // 拉杆声
   const o1=audioCtx.createOscillator(),g1=audioCtx.createGain();
   o1.connect(g1);g1.connect(masterGain);
   o1.type='sawtooth';
@@ -324,7 +253,6 @@ function playStart(){
   g1.gain.setValueAtTime(0.25,t);
   g1.gain.exponentialRampToValueAtTime(0.01,t+0.25);
   o1.start(t);o1.stop(t+0.25);
-  // 启动嗡鸣
   const o2=audioCtx.createOscillator(),g2=audioCtx.createGain();
   o2.connect(g2);g2.connect(masterGain);
   o2.type='triangle';
@@ -380,7 +308,6 @@ function playTick(reelIndex){
 function playStop(reelIndex){
   if(!audioCtx) return;
   const t=audioCtx.currentTime;
-  // 重击"咔"
   const o1=audioCtx.createOscillator(),g1=audioCtx.createGain();
   o1.connect(g1);g1.connect(masterGain);
   o1.type='square';
@@ -389,7 +316,6 @@ function playStop(reelIndex){
   g1.gain.setValueAtTime(0.3,t);
   g1.gain.exponentialRampToValueAtTime(0.001,t+0.2);
   o1.start(t);o1.stop(t+0.2);
-  // 金属"叮"
   const o2=audioCtx.createOscillator(),g2=audioCtx.createGain();
   o2.connect(g2);g2.connect(masterGain);
   o2.type='sine';
@@ -403,7 +329,6 @@ function playStop(reelIndex){
 function playJackpot(){
   if(!audioCtx) return;
   const t=audioCtx.currentTime;
-  // 上升琶音
   [523.25,659.25,783.99,1046.5].forEach((f,i)=>{
     const o=audioCtx.createOscillator(),g=audioCtx.createGain();
     o.connect(g);g.connect(masterGain);
@@ -414,7 +339,6 @@ function playJackpot(){
     g.gain.exponentialRampToValueAtTime(0.001,t+0.8+i*0.08);
     o.start(t+i*0.08);o.stop(t+0.9+i*0.08);
   });
-  // 最终和弦
   setTimeout(()=>{
     if(!audioCtx) return;
     const t2=audioCtx.currentTime;
@@ -429,7 +353,15 @@ function playJackpot(){
   },350);
 }
 
-// ============ 构建转轮 ============
+function shuffleArray(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
 function buildReels(){
   const container=document.getElementById('reels');
   container.innerHTML='';
@@ -440,46 +372,44 @@ function buildReels(){
     
     const strip=document.createElement('div');
     strip.className='strip';
-    // 构建数字条：重复 REPEAT 次 0-9
+    
+    const digitOrder=shuffleArray([0,1,2,3,4,5,6,7,8,9]);
+    
     let html='';
     for(let rep=0;rep<REPEAT;rep++){
-      for(let d=0;d<10;d++){
+      digitOrder.forEach(d=>{
         html+=`<div class="digit" style="color:${DIGIT_COLORS[d]}">${d}</div>`;
-      }
+      });
     }
     strip.innerHTML=html;
     reel.appendChild(strip);
     container.appendChild(reel);
     
     reels.push({
-      element:reel,
-      strip:strip,
-      position:0,        // 当前位置（px）
-      velocity:0,        // 速度（px/s）
-      targetDigit:null,  // 最终目标数字
-      stopped:false,
-      lastDigit:-1
+      element:reel,strip:strip,digitOrder:digitOrder,
+      position:0,velocity:0,targetDigit:null,targetIndex:null,
+      stopped:false,lastDigit:-1,decelerating:false
     });
   }
 }
 
-// ============ 渲染 ============
 function renderReel(reel){
-  // 位置取模，保证循环
   const totalHeight=DIGIT_HEIGHT*10;
   let pos=reel.position%totalHeight;
   if(pos<0) pos+=totalHeight;
+  
+  if(totalHeight - pos < 1) pos = 0;
+  
   reel.strip.style.transform=`translateY(${-pos}px)`;
   
-  // 当前显示的数字（中间位置）
-  const currentDigit=Math.floor(pos/DIGIT_HEIGHT)%10;
+  const currentDigitIndex=Math.floor(pos/DIGIT_HEIGHT)%10;
+  const currentDigit=reel.digitOrder[currentDigitIndex];
   if(currentDigit!==reel.lastDigit && Math.abs(reel.velocity)>30){
     playTick(reels.indexOf(reel));
     reel.lastDigit=currentDigit;
   }
 }
 
-// ============ 物理循环 ============
 function physicsLoop(time){
   if(!spinning && reels.every(r=>r.stopped)) return;
   
@@ -492,40 +422,38 @@ function physicsLoop(time){
   reels.forEach((reel,idx)=>{
     if(reel.stopped) return;
     
-    // 检查是否到达停止时间
     if(stopSequence[idx]!==undefined && now>=stopSequence[idx]){
-      // 进入减速阶段
       reel.decelerating=true;
     }
     
     if(!reel.decelerating){
-      // 加速阶段
       reel.velocity=Math.min(reel.velocity+ACCELERATION*dt,MAX_VELOCITY);
     } else {
-      // 减速阶段
       reel.velocity*=Math.pow(FRICTION,dt*60);
       
-      // 磁吸对齐
       const totalHeight=DIGIT_HEIGHT*10;
       let pos=reel.position%totalHeight;
       if(pos<0) pos+=totalHeight;
       
-      // 找到最近的对齐位置（对应目标数字）
-      const targetPos=reel.targetDigit*DIGIT_HEIGHT;
-      // 计算到目标位置的最短距离（考虑循环）
+      const targetPos=reel.targetIndex*DIGIT_HEIGHT;
       let diff=targetPos-pos;
-      // 归一化到 [-totalHeight/2, totalHeight/2]
       while(diff>totalHeight/2) diff-=totalHeight;
       while(diff<-totalHeight/2) diff+=totalHeight;
       
       if(Math.abs(reel.velocity)<SNAP_THRESHOLD){
         reel.velocity+=diff*SNAP_STRENGTH*dt*60;
-        reel.velocity*=0.88;
+        reel.velocity*=0.85;
       }
       
-      // 完全停止
-      if(Math.abs(reel.velocity)<STOP_THRESHOLD && Math.abs(diff)<1){
-        reel.position=reel.position-pos+targetPos;
+      if(Math.abs(reel.velocity)<STOP_THRESHOLD && Math.abs(diff)<1.5){
+        reel.position = Math.round(reel.position / DIGIT_HEIGHT) * DIGIT_HEIGHT;
+        let finalPos = reel.position % totalHeight;
+        if(finalPos < 0) finalPos += totalHeight;
+        let finalDiff = targetPos - finalPos;
+        while(finalDiff > totalHeight/2) finalDiff -= totalHeight;
+        while(finalDiff < -totalHeight/2) finalDiff += totalHeight;
+        reel.position += finalDiff;
+        
         reel.velocity=0;
         reel.stopped=true;
         onReelStopped(idx,reel.targetDigit);
@@ -545,12 +473,10 @@ function physicsLoop(time){
   }
 }
 
-// ============ 转轮停止回调 ============
 function onReelStopped(idx,digit){
   playStop(idx);
   resultNumbers[idx]=digit;
   
-  // 更新结果显示
   const digitEl=document.querySelector(`.result-digit[data-i="${idx}"]`);
   digitEl.textContent=digit;
   digitEl.style.color=DIGIT_COLORS[digit];
@@ -558,32 +484,29 @@ function onReelStopped(idx,digit){
   void digitEl.offsetWidth;
   digitEl.classList.add('landed');
   
-  // 转轮停止时的视觉反馈
   const reel=reels[idx];
   reel.element.style.boxShadow='0 0 20px '+DIGIT_COLORS[digit];
-  setTimeout(()=>{
-    reel.element.style.boxShadow='';
-  },600);
+  setTimeout(()=>{reel.element.style.boxShadow=''},600);
 }
 
-// ============ 全部停止 ============
 function onAllStopped(){
   stopSpinSound();
   spinning=false;
   document.getElementById('spin-btn').disabled=false;
   
-  // 判断结果
   const msg=document.getElementById('message');
   const allSame=resultNumbers.every(n=>n===resultNumbers[0]);
-  const hasPair=new Set(resultNumbers).size<=2;
+  const uniqueCount=new Set(resultNumbers).size;
   
   if(allSame){
-    msg.textContent=`🎉  jackpot！四连 ${resultNumbers[0]}！天选之人！ 🎉`;
+    msg.textContent=`🎉 JACKPOT！四连 ${resultNumbers[0]}！天选之人！`;
     playJackpot();
     spawnFireworks();
-  } else if(hasPair){
+  } else if(uniqueCount===2){
     msg.textContent=`✨ 不错！出现对子，好运将至！`;
     playJackpot();
+  } else if(uniqueCount===3){
+    msg.textContent=`🍀 接近了！三连同号！`;
   } else {
     const sum=resultNumbers.reduce((a,b)=>a+b,0);
     msg.textContent=`🎲 结果：${resultNumbers.join(' ')} · 总和 ${sum}`;
@@ -593,7 +516,6 @@ function onAllStopped(){
   onAllStopped._t=setTimeout(()=>msg.classList.remove('show'),4000);
 }
 
-// ============ 烟花效果 ============
 function spawnFireworks(){
   const colors=['#fbbf24','#f472b6','#a78bfa','#22c55e','#3b82f6','#ef4444'];
   for(let burst=0;burst<5;burst++){
@@ -604,8 +526,7 @@ function spawnFireworks(){
         const p=document.createElement('div');
         p.className='firework';
         p.style.background=colors[Math.floor(Math.random()*colors.length)];
-        p.style.left=cx+'px';
-        p.style.top=cy+'px';
+        p.style.left=cx+'px';p.style.top=cy+'px';
         p.style.boxShadow=`0 0 8px ${p.style.background}`;
         document.body.appendChild(p);
         const angle=Math.random()*Math.PI*2;
@@ -622,51 +543,39 @@ function spawnFireworks(){
   }
 }
 
-// ============ SPIN 控制 ============
 function startSpin(){
   if(spinning) return;
   initAudio();
   if(audioCtx.state==='suspended') audioCtx.resume();
   
-  spinning=true;
-  lastTime=0;
+  spinning=true;lastTime=0;
   resultNumbers=[null,null,null,null];
   
-  // 重置结果数字显示
   document.querySelectorAll('.result-digit').forEach(el=>{
-    el.textContent='-';
-    el.classList.remove('landed');
-    el.style.color='#888';
+    el.textContent='-';el.classList.remove('landed');el.style.color='#888';
   });
   document.getElementById('message').classList.remove('show');
   
-  // 为每个转轮设定目标数字和停止时间
   const startTime=performance.now();
   stopSequence=[];
   reels.forEach((reel,idx)=>{
-    reel.position=0;
-    reel.velocity=0;
-    reel.stopped=false;
-    reel.decelerating=false;
-    reel.lastDigit=-1;
+    reel.position=0;reel.velocity=0;reel.stopped=false;
+    reel.decelerating=false;reel.lastDigit=-1;
     reel.targetDigit=Math.floor(Math.random()*10);
-    // 依次延迟停止：1.5s, 2.3s, 3.1s, 3.9s
-    stopSequence[idx]=startTime+1500+idx*800;
+    reel.targetIndex=reel.digitOrder.indexOf(reel.targetDigit);
+    stopSequence[idx]=startTime+900+idx*500;
   });
   
   document.getElementById('spin-btn').disabled=true;
-  playStart();
-  startSpinSound();
+  playStart();startSpinSound();
   requestAnimationFrame(physicsLoop);
 }
 
-// ============ 初始化 ============
 buildReels();
-// 初始位置：让每个转轮显示随机数字
 reels.forEach(reel=>{
-  const d=Math.floor(Math.random()*10);
-  reel.position=d*DIGIT_HEIGHT;
-  reel.lastDigit=d;
+  const idx=Math.floor(Math.random()*10);
+  reel.position=idx*DIGIT_HEIGHT;
+  reel.lastDigit=reel.digitOrder[idx];
   renderReel(reel);
 });
 
