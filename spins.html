@@ -3,233 +3,307 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>十神·五行 相生相克图</title>
+<title>🎰 数字老虎机 · Lucky Slots</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  background:radial-gradient(ellipse at center,#1a1a3e 0%,#0a0a1a 100%);
+  background:radial-gradient(ellipse at center,#1a0a2e 0%,#05010f 100%);
   color:#e0d5c0;
-  font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif;
+  font-family:'Microsoft YaHei','PingFang SC',sans-serif;
   display:flex;flex-direction:column;align-items:center;
   min-height:100vh;padding:15px;
   user-select:none;
+  overflow-x:hidden;
 }
-h1{font-size:26px;color:#f0c060;text-shadow:0 0 20px rgba(240,192,96,.5);margin-bottom:4px}
-.sub{font-size:13px;color:#777;margin-bottom:10px}
-svg{width:min(96vw,700px);height:min(96vw,700px)}
-
-.controls{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;justify-content:center}
-.controls button{
-  padding:12px 22px;font-size:16px;font-family:inherit;
-  border:2px solid #f0c060;background:rgba(240,192,96,.08);
-  color:#f0c060;border-radius:10px;cursor:pointer;transition:.25s;
-  min-width:110px;
+h1{
+  font-size:28px;
+  background:linear-gradient(90deg,#fbbf24,#f472b6,#a78bfa,#fbbf24);
+  background-size:200% 100%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shine 3s linear infinite;
+  text-shadow:0 0 30px rgba(244,114,182,.3);
+  margin-bottom:4px;
+  letter-spacing:2px;
 }
-.controls button:hover{background:rgba(240,192,96,.25);box-shadow:0 0 18px rgba(240,192,96,.3)}
-.controls button:active{transform:scale(.95)}
-.controls button:disabled{opacity:.4;cursor:not-allowed}
+@keyframes shine{
+  0%{background-position:0% 50%}
+  100%{background-position:200% 50%}
+}
+.sub{font-size:13px;color:#888;margin-bottom:16px}
 
+/* 老虎机主体 */
+.machine{
+  position:relative;
+  background:linear-gradient(145deg,#2a1a4a 0%,#1a0a2e 50%,#0f0520 100%);
+  border:3px solid #fbbf24;
+  border-radius:24px;
+  padding:24px 20px 20px;
+  box-shadow:
+    0 0 40px rgba(251,191,36,.3),
+    inset 0 0 30px rgba(0,0,0,.6),
+    0 10px 40px rgba(0,0,0,.5);
+  margin-bottom:16px;
+}
+.machine::before{
+  content:'';
+  position:absolute;
+  top:-3px;left:-3px;right:-3px;bottom:-3px;
+  border-radius:24px;
+  background:linear-gradient(45deg,#fbbf24,#f472b6,#a78bfa,#fbbf24);
+  background-size:300% 300%;
+  animation:borderGlow 4s ease infinite;
+  z-index:-1;
+  opacity:.6;
+  filter:blur(8px);
+}
+@keyframes borderGlow{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+
+/* 转轮容器 */
+.reels{
+  display:flex;
+  gap:10px;
+  background:#000;
+  padding:12px;
+  border-radius:14px;
+  border:2px solid #555;
+  box-shadow:inset 0 0 20px rgba(0,0,0,.9);
+}
+.reel{
+  position:relative;
+  width:70px;
+  height:110px;
+  background:linear-gradient(180deg,#0a0a15 0%,#1a1a2e 50%,#0a0a15 100%);
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid #333;
+}
+/* 上下渐隐遮罩 */
+.reel::before,.reel::after{
+  content:'';
+  position:absolute;
+  left:0;right:0;
+  height:30px;
+  z-index:3;
+  pointer-events:none;
+}
+.reel::before{
+  top:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,0) 100%);
+}
+.reel::after{
+  bottom:0;
+  background:linear-gradient(0deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,0) 100%);
+}
+/* 中间高亮线 */
+.reel-highlight{
+  position:absolute;
+  top:50%;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#fbbf24,transparent);
+  transform:translateY(-50%);
+  z-index:4;
+  pointer-events:none;
+  box-shadow:0 0 10px #fbbf24;
+}
+
+/* 数字条 */
+.strip{
+  position:absolute;
+  left:0;right:0;
+  will-change:transform;
+}
+.digit{
+  height:110px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:64px;
+  font-weight:900;
+  font-family:'Arial Black',sans-serif;
+  text-shadow:0 0 15px currentColor;
+}
+
+/* 结果显示 */
+.result{
+  margin-top:16px;
+  padding:10px 20px;
+  background:rgba(0,0,0,.5);
+  border:1px solid #555;
+  border-radius:10px;
+  text-align:center;
+  min-height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.result-label{
+  color:#888;
+  font-size:13px;
+}
+.result-numbers{
+  display:flex;
+  gap:6px;
+}
+.result-digit{
+  font-size:32px;
+  font-weight:900;
+  font-family:'Arial Black',sans-serif;
+  min-width:32px;
+  text-align:center;
+  text-shadow:0 0 15px currentColor;
+  opacity:.3;
+  transition:opacity .3s,transform .3s;
+}
+.result-digit.landed{
+  opacity:1;
+  animation:digitPop .5s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes digitPop{
+  0%{transform:scale(1.5);opacity:0}
+  60%{transform:scale(.9)}
+  100%{transform:scale(1);opacity:1}
+}
+
+/* SPIN 按钮 */
 #spin-btn{
-  border-color:#f472b6;
-  color:#f472b6;
-  background:rgba(244,114,182,.08);
+  margin-top:16px;
+  padding:16px 48px;
+  font-size:22px;
+  font-weight:bold;
+  font-family:inherit;
+  letter-spacing:4px;
+  color:#fff;
+  background:linear-gradient(145deg,#dc2626,#991b1b);
+  border:3px solid #fbbf24;
+  border-radius:50px;
+  cursor:pointer;
+  box-shadow:
+    0 0 20px rgba(220,38,38,.5),
+    inset 0 2px 10px rgba(255,255,255,.2),
+    0 6px 0 #7f1d1d;
+  transition:all .15s;
   position:relative;
   overflow:hidden;
 }
-#spin-btn:hover{
-  background:rgba(244,114,182,.25);
-  box-shadow:0 0 18px rgba(244,114,182,.4);
+#spin-btn:hover:not(:disabled){
+  transform:translateY(-2px);
+  box-shadow:
+    0 0 30px rgba(220,38,38,.8),
+    inset 0 2px 10px rgba(255,255,255,.3),
+    0 8px 0 #7f1d1d;
 }
-#spin-btn.spinning{
-  background:rgba(244,114,182,.35);
-  box-shadow:0 0 25px rgba(244,114,182,.6);
-  animation:pulse 0.6s ease-in-out infinite alternate;
+#spin-btn:active:not(:disabled){
+  transform:translateY(4px);
+  box-shadow:
+    0 0 15px rgba(220,38,38,.5),
+    inset 0 2px 10px rgba(0,0,0,.3),
+    0 2px 0 #7f1d1d;
 }
-#spin-btn.coasting{
-  background:rgba(244,114,182,.2);
-  animation:pulse 1.2s ease-in-out infinite alternate;
+#spin-btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+  filter:grayscale(.5);
 }
-@keyframes pulse{
-  from{box-shadow:0 0 15px rgba(244,114,182,.4)}
-  to{box-shadow:0 0 30px rgba(244,114,182,.8)}
+#spin-btn::before{
+  content:'';
+  position:absolute;
+  top:-50%;left:-100%;
+  width:50%;height:200%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
+  transform:skewX(-20deg);
+  animation:btnShine 3s ease-in-out infinite;
 }
-#spin-btn .hint{
-  display:block;font-size:10px;opacity:.6;margin-top:2px;
+@keyframes btnShine{
+  0%,100%{left:-100%}
+  50%{left:150%}
 }
 
-.table-wrapper{
+/* 提示信息 */
+#message{
   margin-top:12px;
-  width:100%;
-  max-width:700px;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-}
-#info{
-  width:100%;
-  border-collapse:collapse;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(240,192,96,.15);
-  border-radius:8px;
-  overflow:hidden;
-}
-#info th,#info td{
-  padding:10px 8px;
-  text-align:center;
-  border:1px solid rgba(240,192,96,.1);
+  padding:8px 20px;
   font-size:15px;
-}
-#info th{
-  background:rgba(240,192,96,.12);
-  color:#f0c060;
-  font-weight:600;
-  font-size:14px;
-}
-#info td{
-  font-weight:500;
-  font-size:16px;
-}
-#info td:first-child{font-weight:600}
-
-.legend{display:flex;gap:18px;margin-top:8px;font-size:12px;color:#888;flex-wrap:wrap;justify-content:center}
-.legend i{display:inline-block;width:28px;height:3px;border-radius:2px;vertical-align:middle;margin-right:3px}
-
-#rz-circle, #rz-text, #rz-sub { transition: fill 0.6s ease, stroke 0.6s ease; }
-
-/* 停止闪光效果 */
-#flash-ring{
-  transform-origin:350px 350px;
-  opacity:0;
-  pointer-events:none;
-}
-#flash-ring.active{
-  animation:flashRing 0.8s ease-out;
-}
-@keyframes flashRing{
-  0%{opacity:0.9;transform:scale(0.3)}
-  50%{opacity:0.6}
-  100%{opacity:0;transform:scale(1.5)}
-}
-
-/* 日主弹跳 */
-#rz-group{
-  transform-origin:350px 350px;
-}
-#rz-group.bounce{
-  animation:rzBounce 0.5s cubic-bezier(.34,1.56,.64,1);
-}
-@keyframes rzBounce{
-  0%{transform:scale(1)}
-  40%{transform:scale(1.25)}
-  70%{transform:scale(0.95)}
-  100%{transform:scale(1)}
-}
-
-/* 运势提示 */
-#fortune{
-  margin-top:8px;
-  padding:8px 18px;
-  background:linear-gradient(90deg,rgba(244,114,182,.1),rgba(240,192,96,.1),rgba(244,114,182,.1));
-  border:1px solid rgba(244,114,182,.3);
-  border-radius:20px;
-  font-size:14px;
-  color:#f472b6;
-  opacity:0;
-  transition:opacity 0.5s;
+  color:#fbbf24;
+  min-height:32px;
   text-align:center;
-  max-width:700px;
+  text-shadow:0 0 10px rgba(251,191,36,.5);
+  opacity:0;
+  transition:opacity .4s;
 }
-#fortune.show{
-  opacity:1;
+#message.show{opacity:1}
+
+/* 胜利烟花 */
+.firework{
+  position:fixed;
+  width:6px;height:6px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:100;
 }
 
-@media (max-width: 600px) {
+@media (max-width:480px){
   h1{font-size:22px}
-  .sub{font-size:12px}
-  .controls button{padding:10px 16px;font-size:14px;min-width:95px}
-  #info th{font-size:12px;padding:8px 4px}
-  #info td{font-size:14px;padding:8px 4px}
+  .reel{width:60px;height:95px}
+  .digit{height:95px;font-size:52px}
+  .reels{gap:8px;padding:10px}
+  .result-digit{font-size:26px;min-width:26px}
+  #spin-btn{padding:14px 36px;font-size:18px}
 }
 </style>
 </head>
 <body>
-<h1>☯ 十神 · 五行 相生相克图</h1>
-<p class="sub">转动内环五行，使对应元素对齐十神方位（如日主为火，则转"火"至比劫位）</p>
+<h1>🎰 LUCKY SLOTS 🎰</h1>
+<p class="sub">按下 SPIN · 命运转动 · 四码定乾坤</p>
 
-<svg id="svg" viewBox="0 0 700 700"></svg>
-
-<div class="controls">
-  <button id="btn-ccw" onclick="rotate(-1)">↺ 逆转 72°</button>
-  <button id="btn-cw" onclick="rotate(1)">↻ 顺转 72°</button>
-  <button id="spin-btn">
-    🎰 老虎机
-    <span class="hint" id="spin-hint">长按蓄力 · 松开滑行</span>
-  </button>
+<div class="machine">
+  <div class="reels" id="reels"></div>
+  <div class="result">
+    <span class="result-label">结果 ▸</span>
+    <div class="result-numbers" id="result-numbers">
+      <div class="result-digit" data-i="0">-</div>
+      <div class="result-digit" data-i="1">-</div>
+      <div class="result-digit" data-i="2">-</div>
+      <div class="result-digit" data-i="3">-</div>
+    </div>
+  </div>
 </div>
 
-<div id="fortune"></div>
-
-<div class="table-wrapper">
-  <table id="info"></table>
-</div>
-
-<div class="legend">
-  <span><i style="background:#4ade80"></i>相生</span>
-  <span><i style="background:#f87171;border-top:2px dashed #f87171;height:0"></i>相克</span>
-</div>
+<button id="spin-btn">SPIN</button>
+<div id="message"></div>
 
 <script>
-const CX=350,CY=350,OR=232,IR=122,NOR=50,NIR=34;
-
-const TG=[
-  {p:['比肩','劫财'],g:'比劫'},
-  {p:['食神','伤官'],g:'食伤'},
-  {p:['偏财','正财'],g:'财星'},
-  {p:['七杀','正官'],g:'官杀'},
-  {p:['偏印','正印'],g:'印星'}
+// ============ 配置 ============
+const DIGIT_COLORS=[
+  '#ef4444','#f97316','#eab308','#84cc16','#22c55e',
+  '#14b8a6','#06b6d4','#3b82f6','#8b5cf6','#ec4899'
 ];
-const WX=[
-  {n:'木',c:'#22c55e',g:'#15803d'},
-  {n:'火',c:'#ef4444',g:'#b91c1c'},
-  {n:'土',c:'#eab308',g:'#a16207'},
-  {n:'金',c:'#e2e8f0',g:'#64748b'},
-  {n:'水',c:'#3b82f6',g:'#1d4ed8'}
-];
+const REEL_COUNT=4;
+const DIGIT_HEIGHT=110; // 与 CSS 一致
+const REPEAT=8; // 数字条重复次数（保证足够滚动）
 
-// 运势文案
-const FORTUNES=[
-  '五行流通 · 大吉大利 ✨',
-  '气运亨通 · 诸事顺遂 🌟',
-  '阴阳调和 · 平稳安康 ☯',
-  '生旺得地 · 财运临门 💰',
-  '贵人相助 · 逢凶化吉 🍀',
-  '蓄势待发 · 厚积薄发 🚀',
-  '天机显现 · 灵感涌现 💡',
-  '五行归位 · 命盘圆满 🎯'
-];
+// 物理参数
+const MAX_VELOCITY=2400;  // px/s
+const ACCELERATION=3600;  // px/s²
+const FRICTION=0.985;
+const SNAP_THRESHOLD=280;
+const SNAP_STRENGTH=0.22;
+const STOP_THRESHOLD=6;
 
-let steps=0;
-let currentAngle=0;
-let velocity=0;  // 角速度（度/秒）
-
-// 物理参数（老虎机风格）
-const MAX_VELOCITY=2520;   // 最大速度（7圈/秒）
-const ACCELERATION=4200;   // 加速度
-const FRICTION=0.982;      // 摩擦系数（每帧）
-const SNAP_THRESHOLD=240;  // 开始吸附的速度阈值
-const SNAP_STRENGTH=0.18;  // 吸附强度
-const STOP_THRESHOLD=8;    // 完全停止的速度阈值
-
-let spinning=false;        // 是否按住按钮
-let coasting=false;        // 是否处于滑行阶段
+// 每个转轮的状态
+const reels=[];
+let spinning=false;
+let stopSequence=[]; // 停止顺序时间
 let lastTime=0;
-let lastTickAngle=0;       // 上次触发"哒"声的位置
+let resultNumbers=[];
 
-// ============ Web Audio 音效系统 ============
-let audioCtx=null;
-let masterGain=null;
-let spinOsc=null;
-let spinGain=null;
-
+// ============ Web Audio ============
+let audioCtx=null,masterGain=null,spinOsc=null,spinGain=null;
 function initAudio(){
   if(audioCtx) return;
   audioCtx=new (window.AudioContext||window.webkitAudioContext)();
@@ -238,446 +312,365 @@ function initAudio(){
   masterGain.connect(audioCtx.destination);
 }
 
-// 启动音效：老虎机拉杆 + 机械启动
 function playStart(){
   if(!audioCtx) return;
   const t=audioCtx.currentTime;
-  
-  // 拉杆声（低频机械感）
-  const osc1=audioCtx.createOscillator();
-  const g1=audioCtx.createGain();
-  osc1.connect(g1);g1.connect(masterGain);
-  osc1.type='sawtooth';
-  osc1.frequency.setValueAtTime(80,t);
-  osc1.frequency.exponentialRampToValueAtTime(300,t+0.15);
-  g1.gain.setValueAtTime(0.3,t);
-  g1.gain.exponentialRampToValueAtTime(0.01,t+0.2);
-  osc1.start(t);osc1.stop(t+0.2);
-  
-  // 启动"嗡"声
-  const osc2=audioCtx.createOscillator();
-  const g2=audioCtx.createGain();
-  osc2.connect(g2);g2.connect(masterGain);
-  osc2.type='triangle';
-  osc2.frequency.setValueAtTime(150,t+0.05);
-  osc2.frequency.exponentialRampToValueAtTime(600,t+0.3);
+  // 拉杆声
+  const o1=audioCtx.createOscillator(),g1=audioCtx.createGain();
+  o1.connect(g1);g1.connect(masterGain);
+  o1.type='sawtooth';
+  o1.frequency.setValueAtTime(80,t);
+  o1.frequency.exponentialRampToValueAtTime(400,t+0.2);
+  g1.gain.setValueAtTime(0.25,t);
+  g1.gain.exponentialRampToValueAtTime(0.01,t+0.25);
+  o1.start(t);o1.stop(t+0.25);
+  // 启动嗡鸣
+  const o2=audioCtx.createOscillator(),g2=audioCtx.createGain();
+  o2.connect(g2);g2.connect(masterGain);
+  o2.type='triangle';
+  o2.frequency.setValueAtTime(200,t+0.05);
+  o2.frequency.exponentialRampToValueAtTime(800,t+0.3);
   g2.gain.setValueAtTime(0,t);
-  g2.gain.linearRampToValueAtTime(0.2,t+0.1);
+  g2.gain.linearRampToValueAtTime(0.15,t+0.1);
   g2.gain.exponentialRampToValueAtTime(0.01,t+0.4);
-  osc2.start(t+0.05);osc2.stop(t+0.4);
+  o2.start(t+0.05);o2.stop(t+0.4);
 }
 
-// 开始持续旋转音（频率随速度变化）
 function startSpinSound(){
   if(!audioCtx||spinOsc) return;
   spinOsc=audioCtx.createOscillator();
   spinGain=audioCtx.createGain();
   const filter=audioCtx.createBiquadFilter();
-  filter.type='lowpass';
-  filter.frequency.value=1500;
-  
-  spinOsc.connect(filter);
-  filter.connect(spinGain);
-  spinGain.connect(masterGain);
-  
+  filter.type='lowpass';filter.frequency.value=1200;
+  spinOsc.connect(filter);filter.connect(spinGain);spinGain.connect(masterGain);
   spinOsc.type='sawtooth';
-  spinOsc.frequency.value=200;
-  spinGain.gain.value=0.08;
+  spinOsc.frequency.value=180;
+  spinGain.gain.value=0.06;
   spinOsc.start();
 }
 
-// 更新旋转音频率（随速度）
 function updateSpinSound(){
   if(!spinOsc) return;
-  // 频率随速度线性变化：200Hz ~ 800Hz
-  const freq=200+Math.abs(velocity)/MAX_VELOCITY*600;
-  spinOsc.frequency.setTargetAtTime(freq,audioCtx.currentTime,0.05);
-  // 音量随速度变化
-  const vol=0.05+Math.abs(velocity)/MAX_VELOCITY*0.1;
-  spinGain.gain.setTargetAtTime(vol,audioCtx.currentTime,0.05);
+  const maxV=Math.max(...reels.map(r=>Math.abs(r.velocity)));
+  const ratio=maxV/MAX_VELOCITY;
+  spinOsc.frequency.setTargetAtTime(180+ratio*500,audioCtx.currentTime,0.05);
+  spinGain.gain.setTargetAtTime(0.04+ratio*0.08,audioCtx.currentTime,0.05);
 }
 
 function stopSpinSound(){
   if(!spinOsc) return;
   spinGain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.2);
   spinOsc.stop(audioCtx.currentTime+0.2);
-  spinOsc=null;
-  spinGain=null;
+  spinOsc=null;spinGain=null;
 }
 
-// "哒"声：每经过一个 72° 位置触发
-function playTick(){
+function playTick(reelIndex){
   if(!audioCtx) return;
   const t=audioCtx.currentTime;
-  const osc=audioCtx.createOscillator();
-  const g=audioCtx.createGain();
-  osc.connect(g);g.connect(masterGain);
-  
-  osc.type='square';
-  // 速度越快音调越高
-  const freq=800+Math.abs(velocity)/MAX_VELOCITY*600;
-  osc.frequency.setValueAtTime(freq,t);
-  osc.frequency.exponentialRampToValueAtTime(freq*0.5,t+0.05);
-  
-  g.gain.setValueAtTime(0.15,t);
-  g.gain.exponentialRampToValueAtTime(0.001,t+0.06);
-  
-  osc.start(t);osc.stop(t+0.06);
+  const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+  o.connect(g);g.connect(masterGain);
+  o.type='square';
+  o.frequency.setValueAtTime(900-reelIndex*80,t);
+  o.frequency.exponentialRampToValueAtTime(400,t+0.04);
+  g.gain.setValueAtTime(0.1,t);
+  g.gain.exponentialRampToValueAtTime(0.001,t+0.05);
+  o.start(t);o.stop(t+0.05);
 }
 
-// 减速时的"咕噜"声
-function playCoastSound(){
+function playStop(reelIndex){
   if(!audioCtx) return;
   const t=audioCtx.currentTime;
-  const osc=audioCtx.createOscillator();
-  const g=audioCtx.createGain();
-  osc.connect(g);g.connect(masterGain);
-  
-  osc.type='triangle';
-  osc.frequency.setValueAtTime(400,t);
-  osc.frequency.exponentialRampToValueAtTime(100,t+0.8);
-  
-  g.gain.setValueAtTime(0.15,t);
-  g.gain.exponentialRampToValueAtTime(0.001,t+0.8);
-  
-  osc.start(t);osc.stop(t+0.8);
-}
-
-// 停止音效：清脆"叮" + 和弦
-function playLand(){
-  if(!audioCtx) return;
-  const t=audioCtx.currentTime;
-  
-  // 主"叮"声
-  const osc1=audioCtx.createOscillator();
-  const g1=audioCtx.createGain();
-  osc1.connect(g1);g1.connect(masterGain);
-  osc1.type='sine';
-  osc1.frequency.setValueAtTime(1400,t);
-  osc1.frequency.exponentialRampToValueAtTime(1000,t+0.3);
+  // 重击"咔"
+  const o1=audioCtx.createOscillator(),g1=audioCtx.createGain();
+  o1.connect(g1);g1.connect(masterGain);
+  o1.type='square';
+  o1.frequency.setValueAtTime(200,t);
+  o1.frequency.exponentialRampToValueAtTime(60,t+0.15);
   g1.gain.setValueAtTime(0.3,t);
-  g1.gain.exponentialRampToValueAtTime(0.001,t+0.5);
-  osc1.start(t);osc1.stop(t+0.5);
-  
-  // 和弦（大三和弦，营造"中奖"感）
-  [523.25,659.25,783.99].forEach((f,i)=>{
-    const osc=audioCtx.createOscillator();
-    const g=audioCtx.createGain();
-    osc.connect(g);g.connect(masterGain);
-    osc.type='sine';
-    osc.frequency.value=f;
-    g.gain.setValueAtTime(0,t+0.1+i*0.05);
-    g.gain.linearRampToValueAtTime(0.12,t+0.15+i*0.05);
-    g.gain.exponentialRampToValueAtTime(0.001,t+0.8+i*0.05);
-    osc.start(t+0.1+i*0.05);
-    osc.stop(t+0.9+i*0.05);
+  g1.gain.exponentialRampToValueAtTime(0.001,t+0.2);
+  o1.start(t);o1.stop(t+0.2);
+  // 金属"叮"
+  const o2=audioCtx.createOscillator(),g2=audioCtx.createGain();
+  o2.connect(g2);g2.connect(masterGain);
+  o2.type='sine';
+  o2.frequency.setValueAtTime(1200+reelIndex*100,t+0.02);
+  g2.gain.setValueAtTime(0,t+0.02);
+  g2.gain.linearRampToValueAtTime(0.2,t+0.05);
+  g2.gain.exponentialRampToValueAtTime(0.001,t+0.4);
+  o2.start(t+0.02);o2.stop(t+0.4);
+}
+
+function playJackpot(){
+  if(!audioCtx) return;
+  const t=audioCtx.currentTime;
+  // 上升琶音
+  [523.25,659.25,783.99,1046.5].forEach((f,i)=>{
+    const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+    o.connect(g);g.connect(masterGain);
+    o.type='triangle';
+    o.frequency.value=f;
+    g.gain.setValueAtTime(0,t+i*0.08);
+    g.gain.linearRampToValueAtTime(0.2,t+i*0.08+0.02);
+    g.gain.exponentialRampToValueAtTime(0.001,t+0.8+i*0.08);
+    o.start(t+i*0.08);o.stop(t+0.9+i*0.08);
   });
+  // 最终和弦
+  setTimeout(()=>{
+    if(!audioCtx) return;
+    const t2=audioCtx.currentTime;
+    [523.25,659.25,783.99,1046.5,1318.5].forEach(f=>{
+      const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+      o.connect(g);g.connect(masterGain);
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0.15,t2);
+      g.gain.exponentialRampToValueAtTime(0.001,t2+1.2);
+      o.start(t2);o.stop(t2+1.2);
+    });
+  },350);
 }
 
-// ============ SVG 构建 ============
-const a=i=>(-90+i*72)*Math.PI/180;
-const pt=(i,r)=>({x:CX+r*Math.cos(a(i)),y:CY+r*Math.sin(a(i))});
-
-function arc(r,a1,a2){
-  const x1=CX+r*Math.cos(a1),y1=CY+r*Math.sin(a1);
-  const x2=CX+r*Math.cos(a2),y2=CY+r*Math.sin(a2);
-  let d=a2-a1; if(d<0)d+=2*Math.PI;
-  return`M${x1} ${y1}A${r} ${r} 0 ${d>Math.PI?1:0} 1 ${x2} ${y2}`;
-}
-
-function build(){
-  const svg=document.getElementById('svg');
-  let h=`<defs>
-    <marker id="ag" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0,0L9,3.5L0,7Z" fill="#4ade80"/></marker>
-    <marker id="ar" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0,0L9,3.5L0,7Z" fill="#f87171"/></marker>
-    <marker id="at" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0,0L9,3.5L0,7Z" fill="#2dd4bf"/></marker>
-    <filter id="gl"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="gl2"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="motion-blur"><feGaussianBlur stdDeviation="0"/></filter>
-    <radialGradient id="bg"><stop offset="0%" stop-color="#1e1e4a"/><stop offset="100%" stop-color="#0a0a1a"/></radialGradient>
-    <radialGradient id="flash-grad">
-      <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
-      <stop offset="70%" stop-color="#f472b6" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#f472b6" stop-opacity="0"/>
-    </radialGradient>
-  </defs>`;
-
-  h+=`<circle cx="${CX}" cy="${CY}" r="340" fill="url(#bg)"/>`;
-  h+=`<circle cx="${CX}" cy="${CY}" r="${OR+25}" fill="none" stroke="rgba(240,192,96,.08)" stroke-width="1"/>`;
-  h+=`<circle cx="${CX}" cy="${CY}" r="${OR}" fill="none" stroke="rgba(240,192,96,.12)" stroke-width="1" stroke-dasharray="5,5"/>`;
-  h+=`<circle cx="${CX}" cy="${CY}" r="${IR}" fill="none" stroke="rgba(100,200,255,.12)" stroke-width="1" stroke-dasharray="5,5"/>`;
-
-  const oA=OR+20, off=21*Math.PI/180;
-  for(let i=0;i<5;i++){
-    const j=(i+1)%5;
-    h+=`<path d="${arc(oA,a(i)+off,a(j)-off)}" fill="none" stroke="#4ade80" stroke-width="2.5" marker-end="url(#ag)" opacity=".65"/>`;
+// ============ 构建转轮 ============
+function buildReels(){
+  const container=document.getElementById('reels');
+  container.innerHTML='';
+  for(let r=0;r<REEL_COUNT;r++){
+    const reel=document.createElement('div');
+    reel.className='reel';
+    reel.innerHTML='<div class="reel-highlight"></div>';
+    
+    const strip=document.createElement('div');
+    strip.className='strip';
+    // 构建数字条：重复 REPEAT 次 0-9
+    let html='';
+    for(let rep=0;rep<REPEAT;rep++){
+      for(let d=0;d<10;d++){
+        html+=`<div class="digit" style="color:${DIGIT_COLORS[d]}">${d}</div>`;
+      }
+    }
+    strip.innerHTML=html;
+    reel.appendChild(strip);
+    container.appendChild(reel);
+    
+    reels.push({
+      element:reel,
+      strip:strip,
+      position:0,        // 当前位置（px）
+      velocity:0,        // 速度（px/s）
+      targetDigit:null,  // 最终目标数字
+      stopped:false,
+      lastDigit:-1
+    });
   }
-
-  for(let i=0;i<5;i++){
-    const j=(i+2)%5;
-    const p1=pt(i,OR-NOR-8),p2=pt(j,OR-NOR-8);
-    const dx=p2.x-p1.x,dy=p2.y-p1.y,l=Math.hypot(dx,dy);
-    const ux=dx/l,uy=dy/l;
-    h+=`<line x1="${p1.x+ux*8}" y1="${p1.y+uy*8}" x2="${p2.x-ux*12}" y2="${p2.y-uy*12}" stroke="#f87171" stroke-width="1.5" stroke-dasharray="7,5" marker-end="url(#ar)" opacity=".45"/>`;
-  }
-
-  h+=`<text x="${CX}" y="42" text-anchor="middle" fill="#4ade80" font-size="12" opacity=".7">外环：十神相生（实线）· 相克（虚线）</text>`;
-
-  for(let i=0;i<5;i++){
-    const p=pt(i,OR),t=TG[i];
-    h+=`<circle cx="${p.x}" cy="${p.y}" r="${NOR}" fill="rgba(25,25,55,.92)" stroke="#f0c060" stroke-width="2" filter="url(#gl)"/>`;
-    h+=`<text x="${p.x}" y="${p.y-12}" text-anchor="middle" fill="#f0c060" font-size="18" font-weight="bold">${t.p[0]}</text>`;
-    h+=`<text x="${p.x}" y="${p.y+14}" text-anchor="middle" fill="#f0c060" font-size="18" font-weight="bold">${t.p[1]}</text>`;
-    h+=`<text x="${p.x}" y="${p.y+34}" text-anchor="middle" fill="rgba(240,192,96,.6)" font-size="12">〔${t.g}〕</text>`;
-  }
-
-  // 内环（带动态模糊滤镜）
-  h+=`<g id="inner-group" style="transform-origin:${CX}px ${CY}px" filter="url(#motion-blur)">`;
-
-  const iA=IR+14, iOff=28*Math.PI/180;
-  for(let i=0;i<5;i++){
-    const j=(i+1)%5;
-    h+=`<path d="${arc(iA,a(i)+iOff,a(j)-iOff)}" fill="none" stroke="#2dd4bf" stroke-width="2" marker-end="url(#at)" opacity=".55"/>`;
-  }
-
-  for(let i=0;i<5;i++){
-    const p=pt(i,IR),w=WX[i];
-    h+=`<circle cx="${p.x}" cy="${p.y}" r="${NIR}" fill="${w.g}" stroke="${w.c}" stroke-width="2.5" filter="url(#gl)" opacity=".92"/>`;
-    h+=`<text x="${p.x}" y="${p.y+8}" text-anchor="middle" fill="#fff" font-size="22" font-weight="bold" class="wt" data-i="${i}">${w.n}</text>`;
-  }
-  h+=`</g>`;
-
-  // 停止闪光环
-  h+=`<circle id="flash-ring" cx="${CX}" cy="${CY}" r="100" fill="url(#flash-grad)"/>`;
-
-  // 中心日主（单独分组以便弹跳）
-  h+=`<g id="rz-group">`;
-  h+=`<circle id="rz-circle" cx="${CX}" cy="${CY}" r="38" fill="#15803d" stroke="#22c55e" stroke-width="2.5" filter="url(#gl2)"/>`;
-  h+=`<text id="rz-text" x="${CX}" y="${CY-2}" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">日主</text>`;
-  h+=`<text id="rz-sub" x="${CX}" y="${CY+18}" text-anchor="middle" fill="rgba(255,255,255,.6)" font-size="11">太极</text>`;
-  h+=`</g>`;
-
-  svg.innerHTML=h;
 }
 
 // ============ 渲染 ============
-function renderAngle(){
-  const g=document.getElementById('inner-group');
-  g.style.transform=`rotate(${currentAngle}deg)`;
-  g.querySelectorAll('.wt').forEach(t=>{
-    const i=+t.dataset.i, p=pt(i,IR);
-    t.setAttribute('transform',`rotate(${-currentAngle},${p.x},${p.y})`);
-  });
+function renderReel(reel){
+  // 位置取模，保证循环
+  const totalHeight=DIGIT_HEIGHT*10;
+  let pos=reel.position%totalHeight;
+  if(pos<0) pos+=totalHeight;
+  reel.strip.style.transform=`translateY(${-pos}px)`;
   
-  // 动态模糊（根据速度）
-  const blur=Math.min(Math.abs(velocity)/300,6);
-  const filter=document.querySelector('#motion-blur feGaussianBlur');
-  if(filter) filter.setAttribute('stdDeviation',blur);
+  // 当前显示的数字（中间位置）
+  const currentDigit=Math.floor(pos/DIGIT_HEIGHT)%10;
+  if(currentDigit!==reel.lastDigit && Math.abs(reel.velocity)>30){
+    playTick(reels.indexOf(reel));
+    reel.lastDigit=currentDigit;
+  }
 }
 
 // ============ 物理循环 ============
 function physicsLoop(time){
+  if(!spinning && reels.every(r=>r.stopped)) return;
+  
   if(!lastTime) lastTime=time;
-  const dt=Math.min((time-lastTime)/1000,0.05); // 限制 dt 避免跳帧
+  const dt=Math.min((time-lastTime)/1000,0.05);
   lastTime=time;
   
-  if(spinning){
-    // 按住时：加速到最大速度
-    velocity=Math.min(velocity+ACCELERATION*dt,MAX_VELOCITY);
-    updateSpinSound();
-  } else if(coasting){
-    // 松开后：摩擦减速
-    velocity*=Math.pow(FRICTION,dt*60);
-    updateSpinSound();
+  const now=time;
+  
+  reels.forEach((reel,idx)=>{
+    if(reel.stopped) return;
     
-    // 低速时触发"咕噜"声
-    if(Math.abs(velocity)<SNAP_THRESHOLD*1.5 && Math.abs(velocity)>SNAP_THRESHOLD*0.8 && !playCoastSound._played){
-      playCoastSound();
-      playCoastSound._played=true;
+    // 检查是否到达停止时间
+    if(stopSequence[idx]!==undefined && now>=stopSequence[idx]){
+      // 进入减速阶段
+      reel.decelerating=true;
     }
     
-    // 接近停止时，磁吸到最近的 72°
-    if(Math.abs(velocity)<SNAP_THRESHOLD){
-      const targetAngle=Math.round(currentAngle/72)*72;
-      const diff=targetAngle-currentAngle;
-      // 吸附力随距离增大
-      velocity+=diff*SNAP_STRENGTH*dt*60;
-      // 额外阻尼，避免震荡
-      velocity*=0.92;
+    if(!reel.decelerating){
+      // 加速阶段
+      reel.velocity=Math.min(reel.velocity+ACCELERATION*dt,MAX_VELOCITY);
+    } else {
+      // 减速阶段
+      reel.velocity*=Math.pow(FRICTION,dt*60);
+      
+      // 磁吸对齐
+      const totalHeight=DIGIT_HEIGHT*10;
+      let pos=reel.position%totalHeight;
+      if(pos<0) pos+=totalHeight;
+      
+      // 找到最近的对齐位置（对应目标数字）
+      const targetPos=reel.targetDigit*DIGIT_HEIGHT;
+      // 计算到目标位置的最短距离（考虑循环）
+      let diff=targetPos-pos;
+      // 归一化到 [-totalHeight/2, totalHeight/2]
+      while(diff>totalHeight/2) diff-=totalHeight;
+      while(diff<-totalHeight/2) diff+=totalHeight;
+      
+      if(Math.abs(reel.velocity)<SNAP_THRESHOLD){
+        reel.velocity+=diff*SNAP_STRENGTH*dt*60;
+        reel.velocity*=0.88;
+      }
+      
+      // 完全停止
+      if(Math.abs(reel.velocity)<STOP_THRESHOLD && Math.abs(diff)<1){
+        reel.position=reel.position-pos+targetPos;
+        reel.velocity=0;
+        reel.stopped=true;
+        onReelStopped(idx,reel.targetDigit);
+      }
     }
     
-    // 完全停止判定
-    const targetAngle=Math.round(currentAngle/72)*72;
-    if(Math.abs(velocity)<STOP_THRESHOLD && Math.abs(currentAngle-targetAngle)<0.5){
-      currentAngle=targetAngle;
-      velocity=0;
-      coasting=false;
-      steps=Math.round(currentAngle/72);
-      onFullyStopped();
-      return;
-    }
+    reel.position+=reel.velocity*dt;
+    renderReel(reel);
+  });
+  
+  updateSpinSound();
+  
+  if(!reels.every(r=>r.stopped)){
+    requestAnimationFrame(physicsLoop);
+  } else {
+    onAllStopped();
   }
-  
-  currentAngle+=velocity*dt;
-  
-  // 触发"哒哒"声（每经过 72°）
-  const currentTick=Math.floor(currentAngle/72);
-  if(currentTick!==lastTickAngle && Math.abs(velocity)>50){
-    playTick();
-    lastTickAngle=currentTick;
-  }
-  
-  renderAngle();
-  requestAnimationFrame(physicsLoop);
 }
 
-// ============ 控制 ============
+// ============ 转轮停止回调 ============
+function onReelStopped(idx,digit){
+  playStop(idx);
+  resultNumbers[idx]=digit;
+  
+  // 更新结果显示
+  const digitEl=document.querySelector(`.result-digit[data-i="${idx}"]`);
+  digitEl.textContent=digit;
+  digitEl.style.color=DIGIT_COLORS[digit];
+  digitEl.classList.remove('landed');
+  void digitEl.offsetWidth;
+  digitEl.classList.add('landed');
+  
+  // 转轮停止时的视觉反馈
+  const reel=reels[idx];
+  reel.element.style.boxShadow='0 0 20px '+DIGIT_COLORS[digit];
+  setTimeout(()=>{
+    reel.element.style.boxShadow='';
+  },600);
+}
+
+// ============ 全部停止 ============
+function onAllStopped(){
+  stopSpinSound();
+  spinning=false;
+  document.getElementById('spin-btn').disabled=false;
+  
+  // 判断结果
+  const msg=document.getElementById('message');
+  const allSame=resultNumbers.every(n=>n===resultNumbers[0]);
+  const hasPair=new Set(resultNumbers).size<=2;
+  
+  if(allSame){
+    msg.textContent=`🎉  jackpot！四连 ${resultNumbers[0]}！天选之人！ 🎉`;
+    playJackpot();
+    spawnFireworks();
+  } else if(hasPair){
+    msg.textContent=`✨ 不错！出现对子，好运将至！`;
+    playJackpot();
+  } else {
+    const sum=resultNumbers.reduce((a,b)=>a+b,0);
+    msg.textContent=`🎲 结果：${resultNumbers.join(' ')} · 总和 ${sum}`;
+  }
+  msg.classList.add('show');
+  clearTimeout(onAllStopped._t);
+  onAllStopped._t=setTimeout(()=>msg.classList.remove('show'),4000);
+}
+
+// ============ 烟花效果 ============
+function spawnFireworks(){
+  const colors=['#fbbf24','#f472b6','#a78bfa','#22c55e','#3b82f6','#ef4444'];
+  for(let burst=0;burst<5;burst++){
+    setTimeout(()=>{
+      const cx=Math.random()*window.innerWidth;
+      const cy=Math.random()*window.innerHeight*0.6;
+      for(let i=0;i<20;i++){
+        const p=document.createElement('div');
+        p.className='firework';
+        p.style.background=colors[Math.floor(Math.random()*colors.length)];
+        p.style.left=cx+'px';
+        p.style.top=cy+'px';
+        p.style.boxShadow=`0 0 8px ${p.style.background}`;
+        document.body.appendChild(p);
+        const angle=Math.random()*Math.PI*2;
+        const dist=80+Math.random()*120;
+        const dx=Math.cos(angle)*dist;
+        const dy=Math.sin(angle)*dist;
+        p.animate([
+          {transform:'translate(0,0) scale(1)',opacity:1},
+          {transform:`translate(${dx}px,${dy}px) scale(0)`,opacity:0}
+        ],{duration:1000+Math.random()*500,easing:'cubic-bezier(.2,.6,.4,1)'});
+        setTimeout(()=>p.remove(),1500);
+      }
+    },burst*200);
+  }
+}
+
+// ============ SPIN 控制 ============
 function startSpin(){
-  if(coasting) return;
+  if(spinning) return;
   initAudio();
   if(audioCtx.state==='suspended') audioCtx.resume();
   
   spinning=true;
   lastTime=0;
-  lastTickAngle=Math.floor(currentAngle/72);
-  playCoastSound._played=false;
+  resultNumbers=[null,null,null,null];
   
-  const btn=document.getElementById('spin-btn');
-  btn.classList.add('spinning');
-  btn.classList.remove('coasting');
-  document.getElementById('spin-hint').textContent='蓄力中...';
-  document.getElementById('btn-ccw').disabled=true;
-  document.getElementById('btn-cw').disabled=true;
+  // 重置结果数字显示
+  document.querySelectorAll('.result-digit').forEach(el=>{
+    el.textContent='-';
+    el.classList.remove('landed');
+    el.style.color='#888';
+  });
+  document.getElementById('message').classList.remove('show');
   
+  // 为每个转轮设定目标数字和停止时间
+  const startTime=performance.now();
+  stopSequence=[];
+  reels.forEach((reel,idx)=>{
+    reel.position=0;
+    reel.velocity=0;
+    reel.stopped=false;
+    reel.decelerating=false;
+    reel.lastDigit=-1;
+    reel.targetDigit=Math.floor(Math.random()*10);
+    // 依次延迟停止：1.5s, 2.3s, 3.1s, 3.9s
+    stopSequence[idx]=startTime+1500+idx*800;
+  });
+  
+  document.getElementById('spin-btn').disabled=true;
   playStart();
   startSpinSound();
   requestAnimationFrame(physicsLoop);
 }
 
-function releaseSpin(){
-  if(!spinning) return;
-  spinning=false;
-  coasting=true;
-  
-  const btn=document.getElementById('spin-btn');
-  btn.classList.remove('spinning');
-  btn.classList.add('coasting');
-  document.getElementById('spin-hint').textContent='滑行中...';
-  
-  // 物理循环继续运行（在 physicsLoop 中处理 coasting）
-}
+// ============ 初始化 ============
+buildReels();
+// 初始位置：让每个转轮显示随机数字
+reels.forEach(reel=>{
+  const d=Math.floor(Math.random()*10);
+  reel.position=d*DIGIT_HEIGHT;
+  reel.lastDigit=d;
+  renderReel(reel);
+});
 
-function onFullyStopped(){
-  stopSpinSound();
-  playLand();
-  
-  const btn=document.getElementById('spin-btn');
-  btn.classList.remove('coasting');
-  document.getElementById('spin-hint').textContent='长按蓄力 · 松开滑行';
-  document.getElementById('btn-ccw').disabled=false;
-  document.getElementById('btn-cw').disabled=false;
-  
-  // 清除动态模糊
-  const filter=document.querySelector('#motion-blur feGaussianBlur');
-  if(filter) filter.setAttribute('stdDeviation',0);
-  
-  // 触发闪光效果
-  const flash=document.getElementById('flash-ring');
-  flash.classList.remove('active');
-  void flash.offsetWidth; // 强制重绘以重启动画
-  flash.classList.add('active');
-  
-  // 触发日主弹跳
-  const rzGroup=document.getElementById('rz-group');
-  rzGroup.classList.remove('bounce');
-  void rzGroup.offsetWidth;
-  rzGroup.classList.add('bounce');
-  
-  // 显示运势
-  showFortune();
-  
-  // 更新 UI
-  updateUI();
-}
-
-function showFortune(){
-  const el=document.getElementById('fortune');
-  const text=FORTUNES[Math.floor(Math.random()*FORTUNES.length)];
-  el.textContent='🎊 '+text;
-  el.classList.add('show');
-  clearTimeout(showFortune._timer);
-  showFortune._timer=setTimeout(()=>{
-    el.classList.remove('show');
-  },3500);
-}
-
-function updateUI(){
-  const bijieWi=((-steps)%5+5)%5;
-  const bijieColor=WX[bijieWi].c;
-  const bijieGrad=WX[bijieWi].g;
-
-  const rzCircle=document.getElementById('rz-circle');
-  const rzSub=document.getElementById('rz-sub');
-  if(rzCircle){
-    rzCircle.setAttribute('fill',bijieGrad);
-    rzCircle.setAttribute('stroke',bijieColor);
-  }
-  if(rzSub){
-    rzSub.setAttribute('fill','rgba(255,255,255,.7)');
-  }
-
-  let tableHtml='<tr><th>日主</th>';
-  for(let i=0;i<5;i++){
-    tableHtml+=`<th>${TG[i].g}</th>`;
-  }
-  tableHtml+='</tr><tr>';
-  tableHtml+=`<td style="color:${bijieColor}">${WX[bijieWi].n}</td>`;
-  for(let i=0;i<5;i++){
-    const wi=((i-steps)%5+5)%5;
-    tableHtml+=`<td style="color:${WX[wi].c}">${WX[wi].n}</td>`;
-  }
-  tableHtml+='</tr>';
-  document.getElementById('info').innerHTML=tableHtml;
-}
-
-function update(){
-  currentAngle=steps*72;
-  renderAngle();
-  updateUI();
-}
-
-function rotate(d){
-  if(spinning||coasting) return;
-  steps+=d;
-  
-  // 离散旋转也配音效
-  initAudio();
-  if(audioCtx.state==='suspended') audioCtx.resume();
-  const t=audioCtx.currentTime;
-  const osc=audioCtx.createOscillator();
-  const g=audioCtx.createGain();
-  osc.connect(g);g.connect(masterGain);
-  osc.type='sine';
-  osc.frequency.setValueAtTime(d>0?600:500,t);
-  osc.frequency.exponentialRampToValueAtTime(d>0?900:700,t+0.1);
-  g.gain.setValueAtTime(0.15,t);
-  g.gain.exponentialRampToValueAtTime(0.001,t+0.15);
-  osc.start(t);osc.stop(t+0.15);
-  
-  update();
-}
-
-// 绑定按钮事件
-const spinBtn=document.getElementById('spin-btn');
-spinBtn.addEventListener('mousedown',startSpin);
-spinBtn.addEventListener('mouseup',releaseSpin);
-spinBtn.addEventListener('mouseleave',releaseSpin);
-spinBtn.addEventListener('touchstart',(e)=>{e.preventDefault();startSpin();});
-spinBtn.addEventListener('touchend',(e)=>{e.preventDefault();releaseSpin();});
-spinBtn.addEventListener('touchcancel',releaseSpin);
-
-build();
-update();
+document.getElementById('spin-btn').addEventListener('click',startSpin);
 </script>
 </body>
 </html>
