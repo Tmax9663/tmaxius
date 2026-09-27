@@ -79,7 +79,7 @@ h1{
   border:2px solid #d4af37;
   box-shadow:inset 0 2px 4px rgba(255,255,255,.4);
 }
-/* 2. 杆身 (中层 z-index: 2) - 移除 CSS transition，由 JS 控制 */
+/* 2. 杆身 (中层 z-index: 2) */
 .arm-rod{
   position:absolute; 
   left:50%; 
@@ -91,7 +91,7 @@ h1{
   z-index: 2; /* 中层 */
   pointer-events:none;
 }
-/* 3. 金色球体把手 (顶层 z-index: 3) - 移除 CSS transition，由 JS 控制 */
+/* 3. 金色球体把手 (顶层 z-index: 3) */
 .arm-handle{
   position:absolute; 
   left:50%; 
@@ -167,13 +167,35 @@ h1{
 #message.show{opacity:1}
 .firework{position:fixed;width:6px;height:6px;border-radius:50%;pointer-events:none;z-index:100}
 
+/* ================= 移动端适配 (修复拉杆溢出) ================= */
 @media (max-width: 480px) {
-  :root { --dh: 50px; --rw: 50px; --gap: 5px; --fs: 34px; --machine-w: 320px; }
-  body { padding: 10px; } h1 { font-size: 22px; } .sub { font-size: 11px; }
-  .result-digit { font-size: 26px; min-width: 30px; }
-  #message { font-size: 13px; padding: 6px 14px; }
-  .stat-value { font-size: 16px; } .val-jackpot { font-size: 14px; }
-  .arm-container { right: -40px; transform: translateY(-50%) scale(0.8); transform-origin: right center; }
+  :root { 
+    --dh: 44px; 
+    --rw: 44px; 
+    --gap: 5px; 
+    --fs: 30px; 
+    --machine-w: 280px; /* 缩小老虎机宽度 */
+  }
+  body { padding: 10px; overflow-x: hidden; }
+  h1 { font-size: 20px; } 
+  .sub { font-size: 11px; }
+  .result-digit { font-size: 24px; min-width: 28px; }
+  #message { font-size: 12px; padding: 6px 10px; }
+  .stat-value { font-size: 15px; }
+  .val-jackpot { font-size: 13px; }
+  
+  /* 关键修复：让机器和拉杆整体在屏幕内居中 */
+  .machine-wrapper {
+    width: 100%;
+    justify-content: center;
+    padding-right: 25px; /* 为右侧拉杆留出视觉空间，保证整体居中 */
+  }
+  
+  .arm-container { 
+    right: -35px; /* 让拉杆紧贴机器右侧 */
+    transform: translateY(-50%) scale(0.7); /* 缩小拉杆整体尺寸 */
+    transform-origin: center right;
+  }
 }
 </style>
 </head>
@@ -563,7 +585,6 @@ function spawnFireworks(){
 }
 
 // ================= 前视视角拉杆核心逻辑 (完美同步) =================
-// 此函数负责根据球的当前位置，同步调整杆身和球的位置
 function updateLeverVisuals(ballY) {
   const centerY = CONTAINER_HEIGHT / 2; // 150px，底座中心位置
   
