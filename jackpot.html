@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>🎰 5x5 经典老虎机 · Casino Lucky Slots</title>
+<title> 5x5 Casino Lucky Slots</title>
 <style>
 :root {
   --dh: 64px; --rw: 64px; --gap: 8px; --fs: 44px;
@@ -39,31 +39,33 @@ h1{
 }
 @keyframes borderGlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
-/* ================= 前视视角拉杆结构 ================= */
+/* ================= 拉杆结构 - 底座紧贴面板 ================= */
 .arm-container{
   position:absolute; 
-  right:-50px; 
-  top:50%; 
+  /* 关键：容器右边缘与机器右边缘对齐 */
+  right:0; 
+  top:40%; 
   transform:translateY(-50%);
   width:60px; 
   height:300px; 
   z-index:20; 
   pointer-events:none; 
 }
-/* 1. 底座 (底层 z-index: 1) */
+
+/* 1. 底座 - 左边缘紧贴机器右边缘，向右延伸 */
 .arm-base{
   position:absolute; 
   top:50%; 
   transform:translateY(-50%);
-  left:0; 
+  left:0; /* 左边缘对齐容器左边缘 = 机器右边缘 */
   width:50px; 
   height:80px;
   background:linear-gradient(180deg,#d4af37 0%,#b8860b 50%,#8b6914 100%);
   border-radius:0 8px 8px 0; 
   border:2px solid #fbbf24; 
-  border-left:none;
+  border-left:none; /* 左侧无边框，与机器无缝融合 */
   box-shadow:4px 4px 15px rgba(0,0,0,.6), inset 0 2px 4px rgba(255,255,255,.3);
-  z-index: 1; /* 底层 */
+  z-index: 1;
   pointer-events:auto;
 }
 .arm-base::before{
@@ -79,22 +81,24 @@ h1{
   border:2px solid #d4af37;
   box-shadow:inset 0 2px 4px rgba(255,255,255,.4);
 }
-/* 2. 杆身 (中层 z-index: 2) */
+
+/* 2. 杆身 - 居中于底座 (底座宽50px, 中心在25px) */
 .arm-rod{
   position:absolute; 
-  left:50%; 
+  left:25px; /* 底座中心 */
   transform:translateX(-50%); 
   width:14px; 
   background:linear-gradient(90deg,#8b6914,#d4af37,#fbbf24,#d4af37,#8b6914);
   border-radius:7px;
   box-shadow:2px 2px 12px rgba(0,0,0,.5);
-  z-index: 2; /* 中层 */
+  z-index: 2;
   pointer-events:none;
 }
-/* 3. 金色球体把手 (顶层 z-index: 3) */
+
+/* 3. 金色球体把手 - 居中于底座 */
 .arm-handle{
   position:absolute; 
-  left:50%; 
+  left:25px; /* 底座中心 */
   transform:translateX(-50%);
   width:50px; 
   height:50px;
@@ -104,7 +108,7 @@ h1{
   box-shadow:0 6px 20px rgba(0,0,0,.6), inset 0 3px 8px rgba(255,255,255,.5);
   cursor:grab; 
   touch-action:none;
-  z-index: 3; /* 顶层 */
+  z-index: 3;
   pointer-events:auto;
 }
 .arm-handle:active{cursor:grabbing}
@@ -167,14 +171,13 @@ h1{
 #message.show{opacity:1}
 .firework{position:fixed;width:6px;height:6px;border-radius:50%;pointer-events:none;z-index:100}
 
-/* ================= 移动端适配 (修复拉杆溢出) ================= */
 @media (max-width: 480px) {
   :root { 
     --dh: 44px; 
     --rw: 44px; 
     --gap: 5px; 
     --fs: 30px; 
-    --machine-w: 280px; /* 缩小老虎机宽度 */
+    --machine-w: 280px;
   }
   body { padding: 10px; overflow-x: hidden; }
   h1 { font-size: 20px; } 
@@ -184,23 +187,22 @@ h1{
   .stat-value { font-size: 15px; }
   .val-jackpot { font-size: 13px; }
   
-  /* 关键修复：让机器和拉杆整体在屏幕内居中 */
   .machine-wrapper {
     width: 100%;
     justify-content: center;
-    padding-right: 25px; /* 为右侧拉杆留出视觉空间，保证整体居中 */
+    padding-right: 30px;
   }
   
   .arm-container { 
-    right: -35px; /* 让拉杆紧贴机器右侧 */
-    transform: translateY(-50%) scale(0.7); /* 缩小拉杆整体尺寸 */
+    right: 0; /* 仍然紧贴 */
+    transform: translateY(-50%) scale(0.75);
     transform-origin: center right;
   }
 }
 </style>
 </head>
 <body>
-<h1>🎰 5x5 CASINO SLOTS 🎰</h1>
+<h1> 5x5 CASINO SLOTS 🎰</h1>
 <p class="sub">拖拽金色拉杆 · 53条支付线 · 仅5连中奖 · 累积奖池</p>
 
 <div class="machine-wrapper">
@@ -219,7 +221,7 @@ h1{
     </div>
   </div>
   
-  <!-- 拉杆结构：底层底座，中层杆身，顶层球 -->
+  <!-- 拉杆：容器右边缘对齐机器右边缘，底座从容器左边缘开始 -->
   <div class="arm-container" id="arm-container">
     <div class="arm-base"></div>
     <div class="arm-rod" id="arm-rod"></div>
@@ -235,6 +237,7 @@ h1{
 <div id="message"></div>
 
 <script>
+  
 const SYMBOLS = [
   { icon: '🍒', color: '#ef4444', name: 'Cherry' },
   { icon: '🔔', color: '#eab308', name: 'Bell' },
@@ -257,15 +260,14 @@ let spinning = false, stopSequence = [], lastTime = 0, resultGrid = [];
 
 let balance = 1000, currentBet = 10, jackpot = 500, spinCount = 0;
 
-// ================= 前视视角拉杆拖拽逻辑 =================
 const armContainer = document.getElementById('arm-container');
 const armRod = document.getElementById('arm-rod');
 const armHandle = document.getElementById('arm-handle');
 
 let isDragging = false, dragStartY = 0, currentBallY = 0;
 const CONTAINER_HEIGHT = 300;
-const CENTER_Y = CONTAINER_HEIGHT / 2; // 150px
-const MAX_PULL = CONTAINER_HEIGHT - 50; // 最大下拉距离 (减去球的直径)
+const CENTER_Y = CONTAINER_HEIGHT / 2;
+const MAX_PULL = CONTAINER_HEIGHT - 50;
 
 let audioCtx = null, masterGain = null, spinOsc = null, spinGain = null;
 function initAudio(){
@@ -552,7 +554,7 @@ function onAllStopped(){
     msg.textContent = `🎉 中奖! (仅5连)\n${wins.slice(0, 5).join('\n')}${wins.length > 5 ? '\n... 等 ' + wins.length + ' 条线' : ''}\n总赢取: +${Math.floor(totalWin)}`;
     spawnFireworks();
   } else {
-    msg.textContent = ` 未中奖 (需要5连)\n余额: ${Math.floor(balance)} | 下注: ${currentBet}`;
+    msg.textContent = `🎲 未中奖 (需要5连)\n余额: ${Math.floor(balance)} | 下注: ${currentBet}`;
   }
   msg.classList.add('show');
   updateUI();
@@ -584,22 +586,16 @@ function spawnFireworks(){
   }
 }
 
-// ================= 前视视角拉杆核心逻辑 (完美同步) =================
 function updateLeverVisuals(ballY) {
-  const centerY = CONTAINER_HEIGHT / 2; // 150px，底座中心位置
-  
-  // 1. 更新球的位置 (顶层)
+  const centerY = CONTAINER_HEIGHT / 2;
   armHandle.style.top = ballY + 'px';
 
-  // 2. 更新杆身的位置和长度 (中层)
   if (ballY <= centerY) {
-    // 球在中心上方：杆身从底座中心向上延伸
     const rodHeight = Math.max(0, centerY - ballY);
     armRod.style.height = rodHeight + 'px';
     armRod.style.bottom = '50%'; 
     armRod.style.top = 'auto';
   } else {
-    // 球在中心下方：杆身从底座中心向下延伸
     const rodHeight = Math.max(0, ballY - centerY);
     armRod.style.height = rodHeight + 'px';
     armRod.style.top = '50%'; 
@@ -607,7 +603,6 @@ function updateLeverVisuals(ballY) {
   }
 }
 
-// 缓动函数，用于松手后的弹回动画
 function easeOutBack(x) {
   const c1 = 1.70158;
   const c3 = c1 + 1;
@@ -622,7 +617,6 @@ function handleDragStart(e) {
   
   const clientY = e.touches ? e.touches[0].clientY : e.clientY;
   const rect = armContainer.getBoundingClientRect();
-  // 记录点击时鼠标与球顶部的偏移量，防止球跳动
   const mouseY = clientY - rect.top;
   dragStartY = mouseY - currentBallY;
 }
@@ -635,7 +629,6 @@ function handleDragMove(e) {
   const rect = armContainer.getBoundingClientRect();
   let mouseY = clientY - rect.top;
   
-  // 计算新的球位置
   let ballY = Math.max(0, Math.min(mouseY - dragStartY, MAX_PULL));
   currentBallY = ballY;
   
@@ -647,12 +640,9 @@ function handleDragEnd(e) {
   isDragging = false;
   
   const startY = currentBallY;
-  
-  // 如果下拉超过 80%，触发旋转
   const shouldSpin = startY >= MAX_PULL * 0.8;
   
-  // 使用 requestAnimationFrame 进行弹回动画，确保球和杆绝对同步
-  const duration = 400; // 400ms 弹回时间
+  const duration = 400;
   const startTime = performance.now();
   
   function snapBackAnimation(time) {
@@ -660,17 +650,14 @@ function handleDragEnd(e) {
     const progress = Math.min(elapsed / duration, 1);
     const easeProgress = easeOutBack(progress);
     
-    // 计算当前球的位置 (从 startY 回到 0)
     const currentY = startY + (0 - startY) * easeProgress;
     currentBallY = currentY;
     
-    // 同步更新视觉
     updateLeverVisuals(currentY);
     
     if (progress < 1) {
       requestAnimationFrame(snapBackAnimation);
     } else {
-      // 动画结束，重置状态
       currentBallY = 0;
       updateLeverVisuals(0);
       if (shouldSpin) {
@@ -689,7 +676,6 @@ document.addEventListener('touchmove', handleDragMove, {passive: false});
 document.addEventListener('mouseup', handleDragEnd);
 document.addEventListener('touchend', handleDragEnd);
 
-// 初始化拉杆视觉状态
 updateLeverVisuals(0);
 
 function startSpin(){
