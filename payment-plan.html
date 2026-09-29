@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FreePaths 收費服務規劃＋作業 SOP</title>
+<style>
+  :root{
+    --bg:#f8f4ea; --card:#fffdf7; --warm:#fbf6e9; --line:#d9cfb6; --line2:#efe6d3;
+    --ink:#2f2a21; --ink2:#6b5f48; --ink3:#8a7a58; --gold:#7a4e00; --gold2:#c97b10;
+    --good:#1f6e2c; --bad:#b3231e; --warn:#a35200; --blue:#1d4e6b;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Microsoft JhengHei","Noto Sans TC","PingFang TC",Arial,sans-serif;
+    font-size:15px; line-height:1.85; -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .doc{max-width:920px; margin:0 auto; padding:26px 20px 90px}
+  h1{font-size:27px; letter-spacing:1px; color:var(--gold); margin:0 0 6px}
+  h2{font-size:20px; color:var(--gold); margin:34px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--line)}
+  h3{font-size:16.5px; color:var(--gold); margin:20px 0 6px}
+  h4{font-size:15px; color:var(--ink); margin:14px 0 4px}
+  p{margin:7px 0}
+  ul,ol{margin:7px 0 7px 22px; padding:0}
+  li{margin:4px 0}
+  code{background:#f2ead6; border:1px solid var(--line2); border-radius:4px; padding:1px 5px; font-size:13px; font-family:Consolas,Menlo,monospace}
+  .sub{color:var(--ink3); font-size:13px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:12px 0}
+  .warm{background:var(--warm)}
+  .note{background:var(--warm); border:1px solid var(--line2); border-left:4px solid var(--gold2); border-radius:8px; padding:10px 12px; margin:10px 0; font-size:14px}
+  .danger{background:#fdf1ef; border:1px solid #e9c6c0; border-left:4px solid var(--bad); border-radius:8px; padding:11px 13px; margin:12px 0}
+  .ok{background:#f1f8f1; border:1px solid #c8e3c8; border-left:4px solid var(--good); border-radius:8px; padding:10px 12px; margin:10px 0; font-size:14px}
+  table{border-collapse:collapse; width:100%; margin:10px 0; font-size:13.5px; background:var(--card)}
+  th,td{border:1px solid var(--line); padding:7px 9px; text-align:left; vertical-align:top}
+  th{background:#f2ead6; font-weight:800; color:var(--gold)}
+  td.c,th.c{text-align:center}
+  .toc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 16px}
+  .toc a{color:var(--gold); text-decoration:none; font-weight:700}
+  .toc li{margin:2px 0}
+  .badge{display:inline-block; font-size:11.5px; font-weight:800; padding:1px 8px; border-radius:20px; border:1px solid var(--line); background:#fff; color:var(--ink2)}
+  .b-do{background:#eaf4ff; border-color:#bcd8f0; color:var(--blue)}
+  .b-must{background:#fdeceb; border-color:#e9c6c0; color:var(--bad)}
+  .b-ok{background:#eef8ee; border-color:#c8e3c8; color:var(--good)}
+  .b-later{background:#f4f1e6; color:var(--ink3)}
+  .step{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 14px; margin:10px 0}
+  .step .hd{font-weight:800; color:var(--gold); font-size:15px}
+  .ck{display:flex; gap:8px; align-items:flex-start; margin:3px 0}
+  .ck input{margin-top:5px; width:15px; height:15px; flex-shrink:0; accent-color:#c97b10}
+  .kv{display:grid; grid-template-columns:96px 1fr; gap:4px 10px; font-size:13.5px}
+  .kv b{color:var(--gold)}
+  .fill{display:inline-block; min-width:110px; border-bottom:1px dashed #b9a97f; height:1.2em}
+  .mono{font-family:Consolas,Menlo,monospace; font-size:12.5px; background:#f7f2e6; border:1px dashed var(--line); border-radius:6px; padding:8px 10px; white-space:pre-wrap; line-height:1.7}
+  .tg{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:8px}
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  @media (max-width:720px){ .two{grid-template-columns:1fr} .kv{grid-template-columns:1fr} }
+  .bar{position:sticky; top:0; z-index:9; background:rgba(248,244,234,.94); backdrop-filter:blur(4px); border-bottom:1px solid var(--line); padding:8px 0; display:flex; gap:10px; align-items:center}
+  .bar span{font-size:12.5px; color:var(--ink3)}
+  .bar button{margin-left:auto; border:1px solid #a86a08; background:linear-gradient(180deg,#f0a020,#c97b10); color:#fff; border-radius:8px; padding:6px 14px; font-weight:800; font-size:13.5px; cursor:pointer; font-family:inherit}
+  footer{margin-top:34px; padding-top:12px; border-top:1px solid var(--line); font-size:12.5px; color:var(--ink3); line-height:1.8}
+  @media print{
+    body{background:#fff; font-size:11.5pt; line-height:1.6}
+    .doc{max-width:none; padding:0}
+    .noprint{display:none !important}
+    h2{page-break-after:avoid} .step,.card,.note,.danger,.ok,table{page-break-inside:avoid}
+    .pagebreak{page-break-before:always}
+    a{color:inherit; text-decoration:none}
+    @page{size:A4; margin:14mm}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="bar noprint">
+    <span>FreePaths 收費服務規劃＋作業 SOP ｜ 建議文件（未動任何程式）</span>
+    <button onclick="window.print()">🖨 列印／存成 PDF</button>
+  </div>
+
+  <h1>FreePaths 收費服務規劃＋作業 SOP</h1>
+  <div class="sub">
+    版本 v1.0 ｜ 製作日期 2026-09-29 ｜ 適用：Basic（freepaths.tmaxius.com）與 Main 完整版<br>
+    用途：評估「為客戶提供八字分析＋報告列印」收費服務，並提供可直接照做的標準作業流程（SOP）。
+  </div>
+
+  <div class="note" style="margin-top:14px">
+    <b>怎麼用這份文件：</b>
+    第 1～10 節是<b>決策與規劃</b>（先讀，決定賣什麼、怎麼收）；第二部分是 <b>SOP</b>（今天就能開始做的 Phase 0、
+    以及之後自動化的 Phase 1）。所有 <span class="badge b-must">必做</span> 代表不做會出問題；
+    <span class="badge b-later">之後</span> 代表第二階段再說。文件中的 <span class="fill"></span> 是留給你填的空格，
+    列印出來可以直接寫。
+  </div>
+
+  <!-- ══════════════ 目錄 ══════════════ -->
+  <h2 id="toc">目錄</h2>
+  <div class="toc two">
+    <div>
+      <b>第一部分：規劃與建議</b>
+      <ol>
+        <li><a href="#s1">先想清楚賣什麼</a></li>
+        <li><a href="#s2">收款管道（馬來西亞／檳城）</a></li>
+        <li><a href="#s3">⚠ 最重要的技術前提：付費牆必須在伺服器</a></li>
+        <li><a href="#s4">標準付款流程（安全做法）</a></li>
+        <li><a href="#s5">實體列印與寄送</a></li>
+        <li><a href="#s6">合規與行政（PDPA／發票／條款）</a></li>
+        <li><a href="#s7">反詐欺與客服</a></li>
+        <li><a href="#s8">分階段路線圖</a></li>
+        <li><a href="#s9">動工前要決定的 7 件事</a></li>
+        <li><a href="#s10">可直接沿用的既有資產</a></li>
+      </ol>
+    </div>
+    <div>
+      <b>第二部分：作業 SOP</b>
+      <ol start="11">
+        <li><a href="#sop0">SOP-0 前置準備（一次性）</a></li>
+        <li><a href="#sopa">SOP-A 手動收款＋發碼（每次成交）</a></li>
+        <li><a href="#sopb">SOP-B 自動化收款（Billplz／Stripe）</a></li>
+        <li><a href="#sopc">SOP-C 實體列印出貨</a></li>
+        <li><a href="#sopd">SOP-D 客服話術範本</a></li>
+        <li><a href="#sope">SOP-E 例外與爭議處理</a></li>
+        <li><a href="#appendix">附錄：訂單欄位、退款政策、上線檢查清單</a></li>
+      </ol>
+    </div>
+  </div>
+
+  <h2 id="s1">1. 先想清楚賣什麼（這決定收款與履約方式）</h2>
+  <table>
+    <thead><tr><th style="width:150px">模式</th><th>適合</th><th>缺點</th></tr></thead>
+    <tbody>
+      <tr><td><b>單次買報告</b><br><span class="sub">RM88／188／388 分級</span></td><td>外國客、散客，最單純</td><td>每次都要重新行銷</td></tr>
+      <tr><td><b>點數包</b><br><span class="sub">買 5 送 1</span></td><td>回頭客、老師幫學生買</td><td>要管理餘額與退款</td></tr>
+      <tr><td><b>老師／代理批發碼</b></td><td>你已有 teacher code＋稽核紀錄，可賣批發給老師轉售</td><td>要處理價格保護（不可低於你的官價）</td></tr>
+      <tr><td><b>訂閱</b><br><span class="sub">每月 N 份</span></td><td>重度用戶、命理師</td><td>客服與退訂壓力最大</td></tr>
+      <tr><td><b>加值服務</b><br><span class="sub">實體列印、1 對 1 解說</span></td><td>高價、利潤高</td><td>人工履約，需地址與物流</td></tr>
+    </tbody>
+  </table>
+  <div class="ok">
+    <b>建議第一版：</b>單次買報告（數位 PDF）＋加購「實體列印寄送」＋老師批發碼。<b>先不要做訂閱</b>，
+    訂閱會同時帶來帳務、客服與退訂三份工作，等回頭客比例穩定再談。
+  </div>
+  <h4>定價填空（先寫下來，再決定收款工具）</h4>
+  <div class="kv">
+    <b>數位報告</b><span>RM <span class="fill"></span>（含 <span class="fill"></span> 頁）</span>
+    <b>加值＋列印</b><span>RM <span class="fill"></span>（含運費 <span class="fill"></span>）</span>
+    <b>老師批發價</b><span>RM <span class="fill"></span>／份（最少 <span class="fill"></span> 份）</span>
+    <b>不收費的</b><span><span class="fill"></span>（例：排盤／五行頁免費，報告與運勢頁收費）</span>
+  </div>
+
+  <h2 id="s2">2. 收款管道（馬來西亞／檳城為主）</h2>
+  <table>
+    <thead><tr><th style="width:130px">管道</th><th>支援方式</th><th>特點</th></tr></thead>
+    <tbody>
+      <tr><td><b>Billplz</b> <span class="badge b-do">建議先接</span></td><td>FPX、信用卡、電子錢包</td><td>馬來西亞本地最常用；審核快、主機頁面直接可用、支援 webhook</td></tr>
+      <tr><td><b>Stripe</b>（MY 帳號）</td><td>卡、FPX、GrabPay…</td><td>國際客友善、API 與文件最好；用 Stripe Checkout 主機頁面（免碰卡號）</td></tr>
+      <tr><td>Chip／Curlec／SenangPay／iPay88</td><td>FPX＋卡</td><td>本地替代方案，費率與服務品質各異，需逐家比較</td></tr>
+      <tr><td><b>DuitNow QR／銀行轉帳</b> <span class="badge b-later">Phase 0</span></td><td>轉帳</td><td><b>零整合成本</b>：先手動發碼驗證需求（見 SOP-A）</td></tr>
+      <tr><td>PayPal</td><td>卡／PayPal</td><td>外國客方便，但費率高、爭議處理偏買家</td></tr>
+    </tbody>
+  </table>
+  <div class="note">
+    <b>費率（請以官網為準，會變動）：</b>FPX 常見為每筆固定費（約 RM0.50–1.50）或約 1–2%；信用卡約 2.5–3.5%＋固定費。
+    <b>FPX 在馬來西亞的轉換率最高，務必第一個接。</b>另外注意：不同管道的「結算週期」不同（有些 T+1、有些每週），
+    會影響你的現金流。
+  </div>
+
+  <h2 id="s3">3. ⚠ 最重要的技術前提：付費牆必須在伺服器</h2>
+  <div class="danger">
+    <b>現況（很重要）：</b>報告是在<b>瀏覽器端算出來的</b>（<code>buildReportModel</code> 在前端執行，
+    <code>src/report/reportHtml.js</code> 也在前端）。<b>只要檔案在客戶手上，付費牆就是假的</b> ——
+    略懂技術的人可以繞過「未付款」直接產生報告。<span class="badge b-must">必做</span>
+  </div>
+  <h4>收費後必須改成</h4>
+  <ul>
+    <li><b>付費內容由 Worker 產生／解鎖：</b>前端只送四柱 → Worker 檢查訂單已付款 → 才回傳報告 HTML／PDF。</li>
+    <li><b>沿用你現有的授權骨架：</b><code>student／teacher／helper／admin</code> 金鑰、裝置綁定、稽核紀錄，
+      正好就是「授權＋履約」的基礎，不必另做會員系統。</li>
+    <li><b>絕對不要自己碰卡號</b>（會踩 PCI 規範）：一律用 gateway 的 hosted checkout 或 token 化。</li>
+    <li>免費與付費的分界線要寫清楚：例如排盤、五行分數免費；<b>命理分析報告、運勢頁、實體列印</b>收費。</li>
+  </ul>
+
+  <h2 id="s4">4. 標準付款流程（安全做法）</h2>
+  <ol>
+    <li>客戶按「購買報告」→ Worker 建立 <b>order</b>：<code>order_id</code>、商品、<b>金額以「分」存整數</b>、幣別 MYR。</li>
+    <li>導向 gateway <b>主機頁面</b>付款。<b>金額由伺服器決定，不信任前端送來的金額。</b></li>
+    <li>Gateway 打 <b>webhook</b> 回 <code>/api/pay/webhook</code>：驗簽章 → <b>冪等處理</b>（同一 order 只發一次貨）→
+      標記已付款 → 發出金鑰／授權。</li>
+    <li><b>回跳頁面（return URL）不可當作付款成功依據</b>（可被偽造）；一切以 webhook ＋伺服器回查 gateway 為準。</li>
+    <li>履約：發 <b>有時效的簽章連結</b>（不要把檔案直接放在公開目錄）／加購列印就建出貨單。</li>
+    <li>全程寫稽核（誰、何時、哪個 order、金額、IP）—— 你已有 audit 機制，直接沿用。</li>
+  </ol>
+
+  <h2 id="s5">5. 實體列印與寄送（加值服務）</h2>
+  <table>
+    <thead><tr><th style="width:130px">項目</th><th>內容</th></tr></thead>
+    <tbody>
+      <tr><td>收件資料</td><td>姓名、電話、完整地址（PDPA：明示用途、可刪除）</td></tr>
+      <tr><td>印刷成本</td><td>彩色列印約 RM1–3／頁（外面印店）；A4 報告 5 頁＋裝訂約 RM5–15</td></tr>
+      <tr><td>運費</td><td>PosLaju／J&amp;T 西馬約 RM7–12；東馬較貴（下單前先查現價）</td></tr>
+      <tr><td>定價建議</td><td>數位 PDF 便宜（RM88–188）；<b>實體列印＋寄送貴一級</b>（RM188–388），並註明出貨天數</td></tr>
+      <tr><td>防濫用</td><td>PDF 加浮水印（姓名／訂單號）、限制同訂單產生次數</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="s6">6. 合規與行政（PDPA／發票／條款）</h2>
+  <ul>
+    <li><b>PDPA（個資）：</b>生日／時辰屬個資 → 需隱私聲明、用途說明、可要求刪除；不得拿去做其他用途。</li>
+    <li><b>稅務／e-Invoice：</b>LHDN MyInvois 電子發票是<b>分階段強制</b>（依營業額），SST 也有營業額門檻。
+      <b>這部分請直接問會計師</b>，不要靠網路片段或本文件的敘述。<span class="badge b-must">必問</span></li>
+    <li><b>對外條款：</b>退款政策（數位內容一經產生通常不退）、服務範圍、免責聲明
+      （報告已有「僅供參考、非醫療／投資／法律建議」，保留）。</li>
+    <li><b>對外國客：</b>標明幣別、是否含稅、退款方式與時程、客服聯絡方式。</li>
+  </ul>
+
+  <h2 id="s7">7. 反詐欺與客服</h2>
+  <ul>
+    <li>只從 webhook 認定付款；<b>金額、幣別、order 狀態都要回查 gateway</b>。</li>
+    <li>留存發票／收據（客戶一定會要）。</li>
+    <li>客服管道：WhatsApp（馬來西亞習慣）＋ 明確回覆時間（例：工作時間 2 小時內）。</li>
+    <li>信用卡 chargeback：保留交付證明（下載紀錄、IP、時間戳）。</li>
+    <li>濫用防治：同一裝置大量索取 → 用你現有的 rate limit／稽核加規則。</li>
+  </ul>
+
+  <h2 id="s8">8. 分階段路線圖（每階段都能單獨上線）</h2>
+  <table>
+    <thead><tr><th style="width:110px">階段</th><th>內容</th><th style="width:110px">建議工期</th></tr></thead>
+    <tbody>
+      <tr><td><b>Phase 0</b> <span class="badge b-do">現在就能做</span></td><td>DuitNow／轉帳 → 管理員<b>手動發碼</b>。零整合，先驗證「有沒有人願意付」</td><td>1–2 天</td></tr>
+      <tr><td><b>Phase 1</b></td><td>Billplz 或 Stripe Checkout ＋ webhook 自動發碼；數位 PDF 交付；列印走人工</td><td>1–2 週</td></tr>
+      <tr><td><b>Phase 2</b></td><td>老師批發碼＋點數、e-Invoice／收據、列印出貨流程自動化</td><td>2–4 週</td></tr>
+      <tr><td><b>Phase 3</b></td><td>訂閱或會員（<b>只有回頭客比例高時才做</b>）</td><td>另議</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="s9">9. 動工前要決定的 7 件事</h2>
+  <div class="card">
+    <div class="ck"><input type="checkbox"><span>1. <b>賣什麼</b>（單次／點數／批發）＋定價與幣別：<span class="fill"></span></span></div>
+    <div class="ck"><input type="checkbox"><span>2. <b>收款管道</b>（先 FPX：Billplz 還是 Stripe MY）：<span class="fill"></span></span></div>
+    <div class="ck"><input type="checkbox"><span>3. <b>履約方式</b>（PDF 連結？實體寄送？人工？）：<span class="fill"></span></span></div>
+    <div class="ck"><input type="checkbox"><span>4. <b>誰能買</b>（公開賣，還是只有老師幫學生買？）：<span class="fill"></span></span></div>
+    <div class="ck"><input type="checkbox"><span>5. <b>付費內容要不要搬到 Worker 產生</b>（強烈建議要）：<span class="fill"></span></span></div>
+    <div class="ck"><input type="checkbox"><span>6. <b>退款政策與客服管道</b>：<span class="fill"></span></span></div>
+    <div class="ck"><input type="checkbox"><span>7. <b>稅務／e-Invoice 由誰處理</b>（會計師）：<span class="fill"></span></span></div>
+  </div>
+
+  <h2 id="s10">10. 可直接沿用的既有資產</h2>
+  <ul>
+    <li><b>金鑰／角色／裝置綁定／稽核</b> → 當「授權與履約」的骨架。</li>
+    <li><b><code>maxSaved</code>、頁面可見度</b> → 可當不同價位的功能分級（例：付費才有「報告」與「運勢」）。</li>
+    <li><b>Main（C:\myPaths_front）的 <code>docs/PLAN.md</code></b>：裡面有一份 v2.7.0 的點數／定價設計，
+      <b>尚未實作</b>。動工前先讀它，別重做一次設計。</li>
+    <li><b>報告產生器</b>（<code>reportModel.js</code>＋<code>reportHtml.js</code>）已經是純函式，搬進 Worker 相對容易。</li>
+  </ul>
+
+  <!-- ══════════════ SOP ══════════════ -->
+  <h2 id="sop0" class="pagebreak">SOP-0　前置準備（一次性，約 1–2 小時）</h2>
+  <div class="step">
+    <div class="hd">0-1　把「要賣什麼」寫成一張價目表</div>
+    <div class="ck"><input type="checkbox"><span>決定商品名稱與內容：例「個人八字分析報告（5 頁 PDF）」</span></div>
+    <div class="ck"><input type="checkbox"><span>定價（RM）與含／不含項目（列印、寄送、1 對 1 解說）</span></div>
+    <div class="ck"><input type="checkbox"><span>寫明「數位內容，產生後不退」與免責聲明</span></div>
+    <div class="ck"><input type="checkbox"><span>把價目表存成圖片（WhatsApp 報價用）＋一頁 PDF（Email 用）</span></div>
+  </div>
+  <div class="step">
+    <div class="hd">0-2　設定收款帳號</div>
+    <div class="ck"><input type="checkbox"><span>Phase 0：確認 DuitNow／銀行帳號（收款人姓名要與對外名稱一致，客戶才敢轉）</span></div>
+    <div class="ck"><input type="checkbox"><span>把收款 QR 存成圖片（放在手機相簿，報價時直接傳）</span></div>
+    <div class="ck"><input type="checkbox"><span>Phase 1：申請 Billplz 或 Stripe（需要公司／個人資料、銀行帳號、網站）</span></div>
+  </div>
+  <div class="step">
+    <div class="hd">0-3　建立「訂單記錄表」（用 Google Sheet 即可）</div>
+    <div class="ck"><input type="checkbox"><span>欄位照<a href="#appendix">附錄 A</a>建立（order_id、日期、客戶、金額、狀態、金鑰、交付時間…）</span></div>
+    <div class="ck"><input type="checkbox"><span>設定 <code>order_id</code> 規則：<code>FP-YYYYMMDD-序號</code>（例 <code>FP-20260929-01</code>）</span></div>
+    <div class="ck"><input type="checkbox"><span>狀態固定用五個值：<code>待付款／已付款／已發碼／已交付／退款</code></span></div>
+  </div>
+  <div class="step">
+    <div class="hd">0-4　準備發碼與交付的工具</div>
+    <div class="ck"><input type="checkbox"><span>確認你在【管理頁】能產生學生碼／教師碼，並知道怎麼查稽核紀錄</span></div>
+    <div class="ck"><input type="checkbox"><span>準備報告檔名規則：<code>FreePaths-報告-姓名-YYYYMMDD.pdf</code></span></div>
+    <div class="ck"><input type="checkbox"><span>準備 WhatsApp 常用回覆（見 <a href="#sopd">SOP-D</a>，先存成罐頭訊息）</span></div>
+  </div>
+
+  <h2 id="sopa">SOP-A　Phase 0：手動收款＋發碼（每次成交，約 5–10 分鐘）</h2>
+  <div class="note">目標：<b>不動任何程式</b>就能收錢、交付，同時累積「真的有人願意付」的證據。</div>
+  <div class="step">
+    <div class="hd">步驟 1　客戶詢問（收到訊息當下）</div>
+    <div class="ck"><input type="checkbox"><span>問清楚三件事：<b>①誰的命盤（姓名）②出生年月日＋時間（幾點幾分）③要數位還是要印出來寄</b></span></div>
+    <div class="ck"><input type="checkbox"><span>告知時間：出生時間越準越好；不確定時辰要先說「時柱可能不準」</span></div>
+    <div class="ck"><input type="checkbox"><span>報價（用 <a href="#sopd">話術範本 A</a>）並告知付款方式與需要多久交付</span></div>
+  </div>
+  <div class="step">
+    <div class="hd">步驟 2　建單（客戶確認要買之後）</div>
+    <div class="ck"><input type="checkbox"><span>在訂單記錄表新增一列，產生 <code>order_id</code>（例 <code>FP-20260929-01</code>）</span></div>
+    <div class="ck"><input type="checkbox"><span>狀態填 <code>待付款</code>；填上客戶 WhatsApp／Email、金額、商品</span></div>
+    <div class="ck"><input type="checkbox"><span>把 <code>order_id</code> 告訴客戶：<b>「轉帳時請在備註填 FP-20260929-01」</b>（對帳關鍵）</span></div>
+  </div>
+  <div class="step">
+    <div class="hd">步驟 3　收款確認 <span class="badge b-must">只認帳戶入帳</span></div>
+    <div class="ck"><input type="checkbox"><span>收到轉帳截圖時，<b>仍要自己查一次銀行／DuitNow 入帳</b>（截圖可偽造）</span></div>
+    <div class="ck"><input type="checkbox"><span>金額、幣別、備註的 <code>order_id</code> 三者都對得上</span></div>
+    <div class="ck"><input type="checkbox"><span>狀態改 <code>已付款</code>，記錄入帳時間與銀行參考號</span></div>
+    <div class="ck"><input type="checkbox"><span>金額不符／沒備註 → 先問客戶，不要先出貨</span></div>
+  </div>
+  <div class="step">
+    <div class="hd">步驟 4　發碼（在 App 內）</div>
+    <div class="ck"><input type="checkbox"><span>【管理頁】→ 產生學生碼（依商品決定有效天數與裝置數）</span></div>
+    <div class="ck"><input type="checkbox"><span>把碼貼進訂單記錄表（並記下產生時間）</span></div>
+    <div class="ck"><input type="checkbox"><span>狀態改 <code>已發碼</code></span></div>
+  </div>
+  <div class="step">
+    <div class="hd">步驟 5　產生報告</div>
+    <div class="ck"><input type="checkbox"><span>用該客戶的四柱排盤，確認「乾坤造、四柱」與客戶資料一致</span></div>
+    <div class="ck"><input type="checkbox"><span>列印報告 → <b>另存成 PDF</b>（A4、5 頁），檔名照規則</span></div>
+    <div class="ck"><input type="checkbox"><span>檢查：沒有空白頁、沒有 undefined／亂碼、五行與結論都有內容</span></div>
+    <div class="ck"><input type="checkbox"><span>（建議）在 PDF 加上「客戶姓名＋order_id」浮水印或頁尾</span></div>
+  </div>
+  <div class="step">
+    <div class="hd">步驟 6　交付</div>
+    <div class="ck"><input type="checkbox"><span>用 <a href="#sopd">話術範本 C</a> 發送：金鑰＋PDF＋簡短使用說明（點哪裡看報告）</span></div>
+    <div class="ck"><input type="checkbox"><span>若客戶要印出來：改走 <a href="#sopc">SOP-C</a>（先問地址再寄）</span></div>
+    <div class="ck"><input type="checkbox"><span>狀態改 <code>已交付</code>，記錄交付時間與管道</span></div>
+    <div class="ck"><input type="checkbox"><span>附上收據／發票（依你的稅務安排）</span></div>
+  </div>
+  <div class="step">
+    <div class="hd">步驟 7　售後（交付後 7 天內）</div>
+    <div class="ck"><input type="checkbox"><span>問一句使用體驗（1–10 分）＋「有沒有看不懂的地方」</span></div>
+    <div class="ck"><input type="checkbox"><span>請客戶同意後留下見證（截圖可公開的部分）</span></div>
+    <div class="ck"><input type="checkbox"><span>把常見問題補進話術範本</span></div>
+  </div>
+
+  <h2 id="sopb" class="pagebreak">SOP-B　Phase 1：自動化收款（Billplz／Stripe，1–2 週）</h2>
+  <div class="step">
+    <div class="hd">B-1　決定 gateway 並申請</div>
+    <div class="ck"><input type="checkbox"><span>Billplz（FPX 為主、馬來西亞轉換率高）或 Stripe MY（國際客友善）擇一先用</span></div>
+    <div class="ck"><input type="checkbox"><span>取得 API key／webhook secret，<b>存在 Cloudflare 的 secret（<code>wrangler secret put</code>），不要寫進前端</b></span></div>
+    <div class="ck"><input type="checkbox"><span>在 gateway 後台設定 <b>return URL</b> 與 <b>webhook URL</b></span></div>
+  </div>
+  <div class="step">
+    <div class="hd">B-2　伺服器端（Worker）</div>
+    <div class="ck"><input type="checkbox"><span>新增 <code>POST /api/pay/create</code>：建立 order（金額由伺服器定）→ 回傳 gateway 付款連結</span></div>
+    <div class="ck"><input type="checkbox"><span>新增 <code>POST /api/pay/webhook</code>：<b>驗簽章 → 查訂單 → 冪等 → 標記已付款 → 發碼</b></span></div>
+    <div class="ck"><input type="checkbox"><span>新增 <code>GET /api/pay/status?order_id=</code>：前端只讀狀態，不做授權判斷</span></div>
+    <div class="ck"><input type="checkbox"><span>報告改由 <code>POST /api/report</code> 產生：<b>先驗訂單已付款</b>才回傳 HTML／PDF</span></div>
+    <div class="ck"><input type="checkbox"><span>下載連結用<b>有時效的簽章 URL</b>；檔案不放公開目錄</span></div>
+    <div class="ck"><input type="checkbox"><span>所有狀態變化寫入稽核（沿用既有 audit）</span></div>
+  </div>
+  <div class="step">
+    <div class="hd">B-3　必測（缺一不可）</div>
+    <div class="ck"><input type="checkbox"><span>付款成功 → 只發一次碼（重複 webhook 不會重複發）</span></div>
+    <div class="ck"><input type="checkbox"><span>改動前端金額 → <b>伺服器仍照自己的金額收</b>（不可被改價）</span></div>
+    <div class="ck"><input type="checkbox"><span>偽造 return URL（未付款直接跳回）→ 仍視為未付款</span></div>
+    <div class="ck"><input type="checkbox"><span>未付款直接打 <code>/api/report</code> → 回 402／403，不吐內容</span></div>
+    <div class="ck"><input type="checkbox"><span>webhook 亂序／延遲到達 → 狀態不亂</span></div>
+    <div class="ck"><input type="checkbox"><span>退款後 → 授權失效、報告不可再產生</span></div>
+    <div class="ck"><input type="checkbox"><span>沙盒測過 3 種情境（成功／失敗／取消）才上正式金鑰</span></div>
+  </div>
+  <div class="step">
+    <div class="hd">B-4　上線</div>
+    <div class="ck"><input type="checkbox"><span>先用<b>小額真實付款</b>自測一次（RM1），全程走完並對帳</span></div>
+    <div class="ck"><input type="checkbox"><span>把 gateway 的「付款成功通知」也開給自己（雙重確認）</span></div>
+    <div class="ck"><input type="checkbox"><span>公告退款政策與客服時間</span></div>
+  </div>
+
+  <h2 id="sopc">SOP-C　實體列印出貨（每筆約 30–60 分鐘＋物流時間）</h2>
+  <div class="step">
+    <div class="hd">C-1　收件資料（付款後才索取）</div>
+    <div class="ck"><input type="checkbox"><span>姓名、聯絡電話、完整地址（含郵遞區號）、指定收件時段</span></div>
+    <div class="ck"><input type="checkbox"><span>告知用途（僅用於寄送）與保存期限（PDPA）</span></div>
+    <div class="ck"><input type="checkbox"><span>地址請客戶<b>用文字回傳</b>（不要只傳語音，避免聽錯）</span></div>
+  </div>
+  <div class="step">
+    <div class="hd">C-2　列印規格</div>
+    <div class="ck"><input type="checkbox"><span>A4、彩色、雙面或單面（先講好）、紙張 80g 以上</span></div>
+    <div class="ck"><input type="checkbox"><span>封面頁（客戶姓名＋日期）／裝訂（騎馬釘或膠圈）</span></div>
+    <div class="ck"><input type="checkbox"><span>隨附一頁「怎麼看這份報告」的導讀（可重複使用同一張）</span></div>
+    <div class="ck"><input type="checkbox"><span>出貨前<b>逐頁對一次</b>：姓名、四柱、頁數、有無空白頁</span></div>
+  </div>
+  <div class="step">
+    <div class="hd">C-3　包裝與寄送</div>
+    <div class="ck"><input type="checkbox"><span>防水袋／厚紙板保護，避免折角</span></div>
+    <div class="ck"><input type="checkbox"><span>選物流（PosLaju／J&amp;T 等），記錄<b>追蹤號</b>到訂單表</span></div>
+    <div class="ck"><input type="checkbox"><span>寄出後立刻發追蹤號給客戶（<a href="#sopd">話術範本 D</a>）</span></div>
+    <div class="ck"><input type="checkbox"><span>狀態於訂單表備註「已寄出＋追蹤號」</span></div>
+  </div>
+
+  <h2 id="sopd">SOP-D　客服話術範本（可直接複製）</h2>
+  <div class="two">
+    <div class="card">
+      <h4>A. 報價（中文）</h4>
+      <div class="mono">你好，我是 FreePaths 的命理分析服務。
+個人八字分析報告（5 頁 PDF，含本命／大運／流年／開運建議）RM______。
+若要印出來寄到家裡，RM______（含運費，約 __ 個工作天到）。
+需要的資料：姓名、出生年月日、出生時間（幾點幾分，越準越好）、性別。
+付款方式：DuitNow／銀行轉帳（我可以傳 QR 給你）。
+確認後我會給你一組個人金鑰，登入就能看，另外附一份 PDF。</div>
+    </div>
+    <div class="card">
+      <h4>A-EN. Quotation (English)</h4>
+      <div class="mono">Hi, this is FreePaths BaZi analysis service.
+Personal BaZi report (5-page PDF: natal chart, luck pillars, annual pillar, fortune tips) RM______.
+Printed &amp; posted copy RM______ (shipping included, about __ working days).
+I need: name, date of birth, time of birth (as exact as possible), gender.
+Payment: DuitNow / bank transfer (I can send you the QR).
+After payment I will send your personal key plus the PDF.</div>
+    </div>
+  </div>
+  <div class="two">
+    <div class="card">
+      <h4>B. 付款說明（中文）</h4>
+      <div class="mono">訂單編號：FP-__________（轉帳時請填在備註）
+金額：RM______
+轉帳後請把截圖傳給我，我會核對入帳後立刻發金鑰給你。
+（提醒：截圖我會再對一次帳戶入帳，避免出錯。）</div>
+    </div>
+    <div class="card">
+      <h4>C. 交付（中文／英文）</h4>
+      <div class="mono">已收到款項，謝謝！
+你的個人金鑰：__________________
+登入後點【五行】頁下方「命理詞彙庫」可看十神／神煞解說；
+【八字】頁有大運與流年解說；列印報告在資料頁。
+附上 PDF：FreePaths-報告-______-YYYYMMDD.pdf
+有看不懂的地方可以直接問我。
+
+Payment received, thank you!
+Your key: __________________
+Your PDF: FreePaths-report-______-YYYYMMDD.pdf
+Tell me anytime if anything is unclear.</div>
+    </div>
+  </div>
+  <div class="two">
+    <div class="card">
+      <h4>D. 出貨通知</h4>
+      <div class="mono">你的報告已於 __/__ 寄出
+物流：__________　追蹤號：__________
+預計 __ 個工作天到，收到後有問題可以直接找我。</div>
+    </div>
+    <div class="card">
+      <h4>E. 沒收到／延遲回覆</h4>
+      <div class="mono">不好意思讓你等，我正在核對入帳，
+最遲 __ 小時內回覆你；若已轉帳請把截圖再傳一次，謝謝你的耐心。</div>
+    </div>
+  </div>
+
+  <h2 id="sope">SOP-E　例外與爭議處理</h2>
+  <table>
+    <thead><tr><th style="width:190px">情況</th><th>處理方式</th></tr></thead>
+    <tbody>
+      <tr><td>付款了但沒收到碼</td><td>查訂單表狀態 → 查帳戶入帳 → 若已入帳立即補發（並在備註記錄補發原因）</td></tr>
+      <tr><td>重複付款</td><td>不自動退；先告知會全額退回多收的一筆，並記錄退款時間與參考號</td></tr>
+      <tr><td>金額不足</td><td>先問客戶是否補差額，<b>不要先生產報告</b></td></tr>
+      <tr><td>客戶要求退款</td><td>數位內容已產生：原則上不退（事先寫明）；<b>尚未產生／未交付</b>可全額退。實體已寄出：不退運費</td></tr>
+      <tr><td>信用卡爭議（chargeback）</td><td>提交交付證明：訂單、付款紀錄、下載／交付時間戳、對話紀錄</td></tr>
+      <tr><td>客戶對解讀不滿意</td><td>區分「不滿意」與「沒收到」；可提供一次免費補充說明，但不承諾改結論</td></tr>
+      <tr><td>客戶給錯出生時間</td><td>重算一次免費或酌收工本費（先寫在價目表）；major 差異要先說明時柱會變</td></tr>
+      <tr><td>懷疑盜用他人身分下單</td><td>要求付款人與命主關係確認；必要時退款婉拒</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="appendix" class="pagebreak">附錄 A　訂單記錄表欄位（Google Sheet）</h2>
+  <table>
+    <thead><tr><th style="width:150px">欄位</th><th>說明</th><th style="width:150px">範例</th></tr></thead>
+    <tbody>
+      <tr><td><code>order_id</code></td><td>FP-YYYYMMDD-序號（唯一）</td><td>FP-20260929-01</td></tr>
+      <tr><td><code>created_at</code></td><td>建立時間</td><td>2026-09-29 14:20</td></tr>
+      <tr><td><code>customer</code></td><td>客戶稱呼</td><td>Tan</td></tr>
+      <tr><td><code>contact</code></td><td>WhatsApp／Email</td><td>+60…</td></tr>
+      <tr><td><code>subject</code></td><td>命主姓名／關係</td><td>Tan 本人</td></tr>
+      <tr><td><code>birth</code></td><td>出生資料（含時、分、性別）</td><td>1988-06-15 14:30 男</td></tr>
+      <tr><td><code>item</code></td><td>商品</td><td>報告 PDF＋列印寄送</td></tr>
+      <tr><td><code>amount_cents</code></td><td><b>以分為單位存整數</b>、幣別 MYR</td><td>18800</td></tr>
+      <tr><td><code>status</code></td><td>待付款／已付款／已發碼／已交付／退款</td><td>已交付</td></tr>
+      <tr><td><code>paid_at</code>／<code>ref</code></td><td>入帳時間與銀行／gateway 參考號</td><td>14:41／DUITNOW-…</td></tr>
+      <tr><td><code>key_issued</code></td><td>發出的金鑰（或碼的識別）與時間</td><td>FP-S-…／14:45</td></tr>
+      <tr><td><code>delivered_at</code>／<code>channel</code></td><td>交付時間與方式</td><td>14:50／WhatsApp</td></tr>
+      <tr><td><code>ship_to</code>／<code>tracking</code></td><td>（列印寄送）地址與追蹤號</td><td>…／PL123456789MY</td></tr>
+      <tr><td><code>note</code></td><td>例外、補發、退款原因</td><td>補發一次（客戶沒收到）</td></tr>
+    </tbody>
+  </table>
+
+  <h2>附錄 B　退款政策範本（放官網／報價單）</h2>
+  <div class="card">
+    <p><b>數位內容（PDF／線上解讀）</b>：因內容於付款後即時產生，<b>一經產生或交付即不接受退款</b>；
+    若尚未產生，可全額退款。</p>
+    <p><b>實體列印寄送</b>：未寄出可全額退款（扣除已產生的列印費）；已寄出則不接受退款，運費不退。
+    運送過程損壞請於收件後 3 天內拍照告知，我們補寄。</p>
+    <p><b>資料錯誤</b>：若因客戶提供的出生資料有誤導致報告內容不符，重算一次免費（低於 __ 天內），
+    第二次起酌收工本費 RM______。</p>
+    <p><b>服務性質</b>：本服務為傳統命理教學與自我覺察參考，<b>不構成醫療、投資、法律或任何專業建議</b>。</p>
+  </div>
+
+  <h2>附錄 C　Phase 1 上線前檢查清單</h2>
+  <div class="card">
+    <div class="ck"><input type="checkbox"><span>gateway 金鑰只存在伺服器（wrangler secret），前端完全沒有</span></div>
+    <div class="ck"><input type="checkbox"><span>金額以伺服器為準，前端改價無效</span></div>
+    <div class="ck"><input type="checkbox"><span>webhook 有驗簽章、有冪等（重送不重複發碼）</span></div>
+    <div class="ck"><input type="checkbox"><span>未付款打報告 API → 403／402，不吐內容</span></div>
+    <div class="ck"><input type="checkbox"><span>下載連結有時效、不可列舉（不能猜別人的連結）</span></div>
+    <div class="ck"><input type="checkbox"><span>退款流程測試過（授權同步失效）</span></div>
+    <div class="ck"><input type="checkbox"><span>稽核紀錄含 order_id、金額、IP、時間</span></div>
+    <div class="ck"><input type="checkbox"><span>小額真實付款自測通過（RM1）並完成對帳</span></div>
+    <div class="ck"><input type="checkbox"><span>退款政策、隱私聲明、客服時間已在網站上看得到</span></div>
+    <div class="ck"><input type="checkbox"><span>會計師已確認 e-Invoice／SST 的處理方式</span></div>
+  </div>
+
+  <footer>
+    <b>免責聲明：</b>本文件為技術與營運建議，非法律、稅務或投資意見；費率、法規門檻與物流價格請以各服務商與主管機關公告為準，
+    稅務與電子發票請諮詢會計師。<br>
+    FreePaths 收費服務規劃＋作業 SOP ｜ v1.0 ｜ 2026-09-29 ｜ 本文件放在 <code>docs/</code>（不會被部署上線）。
+  </footer>
+
+</div>
+</body>
+</html>
