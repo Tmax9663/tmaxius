@@ -5,7 +5,7 @@ html, body {
   padding: 0;
   height: 100%;
   background: #FFF8E7;
-  font-family: "Verdana", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: "Verdana", "Segoe UI", Arial, sans-serif;
   color: #333;
   overflow: hidden;
   user-select: none;
@@ -17,7 +17,7 @@ body {
   flex-direction: column;
 }
 
-/* ---------- 顶栏 ---------- */
+/* ---------- Top bar ---------- */
 .topbar {
   display: flex;
   align-items: center;
@@ -51,7 +51,7 @@ body {
   line-height: 1;
 }
 
-/* ---------- 舞台 ---------- */
+/* ---------- Stage ---------- */
 .stage {
   flex: 1;
   position: relative;
@@ -70,7 +70,7 @@ body {
   touch-action: none;
 }
 
-/* ---------- 进度光环 ---------- */
+/* ---------- Progress ring ---------- */
 .progress-ring {
   position: absolute;
   top: 12px;
@@ -90,7 +90,7 @@ body {
 }
 #ringFill { transition: stroke-dashoffset .25s ease; }
 
-/* ---------- 星星 ---------- */
+/* ---------- Stars ---------- */
 .stars {
   position: absolute;
   bottom: 8px;
@@ -104,7 +104,7 @@ body {
 .stars .star { opacity: .18; transition: opacity .3s, transform .3s; }
 .stars .star.on { opacity: 1; transform: scale(1.15); }
 
-/* ---------- 起点提示 ---------- */
+/* ---------- Start hint ---------- */
 .start-hint {
   position: absolute;
   background: #FFCC80;
@@ -126,7 +126,7 @@ body {
   50%      { transform: translate(-50%, -50%) translateY(-8px); }
 }
 
-/* ---------- 底栏 ---------- */
+/* ---------- Toolbar ---------- */
 .toolbar {
   display: flex;
   justify-content: center;
@@ -156,7 +156,7 @@ body {
 }
 .tool-btn:active { transform: scale(.96); }
 
-/* ---------- 家长面板 ---------- */
+/* ---------- Parent panel ---------- */
 .parent-panel {
   display: none;
   position: fixed;
@@ -191,7 +191,7 @@ body {
   font-size: 14px;
 }
 .parent-card .row > span:first-child {
-  min-width: 90px;
+  min-width: 110px;
   color: #5D4037;
 }
 .parent-card .row input[type=range] { flex: 1; }
@@ -217,7 +217,7 @@ body {
 #btnApply { background: #FF7043; color: #fff; }
 #btnCloseParent { background: #eee; color: #333; }
 
-/* ---------- 庆祝层 ---------- */
+/* ---------- Celebrate overlay ---------- */
 .celebrate {
   display: none;
   position: fixed;
@@ -259,7 +259,7 @@ body {
   100% { transform: scale(1); }
 }
 
-/* 小屏适配 */
+/* Small screen */
 @media (max-height: 620px) {
   .task-char { font-size: 32px; }
   .canvas { width: min(70vw, 70vh); height: min(70vw, 70vh); }
