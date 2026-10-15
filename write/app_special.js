@@ -1,10 +1,10 @@
 /* ============================================================
-   跟我学 · 描红乐园
-   特殊儿童友好版 · 基于原「造字工作坊」改造
+   Trace With Me · Fun Tracing
+   Special-needs-friendly edition · based on original "Word Workshop"
    ============================================================ */
 
-/* ---------- 默认字表（可被 URL ?w= 或家长面板覆盖） ---------- */
-let charList = ['A', 'B', 'C', '1', '2', '3', '一', '二', '三'];
+/* ---------- Default character list (overridable via URL ?w= or parent panel) ---------- */
+let charList = ['A', 'B', 'C', '1', '2', '3', 'a', 'b', 'c'];
 const urlParams = new URLSearchParams(location.search);
 if (urlParams.get('w')) {
   const raw = decodeURIComponent(urlParams.get('w'));
@@ -12,27 +12,26 @@ if (urlParams.get('w')) {
   if (arr.length) charList = arr;
 }
 
-/* ---------- 设置（家长面板可改） ---------- */
+/* ---------- Settings (editable from parent panel) ---------- */
 const settings = {
-  passThreshold: 0.75,   // 75% 覆盖即过关
+  passThreshold: 0.75,   // 75% coverage counts as pass
   brushSize: 22,
   brushColor: '#FF7043',
   soundOn: true,
   vibrateOn: true,
 };
 
-/* ---------- 状态 ---------- */
+/* ---------- State ---------- */
 let currentIndex = 0;
-let coverage = 0;          // 0~1
+let coverage = 0;          // 0..1
 let passed = false;
-let starsEarned = 0;       // 本字已收集星星数（0~3）
-const STARS_PER_CHAR = 3;  // 每个字最多 3 颗星
+let starsEarned = 0;       // stars collected for current char (0..3)
+const STARS_PER_CHAR = 3;
 
-/* ---------- 画布 ---------- */
+/* ---------- Canvas ---------- */
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-/* 让 canvas 内部分辨率与 CSS 尺寸一致，避免模糊 */
 function resizeCanvas() {
   const rect = canvas.getBoundingClientRect();
   const dpr = window.devicePixelRatio || 1;
@@ -45,19 +44,17 @@ function resizeCanvas() {
 }
 window.addEventListener('resize', resizeCanvas);
 
-/* ---------- 粒子（描红点） ---------- */
+/* ---------- Particles (tracing dots) ---------- */
 class Particle {
   constructor(x, y) {
     this.x = x;
     this.y = y;
     this.baseR = 9;
-    this.r = 9;
     this.hit = false;
-    this.burst = 0;      // 命中后的爆裂动画进度 0~1
+    this.burst = 0;
   }
   draw() {
     if (this.burst > 0) {
-      // 命中后：扩散 + 淡出
       const t = this.burst;
       const rr = this.baseR * (1 + t * 1.6);
       ctx.globalAlpha = 1 - t;
@@ -66,7 +63,6 @@ class Particle {
       ctx.arc(this.x, this.y, rr, 0, Math.PI * 2);
       ctx.fill();
 
-      // 小星星飞散
       ctx.fillStyle = '#FFB300';
       for (let k = 0; k < 6; k++) {
         const ang = (k / 6) * Math.PI * 2;
@@ -79,13 +75,11 @@ class Particle {
       }
       ctx.globalAlpha = 1;
     } else if (this.hit) {
-      // 已覆盖：显示为柔和填充
       ctx.fillStyle = '#C8E6C9';
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.baseR * 0.9, 0, Math.PI * 2);
       ctx.fill();
     } else {
-      // 未覆盖：空心大圆点，深色高对比
       ctx.fillStyle = '#FFFFFF';
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.baseR, 0, Math.PI * 2);
@@ -98,60 +92,47 @@ class Particle {
 }
 
 let particles = [];
-let strokes = [];   // 用户笔画历史，用于重绘
+let strokes = [];
 
-/* ---------- 文字 → 粒子 ---------- */
+/* ---------- Text -> particles ---------- */
 function buildParticlesFromChar(ch) {
-  const size = 320;                    // 内部采样尺寸
+  const size = 320;
   const off = document.createElement('canvas');
   off.width = size; off.height = size;
   const octx = off.getContext('2d');
 
-  // 无衬线粗体，字大且居中
   octx.fillStyle = '#000';
   octx.textAlign = 'center';
   octx.textBaseline = 'middle';
-  octx.font = `900 ${size * 0.78}px Verdana, "PingFang SC", "Microsoft YaHei", sans-serif`;
+  octx.font = `900 ${size * 0.78}px Verdana, Arial, sans-serif`;
   octx.fillText(ch, size / 2, size / 2 + size * 0.03);
 
   const data = octx.getImageData(0, 0, size, size).data;
 
-  // 网格采样：每 grid 像素取一个点
   const grid = 34;
   const pts = [];
   for (let y = 0; y < size; y += grid) {
     for (let x = 0; x < size; x += grid) {
       const idx = (y * size + x) * 4 + 3;
       if (data[idx] > 128) {
-        // 归一化到画布坐标
-        pts.push({
-          nx: x / size,
-          ny: y / size,
-        });
+        pts.push({ nx: x / size, ny: y / size });
       }
     }
   }
 
-  // 缩放到画布可视区域（留边距）
   const rect = canvas.getBoundingClientRect();
   const pad = 60;
   const w = rect.width - pad * 2;
   const h = rect.height - pad * 2;
 
   particles = pts.map(p => new Particle(pad + p.nx * w, pad + p.ny * h));
-  // 对起点做排序：优先左上 → 右下，让"从哪开始"更自然
   particles.sort((a, b) => (a.y - b.y) || (a.x - b.x));
 }
 
-/* ---------- 重绘 ---------- */
+/* ---------- Redraw ---------- */
 function redrawStrokes() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // 先画所有已完成笔画
-  for (const s of strokes) {
-    drawStroke(s);
-  }
-  // 再画粒子（未命中的点覆盖在笔画上方，视觉上更醒目）
+  for (const s of strokes) drawStroke(s);
   for (const p of particles) p.draw();
 }
 
@@ -168,7 +149,7 @@ function drawStroke(s) {
   ctx.stroke();
 }
 
-/* ---------- 当前笔画 ---------- */
+/* ---------- Current stroke ---------- */
 let drawing = false;
 let currentStroke = null;
 
@@ -190,7 +171,7 @@ function pointFromEvent(e) {
 
 function startDraw(e) {
   e.preventDefault();
-  if (passed) return;   // 已过关的字不再让乱画
+  if (passed) return;
   drawing = true;
   currentStroke = {
     color: settings.brushColor,
@@ -221,7 +202,7 @@ function endDraw(e) {
   checkWin();
 }
 
-/* ---------- 命中检测 ---------- */
+/* ---------- Hit detection ---------- */
 function hitParticles(pt, brushR) {
   let newlyHit = 0;
   for (const p of particles) {
@@ -229,10 +210,9 @@ function hitParticles(pt, brushR) {
     const dx = p.x - pt.x;
     const dy = p.y - pt.y;
     const dist = Math.sqrt(dx * dx + dy * dy);
-    // 笔刷中心进入点的内圈即算命中（宽容）
     if (dist < p.baseR + brushR * 0.35) {
       p.hit = true;
-      p.burst = 0.001;   // 触发爆裂动画
+      p.burst = 0.001;
       newlyHit++;
     }
   }
@@ -241,11 +221,9 @@ function hitParticles(pt, brushR) {
     vibrate(20);
     updateProgress();
   }
-  // 更新爆裂动画
   animateBursts();
 }
 
-/* 用 requestAnimationFrame 推进爆裂动画 */
 let burstRaf = null;
 function animateBursts() {
   if (burstRaf) return;
@@ -268,26 +246,26 @@ function animateBursts() {
   burstRaf = requestAnimationFrame(step);
 }
 
-/* ---------- 进度 & 过关 ---------- */
+/* ---------- Progress & pass ---------- */
 function updateProgress() {
   const total = particles.length || 1;
   const hit = particles.filter(p => p.hit).length;
   coverage = hit / total;
   const pct = Math.round(coverage * 100);
 
-  // 更新光环
-  const C = 2 * Math.PI * 24; // r=24
+  const C = 2 * Math.PI * 24;
   const ring = document.getElementById('ringFill');
   ring.setAttribute('stroke-dasharray', `${C} ${C}`);
   ring.setAttribute('stroke-dashoffset', `${C * (1 - coverage)}`);
   document.getElementById('ringText').textContent = pct + '%';
 
-  // 星星：每达到 1/3 阈值给一颗
-  const newStars = Math.min(STARS_PER_CHAR, Math.floor(coverage / (settings.passThreshold / STARS_PER_CHAR)));
+  const newStars = Math.min(
+    STARS_PER_CHAR,
+    Math.floor(coverage / (settings.passThreshold / STARS_PER_CHAR))
+  );
   if (newStars > starsEarned) {
     starsEarned = newStars;
     renderStars(true);
-    // 每得一颗星给一次小奖励音
     if (newStars > 0) {
       playDing(880);
       vibrate([20, 30, 20]);
@@ -310,12 +288,8 @@ function checkWin() {
   if (passed) return;
   if (coverage >= settings.passThreshold) {
     passed = true;
-    // 把剩余未命中的点自动补全（视觉上收尾）
     particles.forEach(p => {
-      if (!p.hit) {
-        p.hit = true;
-        p.burst = 0.001;
-      }
+      if (!p.hit) { p.hit = true; p.burst = 0.001; }
     });
     animateBursts();
     updateProgress();
@@ -323,13 +297,12 @@ function checkWin() {
   }
 }
 
-/* ---------- 庆祝层 ---------- */
+/* ---------- Celebrate ---------- */
 const celebrate = document.getElementById('celebrate');
 function showCelebrate() {
   celebrate.classList.add('show');
   playCheer();
   vibrate([60, 40, 60]);
-  // 自动 2.6 秒后进下一字（也可点按钮）
   clearTimeout(showCelebrate._t);
   showCelebrate._t = setTimeout(() => {
     celebrate.classList.remove('show');
@@ -342,7 +315,7 @@ document.getElementById('btnCelebrateNext').addEventListener('click', () => {
   nextChar();
 });
 
-/* ---------- 字切换 ---------- */
+/* ---------- Char switching ---------- */
 function loadChar(index) {
   currentIndex = ((index % charList.length) + charList.length) % charList.length;
   const ch = charList[currentIndex];
@@ -354,18 +327,13 @@ function loadChar(index) {
   starsEarned = 0;
   renderStars(false);
 
-  // 清空 canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // 构建粒子
   buildParticlesFromChar(ch);
   redrawStrokes();
   updateProgress();
-
-  // 起点提示
   showStartHint();
 
-  // 重置光环
   const C = 2 * Math.PI * 24;
   const ring = document.getElementById('ringFill');
   ring.setAttribute('stroke-dasharray', `${C} ${C}`);
@@ -376,7 +344,7 @@ function loadChar(index) {
 function nextChar() { loadChar(currentIndex + 1); }
 function prevChar() { loadChar(currentIndex - 1); }
 
-/* ---------- 起点提示 ---------- */
+/* ---------- Start hint ---------- */
 const startHint = document.getElementById('startHint');
 function showStartHint() {
   if (!particles.length) return;
@@ -389,7 +357,7 @@ function hideStartHint() {
   startHint.classList.remove('show');
 }
 
-/* ---------- 音效（WebAudio，无需素材） ---------- */
+/* ---------- Sound (WebAudio, no assets) ---------- */
 let audioCtx = null;
 function ensureAudio() {
   if (!audioCtx) {
@@ -414,16 +382,14 @@ function playDing(freq = 660) {
 function playCheer() {
   if (!settings.soundOn) return;
   const notes = [523, 659, 784, 1047];
-  notes.forEach((f, i) => {
-    setTimeout(() => playDing(f), i * 120);
-  });
+  notes.forEach((f, i) => setTimeout(() => playDing(f), i * 120));
 }
 function vibrate(p) {
   if (!settings.vibrateOn) return;
   if (navigator.vibrate) navigator.vibrate(p);
 }
 
-/* ---------- 事件绑定 ---------- */
+/* ---------- Events ---------- */
 canvas.addEventListener('mousedown', startDraw);
 canvas.addEventListener('mousemove', moveDraw);
 window.addEventListener('mouseup', endDraw);
@@ -433,25 +399,22 @@ canvas.addEventListener('touchmove', moveDraw, { passive: false });
 canvas.addEventListener('touchend', endDraw);
 canvas.addEventListener('touchcancel', endDraw);
 
-/* ---------- 底栏按钮 ---------- */
+/* ---------- Toolbar ---------- */
 document.getElementById('btnNext').addEventListener('click', nextChar);
 document.getElementById('btnPrev').addEventListener('click', prevChar);
 document.getElementById('btnSkip').addEventListener('click', nextChar);
 
-/* ---------- 提示按钮：闪一下起点 ---------- */
 document.getElementById('btnHelp').addEventListener('click', () => {
   showStartHint();
   playDing(880);
 });
 
-/* ---------- 家长面板：长按 🏠 3 秒 ---------- */
+/* ---------- Parent panel: long-press 🏠 for 3s ---------- */
 const btnHome = document.getElementById('btnHome');
 const parentPanel = document.getElementById('parentPanel');
-let homeTimer = null;
 
 function openParent() {
   parentPanel.classList.add('show');
-  // 同步当前设置
   document.getElementById('passThreshold').value = settings.passThreshold * 100;
   document.getElementById('passThresholdVal').textContent = Math.round(settings.passThreshold * 100) + '%';
   document.getElementById('brushSize').value = settings.brushSize;
@@ -477,7 +440,6 @@ document.getElementById('btnCloseParent').addEventListener('click', () => {
   parentPanel.classList.remove('show');
 });
 
-/* 实时预览滑块 */
 document.getElementById('passThreshold').addEventListener('input', e => {
   document.getElementById('passThresholdVal').textContent = e.target.value + '%';
 });
@@ -504,7 +466,7 @@ document.getElementById('btnApply').addEventListener('click', () => {
   loadChar(0);
 });
 
-/* ---------- 启动 ---------- */
+/* ---------- Boot ---------- */
 window.addEventListener('load', () => {
   resizeCanvas();
   loadChar(0);
