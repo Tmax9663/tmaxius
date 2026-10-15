@@ -1,189 +1,185 @@
-/* ============================================================
-   Trace With Me · Fun Tracing
-   Special-needs-friendly edition · English version
-   Fully working — includes canvas-layout race fixes
-   ============================================================ */
+/* Trace With Me — special-needs tracing app (English) */
 
-/* ---------- Default character list ---------- */
-let charList = ['A', 'B', 'C', '1', '2', '3', 'a', 'b', 'c'];
-
-(function parseUrlChars() {
+/* ---------- Char list ---------- */
+var charList = ['A', 'B', 'C', '1', '2', '3', 'a', 'b', 'c'];
+(function () {
   try {
-    const p = new URLSearchParams(location.search);
-    const raw = p.get('w');
+    var p = new URLSearchParams(location.search);
+    var raw = p.get('w');
     if (raw) {
-      const arr = decodeURIComponent(raw).split(/[,，\s]+/).filter(Boolean);
+      var arr = decodeURIComponent(raw).split(/[,，\s]+/).filter(Boolean);
       if (arr.length) charList = arr;
     }
-  } catch (e) { /* ignore */ }
+  } catch (e) {}
 })();
 
 /* ---------- Settings ---------- */
-const settings = {
+var settings = {
   passThreshold: 0.75,
   brushSize: 22,
   brushColor: '#FF7043',
   soundOn: true,
-  vibrateOn: true,
+  vibrateOn: true
 };
 
 /* ---------- State ---------- */
-let currentIndex = 0;
-let coverage = 0;
-let passed = false;
-let starsEarned = 0;
-const STARS_PER_CHAR = 3;
+var currentIndex = 0;
+var coverage = 0;
+var passed = false;
+var starsEarned = 0;
+var STARS_PER_CHAR = 3;
+var particles = [];
+var strokes = [];
+var drawing = false;
+var currentStroke = null;
+var burstRaf = null;
+var audioCtx = null;
 
 /* ---------- Canvas ---------- */
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-let particles = [];
-let strokes = [];
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
 
-/* ---------- Resize (guarded) ---------- */
+/* ---------- Particle ---------- */
+function Particle(x, y) {
+  this.x = x;
+  this.y = y;
+  this.baseR = 9;
+  this.hit = false;
+  this.burst = 0;
+}
+Particle.prototype.draw = function () {
+  if (this.burst > 0) {
+    var t = this.burst;
+    var rr = this.baseR * (1 + t * 1.6);
+    ctx.globalAlpha = 1 - t;
+    ctx.fillStyle = '#FFD54F';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, rr, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#FFB300';
+    for (var k = 0; k < 6; k++) {
+      var ang = (k / 6) * Math.PI * 2;
+      var d = this.baseR * (1 + t * 3);
+      ctx.beginPath();
+      ctx.arc(this.x + Math.cos(ang) * d,
+              this.y + Math.sin(ang) * d,
+              2.5 * (1 - t), 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  } else if (this.hit) {
+    ctx.fillStyle = '#C8E6C9';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.baseR * 0.9, 0, Math.PI * 2);
+    ctx.fill();
+  } else {
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.baseR, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#B0BEC5';
+    ctx.stroke();
+  }
+};
+
+/* ---------- Canvas sizing ---------- */
 function resizeCanvas() {
-  const rect = canvas.getBoundingClientRect();
-  if (rect.width < 10 || rect.height < 10) return;   // layout not ready
-
-  const dpr = window.devicePixelRatio || 1;
+  var rect = canvas.getBoundingClientRect();
+  if (rect.width < 10 || rect.height < 10) return;
+  var dpr = window.devicePixelRatio || 1;
   canvas.width  = Math.round(rect.width  * dpr);
   canvas.height = Math.round(rect.height * dpr);
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.lineCap  = 'round';
   ctx.lineJoin = 'round';
-
-  // Rebuild particles for new size so they stay inside the canvas
   if (particles.length && charList[currentIndex]) {
     buildParticlesFromChar(charList[currentIndex]);
   }
-  redrawStrokes();
+  redraw();
 }
+window.addEventListener('resize', function () {
+  clearTimeout(window._rzT);
+  window._rzT = setTimeout(resizeCanvas, 120);
+});
 
-/* ---------- Particle ---------- */
-class Particle {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.baseR = 9;
-    this.hit = false;
-    this.burst = 0;
-  }
-  draw() {
-    if (this.burst > 0) {
-      const t = this.burst;
-      const rr = this.baseR * (1 + t * 1.6);
-      ctx.globalAlpha = 1 - t;
-      ctx.fillStyle = '#FFD54F';
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, rr, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.fillStyle = '#FFB300';
-      for (let k = 0; k < 6; k++) {
-        const ang = (k / 6) * Math.PI * 2;
-        const d = this.baseR * (1 + t * 3);
-        ctx.beginPath();
-        ctx.arc(this.x + Math.cos(ang) * d,
-                this.y + Math.sin(ang) * d,
-                2.5 * (1 - t), 0, Math.PI * 2);
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1;
-    } else if (this.hit) {
-      ctx.fillStyle = '#C8E6C9';
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.baseR * 0.9, 0, Math.PI * 2);
-      ctx.fill();
-    } else {
-      ctx.fillStyle = '#FFFFFF';
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.baseR, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = '#B0BEC5';
-      ctx.stroke();
-    }
-  }
-}
-
-/* ---------- Text -> particles ---------- */
+/* ---------- Build particles from a character ---------- */
 function buildParticlesFromChar(ch) {
-  const size = 320;
-  const off = document.createElement('canvas');
+  var size = 320;
+  var off = document.createElement('canvas');
   off.width = size;
   off.height = size;
-  const octx = off.getContext('2d');
+  var octx = off.getContext('2d');
 
   octx.fillStyle = '#000';
   octx.textAlign = 'center';
   octx.textBaseline = 'middle';
-  octx.font = `900 ${Math.round(size * 0.78)}px Verdana, Arial, sans-serif`;
+  octx.font = '900 ' + Math.round(size * 0.78) + 'px Verdana, Arial, sans-serif';
   octx.fillText(ch, size / 2, size / 2 + size * 0.03);
 
-  const data = octx.getImageData(0, 0, size, size).data;
-  const grid = 34;
-  const pts = [];
-  for (let y = 0; y < size; y += grid) {
-    for (let x = 0; x < size; x += grid) {
-      const idx = (y * size + x) * 4 + 3;
+  var data = octx.getImageData(0, 0, size, size).data;
+  var grid = 34;
+  var pts = [];
+  for (var y = 0; y < size; y += grid) {
+    for (var x = 0; x < size; x += grid) {
+      var idx = (y * size + x) * 4 + 3;
       if (data[idx] > 128) pts.push({ nx: x / size, ny: y / size });
     }
   }
 
-  const rect = canvas.getBoundingClientRect();
+  var rect = canvas.getBoundingClientRect();
   if (rect.width < 10 || rect.height < 10) {
-    console.warn('[Trace] canvas has no size yet — will retry');
     particles = [];
     return;
   }
 
-  const pad = 60;
-  const w = rect.width - pad * 2;
-  const h = rect.height - pad * 2;
+  var pad = 60;
+  var w = rect.width  - pad * 2;
+  var h = rect.height - pad * 2;
 
-  particles = pts.map(p => new Particle(pad + p.nx * w, pad + p.ny * h));
-  particles.sort((a, b) => (a.y - b.y) || (a.x - b.x));
+  particles = [];
+  for (var i = 0; i < pts.length; i++) {
+    particles.push(new Particle(pad + pts[i].nx * w, pad + pts[i].ny * h));
+  }
+  particles.sort(function (a, b) { return (a.y - b.y) || (a.x - b.x); });
 
-  // Fallback if font failed: draw a ring of dots so something is always visible
   if (particles.length === 0) {
-    console.warn('[Trace] no particles generated — using fallback ring');
-    const cx = rect.width / 2;
-    const cy = rect.height / 2;
-    const R  = Math.min(rect.width, rect.height) * 0.28;
-    for (let k = 0; k < 20; k++) {
-      const a = (k / 20) * Math.PI * 2;
+    // Fallback ring so something is always visible
+    var cx = rect.width / 2, cy = rect.height / 2;
+    var R = Math.min(rect.width, rect.height) * 0.28;
+    for (var k = 0; k < 20; k++) {
+      var a = (k / 20) * Math.PI * 2;
       particles.push(new Particle(cx + Math.cos(a) * R, cy + Math.sin(a) * R));
     }
   }
 }
 
 /* ---------- Redraw ---------- */
-function redrawStrokes() {
+function redraw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (const s of strokes) drawStroke(s);
-  for (const p of particles) p.draw();
+  for (var i = 0; i < strokes.length; i++) drawStroke(strokes[i]);
+  for (var j = 0; j < particles.length; j++) particles[j].draw();
 }
 
 function drawStroke(s) {
   ctx.strokeStyle = s.color;
-  ctx.lineWidth   = s.size;
-  ctx.lineCap     = 'round';
-  ctx.lineJoin    = 'round';
+  ctx.lineWidth = s.size;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
   ctx.beginPath();
-  s.points.forEach((pt, i) => {
+  for (var i = 0; i < s.points.length; i++) {
+    var pt = s.points[i];
     if (i === 0) ctx.moveTo(pt.x, pt.y);
-    else         ctx.lineTo(pt.x, pt.y);
-  });
+    else ctx.lineTo(pt.x, pt.y);
+  }
   ctx.stroke();
 }
 
-/* ---------- Drawing ---------- */
-let drawing = false;
-let currentStroke = null;
-
+/* ---------- Input ---------- */
 function pointFromEvent(e) {
-  const rect = canvas.getBoundingClientRect();
-  let clientX, clientY;
+  var rect = canvas.getBoundingClientRect();
+  var clientX, clientY;
   if (e.touches && e.touches.length) {
     clientX = e.touches[0].clientX;
     clientY = e.touches[0].clientY;
@@ -201,28 +197,22 @@ function startDraw(e) {
   e.preventDefault();
   if (passed) return;
   drawing = true;
-  currentStroke = {
-    color: settings.brushColor,
-    size: settings.brushSize,
-    points: [],
-  };
+  currentStroke = { color: settings.brushColor, size: settings.brushSize, points: [] };
   strokes.push(currentStroke);
-  const p = pointFromEvent(e);
+  var p = pointFromEvent(e);
   currentStroke.points.push(p);
   hitParticles(p, settings.brushSize);
-  redrawStrokes();
+  redraw();
   hideStartHint();
 }
-
 function moveDraw(e) {
   if (!drawing) return;
   e.preventDefault();
-  const p = pointFromEvent(e);
+  var p = pointFromEvent(e);
   currentStroke.points.push(p);
   hitParticles(p, settings.brushSize);
-  redrawStrokes();
+  redraw();
 }
-
 function endDraw(e) {
   if (!drawing) return;
   drawing = false;
@@ -230,14 +220,23 @@ function endDraw(e) {
   checkWin();
 }
 
+canvas.addEventListener('mousedown', startDraw);
+canvas.addEventListener('mousemove', moveDraw);
+window.addEventListener('mouseup', endDraw);
+canvas.addEventListener('touchstart', startDraw, { passive: false });
+canvas.addEventListener('touchmove', moveDraw, { passive: false });
+canvas.addEventListener('touchend', endDraw);
+canvas.addEventListener('touchcancel', endDraw);
+
 /* ---------- Hit detection ---------- */
 function hitParticles(pt, brushR) {
-  let newlyHit = 0;
-  for (const p of particles) {
+  var newlyHit = 0;
+  for (var i = 0; i < particles.length; i++) {
+    var p = particles[i];
     if (p.hit) continue;
-    const dx = p.x - pt.x;
-    const dy = p.y - pt.y;
-    const dist = Math.sqrt(dx * dx + dy * dy);
+    var dx = p.x - pt.x;
+    var dy = p.y - pt.y;
+    var dist = Math.sqrt(dx * dx + dy * dy);
     if (dist < p.baseR + brushR * 0.35) {
       p.hit = true;
       p.burst = 0.001;
@@ -252,58 +251,58 @@ function hitParticles(pt, brushR) {
   animateBursts();
 }
 
-let burstRaf = null;
 function animateBursts() {
   if (burstRaf) return;
-  const step = () => {
-    let active = false;
-    for (const p of particles) {
+  var step = function () {
+    var active = false;
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
       if (p.burst > 0 && p.burst < 1) {
         p.burst += 0.08;
         if (p.burst > 1) p.burst = 1;
         active = true;
       }
     }
-    redrawStrokes();
-    if (active) {
-      burstRaf = requestAnimationFrame(step);
-    } else {
-      burstRaf = null;
-    }
+    redraw();
+    if (active) burstRaf = requestAnimationFrame(step);
+    else burstRaf = null;
   };
   burstRaf = requestAnimationFrame(step);
 }
 
-/* ---------- Progress & pass ---------- */
+/* ---------- Progress ---------- */
 function updateProgress() {
-  const total = particles.length || 1;
-  const hit   = particles.filter(p => p.hit).length;
+  var total = particles.length || 1;
+  var hit = 0;
+  for (var i = 0; i < particles.length; i++) if (particles[i].hit) hit++;
   coverage = hit / total;
-  const pct = Math.round(coverage * 100);
+  var pct = Math.round(coverage * 100);
 
-  const C = 2 * Math.PI * 24;
-  const ring = document.getElementById('ringFill');
-  ring.setAttribute('stroke-dasharray', `${C} ${C}`);
-  ring.setAttribute('stroke-dashoffset', `${C * (1 - coverage)}`);
-  document.getElementById('ringText').textContent = pct + '%';
+  var C = 2 * Math.PI * 24;
+  var ring = document.getElementById('ringFill');
+  if (ring) {
+    ring.setAttribute('stroke-dasharray', C + ' ' + C);
+    ring.setAttribute('stroke-dashoffset', String(C * (1 - coverage)));
+  }
+  var rt = document.getElementById('ringText');
+  if (rt) rt.textContent = pct + '%';
 
-  const newStars = Math.min(
-    STARS_PER_CHAR,
-    Math.floor(coverage / (settings.passThreshold / STARS_PER_CHAR))
-  );
+  var newStars = Math.min(STARS_PER_CHAR,
+    Math.floor(coverage / (settings.passThreshold / STARS_PER_CHAR)));
   if (newStars > starsEarned) {
     starsEarned = newStars;
-    renderStars(true);
+    renderStars();
     playDing(880);
     vibrate([20, 30, 20]);
   }
 }
 
 function renderStars() {
-  const box = document.getElementById('stars');
+  var box = document.getElementById('stars');
+  if (!box) return;
   box.innerHTML = '';
-  for (let i = 0; i < STARS_PER_CHAR; i++) {
-    const s = document.createElement('span');
+  for (var i = 0; i < STARS_PER_CHAR; i++) {
+    var s = document.createElement('span');
     s.className = 'star' + (i < starsEarned ? ' on' : '');
     s.textContent = '⭐';
     box.appendChild(s);
@@ -314,9 +313,12 @@ function checkWin() {
   if (passed) return;
   if (coverage >= settings.passThreshold) {
     passed = true;
-    particles.forEach(p => {
-      if (!p.hit) { p.hit = true; p.burst = 0.001; }
-    });
+    for (var i = 0; i < particles.length; i++) {
+      if (!particles[i].hit) {
+        particles[i].hit = true;
+        particles[i].burst = 0.001;
+      }
+    }
     animateBursts();
     updateProgress();
     showCelebrate();
@@ -324,24 +326,26 @@ function checkWin() {
 }
 
 /* ---------- Celebrate ---------- */
-const celebrate = document.getElementById('celebrate');
 function showCelebrate() {
-  celebrate.classList.add('show');
+  var el = document.getElementById('celebrate');
+  if (!el) { nextChar(); return; }
+  el.classList.add('show');
   playCheer();
   vibrate([60, 40, 60]);
   clearTimeout(showCelebrate._t);
-  showCelebrate._t = setTimeout(() => {
-    celebrate.classList.remove('show');
+  showCelebrate._t = setTimeout(function () {
+    el.classList.remove('show');
     nextChar();
   }, 2600);
 }
 
-/* ---------- Char switching ---------- */
+/* ---------- Load a character ---------- */
 function loadChar(index) {
   if (!charList.length) return;
   currentIndex = ((index % charList.length) + charList.length) % charList.length;
-  const ch = charList[currentIndex];
-  document.getElementById('taskChar').textContent = ch;
+  var ch = charList[currentIndex];
+  var tc = document.getElementById('taskChar');
+  if (tc) tc.textContent = ch;
 
   strokes = [];
   coverage = 0;
@@ -350,37 +354,40 @@ function loadChar(index) {
   renderStars();
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
   buildParticlesFromChar(ch);
-  redrawStrokes();
+  redraw();
   updateProgress();
   showStartHint();
 
-  const C = 2 * Math.PI * 24;
-  const ring = document.getElementById('ringFill');
-  ring.setAttribute('stroke-dasharray', `${C} ${C}`);
-  ring.setAttribute('stroke-dashoffset', `${C}`);
-  document.getElementById('ringText').textContent = '0%';
+  var C = 2 * Math.PI * 24;
+  var ring = document.getElementById('ringFill');
+  if (ring) {
+    ring.setAttribute('stroke-dasharray', C + ' ' + C);
+    ring.setAttribute('stroke-dashoffset', String(C));
+  }
+  var rt = document.getElementById('ringText');
+  if (rt) rt.textContent = '0%';
 }
 
 function nextChar() { loadChar(currentIndex + 1); }
 function prevChar() { loadChar(currentIndex - 1); }
 
 /* ---------- Start hint ---------- */
-const startHint = document.getElementById('startHint');
 function showStartHint() {
-  if (!particles.length) { startHint.classList.remove('show'); return; }
-  const first = particles[0];
-  startHint.style.left = first.x + 'px';
-  startHint.style.top  = (first.y - 40) + 'px';
-  startHint.classList.add('show');
+  var el = document.getElementById('startHint');
+  if (!el) return;
+  if (!particles.length) { el.classList.remove('show'); return; }
+  var first = particles[0];
+  el.style.left = first.x + 'px';
+  el.style.top  = (first.y - 40) + 'px';
+  el.classList.add('show');
 }
 function hideStartHint() {
-  startHint.classList.remove('show');
+  var el = document.getElementById('startHint');
+  if (el) el.classList.remove('show');
 }
 
-/* ---------- Sound ---------- */
-let audioCtx = null;
+/* ---------- Audio ---------- */
 function ensureAudio() {
   if (!audioCtx) {
     try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
@@ -389,11 +396,13 @@ function ensureAudio() {
   if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
   return audioCtx;
 }
-function playDing(freq = 660) {
+function playDing(freq) {
   if (!settings.soundOn) return;
-  const ac = ensureAudio(); if (!ac) return;
-  const o = ac.createOscillator();
-  const g = ac.createGain();
+  freq = freq || 660;
+  var ac = ensureAudio();
+  if (!ac) return;
+  var o = ac.createOscillator();
+  var g = ac.createGain();
   o.type = 'sine';
   o.frequency.value = freq;
   g.gain.setValueAtTime(0.001, ac.currentTime);
@@ -404,124 +413,106 @@ function playDing(freq = 660) {
 }
 function playCheer() {
   if (!settings.soundOn) return;
-  [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => playDing(f), i * 120));
+  var notes = [523, 659, 784, 1047];
+  for (var i = 0; i < notes.length; i++) {
+    (function (f, i) { setTimeout(function () { playDing(f); }, i * 120); })(notes[i], i);
+  }
 }
 function vibrate(p) {
   if (!settings.vibrateOn) return;
   if (navigator.vibrate) navigator.vibrate(p);
 }
 
-/* ---------- Events ---------- */
-canvas.addEventListener('mousedown', startDraw);
-canvas.addEventListener('mousemove', moveDraw);
-window.addEventListener('mouseup', endDraw);
-
-canvas.addEventListener('touchstart', startDraw, { passive: false });
-canvas.addEventListener('touchmove', moveDraw, { passive: false });
-canvas.addEventListener('touchend', endDraw);
-canvas.addEventListener('touchcancel', endDraw);
-
-/* ---------- UI bindings (guarded so a missing node never kills the app) ---------- */
+/* ---------- UI bindings ---------- */
 function bind(id, event, fn) {
-  const el = document.getElementById(id);
+  var el = document.getElementById(id);
   if (el) el.addEventListener(event, fn);
 }
 
 bind('btnNext', 'click', nextChar);
 bind('btnPrev', 'click', prevChar);
 bind('btnSkip', 'click', nextChar);
-
-bind('btnHelp', 'click', () => {
-  showStartHint();
-  playDing(880);
-});
-
-bind('btnCelebrateNext', 'click', () => {
+bind('btnHelp', 'click', function () { showStartHint(); playDing(880); });
+bind('btnCelebrateNext', 'click', function () {
+  var el = document.getElementById('celebrate');
+  if (el) el.classList.remove('show');
   clearTimeout(showCelebrate._t);
-  celebrate.classList.remove('show');
   nextChar();
 });
 
 /* ---------- Parent panel ---------- */
-const parentPanel = document.getElementById('parentPanel');
-
 function openParent() {
-  if (!parentPanel) return;
-  parentPanel.classList.add('show');
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
-  const txt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-  set('passThreshold', Math.round(settings.passThreshold * 100));
-  txt('passThresholdVal', Math.round(settings.passThreshold * 100) + '%');
-  set('brushSize', settings.brushSize);
-  txt('brushSizeVal', settings.brushSize);
-  set('brushColor', settings.brushColor);
-  const s = document.getElementById('soundOn');   if (s) s.checked = settings.soundOn;
-  const v = document.getElementById('vibrateOn'); if (v) v.checked = settings.vibrateOn;
-  set('customChars', charList.join(','));
+  var panel = document.getElementById('parentPanel');
+  if (!panel) return;
+  panel.classList.add('show');
+  setVal('passThreshold', Math.round(settings.passThreshold * 100));
+  setTxt('passThresholdVal', Math.round(settings.passThreshold * 100) + '%');
+  setVal('brushSize', settings.brushSize);
+  setTxt('brushSizeVal', settings.brushSize);
+  setVal('brushColor', settings.brushColor);
+  var s = document.getElementById('soundOn');   if (s) s.checked = settings.soundOn;
+  var v = document.getElementById('vibrateOn'); if (v) v.checked = settings.vibrateOn;
+  setVal('customChars', charList.join(','));
 }
+function setVal(id, v) { var el = document.getElementById(id); if (el) el.value = v; }
+function setTxt(id, v) { var el = document.getElementById(id); if (el) el.textContent = v; }
 
 function bindLongPress(el, onLong) {
   if (!el) return;
-  let t = null;
-  const start  = () => { t = setTimeout(onLong, 3000); };
-  const cancel = () => { clearTimeout(t); };
+  var t = null;
+  var start  = function () { t = setTimeout(onLong, 3000); };
+  var cancel = function () { clearTimeout(t); };
   el.addEventListener('mousedown', start);
   el.addEventListener('touchstart', start, { passive: true });
-  ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(ev =>
-    el.addEventListener(ev, cancel));
+  ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(function (ev) {
+    el.addEventListener(ev, cancel);
+  });
 }
-
 bindLongPress(document.getElementById('btnHome'), openParent);
 
-bind('btnCloseParent', 'click', () => parentPanel && parentPanel.classList.remove('show'));
-
-bind('passThreshold', 'input', e => {
-  const el = document.getElementById('passThresholdVal');
-  if (el) el.textContent = e.target.value + '%';
+bind('btnCloseParent', 'click', function () {
+  var panel = document.getElementById('parentPanel');
+  if (panel) panel.classList.remove('show');
 });
-bind('brushSize', 'input', e => {
-  const el = document.getElementById('brushSizeVal');
-  if (el) el.textContent = e.target.value;
+bind('passThreshold', 'input', function (e) {
+  setTxt('passThresholdVal', e.target.value + '%');
 });
-
-bind('btnApply', 'click', () => {
-  const g = id => document.getElementById(id);
+bind('brushSize', 'input', function (e) {
+  setTxt('brushSizeVal', e.target.value);
+});
+bind('btnApply', 'click', function () {
+  var g = function (id) { return document.getElementById(id); };
   settings.passThreshold = parseInt(g('passThreshold').value, 10) / 100;
   settings.brushSize     = parseInt(g('brushSize').value, 10);
   settings.brushColor    = g('brushColor').value;
   settings.soundOn       = g('soundOn').checked;
   settings.vibrateOn     = g('vibrateOn').checked;
 
-  const raw = g('customChars').value.trim();
+  var raw = g('customChars').value.trim();
   if (raw) {
-    const arr = raw.split(/[,，\s]+/).filter(Boolean);
+    var arr = raw.split(/[,，\s]+/).filter(Boolean);
     if (arr.length) { charList = arr; currentIndex = 0; }
   }
-  if (parentPanel) parentPanel.classList.remove('show');
+  var panel = document.getElementById('parentPanel');
+  if (panel) panel.classList.remove('show');
   loadChar(0);
 });
 
-/* ---------- Boot (layout-safe) ---------- */
-function bootWhenReady() {
-  void canvas.offsetHeight;             // force reflow
-  requestAnimationFrame(() => {
-    const rect = canvas.getBoundingClientRect();
+/* ---------- Boot ---------- */
+function boot() {
+  void canvas.offsetHeight;
+  requestAnimationFrame(function () {
+    var rect = canvas.getBoundingClientRect();
     if (rect.width < 10 || rect.height < 10) {
-      setTimeout(bootWhenReady, 60);
+      setTimeout(boot, 60);
       return;
     }
     resizeCanvas();
     loadChar(0);
   });
 }
-
-window.addEventListener('resize', () => {
-  clearTimeout(window._rzT);
-  window._rzT = setTimeout(resizeCanvas, 120);
-});
-
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  bootWhenReady();
+  boot();
 } else {
-  document.addEventListener('DOMContentLoaded', bootWhenReady);
+  document.addEventListener('DOMContentLoaded', boot);
 }
