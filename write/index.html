@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="Author" content="maxt9663@gmail.com" />
 <meta name="theme-color" content="#FFF8E7" />
-<title>Trace With Me · Fun Tracing</title>
-<link rel="stylesheet" href="styles.css" />
+<title>Trace With Me</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- Top bar: task card -->
 <header class="topbar">
   <button id="btnHome" class="icon-btn" aria-label="Home">🏠</button>
   <div class="task-title">
@@ -21,12 +19,10 @@
   <button id="btnHelp" class="icon-btn" aria-label="Help">💡</button>
 </header>
 
-<!-- Main stage -->
 <main class="stage">
   <canvas id="canvas" class="canvas"></canvas>
 
-  <!-- Progress ring -->
-  <div class="progress-ring" id="progressRing">
+  <div class="progress-ring">
     <svg viewBox="0 0 60 60" width="60" height="60">
       <circle cx="30" cy="30" r="24" fill="transparent" stroke="#FFE0B2" stroke-width="7"/>
       <circle id="ringFill" cx="30" cy="30" r="24" fill="transparent"
@@ -37,21 +33,16 @@
     <span id="ringText" class="ring-text">0%</span>
   </div>
 
-  <!-- Star collection -->
   <div class="stars" id="stars"></div>
-
-  <!-- Start hint -->
   <div class="start-hint" id="startHint">👆 Start here</div>
 </main>
 
-<!-- Bottom toolbar -->
 <footer class="toolbar">
-  <button class="tool-btn" id="btnPrev" aria-label="Previous">◀</button>
-  <button class="tool-btn primary" id="btnSkip" aria-label="Skip">Skip 🔄</button>
-  <button class="tool-btn" id="btnNext" aria-label="Next">▶</button>
+  <button class="tool-btn" id="btnPrev">◀</button>
+  <button class="tool-btn primary" id="btnSkip">Skip 🔄</button>
+  <button class="tool-btn" id="btnNext">▶</button>
 </footer>
 
-<!-- Parent / teacher panel (long-press 🏠 3s) -->
 <div class="parent-panel" id="parentPanel">
   <div class="parent-card">
     <h2>Parent / Teacher Settings</h2>
@@ -84,9 +75,8 @@
     </label>
 
     <label class="row">
-      <span>Custom characters<br><small>(comma or newline separated)</small></span>
-      <textarea id="customChars" rows="3"
-        placeholder="e.g. A,B,C or 1,2,3"></textarea>
+      <span>Custom characters</span>
+      <textarea id="customChars" rows="3" placeholder="A,B,C or 1,2,3"></textarea>
     </label>
 
     <div class="row buttons">
@@ -96,7 +86,6 @@
   </div>
 </div>
 
-<!-- Celebrate overlay -->
 <div class="celebrate" id="celebrate">
   <div class="celebrate-inner">
     <div class="celebrate-emoji">🎉</div>
@@ -105,6 +94,6 @@
   </div>
 </div>
 
-<script src="app-special.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
