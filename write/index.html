@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="Author" content="maxt9663@gmail.com" />
+<meta name="theme-color" content="#FFF8E7" />
+<title>跟我学 · 描红乐园</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- 顶部：任务卡 -->
+<header class="topbar">
+  <button id="btnHome" class="icon-btn" aria-label="返回">🏠</button>
+  <div class="task-title">
+    <span class="task-label">今天学</span>
+    <span class="task-char" id="taskChar">A</span>
+  </div>
+  <button id="btnHelp" class="icon-btn" aria-label="提示">💡</button>
+</header>
+
+<!-- 主画布区 -->
+<main class="stage">
+  <canvas id="canvas" class="canvas"></canvas>
+
+  <!-- 进度光环（替代原 donut） -->
+  <div class="progress-ring" id="progressRing">
+    <svg viewBox="0 0 60 60" width="60" height="60">
+      <circle cx="30" cy="30" r="24" fill="transparent" stroke="#FFE0B2" stroke-width="7"/>
+      <circle id="ringFill" cx="30" cy="30" r="24" fill="transparent"
+              stroke="#FF7043" stroke-width="7" stroke-linecap="round"
+              stroke-dasharray="150.8 150.8" stroke-dashoffset="150.8"
+              transform="rotate(-90 30 30)"/>
+    </svg>
+    <span id="ringText" class="ring-text">0%</span>
+  </div>
+
+  <!-- 星星收集条 -->
+  <div class="stars" id="stars"></div>
+
+  <!-- 起点提示箭头 -->
+  <div class="start-hint" id="startHint">👆 从这里开始</div>
+</main>
+
+<!-- 底部工具条（大按钮、图标为主） -->
+<footer class="toolbar">
+  <button class="tool-btn" id="btnPrev" aria-label="上一个">◀</button>
+  <button class="tool-btn primary" id="btnSkip" aria-label="换一个">换一个 🔄</button>
+  <button class="tool-btn" id="btnNext" aria-label="下一个">▶</button>
+</footer>
+
+<!-- 家长面板（长按🏠 3 秒打开） -->
+<div class="parent-panel" id="parentPanel">
+  <div class="parent-card">
+    <h2>家长 / 老师设置</h2>
+
+    <label class="row">
+      <span>过关阈值</span>
+      <input type="range" id="passThreshold" min="50" max="100" value="75" />
+      <b id="passThresholdVal">75%</b>
+    </label>
+
+    <label class="row">
+      <span>笔粗细</span>
+      <input type="range" id="brushSize" min="8" max="40" value="22" />
+      <b id="brushSizeVal">22</b>
+    </label>
+
+    <label class="row">
+      <span>笔颜色</span>
+      <input type="color" id="brushColor" value="#FF7043" />
+    </label>
+
+    <label class="row">
+      <span>音效</span>
+      <input type="checkbox" id="soundOn" checked />
+    </label>
+
+    <label class="row">
+      <span>震动</span>
+      <input type="checkbox" id="vibrateOn" checked />
+    </label>
+
+    <label class="row">
+      <span>自定义字表<br><small>（逗号或换行分隔）</small></span>
+      <textarea id="customChars" rows="3"
+        placeholder="例如：A,B,C 或 一,二,三"></textarea>
+    </label>
+
+    <div class="row buttons">
+      <button id="btnApply">应用</button>
+      <button id="btnCloseParent">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- 通关庆祝层 -->
+<div class="celebrate" id="celebrate">
+  <div class="celebrate-inner">
+    <div class="celebrate-emoji">🎉</div>
+    <div class="celebrate-text">真棒！</div>
+    <button class="celebrate-next" id="btnCelebrateNext">下一个 ➡️</button>
+  </div>
+</div>
+
+<script src="app_special.js"></script>
+</body>
+</html>
