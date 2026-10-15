@@ -1,99 +1,70 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="theme-color" content="#FFF8E7" />
-<title>Trace With Me</title>
-<link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-
-<header class="topbar">
-  <button id="btnHome" class="icon-btn" aria-label="Home">🏠</button>
-  <div class="task-title">
-    <span class="task-label">Today</span>
-    <span class="task-char" id="taskChar">A</span>
-  </div>
-  <button id="btnHelp" class="icon-btn" aria-label="Help">💡</button>
-</header>
-
-<main class="stage">
-  <canvas id="canvas" class="canvas"></canvas>
-
-  <div class="progress-ring">
-    <svg viewBox="0 0 60 60" width="60" height="60">
-      <circle cx="30" cy="30" r="24" fill="transparent" stroke="#FFE0B2" stroke-width="7"/>
-      <circle id="ringFill" cx="30" cy="30" r="24" fill="transparent"
-              stroke="#FF7043" stroke-width="7" stroke-linecap="round"
-              stroke-dasharray="150.8 150.8" stroke-dashoffset="150.8"
-              transform="rotate(-90 30 30)"/>
-    </svg>
-    <span id="ringText" class="ring-text">0%</span>
-  </div>
-
-  <div class="stars" id="stars"></div>
-  <div class="start-hint" id="startHint">👆 Start here</div>
-</main>
-
-<footer class="toolbar">
-  <button class="tool-btn" id="btnPrev">◀</button>
-  <button class="tool-btn primary" id="btnSkip">Skip 🔄</button>
-  <button class="tool-btn" id="btnNext">▶</button>
-</footer>
-
-<div class="parent-panel" id="parentPanel">
-  <div class="parent-card">
-    <h2>Parent / Teacher Settings</h2>
-
-    <label class="row">
-      <span>Pass threshold</span>
-      <input type="range" id="passThreshold" min="50" max="100" value="75" />
-      <b id="passThresholdVal">75%</b>
-    </label>
-
-    <label class="row">
-      <span>Brush size</span>
-      <input type="range" id="brushSize" min="8" max="40" value="22" />
-      <b id="brushSizeVal">22</b>
-    </label>
-
-    <label class="row">
-      <span>Brush color</span>
-      <input type="color" id="brushColor" value="#FF7043" />
-    </label>
-
-    <label class="row">
-      <span>Sound</span>
-      <input type="checkbox" id="soundOn" checked />
-    </label>
-
-    <label class="row">
-      <span>Vibration</span>
-      <input type="checkbox" id="vibrateOn" checked />
-    </label>
-
-    <label class="row">
-      <span>Custom characters</span>
-      <textarea id="customChars" rows="3" placeholder="A,B,C or 1,2,3"></textarea>
-    </label>
-
-    <div class="row buttons">
-      <button id="btnApply">Apply</button>
-      <button id="btnCloseParent">Close</button>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="Author" content="maxt9663@gmail.com" />
+    <meta name="description" content="FxDraw the use of the Web Application Manifest.">
+    <meta name="KeyWords" content="Word, Canvas Draw, Games">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#f00">
+    <link rel="icon" href="images/favicon.png">
+    <title>Word Workshop</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div id="modal" class="modal">
+      <div class="container">
+        <h1 style="width: 83vw;background-color: #373206;margin-left: -11px;margin-top: -11px;border-radius: 5px;padding: 5px;">Congratulations!</h1>
+        <h2>Play again?</h2>
+        <div class="clearfix">
+          <button type="button" onclick="document.querySelector('#modal').style.display='none'" class="btnCancel">Cancel</button>
+          <button type="button" onclick="document.querySelector('#modal').style.display='none';ok=true;" class="btnOk">Play</button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
-<div class="celebrate" id="celebrate">
-  <div class="celebrate-inner">
-    <div class="celebrate-emoji">🎉</div>
-    <div class="celebrate-text">Great job!</div>
-    <button class="celebrate-next" id="btnCelebrateNext">Next ➡️</button>
-  </div>
-</div>
-
-<script src="app_special.js"></script>
-</body>
+    <div align="center"><h1 style="word-spacing: 3px;">Word Workshop</h1>
+    <canvas class="canvas" id="canvas"></canvas></div>
+    <div align="center">
+      <table>
+        <tr>
+          <td>
+            <div id="svgDiv">
+              <svg width="150px" height="150px" viewBox="0 0 50 50" class="donut"></svg>
+            </div>
+          </td>
+          <td>
+            <span id="totalPoint"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input id='slider' type="range" min="2" max="30" value="17">
+          </td>
+          <td>
+            <label id="lblSlider"></label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input id='sliderOpac' type="range" min="1" max="10" value="10">
+          </td>
+          <td>
+            <label id="lblSliderOpac"></label>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <canvas id="colorWheel" style="display:none"></canvas>
+    <div class="footerClass">
+        <input id="inpText" type="text" style="width:50px;" />
+        &nbsp;<a href="javascript:void(0);" class="myButton" title="Home" id="btnDrawText">DrawText</a>
+      &nbsp;<a href="javascript:void(0);" class="myButton" title="Home" id="btnDraw">Draw</a>
+      &nbsp;<a href="javascript:void(0);" class="myButton" title="Home" id="btnSave">Save</a>
+      &nbsp;<a href="javascript:void(0);" class="myButton" title="Home" id="btnClear">Clear</a>
+      &nbsp;<a href="javascript:void(0);" class="myButton" title="Home" id="btnColor">Color</a>
+      </div>
+    <script src="app_special.js" charset="utf-8"></script>
+  </body>
 </html>
