@@ -307,3 +307,168 @@ function delay(delayInms) {
     setTimeout(() => {
       resolve(2);
     }, delayInms);
+  });
+}
+
+const delayLoop = (fn, delay) => {
+    return (x, i) => {
+      setTimeout(() => {
+        fn(x);
+      }, i * delay)
+    }
+  };
+
+function mouseDownEventHandler(e) {
+  e.preventDefault();
+  paint = true;
+  let x = e.pageX - canvas1.offsetLeft;
+  let y = e.pageY - canvas1.offsetTop;
+  if (paint) {
+      addPath(x, y, false);
+      drawNew(slider.value);
+  }
+}
+
+function touchstartEventHandler(e) {
+  e.preventDefault();
+  paint = true;
+  if (paint) {
+      addPath(e.touches[0].pageX - canvas1.offsetLeft, e.touches[0].pageY - canvas1.offsetTop, false);
+      drawNew(slider.value*(e.targetTouches[0].radiusX*(e.targetTouches[0].force+1)));
+  }
+}
+
+function mouseUpEventHandler(e) {
+  e.preventDefault()
+  ctx1.closePath();
+  paint = false;
+  checkWin();
+}
+
+function mouseMoveEventHandler(e) {
+  e.preventDefault();
+  let x = e.pageX - canvas1.offsetLeft;
+  let y = e.pageY - canvas1.offsetTop;
+  if (paint) {
+      addPath(x, y, true);
+      drawNew(slider.value);
+  }
+}
+
+function touchMoveEventHandler(e) {
+  e.preventDefault();
+  if (paint) {
+      addPath(e.touches[0].pageX - canvas1.offsetLeft, e.touches[0].pageY - canvas1.offsetTop, true);
+      drawNew(slider.value*(e.targetTouches[0].radiusX*(e.targetTouches[0].force+1)));
+  }
+}
+
+function setUpHandler(isMouseandNotTouch, detectEvent) {
+  removeRaceHandlers();
+  if (isMouseandNotTouch) {
+    canvas1.addEventListener('mouseup', mouseUpEventHandler);
+    canvas1.addEventListener('mousemove', mouseMoveEventHandler);
+    canvas1.addEventListener('mousedown', mouseDownEventHandler);
+    mouseDownEventHandler(detectEvent);
+  } else {
+    canvas1.addEventListener('touchstart', touchstartEventHandler);
+    canvas1.addEventListener('touchmove', touchMoveEventHandler);
+    canvas1.addEventListener('touchend', mouseUpEventHandler);
+    touchstartEventHandler(detectEvent);
+  }
+}
+
+function mouseWins(e) {
+  setUpHandler(true, e);
+}
+
+function touchWins(e) {
+  setUpHandler(false, e);
+}
+
+function removeRaceHandlers() {
+  canvas1.removeEventListener('mousedown', mouseWins);
+  canvas1.removeEventListener('touchstart', touchWins);
+}
+
+function Save2Blob(dataUrl, filename) {
+  let binary = atob(dataUrl.split(',')[1]);
+  let array = [];
+  for(let i = 0; i < binary.length; i++) {
+    array.push(binary.charCodeAt(i));
+  }
+  let imgblob = new Blob([new Uint8Array(array)], {
+    type: 'image/png'
+  }),
+  aurl = URL.createObjectURL(imgblob),
+  ahf = document.createElement('a');
+  ahf.href = aurl;
+  ahf.download = filename;
+  ahf.innerHTML = `Download ${ahf.download}`;
+  ahf.click();
+}
+
+canvas1.addEventListener('mousedown', mouseWins);
+canvas1.addEventListener('touchstart', touchWins);
+drawText(inpText.value);
+btnDrawText.addEventListener('click',function(){
+  clickX = [];
+  clickY = [];
+  paths = [];
+  cRadius=[];
+  clickDrag = [];
+  cColor=[];
+  wins=false;
+  ctx1.lineWidth = slider.value;
+  drawText(inpText.value);
+  colorPick='rgba('+pickColor[0]+','+pickColor[1]+','+pickColor[2]+','+sliderOpac.value/10+')';
+})
+
+btnColor.addEventListener('click',function(){
+  if(colorWheel.style.display==='none'){
+    colorWheel.style.display='inline-block'
+  } else {
+  colorWheel.style.display='none'
+  }
+  canvasWPosition = colorWheel.getBoundingClientRect();
+  btnColor.style.backgroundColor=colorPick
+})
+
+btnClear.addEventListener('click',function(){
+  clearCanvas();
+})
+
+btnSave.addEventListener('click',function(){
+  let filename=inpText.value;
+  if(filename===''){
+    alert('Please key in filename')
+    return;
+  }
+  if(filename.indexOf('.png')===-1) filename=filename+'.png'
+  Save2Blob(canvas1.toDataURL(),filename);
+})
+
+btnDraw.addEventListener('click',function(){
+  redraw();
+})
+
+function getUrlVars() {
+    var vars = [],hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf("?") + 1).split("&");
+    for(var i = 0; i < hashes.length; i++) {
+      hash = hashes[i].split("=");
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1]
+    }
+    return vars
+  }
+
+function DrawSVGPie(percent){
+  let donut=document.querySelector('.donut');
+  donut.innerHTML='';
+  donut.innerHTML+='<circle cx="25" cy="25" r="17" fill="transparent" stroke="#eeeeeecc" stroke-width="3.6"></circle>';
+  donut.innerHTML+='<circle cx="25" cy="25" r="16" fill="transparent" stroke="#666666" stroke-width="5"></circle>';
+  donut.innerHTML+='<circle cx="25" cy="25" r="16" fill="transparent" stroke="#fc2222" stroke-width="5" stroke-dasharray="'+percent+' '+(100-percent)+'" stroke-dashoffset="0"></circle>';
+  donut.innerHTML+='<circle cx="25" cy="25" r="13.5" fill="transparent" stroke="#eeeeeeaa" stroke-width="0.3"></circle>';
+  if(percent>0) donut.innerHTML+='<text x="25" y="29" fill="#fff" font-size="10" text-anchor="middle" >'+percent+' %</text>';
+}
