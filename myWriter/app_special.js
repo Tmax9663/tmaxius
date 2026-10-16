@@ -1,7 +1,7 @@
 /* ============================================================
 跟我学 · 描红乐园
 特殊儿童友好版 · 多语言 + 分级 + 贴纸册 + Combo + 完美徽章
-【修复】不再自动补全剩余点，保留未命中空心点，让孩子主动完成
+【修复】笔刷绘制顺序：先画粒子，再画笔画（笔刷在粒子上方）
 ============================================================ */
 
 /* ---------- i18n ---------- */
@@ -9,11 +9,11 @@ const i18n = {
   zh: {
     todayLearn: '今天学',
     startHere: '💡 从这里开始',
-    prev: '◀ 上一个',
-    next: '换一个 🔄',
-    skip: '▶ 下一个',
-    help: '💡 提示',
-    finish: '✓ 完成',
+    prev: '上一个',
+    next: '换一个',
+    skip: '下一个',
+    help: '提示',
+    finish: '完成',
     continueDraw: '继续描 ➡️',
     perfect: '完美！',
     great: '真棒！',
@@ -45,11 +45,11 @@ const i18n = {
   en: {
     todayLearn: 'Today',
     startHere: '💡 Start here',
-    prev: '◀ Prev',
-    next: 'Next 🔄',
-    skip: '▶ Skip',
-    help: '💡 Help',
-    finish: '✓ Finish',
+    prev: 'Prev',
+    next: 'Next',
+    skip: 'Skip',
+    help: 'Help',
+    finish: 'Finish',
     continueDraw: 'Keep drawing ➡️',
     perfect: 'Perfect!',
     great: 'Great!',
@@ -156,6 +156,9 @@ const STARS_PER_CHAR = 3;
 let comboCount = 0;
 let lastHitTime = 0;
 const COMBO_WINDOW = 400;
+
+/* ---------- 自动跳转 ---------- */
+let autoSkipTimer = null;
 
 /* ---------- 贴纸册 ---------- */
 function getStickerKey() {
@@ -264,7 +267,7 @@ function buildParticlesFromChar(ch) {
     }
   }
   const rect = canvas.getBoundingClientRect();
-  const pad = 60;
+  const pad = 24;
   const w = rect.width - pad * 2;
   const h = rect.height - pad * 2;
   particles = pts.map(p => new Particle(pad + p.nx * w, pad + p.ny * h, p.r));
@@ -274,8 +277,10 @@ function buildParticlesFromChar(ch) {
 /* ---------- 重绘 ---------- */
 function redrawStrokes() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (const s of strokes) drawStroke(s);
+  // 【修复】先画粒子（作为背景参考）
   for (const p of particles) p.draw();
+  // 【修复】再画笔画（在粒子上方）
+  for (const s of strokes) drawStroke(s);
 }
 function drawStroke(s) {
   ctx.strokeStyle = s.color;
@@ -309,7 +314,6 @@ function pointFromEvent(e) {
 
 function startDraw(e) {
   e.preventDefault();
-  // 【关键修复】删除 if (passed) return; 允许过关后继续描
   drawing = true;
   currentStroke = {
     color: settings.brushColor,
@@ -421,7 +425,6 @@ function updateProgress() {
     }
   }
   
-  // 【新增】继续描到95%+触发完美徽章（即使已经过关）
   if (passed && coverage >= 0.95 && !perfectTriggered) {
     perfectTriggered = true;
     perfectBadge.classList.add('show');
@@ -430,7 +433,20 @@ function updateProgress() {
     speak(t('cheerPerfect'));
     vibrate([60, 40, 60, 40, 60]);
   }
+  
+  const celebrateEl = document.getElementById('celebrate');
+  const isCelebrating = celebrateEl.classList.contains('show');
+  
+  if (passed && coverage >= 0.95 && !isCelebrating && !autoSkipTimer) {
+    const delay = coverage >= 0.98 ? 1200 : 2000;
+    autoSkipTimer = setTimeout(() => {
+      autoSkipTimer = null;
+      nextChar();
+    }, delay);
+    btnFinish.style.display = 'none';
+  }
 }
+
 let perfectTriggered = false;
 
 function renderStars() {
@@ -448,12 +464,11 @@ function checkWin() {
   if (passed) return;
   if (coverage >= settings.passThreshold) {
     passed = true;
-    // 【关键修复】不再自动补全剩余点！
-    // 保留未命中的空心点，让孩子继续描
     updateProgress();
     showCelebrate();
-    // 【新增】显示"完成"按钮
-    btnFinish.style.display = 'block';
+    if (coverage < 0.95) {
+      btnFinish.style.display = 'block';
+    }
   }
 }
 
@@ -482,18 +497,17 @@ function showCelebrate() {
   speak(t(cheerKey));
   vibrate([60, 40, 60]);
 
-  // 【关键修复】不自动跳转，而是 2.6 秒后关闭庆祝层，让孩子继续描
   clearTimeout(showCelebrate._t);
   showCelebrate._t = setTimeout(() => {
     celebrate.classList.remove('show');
-    // 不自动 nextChar()，让孩子继续描或点"完成"
+    updateProgress();
   }, 2600);
 }
 
 document.getElementById('btnCelebrateNext').addEventListener('click', () => {
   clearTimeout(showCelebrate._t);
   celebrate.classList.remove('show');
-  // 不自动 nextChar()，让孩子继续描
+  updateProgress();
 });
 
 /* ---------- 字切换 ---------- */
@@ -508,6 +522,12 @@ function loadChar(index) {
   comboCount = 0;
   lastHitTime = 0;
   perfectTriggered = false;
+  
+  if (autoSkipTimer) {
+    clearTimeout(autoSkipTimer);
+    autoSkipTimer = null;
+  }
+  
   renderStars();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   buildParticlesFromChar(ch);
@@ -519,7 +539,6 @@ function loadChar(index) {
   ring.setAttribute('stroke-dasharray', `${C} ${C}`);
   ring.setAttribute('stroke-dashoffset', `${C}`);
   document.getElementById('ringText').textContent = '0%';
-  // 隐藏"完成"按钮
   btnFinish.style.display = 'none';
 }
 function nextChar() { loadChar(currentIndex + 1); }
@@ -601,7 +620,6 @@ document.getElementById('btnHelp').addEventListener('click', () => {
 /* ---------- 完成按钮 ---------- */
 const btnFinish = document.getElementById('btnFinish');
 btnFinish.addEventListener('click', () => {
-  // 点击"完成"后，补全剩余点并进入下一字
   particles.forEach(p => {
     if (!p.hit) {
       p.hit = true;
