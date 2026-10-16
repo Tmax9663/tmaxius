@@ -1,9 +1,134 @@
 /* ============================================================
 跟我学 · 描红乐园
-特殊儿童友好版 · 基于原「造字工作坊」改造
+特殊儿童友好版 · 多语言 + 分级 + 贴纸册 + Combo + 完美徽章
+【修复】不再自动补全剩余点，保留未命中空心点，让孩子主动完成
 ============================================================ */
-/* ---------- 默认字表（可被 URL ?w= 或家长面板覆盖） ---------- */
-let charList = ['A', 'B', 'C', '1', '2', '3', '一', '二', '三'];
+
+/* ---------- i18n ---------- */
+const i18n = {
+  zh: {
+    todayLearn: '今天学',
+    startHere: '💡 从这里开始',
+    prev: '◀ 上一个',
+    next: '换一个 🔄',
+    skip: '▶ 下一个',
+    help: '💡 提示',
+    finish: '✓ 完成',
+    continueDraw: '继续描 ➡️',
+    perfect: '完美！',
+    great: '真棒！',
+    good: '做得好！',
+    nextBtn: '下一个 ➡️',
+    parentTitle: '家长 / 老师设置',
+    passThreshold: '过关阈值',
+    brushSize: '笔粗细',
+    brushColor: '笔颜色',
+    sound: '音效',
+    vibrate: '震动',
+    difficulty: '难度级别',
+    customChars: '自定义字表（逗号或换行分隔）',
+    custom: '自定义',
+    apply: '应用',
+    close: '关闭',
+    stickerBook: '📖 贴纸册',
+    stickers: '张贴纸',
+    combo: '连击',
+    level1: '启蒙',
+    level2: '基础',
+    level3: '进阶',
+    level4: '挑战',
+    cheerPerfect: '太完美了！',
+    cheerGreat: '真棒！继续加油！',
+    cheerGood: '做得好！',
+    comboText: (n) => `连击 x${n}！`
+  },
+  en: {
+    todayLearn: 'Today',
+    startHere: '💡 Start here',
+    prev: '◀ Prev',
+    next: 'Next 🔄',
+    skip: '▶ Skip',
+    help: '💡 Help',
+    finish: '✓ Finish',
+    continueDraw: 'Keep drawing ➡️',
+    perfect: 'Perfect!',
+    great: 'Great!',
+    good: 'Good job!',
+    nextBtn: 'Next ➡️',
+    parentTitle: 'Parent / Teacher Settings',
+    passThreshold: 'Pass threshold',
+    brushSize: 'Brush size',
+    brushColor: 'Brush color',
+    sound: 'Sound',
+    vibrate: 'Vibrate',
+    difficulty: 'Difficulty',
+    customChars: 'Custom characters (comma or newline)',
+    custom: 'Custom',
+    apply: 'Apply',
+    close: 'Close',
+    stickerBook: '📖 Sticker Book',
+    stickers: 'stickers',
+    combo: 'Combo',
+    level1: 'Starter',
+    level2: 'Basic',
+    level3: 'Intermediate',
+    level4: 'Advanced',
+    cheerPerfect: 'Perfect! Amazing!',
+    cheerGreat: 'Great job! Keep going!',
+    cheerGood: 'Well done!',
+    comboText: (n) => `Combo x${n}!`
+  }
+};
+
+let currentLang = localStorage.getItem('lang') || 'zh';
+function t(key) {
+  const val = i18n[currentLang][key];
+  return val !== undefined ? val : key;
+}
+
+function applyI18n() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const text = t(key);
+    if (typeof text === 'string') el.textContent = text;
+  });
+  document.getElementById('btnLang').textContent = currentLang === 'zh' ? '🇨🇳' : '🇺🇸';
+  document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+}
+
+/* ---------- 分级字表 ---------- */
+const levelCharSets = {
+  zh: {
+    1: ['一', '二', '三', '十', '人', '大'],
+    2: ['上', '下', '左', '右', '天', '地', '日', '月'],
+    3: ['学', '校', '家', '爱', '我', '你', '他', '好'],
+    4: ['春', '夏', '秋', '冬', '风', '花', '雪', '山', '水', '火']
+  },
+  en: {
+    1: ['A', 'B', 'C', '1', '2', '3'],
+    2: ['D', 'E', 'F', '4', '5', '6'],
+    3: ['G', 'H', 'I', 'J', '7', '8', '9'],
+    4: ['K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0']
+  }
+};
+
+let currentLevel = parseInt(localStorage.getItem('level') || '1');
+let customCharList = localStorage.getItem('customChars') || '';
+
+function getCharListForLevel(level, lang) {
+  if (level === 'custom' || level === 5) {
+    const raw = customCharList;
+    if (raw) {
+      const arr = raw.split(/[,，\s\n]+/).filter(Boolean);
+      if (arr.length) return arr;
+    }
+    return levelCharSets[lang][1];
+  }
+  return levelCharSets[lang][level] || levelCharSets[lang][1];
+}
+
+let charList = getCharListForLevel(currentLevel, currentLang);
+
 const urlParams = new URLSearchParams(location.search);
 if (urlParams.get('w')) {
   const raw = decodeURIComponent(urlParams.get('w'));
@@ -11,10 +136,10 @@ if (urlParams.get('w')) {
   if (arr.length) charList = arr;
 }
 
-/* ---------- 设置（家长面板可改） ---------- */
+/* ---------- 设置 ---------- */
 const settings = {
-  passThreshold: 0.75,   // 75% 覆盖即过关
-  brushSize: 22,
+  passThreshold: 0.75,
+  brushSize: 28,
   brushColor: '#FF7043',
   soundOn: true,
   vibrateOn: true,
@@ -22,16 +147,40 @@ const settings = {
 
 /* ---------- 状态 ---------- */
 let currentIndex = 0;
-let coverage = 0;          // 0~1
+let coverage = 0;
 let passed = false;
-let starsEarned = 0;       // 本字已收集星星数（0~3）
-const STARS_PER_CHAR = 3;  // 每个字最多 3 颗星
+let starsEarned = 0;
+const STARS_PER_CHAR = 3;
+
+/* ---------- Combo ---------- */
+let comboCount = 0;
+let lastHitTime = 0;
+const COMBO_WINDOW = 400;
+
+/* ---------- 贴纸册 ---------- */
+function getStickerKey() {
+  return `stickers_${currentLang}_${currentLevel}`;
+}
+function loadStickers() {
+  try { return JSON.parse(localStorage.getItem(getStickerKey()) || '[]'); }
+  catch { return []; }
+}
+function saveStickers(arr) {
+  localStorage.setItem(getStickerKey(), JSON.stringify(arr));
+}
+function addSticker(ch) {
+  const arr = loadStickers();
+  if (!arr.includes(ch)) {
+    arr.push(ch);
+    saveStickers(arr);
+  }
+  return arr;
+}
 
 /* ---------- 画布 ---------- */
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-/* 让 canvas 内部分辨率与 CSS 尺寸一致，避免模糊 */
 function resizeCanvas() {
   const rect = canvas.getBoundingClientRect();
   const dpr = window.devicePixelRatio || 1;
@@ -44,21 +193,15 @@ function resizeCanvas() {
 }
 window.addEventListener('resize', resizeCanvas);
 
-/* ---------- 粒子（描红点） ---------- */
+/* ---------- 粒子 ---------- */
 class Particle {
-  // 【修改】增加 r 参数，支持外部传入动态半径
   constructor(x, y, r = 9) {
-    this.x = x;
-    this.y = y;
-    this.baseR = r;
-    this.r = r;
-    this.hit = false;
-    this.burst = 0;      // 命中后的爆裂动画进度 0~1
+    this.x = x; this.y = y;
+    this.baseR = r; this.r = r;
+    this.hit = false; this.burst = 0;
   }
-  
   draw() {
     if (this.burst > 0) {
-      // 命中后：扩散 + 淡出
       const t = this.burst;
       const rr = this.baseR * (1 + t * 1.6);
       ctx.globalAlpha = 1 - t;
@@ -66,8 +209,6 @@ class Particle {
       ctx.beginPath();
       ctx.arc(this.x, this.y, rr, 0, Math.PI * 2);
       ctx.fill();
-      
-      // 小星星飞散
       ctx.fillStyle = '#FFB300';
       for (let k = 0; k < 6; k++) {
         const ang = (k / 6) * Math.PI * 2;
@@ -80,13 +221,11 @@ class Particle {
       }
       ctx.globalAlpha = 1;
     } else if (this.hit) {
-      // 已覆盖：显示为柔和填充
       ctx.fillStyle = '#C8E6C9';
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.baseR * 0.9, 0, Math.PI * 2);
       ctx.fill();
     } else {
-      // 未覆盖：空心大圆点，深色高对比
       ctx.fillStyle = '#FFFFFF';
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.baseR, 0, Math.PI * 2);
@@ -99,69 +238,45 @@ class Particle {
 }
 
 let particles = [];
-let strokes = [];   // 用户笔画历史，用于重绘
+let strokes = [];
 
-/* ---------- 文字 → 粒子 ---------- */
+/* ---------- 文字 → 粒子（高精度采样） ---------- */
 function buildParticlesFromChar(ch) {
-  // 【修改1】提高离屏采样分辨率，让边缘更细腻
-  const size = 600;                    
+  const size = 600;
   const off = document.createElement('canvas');
   off.width = size; off.height = size;
   const octx = off.getContext('2d');
-  
-  // 【修改2】优化字体栈，确保中文黑体渲染更准确
   octx.fillStyle = '#000';
   octx.textAlign = 'center';
   octx.textBaseline = 'middle';
   octx.font = `900 ${size * 0.75}px "PingFang SC", "Microsoft YaHei", "SimHei", "Verdana", sans-serif`;
   octx.fillText(ch, size / 2, size / 2);
-  
   const data = octx.getImageData(0, 0, size, size).data;
-  
-  // 【修改3】减小采样网格，大幅增加点数密度
   const grid = 16;
-  // 【修改4】动态计算粒子半径，让点与点轻微重叠，轮廓更连贯
-  const particleR = grid * 0.6; 
-  
+  const particleR = grid * 0.6;
   const pts = [];
   for (let y = 0; y < size; y += grid) {
     for (let x = 0; x < size; x += grid) {
       const idx = (y * size + x) * 4 + 3;
       if (data[idx] > 128) {
-        // 归一化到画布坐标
-        pts.push({
-          nx: x / size,
-          ny: y / size,
-          r: particleR // 传递半径
-        });
+        pts.push({ nx: x / size, ny: y / size, r: particleR });
       }
     }
   }
-  
-  // 缩放到画布可视区域（留边距）
   const rect = canvas.getBoundingClientRect();
   const pad = 60;
   const w = rect.width - pad * 2;
   const h = rect.height - pad * 2;
-  
-  // 【修改5】将动态半径传递给 Particle 构造函数
   particles = pts.map(p => new Particle(pad + p.nx * w, pad + p.ny * h, p.r));
-  
-  // 对起点做排序：优先左上 → 右下，让"从哪开始"更自然
   particles.sort((a, b) => (a.y - b.y) || (a.x - b.x));
 }
 
 /* ---------- 重绘 ---------- */
 function redrawStrokes() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  // 先画所有已完成笔画
-  for (const s of strokes) {
-    drawStroke(s);
-  }
-  // 再画粒子（未命中的点覆盖在笔画上方，视觉上更醒目）
+  for (const s of strokes) drawStroke(s);
   for (const p of particles) p.draw();
 }
-
 function drawStroke(s) {
   ctx.strokeStyle = s.color;
   ctx.lineWidth = s.size;
@@ -175,7 +290,7 @@ function drawStroke(s) {
   ctx.stroke();
 }
 
-/* ---------- 当前笔画 ---------- */
+/* ---------- 笔画事件 ---------- */
 let drawing = false;
 let currentStroke = null;
 
@@ -183,21 +298,18 @@ function pointFromEvent(e) {
   const rect = canvas.getBoundingClientRect();
   let clientX, clientY;
   if (e.touches && e.touches.length) {
-    clientX = e.touches[0].clientX;
-    clientY = e.touches[0].clientY;
+    clientX = e.touches[0].clientX; clientY = e.touches[0].clientY;
   } else if (e.changedTouches && e.changedTouches.length) {
-    clientX = e.changedTouches[0].clientX;
-    clientY = e.changedTouches[0].clientY;
+    clientX = e.changedTouches[0].clientX; clientY = e.changedTouches[0].clientY;
   } else {
-    clientX = e.clientX;
-    clientY = e.clientY;
+    clientX = e.clientX; clientY = e.clientY;
   }
   return { x: clientX - rect.left, y: clientY - rect.top };
 }
 
 function startDraw(e) {
   e.preventDefault();
-  if (passed) return;   // 已过关的字不再让乱画
+  // 【关键修复】删除 if (passed) return; 允许过关后继续描
   drawing = true;
   currentStroke = {
     color: settings.brushColor,
@@ -211,7 +323,6 @@ function startDraw(e) {
   redrawStrokes();
   hideStartHint();
 }
-
 function moveDraw(e) {
   if (!drawing) return;
   e.preventDefault();
@@ -220,7 +331,6 @@ function moveDraw(e) {
   hitParticles(p, settings.brushSize);
   redrawStrokes();
 }
-
 function endDraw(e) {
   if (!drawing) return;
   drawing = false;
@@ -228,7 +338,7 @@ function endDraw(e) {
   checkWin();
 }
 
-/* ---------- 命中检测 ---------- */
+/* ---------- 命中 + Combo ---------- */
 function hitParticles(pt, brushR) {
   let newlyHit = 0;
   for (const p of particles) {
@@ -236,23 +346,41 @@ function hitParticles(pt, brushR) {
     const dx = p.x - pt.x;
     const dy = p.y - pt.y;
     const dist = Math.sqrt(dx * dx + dy * dy);
-    // 笔刷中心进入点的内圈即算命中（宽容）
-    if (dist < p.baseR + brushR * 0.35) {
+    if (dist < p.baseR + brushR * 0.45) {
       p.hit = true;
-      p.burst = 0.001;   // 触发爆裂动画
+      p.burst = 0.001;
       newlyHit++;
     }
   }
   if (newlyHit > 0) {
+    const now = performance.now();
+    if (now - lastHitTime < COMBO_WINDOW) {
+      comboCount += newlyHit;
+    } else {
+      comboCount = newlyHit;
+    }
+    lastHitTime = now;
+    if (comboCount >= 3) showCombo(comboCount);
     playDing();
     vibrate(20);
     updateProgress();
   }
-  // 更新爆裂动画
   animateBursts();
 }
 
-/* 用 requestAnimationFrame 推进爆裂动画 */
+const comboFloat = document.getElementById('comboFloat');
+let comboTimer = null;
+function showCombo(n) {
+  const level = Math.min(4, Math.floor((n - 3) / 3) + 1);
+  comboFloat.textContent = t('comboText')(n);
+  comboFloat.className = 'combo-float show combo-' + level;
+  clearTimeout(comboTimer);
+  comboTimer = setTimeout(() => {
+    comboFloat.classList.remove('show');
+  }, 900);
+}
+
+/* ---------- 爆裂动画 ---------- */
 let burstRaf = null;
 function animateBursts() {
   if (burstRaf) return;
@@ -266,43 +394,46 @@ function animateBursts() {
       }
     }
     redrawStrokes();
-    if (active) {
-      burstRaf = requestAnimationFrame(step);
-    } else {
-      burstRaf = null;
-    }
+    if (active) burstRaf = requestAnimationFrame(step);
+    else burstRaf = null;
   };
   burstRaf = requestAnimationFrame(step);
 }
 
-/* ---------- 进度 & 过关 ---------- */
+/* ---------- 进度 ---------- */
 function updateProgress() {
   const total = particles.length || 1;
   const hit = particles.filter(p => p.hit).length;
   coverage = hit / total;
   const pct = Math.round(coverage * 100);
-  
-  // 更新光环
-  const C = 2 * Math.PI * 24; // r=24
+  const C = 2 * Math.PI * 24;
   const ring = document.getElementById('ringFill');
   ring.setAttribute('stroke-dasharray', `${C} ${C}`);
   ring.setAttribute('stroke-dashoffset', `${C * (1 - coverage)}`);
   document.getElementById('ringText').textContent = pct + '%';
-  
-  // 星星：每达到 1/3 阈值给一颗
   const newStars = Math.min(STARS_PER_CHAR, Math.floor(coverage / (settings.passThreshold / STARS_PER_CHAR)));
   if (newStars > starsEarned) {
     starsEarned = newStars;
-    renderStars(true);
-    // 每得一颗星给一次小奖励音
+    renderStars();
     if (newStars > 0) {
       playDing(880);
       vibrate([20, 30, 20]);
     }
   }
+  
+  // 【新增】继续描到95%+触发完美徽章（即使已经过关）
+  if (passed && coverage >= 0.95 && !perfectTriggered) {
+    perfectTriggered = true;
+    perfectBadge.classList.add('show');
+    setTimeout(() => perfectBadge.classList.remove('show'), 2400);
+    playCheer();
+    speak(t('cheerPerfect'));
+    vibrate([60, 40, 60, 40, 60]);
+  }
 }
+let perfectTriggered = false;
 
-function renderStars(animate) {
+function renderStars() {
   const box = document.getElementById('stars');
   box.innerHTML = '';
   for (let i = 0; i < STARS_PER_CHAR; i++) {
@@ -317,37 +448,52 @@ function checkWin() {
   if (passed) return;
   if (coverage >= settings.passThreshold) {
     passed = true;
-    // 把剩余未命中的点自动补全（视觉上收尾）
-    particles.forEach(p => {
-      if (!p.hit) {
-        p.hit = true;
-        p.burst = 0.001;
-      }
-    });
-    animateBursts();
+    // 【关键修复】不再自动补全剩余点！
+    // 保留未命中的空心点，让孩子继续描
     updateProgress();
     showCelebrate();
+    // 【新增】显示"完成"按钮
+    btnFinish.style.display = 'block';
   }
 }
 
-/* ---------- 庆祝层 ---------- */
+/* ---------- 庆祝 ---------- */
 const celebrate = document.getElementById('celebrate');
+const perfectBadge = document.getElementById('perfectBadge');
+
 function showCelebrate() {
+  const isPerfect = coverage >= 0.95;
+  let cheerKey;
+  if (isPerfect) {
+    cheerKey = 'cheerPerfect';
+    perfectBadge.classList.add('show');
+    setTimeout(() => perfectBadge.classList.remove('show'), 2400);
+    perfectTriggered = true;
+  } else if (coverage >= 0.9) {
+    cheerKey = 'cheerGreat';
+  } else {
+    cheerKey = 'cheerGood';
+  }
+  
+  document.getElementById('celebrateText').textContent = t(cheerKey);
+
   celebrate.classList.add('show');
   playCheer();
+  speak(t(cheerKey));
   vibrate([60, 40, 60]);
-  // 自动 2.6 秒后进下一字（也可点按钮）
+
+  // 【关键修复】不自动跳转，而是 2.6 秒后关闭庆祝层，让孩子继续描
   clearTimeout(showCelebrate._t);
   showCelebrate._t = setTimeout(() => {
     celebrate.classList.remove('show');
-    nextChar();
+    // 不自动 nextChar()，让孩子继续描或点"完成"
   }, 2600);
 }
 
 document.getElementById('btnCelebrateNext').addEventListener('click', () => {
   clearTimeout(showCelebrate._t);
   celebrate.classList.remove('show');
-  nextChar();
+  // 不自动 nextChar()，让孩子继续描
 });
 
 /* ---------- 字切换 ---------- */
@@ -359,27 +505,23 @@ function loadChar(index) {
   coverage = 0;
   passed = false;
   starsEarned = 0;
-  renderStars(false);
-  
-  // 清空 canvas
+  comboCount = 0;
+  lastHitTime = 0;
+  perfectTriggered = false;
+  renderStars();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-  // 构建粒子
   buildParticlesFromChar(ch);
   redrawStrokes();
   updateProgress();
-  
-  // 起点提示
   showStartHint();
-  
-  // 重置光环
   const C = 2 * Math.PI * 24;
   const ring = document.getElementById('ringFill');
   ring.setAttribute('stroke-dasharray', `${C} ${C}`);
   ring.setAttribute('stroke-dashoffset', `${C}`);
   document.getElementById('ringText').textContent = '0%';
+  // 隐藏"完成"按钮
+  btnFinish.style.display = 'none';
 }
-
 function nextChar() { loadChar(currentIndex + 1); }
 function prevChar() { loadChar(currentIndex - 1); }
 
@@ -392,12 +534,9 @@ function showStartHint() {
   startHint.style.top  = (first.y - 40) + 'px';
   startHint.classList.add('show');
 }
+function hideStartHint() { startHint.classList.remove('show'); }
 
-function hideStartHint() {
-  startHint.classList.remove('show');
-}
-
-/* ---------- 音效（WebAudio，无需素材） ---------- */
+/* ---------- 音效 ---------- */
 let audioCtx = null;
 function ensureAudio() {
   if (!audioCtx) {
@@ -406,7 +545,6 @@ function ensureAudio() {
   }
   return audioCtx;
 }
-
 function playDing(freq = 660) {
   if (!settings.soundOn) return;
   const ac = ensureAudio(); if (!ac) return;
@@ -420,18 +558,28 @@ function playDing(freq = 660) {
   o.connect(g); g.connect(ac.destination);
   o.start(); o.stop(ac.currentTime + 0.3);
 }
-
 function playCheer() {
   if (!settings.soundOn) return;
   const notes = [523, 659, 784, 1047];
-  notes.forEach((f, i) => {
-    setTimeout(() => playDing(f), i * 120);
-  });
+  notes.forEach((f, i) => setTimeout(() => playDing(f), i * 120));
 }
-
 function vibrate(p) {
   if (!settings.vibrateOn) return;
   if (navigator.vibrate) navigator.vibrate(p);
+}
+
+/* ---------- 语音鼓励 ---------- */
+function speak(text) {
+  if (!settings.soundOn) return;
+  if ('speechSynthesis' in window) {
+    try {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = currentLang === 'zh' ? 'zh-CN' : 'en-US';
+      u.rate = 0.95; u.pitch = 1.1;
+      speechSynthesis.speak(u);
+    } catch (e) {}
+  }
 }
 
 /* ---------- 事件绑定 ---------- */
@@ -443,25 +591,68 @@ canvas.addEventListener('touchmove', moveDraw, { passive: false });
 canvas.addEventListener('touchend', endDraw);
 canvas.addEventListener('touchcancel', endDraw);
 
-/* ---------- 底栏按钮 ---------- */
 document.getElementById('btnNext').addEventListener('click', nextChar);
 document.getElementById('btnPrev').addEventListener('click', prevChar);
 document.getElementById('btnSkip').addEventListener('click', nextChar);
-
-/* ---------- 提示按钮：闪一下起点 ---------- */
 document.getElementById('btnHelp').addEventListener('click', () => {
-  showStartHint();
-  playDing(880);
+  showStartHint(); playDing(880);
 });
 
-/* ---------- 家长面板：长按 🏠 3 秒 ---------- */
+/* ---------- 完成按钮 ---------- */
+const btnFinish = document.getElementById('btnFinish');
+btnFinish.addEventListener('click', () => {
+  // 点击"完成"后，补全剩余点并进入下一字
+  particles.forEach(p => {
+    if (!p.hit) {
+      p.hit = true;
+      p.burst = 0.001;
+    }
+  });
+  animateBursts();
+  btnFinish.style.display = 'none';
+  nextChar();
+});
+
+/* ---------- 语言切换 ---------- */
+document.getElementById('btnLang').addEventListener('click', () => {
+  currentLang = currentLang === 'zh' ? 'en' : 'zh';
+  localStorage.setItem('lang', currentLang);
+  applyI18n();
+  charList = getCharListForLevel(currentLevel, currentLang);
+  currentIndex = 0;
+  loadChar(0);
+});
+
+/* ---------- 贴纸册 ---------- */
+const stickerPanel = document.getElementById('stickerPanel');
+document.getElementById('btnSticker').addEventListener('click', () => {
+  renderStickerBook();
+  stickerPanel.classList.add('show');
+});
+document.getElementById('btnCloseSticker').addEventListener('click', () => {
+  stickerPanel.classList.remove('show');
+});
+
+function renderStickerBook() {
+  const grid = document.getElementById('stickerGrid');
+  const arr = loadStickers();
+  grid.innerHTML = '';
+  const allChars = getCharListForLevel(currentLevel, currentLang);
+  allChars.forEach(ch => {
+    const cell = document.createElement('div');
+    cell.className = 'sticker-cell' + (arr.includes(ch) ? ' earned' : '');
+    cell.textContent = ch;
+    grid.appendChild(cell);
+  });
+  document.getElementById('stickerCount').textContent = arr.length;
+}
+
+/* ---------- 家长面板 ---------- */
 const btnHome = document.getElementById('btnHome');
 const parentPanel = document.getElementById('parentPanel');
-let homeTimer = null;
 
 function openParent() {
   parentPanel.classList.add('show');
-  // 同步当前设置
   document.getElementById('passThreshold').value = settings.passThreshold * 100;
   document.getElementById('passThresholdVal').textContent = Math.round(settings.passThreshold * 100) + '%';
   document.getElementById('brushSize').value = settings.brushSize;
@@ -469,30 +660,28 @@ function openParent() {
   document.getElementById('brushColor').value = settings.brushColor;
   document.getElementById('soundOn').checked = settings.soundOn;
   document.getElementById('vibrateOn').checked = settings.vibrateOn;
-  document.getElementById('customChars').value = charList.join(',');
+  document.getElementById('difficultyLevel').value = currentLevel;
+  document.getElementById('customChars').value = customCharList;
 }
 
 function bindLongPress(el, onLong) {
   let t = null;
-  const start = () => { t = setTimeout(onLong, 3000); };
+  const start = () => { t = setTimeout(onLong, 2000); };
   const cancel = () => { clearTimeout(t); };
   el.addEventListener('mousedown', start);
   el.addEventListener('touchstart', start, { passive: true });
   ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(ev =>
     el.addEventListener(ev, cancel));
 }
-
 bindLongPress(btnHome, openParent);
 
 document.getElementById('btnCloseParent').addEventListener('click', () => {
   parentPanel.classList.remove('show');
 });
 
-/* 实时预览滑块 */
 document.getElementById('passThreshold').addEventListener('input', e => {
   document.getElementById('passThresholdVal').textContent = e.target.value + '%';
 });
-
 document.getElementById('brushSize').addEventListener('input', e => {
   document.getElementById('brushSizeVal').textContent = e.target.value;
 });
@@ -503,21 +692,25 @@ document.getElementById('btnApply').addEventListener('click', () => {
   settings.brushColor = document.getElementById('brushColor').value;
   settings.soundOn = document.getElementById('soundOn').checked;
   settings.vibrateOn = document.getElementById('vibrateOn').checked;
-  
-  const raw = document.getElementById('customChars').value.trim();
-  if (raw) {
-    const arr = raw.split(/[,，\s]+/).filter(Boolean);
-    if (arr.length) {
-      charList = arr;
-      currentIndex = 0;
-    }
-  }
+
+  const newLevel = document.getElementById('difficultyLevel').value;
+  const rawCustom = document.getElementById('customChars').value.trim();
+
+  currentLevel = newLevel === 'custom' ? 'custom' : parseInt(newLevel, 10);
+  customCharList = rawCustom;
+  localStorage.setItem('level', currentLevel);
+  localStorage.setItem('customChars', customCharList);
+
+  charList = getCharListForLevel(currentLevel, currentLang);
+  currentIndex = 0;
+
   parentPanel.classList.remove('show');
   loadChar(0);
 });
 
 /* ---------- 启动 ---------- */
 window.addEventListener('load', () => {
+  applyI18n();
   resizeCanvas();
   loadChar(0);
 });

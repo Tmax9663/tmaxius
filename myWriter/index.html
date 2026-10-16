@@ -1,110 +1,120 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="Author" content="maxt9663@gmail.com" />
-<meta name="theme-color" content="#FFF8E7" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>跟我学 · 描红乐园</title>
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<!-- 顶部：任务卡 -->
-<header class="topbar">
-  <button id="btnHome" class="icon-btn" aria-label="返回">🏠</button>
-  <div class="task-title">
-    <span class="task-label">今天学</span>
-    <span class="task-char" id="taskChar">A</span>
-  </div>
-  <button id="btnHelp" class="icon-btn" aria-label="提示">💡</button>
-</header>
-
-<!-- 主画布区 -->
-<main class="stage">
-  <canvas id="canvas" class="canvas"></canvas>
-
-  <!-- 进度光环（替代原 donut） -->
-  <div class="progress-ring" id="progressRing">
-    <svg viewBox="0 0 60 60" width="60" height="60">
-      <circle cx="30" cy="30" r="24" fill="transparent" stroke="#FFE0B2" stroke-width="7"/>
-      <circle id="ringFill" cx="30" cy="30" r="24" fill="transparent"
-              stroke="#FF7043" stroke-width="7" stroke-linecap="round"
-              stroke-dasharray="150.8 150.8" stroke-dashoffset="150.8"
-              transform="rotate(-90 30 30)"/>
-    </svg>
-    <span id="ringText" class="ring-text">0%</span>
-  </div>
-
-  <!-- 星星收集条 -->
-  <div class="stars" id="stars"></div>
-
-  <!-- 起点提示箭头 -->
-  <div class="start-hint" id="startHint">👆 从这里开始</div>
-</main>
-
-<!-- 底部工具条（大按钮、图标为主） -->
-<footer class="toolbar">
-  <button class="tool-btn" id="btnPrev" aria-label="上一个">◀</button>
-  <button class="tool-btn primary" id="btnSkip" aria-label="换一个">换一个 🔄</button>
-  <button class="tool-btn" id="btnNext" aria-label="下一个">▶</button>
-</footer>
-
-<!-- 家长面板（长按🏠 3 秒打开） -->
-<div class="parent-panel" id="parentPanel">
-  <div class="parent-card">
-    <h2>家长 / 老师设置</h2>
-
-    <label class="row">
-      <span>过关阈值</span>
-      <input type="range" id="passThreshold" min="50" max="100" value="75" />
-      <b id="passThresholdVal">75%</b>
-    </label>
-
-    <label class="row">
-      <span>笔粗细</span>
-      <input type="range" id="brushSize" min="8" max="40" value="22" />
-      <b id="brushSizeVal">22</b>
-    </label>
-
-    <label class="row">
-      <span>笔颜色</span>
-      <input type="color" id="brushColor" value="#FF7043" />
-    </label>
-
-    <label class="row">
-      <span>音效</span>
-      <input type="checkbox" id="soundOn" checked />
-    </label>
-
-    <label class="row">
-      <span>震动</span>
-      <input type="checkbox" id="vibrateOn" checked />
-    </label>
-
-    <label class="row">
-      <span>自定义字表<br><small>（逗号或换行分隔）</small></span>
-      <textarea id="customChars" rows="3"
-        placeholder="例如：A,B,C 或 一,二,三"></textarea>
-    </label>
-
-    <div class="row buttons">
-      <button id="btnApply">应用</button>
-      <button id="btnCloseParent">关闭</button>
+  <!-- 顶栏 -->
+  <div class="topbar">
+    <button id="btnHome" class="icon-btn" title="Home">🏠</button>
+    <div class="task-title">
+      <span class="task-label" data-i18n="todayLearn">今天学</span>
+      <span id="taskChar" class="task-char">A</span>
+    </div>
+    <div class="topbar-right">
+      <button id="btnSticker" class="icon-btn" title="Sticker Book">📖</button>
+      <button id="btnLang" class="icon-btn" title="Language">🌐</button>
     </div>
   </div>
-</div>
 
-<!-- 通关庆祝层 -->
-<div class="celebrate" id="celebrate">
-  <div class="celebrate-inner">
-    <div class="celebrate-emoji">🎉</div>
-    <div class="celebrate-text">真棒！</div>
-    <button class="celebrate-next" id="btnCelebrateNext">下一个 ➡️</button>
+  <!-- 舞台 -->
+  <div class="stage">
+    <canvas id="canvas" class="canvas"></canvas>
+    <div class="progress-ring">
+      <svg width="60" height="60" viewBox="0 0 60 60">
+        <circle cx="30" cy="30" r="24" fill="none" stroke="#FFE0B2" stroke-width="6"/>
+        <circle id="ringFill" cx="30" cy="30" r="24" fill="none" stroke="#FF7043" stroke-width="6" stroke-linecap="round" transform="rotate(-90 30 30)"/>
+      </svg>
+      <span id="ringText" class="ring-text">0%</span>
+    </div>
+    <div id="stars" class="stars"></div>
+    <div id="startHint" class="start-hint" data-i18n="startHere">💡 从这里开始</div>
+    <div id="comboFloat" class="combo-float"></div>
+    <div id="perfectBadge" class="perfect-badge">🏆</div>
   </div>
-</div>
 
-<script src="app_special.js"></script>
+  <!-- 底栏 -->
+  <div class="toolbar">
+    <button id="btnPrev" class="tool-btn" data-i18n="prev">◀ 上一个</button>
+    <button id="btnHelp" class="tool-btn" data-i18n="help">💡 提示</button>
+    <button id="btnNext" class="tool-btn primary" data-i18n="next">换一个 🔄</button>
+    <button id="btnSkip" class="tool-btn" data-i18n="skip">▶ 下一个</button>
+    <button id="btnFinish" class="tool-btn finish-btn" style="display:none;" data-i18n="finish">✓ 完成</button>
+  </div>
+
+  <!-- 家长面板 -->
+  <div id="parentPanel" class="parent-panel">
+    <div class="parent-card">
+      <h2 data-i18n="parentTitle">家长 / 老师设置</h2>
+      <div class="row">
+        <span data-i18n="difficulty">难度级别</span>
+        <select id="difficultyLevel">
+          <option value="1" data-i18n="level1">启蒙</option>
+          <option value="2" data-i18n="level2">基础</option>
+          <option value="3" data-i18n="level3">进阶</option>
+          <option value="4" data-i18n="level4">挑战</option>
+          <option value="custom" data-i18n="custom">自定义</option>
+        </select>
+      </div>
+      <div class="row">
+        <span data-i18n="passThreshold">过关阈值</span>
+        <input id="passThreshold" type="range" min="30" max="100" step="5" value="75">
+        <span id="passThresholdVal">75%</span>
+      </div>
+      <div class="row">
+        <span data-i18n="brushSize">笔粗细</span>
+        <input id="brushSize" type="range" min="10" max="60" step="2" value="28">
+        <span id="brushSizeVal">28</span>
+      </div>
+      <div class="row">
+        <span data-i18n="brushColor">笔颜色</span>
+        <input id="brushColor" type="color" value="#FF7043">
+      </div>
+      <div class="row">
+        <span data-i18n="sound">音效</span>
+        <input id="soundOn" type="checkbox" checked>
+      </div>
+      <div class="row">
+        <span data-i18n="vibrate">震动</span>
+        <input id="vibrateOn" type="checkbox" checked>
+      </div>
+      <div class="row" style="flex-direction:column;align-items:stretch;">
+        <span data-i18n="customChars">自定义字表（逗号或换行分隔）</span>
+        <textarea id="customChars" rows="3"></textarea>
+      </div>
+      <div class="row buttons">
+        <button id="btnCloseParent" data-i18n="close">关闭</button>
+        <button id="btnApply" data-i18n="apply">应用</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 贴纸册弹窗 -->
+  <div id="stickerPanel" class="parent-panel">
+    <div class="parent-card sticker-card">
+      <h2 data-i18n="stickerBook">📖 贴纸册</h2>
+      <div id="stickerGrid" class="sticker-grid"></div>
+      <div class="sticker-stats">
+        <span id="stickerCount">0</span> <span data-i18n="stickers">张贴纸</span>
+      </div>
+      <div class="row buttons">
+        <button id="btnCloseSticker" data-i18n="close">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 庆祝层 -->
+  <div id="celebrate" class="celebrate">
+    <div class="celebrate-inner">
+      <div class="celebrate-emoji">🎉</div>
+      <div id="celebrateText" class="celebrate-text" data-i18n="great">真棒！</div>
+      <button id="btnCelebrateNext" class="celebrate-next" data-i18n="continueDraw">继续描 ➡️</button>
+    </div>
+  </div>
+
+  <script src="app_special.js"></script>
 </body>
 </html>
