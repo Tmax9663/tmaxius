@@ -5,16 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>跟我学 · 描红乐园</title>
 <link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
   <!-- 顶栏 -->
   <div class="topbar">
-    <button id="btnHome" class="icon-btn" title="Home">🏠</button>
+    <button id="btnHome" class="icon-btn" title="Settings">⚙️</button>
     <div class="task-title">
       <span class="task-label" data-i18n="todayLearn">今天学</span>
       <span id="taskChar" class="task-char">A</span>
     </div>
     <div class="topbar-right">
+      <button id="btnGallery" class="icon-btn" title="Gallery">🖼️</button>
       <button id="btnSticker" class="icon-btn" title="Sticker Book">📖</button>
       <button id="btnLang" class="icon-btn" title="Language">🌐</button>
     </div>
@@ -38,6 +40,7 @@
 
   <!-- 底栏 -->
   <div class="toolbar">
+    <button id="btnClear" class="tool-btn clear-btn">🗑️<span class="btn-text" data-i18n="clear"> 清除</span></button>
     <button id="btnPrev" class="tool-btn">◀<span class="btn-text" data-i18n="prev"> 上一个</span></button>
     <button id="btnHelp" class="tool-btn">💡<span class="btn-text" data-i18n="help"> 提示</span></button>
     <button id="btnNext" class="tool-btn primary">🔄<span class="btn-text" data-i18n="next"> 换一个</span></button>
@@ -45,7 +48,7 @@
     <button id="btnFinish" class="tool-btn finish-btn" style="display:none;">✓<span class="btn-text" data-i18n="finish"> 完成</span></button>
   </div>
 
-  <!-- 家长面板 -->
+  <!-- 家长/老师设置面板 -->
   <div id="parentPanel" class="parent-panel">
     <div class="parent-card">
       <h2 data-i18n="parentTitle">家长 / 老师设置</h2>
@@ -66,15 +69,15 @@
       </div>
       <div class="row">
         <span data-i18n="brushSize">笔粗细</span>
-        <input id="brushSize" type="range" min="10" max="60" step="2" value="28">
-        <span id="brushSizeVal">28</span>
+        <input id="brushSize" type="range" min="10" max="80" step="2" value="48">
+        <span id="brushSizeVal">48</span>
       </div>
       <div class="row">
         <span data-i18n="brushColor">笔颜色</span>
         <input id="brushColor" type="color" value="#FF7043">
       </div>
       <div class="row">
-        <span data-i18n="sound">音效</span>
+        <span data-i18n="sound">音效/语音</span>
         <input id="soundOn" type="checkbox" checked>
       </div>
       <div class="row">
@@ -82,8 +85,16 @@
         <input id="vibrateOn" type="checkbox" checked>
       </div>
       <div class="row" style="flex-direction:column;align-items:stretch;">
+        <span data-i18n="customSetName">字表名称（用于保存）</span>
+        <input id="customSetName" type="text" placeholder="例如：小明一年级字表" style="padding:8px;border-radius:8px;border:1px solid #ccc;">
+      </div>
+      <div class="row" style="flex-direction:column;align-items:stretch;">
         <span data-i18n="customChars">自定义字表（逗号或换行分隔）</span>
         <textarea id="customChars" rows="3"></textarea>
+      </div>
+      <div class="row" style="flex-direction:column;align-items:stretch;">
+        <span data-i18n="savedSets">已保存的字表</span>
+        <div id="savedSetsList" class="saved-sets-list"></div>
       </div>
       <div class="row buttons">
         <button id="btnCloseParent" data-i18n="close">关闭</button>
@@ -102,6 +113,20 @@
       </div>
       <div class="row buttons">
         <button id="btnCloseSticker" data-i18n="close">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 作品集弹窗 -->
+  <div id="galleryPanel" class="parent-panel">
+    <div class="parent-card gallery-card">
+      <h2 data-i18n="galleryTitle">🖼️ 我的作品集</h2>
+      <div id="galleryGrid" class="gallery-grid"></div>
+      <div id="galleryEmpty" class="gallery-empty" style="display:none;" data-i18n="noDrawings">还没有作品哦，开始画画吧！</div>
+      <div class="row buttons">
+        <button id="btnDownloadGallery" class="download-btn" data-i18n="downloadAll">📥 下载全部</button>
+        <button id="btnClearGallery" data-i18n="clearGallery">清空</button>
+        <button id="btnCloseGallery" data-i18n="close">关闭</button>
       </div>
     </div>
   </div>

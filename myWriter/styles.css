@@ -33,7 +33,6 @@ body { display: flex; flex-direction: column; }
   display: flex; align-items: center; justify-content: center;
   padding: 8px;
 }
-/* 【改进】画布更大，充分利用屏幕空间 */
 .canvas {
   width: min(94vw, 78vh, 640px);
   height: min(94vw, 78vh, 640px);
@@ -142,9 +141,8 @@ body { display: flex; flex-direction: column; }
   display: flex; align-items: center; justify-content: center;
   gap: 4px;
 }
-.tool-btn.primary {
-  background: #FF7043; color: #fff;
-}
+.tool-btn.primary { background: #FF7043; color: #fff; }
+.tool-btn.clear-btn { background: #FFCDD2; color: #C62828; }
 .tool-btn.finish-btn {
   background: #4CAF50; color: #fff;
   animation: pulse 1.5s infinite;
@@ -178,9 +176,11 @@ body { display: flex; flex-direction: column; }
   min-width: 90px; color: #5D4037;
 }
 .parent-card .row input[type=range] { flex: 1; }
+.parent-card .row input[type=text],
 .parent-card textarea {
   flex: 1; font-size: 14px; padding: 8px;
   border-radius: 8px; border: 1px solid #ccc; resize: vertical;
+  width: 100%;
 }
 .parent-card .buttons { justify-content: flex-end; }
 .parent-card .buttons button {
@@ -188,12 +188,49 @@ body { display: flex; flex-direction: column; }
   border: none; font-size: 15px; font-weight: bold; cursor: pointer;
 }
 #btnApply { background: #FF7043; color: #fff; }
-#btnCloseParent, #btnCloseSticker { background: #eee; color: #333; }
+#btnCloseParent, #btnCloseSticker, #btnCloseGallery { background: #eee; color: #333; }
+#btnClearGallery { background: #FFCDD2; color: #C62828; }
+.download-btn { background: #4CAF50; color: #fff; }
 
 /* ---------- 难度选择 ---------- */
 #difficultyLevel {
   flex: 1; padding: 8px 12px; border-radius: 8px;
   border: 1px solid #ccc; font-size: 15px; background: #fff;
+}
+
+/* ---------- 已保存字表列表 ---------- */
+.saved-sets-list {
+  width: 100%;
+  max-height: 120px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 6px;
+  background: #fafafa;
+}
+.saved-set-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 8px; margin-bottom: 4px;
+  background: #fff; border-radius: 6px;
+  border: 1px solid #eee;
+  font-size: 13px;
+}
+.saved-set-item:last-child { margin-bottom: 0; }
+.saved-set-item .set-name {
+  font-weight: bold; color: #5D4037;
+  flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.saved-set-item .set-chars {
+  color: #999; font-size: 11px; margin-left: 8px;
+  max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.saved-set-item button {
+  padding: 4px 10px; border-radius: 6px; border: none;
+  background: #FFE0B2; color: #5D4037; font-size: 12px;
+  font-weight: bold; cursor: pointer; margin-left: 6px;
+}
+.saved-set-item button.del {
+  background: #FFCDD2; color: #C62828;
 }
 
 /* ---------- 贴纸册 ---------- */
@@ -225,6 +262,60 @@ body { display: flex; flex-direction: column; }
   color: #E64A19; font-size: 28px;
 }
 
+/* ---------- 作品集 ---------- */
+.gallery-card h2 { text-align: center; }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 8px;
+}
+.gallery-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  text-align: center;
+  border: 2px solid #FFE0B2;
+  transition: transform .2s;
+}
+.gallery-item:active { transform: scale(.96); }
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #f9f9f9;
+  display: block;
+}
+.gallery-item .char-name {
+  font-size: 22px;
+  font-weight: 900;
+  color: #E64A19;
+  margin: 4px 0 2px;
+  line-height: 1;
+}
+.gallery-item .stats {
+  font-size: 11px;
+  color: #666;
+  line-height: 1.4;
+}
+.gallery-item .stats .pct {
+  color: #FF7043; font-weight: bold;
+}
+.gallery-item .stats .stars-mini {
+  color: #FFB300;
+}
+.gallery-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+  font-size: 15px;
+}
+
 /* ---------- 庆祝层 ---------- */
 .celebrate {
   display: none; position: fixed; inset: 0;
@@ -250,7 +341,6 @@ body { display: flex; flex-direction: column; }
 }
 
 /* ---------- 移动端适配 ---------- */
-/* 【改进】小屏幕隐藏按钮文字，只显示图标 */
 @media (max-width: 480px) {
   .btn-text { display: none; }
   .tool-btn {
@@ -263,6 +353,7 @@ body { display: flex; flex-direction: column; }
   .combo-float { font-size: 36px; }
   .combo-float.combo-3 { font-size: 44px; }
   .combo-float.combo-4 { font-size: 52px; }
+  .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
 }
 
 @media (max-height: 620px) {
