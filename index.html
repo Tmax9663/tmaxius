@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+?<!DOCTYPE html>
 <html lang="zh-Hant" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
@@ -93,12 +93,14 @@ p{margin:0}
 }
 html[data-theme="light"] .nav{background:rgba(247,242,232,.82)}
 .nav-in{display:flex;align-items:center;gap:18px;height:62px;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:11px;font-family:var(--serif);font-size:1.02rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none}
-.brand .mark{
-  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
-  background:linear-gradient(145deg,var(--gold),#8a6113);color:#12141a;
-  font-weight:700;font-size:15px;letter-spacing:.02em;box-shadow:0 6px 18px -8px rgba(217,168,78,.8);
-}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;transition:opacity .25s}
+.brand:hover{opacity:.88}
+/* 品牌 Logo：兩份檔案，依目前主題顯示（深底用淺色墨，淺底用深色墨） */
+.brand-logo{display:block;height:26px;width:auto}
+.brand-logo.on-light{display:none}
+html[data-theme="light"] .brand-logo.on-dark{display:none}
+html[data-theme="light"] .brand-logo.on-light{display:block}
+.foot-in .brand-logo{height:20px}
 .nav-links{display:flex;align-items:center;gap:26px;font-size:14px}
 .nav-links a{
   text-decoration:none;color:var(--ink-2);position:relative;padding:4px 0;transition:color .25s;
@@ -359,7 +361,10 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
 <!-- ══════════════ NAV ══════════════ -->
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#top"><span class="mark">T</span> Tmaxius</a>
+    <a class="brand" href="#top" aria-label="Tmaxius Smart Tech 回首頁 Home">
+      <img class="brand-logo on-dark" src="logo-on-dark.png" alt="Tmaxius Smart Tech" width="760" height="228" decoding="async" />
+      <img class="brand-logo on-light" src="logo-on-light.png" alt="" aria-hidden="true" width="760" height="228" decoding="async" />
+    </a>
     <nav class="nav-links" aria-label="頁內導覽">
       <a href="#about">關於 About</a>
       <a href="#skills">技能 Skills</a>
@@ -523,7 +528,8 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
           <div class="chips">
             <span class="chip">React</span><span class="chip">原生 JS</span><span class="chip">響應式設計</span>
             <span class="chip">CSS 動效</span><span class="chip">無障礙 a11y</span><span class="chip">單檔 SPA</span>
-            <span class="chip">Canvas / SVG</span><span class="chip">列印樣式 @page</span>
+            <span class="chip">Canvas 手寫</span><span class="chip">PWA / Service Worker</span>
+            <span class="chip">語音合成 TTS</span><span class="chip">列印樣式 @page</span>
           </div>
         </div>
 
@@ -559,6 +565,7 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
           <div class="chips">
             <span class="chip">需求梳理</span><span class="chip">流程設計</span><span class="chip">雙語介面</span>
             <span class="chip">列印輸出 A4</span><span class="chip">手機優先</span><span class="chip">資料隱私</span>
+            <span class="chip">特殊教育友善</span><span class="chip">獎勵與回饋設計</span>
           </div>
         </div>
       </div>
@@ -570,8 +577,8 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow">Selected Work · 作品</span>
-        <h2>八字排盤與報告系統</h2>
-        <p>一個從零寫起、每天在自己手上使用的工具：命理排盤、格局判讀、以及可以直接列印的中文報告。</p>
+        <h2>工具、教材與遊戲</h2>
+        <p>三個自己從頭做到能用的東西：一個命理排盤系統、一個給特殊兒童的描紅 PWA、一支原生 JavaScript 的老虎機。</p>
       </div>
 
       <div class="showcase reveal d1">
@@ -599,8 +606,35 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
         </p>
       </div>
 
-      <!-- 副作品：老虎機網頁遊戲 -->
+      <!-- 副作品：描紅學習 PWA（特殊兒童） -->
       <div class="showcase reveal d2" style="margin-top:18px">
+        <div class="showcase-head">
+          <div>
+            <h3>跟我学 · 描红乐园 <span class="muted" style="font-family:var(--sans);font-size:14px;font-weight:400">Miaohong Learning</span></h3>
+            <p class="muted" style="margin-top:6px;font-size:14.2px">
+              特殊兒童描紅學習 PWA　｜　HTML + CSS + 原生 JavaScript + Canvas 手寫
+            </p>
+          </div>
+          <span class="tag-private">教育應用 Education</span>
+        </div>
+
+        <div class="feat-grid">
+          <div class="feat"><b><em>01</em>描紅練習</b><p>大字提示當天要學的字，手指沿著筆畫描，畫面上即時顯示完成度百分比。</p></div>
+          <div class="feat"><b><em>02</em>難度與門檻</b><p>啟蒙／基礎／進階／挑戰／自訂五個級別，過關門檻預設 75%，可調筆畫粗細與顏色。</p></div>
+          <div class="feat"><b><em>03</em>語音與回饋</b><p>內建語音朗讀（語速可調）、音效與震動回饋 —— 不識字的孩子也能靠聽覺跟著做。</p></div>
+          <div class="feat"><b><em>04</em>自訂字表</b><p>老師或家長用逗號／換行貼上自己的字表並存檔；換教材不必改程式。</p></div>
+          <div class="feat"><b><em>05</em>貼紙與作品集</b><p>寫完給貼紙、貼紙冊收集；作品集可單張保存，也可以一次打包下載。</p></div>
+          <div class="feat"><b><em>06</em>PWA 安裝</b><p>Service Worker 離線可用、可加入手機主畫面，家長手機不需要另外裝 App。</p></div>
+        </div>
+
+        <p class="muted" style="margin-top:20px;font-size:13.6px">
+          設計前提是「特殊兒童的專注時間很短」：一次只出現一個字、一個動作、一個明確的回饋，
+          沒有排行榜、沒有倒數、不會因為做錯而中斷練習。
+        </p>
+      </div>
+
+      <!-- 副作品：老虎機網頁遊戲 -->
+      <div class="showcase reveal d3" style="margin-top:18px">
         <div class="showcase-head">
           <div>
             <h3>5×5 經典老虎機 <span class="muted" style="font-family:var(--sans);font-size:14px;font-weight:400">Casino Lucky Slots</span></h3>
@@ -742,7 +776,10 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
 
 <footer>
   <div class="wrap foot-in">
-    <a class="brand" href="#top"><span class="mark">T</span> Tmaxius</a>
+    <a class="brand" href="#top" aria-label="Tmaxius Smart Tech 回首頁 Home">
+      <img class="brand-logo on-dark" src="logo-on-dark.png" alt="Tmaxius Smart Tech" width="760" height="228" decoding="async" />
+      <img class="brand-logo on-light" src="logo-on-light.png" alt="" aria-hidden="true" width="760" height="228" decoding="async" />
+    </a>
     <span>© <span id="year">2026</span> Tmaxius · Penang, Malaysia　·　Hand-coded with HTML · CSS · JavaScript</span>
   </div>
 </footer>
