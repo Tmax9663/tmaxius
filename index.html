@@ -1,141 +1,206 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" data-theme="dark">
+<html lang="zh-Hant" data-theme="dark" data-lang="zh">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Tmaxius — Software Developer & Digital Craftsman</title>
-<meta name="description" content="Tmaxius — software developer based in Penang, Malaysia. Full-stack development with JavaScript, Node.js, PHP and MySQL, plus interface and print design." />
+<title>Tmaxius — Software Developer &amp; Digital Craftsman</title>
+<meta name="description" content="Tmaxius — Software Developer & Digital Craftsman in Penang, Malaysia. React, Node.js, Java, PHP, SQL, Flutter, plus Arduino / Raspberry Pi, kiosk and POS work; interface and print design." />
 <meta name="author" content="Tmaxius" />
 <meta name="theme-color" content="#0a0c11" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Tmaxius — Software Developer & Digital Craftsman" />
-<meta property="og:description" content="全端開發 · 資料庫 · 界面設計 · 平面設計。以 JavaScript、Node.js、PHP、MySQL 打造完整的數位產品。" />
 <meta property="og:site_name" content="Tmaxius" />
-<!-- ★ 若你有分享圖，把 og:image 打開並改成你的圖檔（1200×630）：
+<meta property="og:title" content="Tmaxius — Software Developer & Digital Craftsman" />
+<meta property="og:description" content="全端開發 · 資料庫 · 手機 App · 硬體與終端 · 介面與平面設計。以 React、Node.js、Java、PHP、SQL、Flutter 打造完整的數位產品。" />
+<link rel="icon" href="favicon-64.png" sizes="64x64" type="image/png" />
+<link rel="apple-touch-icon" href="apple-touch-180.png" />
+<!-- ★ 若你有分享大圖（1200×630），打開下面三行：
 <meta property="og:image" content="https://tmaxius.com/og.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta name="twitter:card" content="summary_large_image" />
 -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0c11'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' fill='%23d9a84e' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
-<script>document.documentElement.classList.add('js');</script>
+<script>
+  (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
+    /* 網址可強制：?theme=light|dark 、?lang=zh|en（方便截圖與測試，不寫入 localStorage） */
+    var q = null;
+    try { q = new URLSearchParams(location.search); } catch (e) {}
+    var qTheme = q && q.get('theme'), qLang = q && q.get('lang');
+    try {
+      if (qTheme === 'light' || qTheme === 'dark') d.setAttribute('data-theme', qTheme);
+      else {
+        var t = localStorage.getItem('tmaxius-theme');
+        if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) d.setAttribute('data-theme', 'light');
+      }
+      if (qLang === 'zh' || qLang === 'en') d.setAttribute('data-lang', qLang);
+      else {
+        var l = localStorage.getItem('tmaxius-lang');
+        if (l === 'zh' || l === 'en') d.setAttribute('data-lang', l);
+      }
+    } catch (e) {}
+  })();
+</script>
 <style>
-/* ═══════════════ Tokens ═══════════════ */
+/* ══════════════════════ Tokens ══════════════════════ */
 :root{
   --bg:#0a0c11; --bg-2:#0e1118;
-  --ink:#eae7e1; --ink-2:#c9c5bd; --muted:#8d94a1;
+  --ink:#eae7e1; --ink-2:#cbc7bf; --muted:#8d94a1;
   --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.055);
-  --panel:rgba(255,255,255,.035); --panel-2:rgba(255,255,255,.055);
+  --panel:rgba(255,255,255,.035); --panel-2:rgba(255,255,255,.06);
   --gold:#d9a84e; --gold-2:#f2d49a; --maroon:#8e1f2f; --teal:#57c9bd;
+  --btn-a:#d9a84e; --btn-b:#a97b22; --btn-ink:#14161c;
   --shadow:0 24px 60px -28px rgba(0,0,0,.85);
+  --shadow-soft:0 16px 34px -26px rgba(0,0,0,.7);
   --serif:Georgia,"Noto Serif TC","Songti TC","PMingLiU","Times New Roman",serif;
   --sans:"Segoe UI","Noto Sans TC","Microsoft JhengHei",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
   --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
-  --max:1080px;
-  --r:16px;
+  --max:1080px; --r:16px;
+  --bar-track:rgba(255,255,255,.14); --bar-a:#8e1f2f; --bar-b:#e8bd63;
+  --chip-bg:rgba(255,255,255,.06); --chip-line:rgba(255,255,255,.13);
 }
+/* ── 淺色主題：奶油紙感 + 金線 + 酒紅點綴 ── */
 html[data-theme="light"]{
-  --bg:#f7f2e8; --bg-2:#efe7d8;
-  --ink:#232019; --ink-2:#3d382f; --muted:#6d675c;
-  --line:rgba(35,32,25,.16); --line-2:rgba(35,32,25,.09);
-  --panel:rgba(255,255,255,.72); --panel-2:rgba(255,255,255,.92);
-  --gold:#9a6d18; --gold-2:#7a2231; --maroon:#7a2231; --teal:#1d6f66;
-  --shadow:0 22px 50px -30px rgba(60,45,20,.5);
+  --bg:#faf5ea; --bg-2:#f3e9d7;
+  --ink:#201c15; --ink-2:#3c362b; --muted:#6c6455;
+  --line:rgba(32,28,21,.15); --line-2:rgba(32,28,21,.08);
+  --panel:#ffffff; --panel-2:#fffdf7;
+  --gold:#8b5210; --gold-2:#6f4409; --maroon:#7c2333; --teal:#1b6e64;
+  --btn-a:#8e2a3a; --btn-b:#6d1a28; --btn-ink:#fff8ec;
+  --shadow:0 22px 50px -30px rgba(92,62,22,.5);
+  --shadow-soft:0 14px 30px -22px rgba(92,62,22,.45);
+  --bar-track:#ece0c9; --bar-a:#8e2a3a; --bar-b:#d9a84e;
+  --chip-bg:#fffcf5; --chip-line:#e8dcc2;
 }
 
-/* ═══════════════ Base ═══════════════ */
+/* ══════════════════════ Base ══════════════════════ */
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
   margin:0; background:var(--bg); color:var(--ink);
   font-family:var(--sans); font-size:16.5px; line-height:1.78;
   -webkit-font-smoothing:antialiased; overflow-x:hidden;
-  transition:background .5s ease,color .5s ease;
+  transition:background .45s ease,color .45s ease;
 }
 body::before{
   content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
   background:
-    radial-gradient(58% 48% at 12% 4%, rgba(217,168,78,.16), transparent 68%),
-    radial-gradient(48% 42% at 92% 10%, rgba(142,31,47,.20), transparent 70%),
+    radial-gradient(58% 48% at 12% 2%, rgba(217,168,78,.18), transparent 68%),
+    radial-gradient(48% 42% at 92% 8%, rgba(142,31,47,.20), transparent 70%),
     radial-gradient(52% 46% at 50% 100%, rgba(87,201,189,.10), transparent 72%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
 }
-body::after{ /* 細網格 */
-  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.5;
+body::after{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.55;
   background-image:linear-gradient(var(--line-2) 1px,transparent 1px),linear-gradient(90deg,var(--line-2) 1px,transparent 1px);
   background-size:64px 64px;
-  -webkit-mask-image:radial-gradient(circle at 50% 30%,rgba(0,0,0,.9),transparent 78%);
-          mask-image:radial-gradient(circle at 50% 30%,rgba(0,0,0,.9),transparent 78%);
+  -webkit-mask-image:radial-gradient(circle at 50% 26%,rgba(0,0,0,.9),transparent 76%);
+          mask-image:radial-gradient(circle at 50% 26%,rgba(0,0,0,.9),transparent 76%);
+}
+html[data-theme="light"] body::before{
+  background:
+    radial-gradient(60% 44% at 10% -4%, rgba(233,190,110,.48), transparent 66%),
+    radial-gradient(48% 40% at 94% 6%, rgba(186,112,124,.20), transparent 70%),
+    radial-gradient(56% 44% at 50% 104%, rgba(96,160,150,.16), transparent 72%),
+    linear-gradient(180deg, #fbf7ef 0%, #f6eddd 55%, #f2e7d3 100%);
+}
+html[data-theme="light"] body::after{
+  background-image:radial-gradient(rgba(32,28,21,.07) 1px, transparent 1px);
+  background-size:22px 22px; opacity:.5;
+  -webkit-mask-image:radial-gradient(circle at 50% 20%,rgba(0,0,0,.85),transparent 78%);
+          mask-image:radial-gradient(circle at 50% 20%,rgba(0,0,0,.85),transparent 78%);
 }
 img,svg{max-width:100%;display:block}
 a{color:inherit}
 ::selection{background:var(--gold);color:#0a0c11}
+html[data-theme="light"] ::selection{background:#e8c98d;color:#201c15}
 .wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:24px}
 .eyebrow{
   display:inline-flex;align-items:center;gap:9px;
   font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;
   color:var(--gold);font-weight:700;
 }
-.eyebrow::before{content:"";width:26px;height:1px;background:currentColor;opacity:.75}
+.eyebrow::before{content:"";width:26px;height:1px;background:currentColor;opacity:.8}
 h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.22;margin:0;letter-spacing:.01em}
 h2{font-size:clamp(1.6rem,3.4vw,2.35rem)}
 h3{font-size:1.16rem;letter-spacing:.02em}
 p{margin:0}
 .muted{color:var(--muted)}
 
-/* ═══════════════ Nav ═══════════════ */
+/* 語言：只顯示目前語言 */
+html[data-lang="zh"] .en{display:none !important}
+html[data-lang="en"] .zh{display:none !important}
+
+/* ══════════════════════ Nav ══════════════════════ */
 .nav{
   position:sticky;top:0;z-index:50;
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   background:rgba(10,12,17,.78);
-  background:color-mix(in srgb, var(--bg) 72%, transparent);
+  background:color-mix(in srgb, var(--bg) 74%, transparent);
   border-bottom:1px solid var(--line-2);
+  transition:background .45s ease,border-color .45s ease;
 }
-html[data-theme="light"] .nav{background:rgba(247,242,232,.82)}
-.nav-in{display:flex;align-items:center;gap:18px;height:62px;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:11px;text-decoration:none;transition:opacity .25s}
-.brand:hover{opacity:.88}
-/* 品牌 Logo：兩份檔案，依目前主題顯示（深底用淺色墨，淺底用深色墨） */
-.brand-logo{display:block;height:26px;width:auto}
-.brand-logo.on-light{display:none}
-html[data-theme="light"] .brand-logo.on-dark{display:none}
-html[data-theme="light"] .brand-logo.on-light{display:block}
-.foot-in .brand-logo{height:20px}
-.nav-links{display:flex;align-items:center;gap:26px;font-size:14px}
-.nav-links a{
-  text-decoration:none;color:var(--ink-2);position:relative;padding:4px 0;transition:color .25s;
+html[data-theme="light"] .nav{
+  background:rgba(250,245,234,.88);
+  border-bottom:1px solid #e8dcc4;
+  box-shadow:0 8px 24px -22px rgba(92,62,22,.6);
 }
-.nav-links a::after{
-  content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold);transition:width .3s ease;
-}
+.nav-in{display:flex;align-items:center;gap:16px;height:64px;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;transition:opacity .25s,transform .25s}
+.brand:hover{opacity:.9;transform:translateY(-1px)}
+.mark-img{height:34px;width:34px;display:block;filter:drop-shadow(0 6px 14px rgba(217,168,78,.35))}
+.mark-img.mark-light{display:none}
+html[data-theme="light"] .mark-img.mark-dark{display:none}
+html[data-theme="light"] .mark-img.mark-light{display:block;filter:drop-shadow(0 5px 12px rgba(122,74,10,.24))}
+.brand-text{display:flex;flex-direction:column;line-height:1.05}
+.brand-name{font-family:var(--serif);font-size:1.06rem;letter-spacing:.14em;text-transform:uppercase}
+.brand-sub{font-size:9.5px;letter-spacing:.30em;text-transform:uppercase;color:var(--gold);margin-top:2px}
+.nav-links{display:flex;align-items:center;gap:24px;font-size:14px}
+.nav-links a{text-decoration:none;color:var(--ink-2);position:relative;padding:4px 0;transition:color .25s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold);transition:width .3s ease}
 .nav-links a:hover{color:var(--gold)}
 .nav-links a:hover::after{width:100%}
-.nav-tools{display:flex;align-items:center;gap:10px}
-.theme-btn{
+.nav-tools{display:flex;align-items:center;gap:8px}
+.icon-btn{
   width:36px;height:36px;border-radius:10px;border:1px solid var(--line);
   background:var(--panel);color:var(--ink);cursor:pointer;display:grid;place-items:center;
-  transition:transform .25s,border-color .25s,background .25s;
+  transition:transform .25s,border-color .25s,background .25s,color .25s;
 }
-.theme-btn:hover{transform:translateY(-2px);border-color:var(--gold)}
-.theme-btn svg{width:17px;height:17px}
+.icon-btn:hover{transform:translateY(-2px);border-color:var(--gold);color:var(--gold)}
+.icon-btn svg{width:17px;height:17px}
+html[data-theme="light"] .icon-btn{background:#fff;border-color:#e6d9bf}
+html[data-theme="light"] .icon-btn:hover{background:#fff8e9;border-color:var(--gold)}
 html[data-theme="light"] .i-moon{display:none}
 html[data-theme="dark"] .i-sun{display:none}
+.lang-toggle{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel)}
+html[data-theme="light"] .lang-toggle{background:#fff;border-color:#e6d9bf}
+.lang-toggle button{
+  border:0;background:transparent;color:var(--muted);cursor:pointer;
+  font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;
+  padding:8px 11px;transition:background .25s,color .25s;
+}
+.lang-toggle button:hover{color:var(--gold)}
+html[data-lang="zh"] .lang-toggle [data-set-lang="zh"],
+html[data-lang="en"] .lang-toggle [data-set-lang="en"]{background:var(--gold);color:#12141a}
+html[data-theme="light"] .lang-toggle [data-set-lang]{color:#6c6455}
+html[data-theme="light"] html[data-lang="zh"] .lang-toggle [data-set-lang="zh"],
+html[data-theme="light"] html[data-lang="en"] .lang-toggle [data-set-lang="en"]{color:#fff8ec}
 
-/* ═══════════════ Hero ═══════════════ */
-.hero{position:relative;padding:clamp(52px,7vw,96px) 0 clamp(46px,6vw,78px)}
-.hero-in{display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(28px,5vw,64px);align-items:center}
+/* ══════════════════════ Hero ══════════════════════ */
+.hero{position:relative;padding:clamp(50px,7vw,92px) 0 clamp(44px,6vw,74px)}
+.hero-in{display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(28px,5vw,60px);align-items:center}
 .badge{
   display:inline-flex;align-items:center;gap:9px;padding:6px 13px 6px 10px;border-radius:99px;
-  border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);
-  background:rgba(217,168,78,.12);
-  background:color-mix(in srgb,var(--gold) 10%,transparent);
-  font-size:12.5px;letter-spacing:.05em;color:var(--gold-2);font-weight:600;
+  border:1px solid rgba(217,168,78,.45);background:rgba(217,168,78,.12);
+  font-size:12.5px;letter-spacing:.04em;color:var(--gold-2);font-weight:600;
+}
+html[data-theme="light"] .badge{
+  border-color:#e2c48c;background:#fff6e2;color:#8b5210;
+  box-shadow:0 6px 16px -12px rgba(139,82,16,.5);
 }
 .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(87,201,189,.7);animation:pulse 2.4s infinite}
 @keyframes pulse{70%{box-shadow:0 0 0 9px rgba(87,201,189,0)}100%{box-shadow:0 0 0 0 rgba(87,201,189,0)}}
-.hero h1{
-  margin:20px 0 0;font-size:clamp(2.5rem,6.4vw,4.15rem);line-height:1.04;letter-spacing:-.015em;
-}
+.hero h1{margin:20px 0 0;font-size:clamp(2.45rem,6.2vw,4.05rem);line-height:1.04;letter-spacing:-.015em}
 .hero h1 .word{
   background:linear-gradient(100deg,var(--gold-2) 0%,var(--gold) 38%,#fff3d6 60%,var(--gold) 100%);
   background-size:220% 100%;
@@ -143,131 +208,183 @@ html[data-theme="dark"] .i-sun{display:none}
   animation:sheen 9s linear infinite;
 }
 @keyframes sheen{0%{background-position:0% 50%}100%{background-position:220% 50%}}
-.hero .role{
-  margin:14px 0 0;font-family:var(--serif);font-size:clamp(1.02rem,2.2vw,1.3rem);
-  color:var(--ink-2);letter-spacing:.06em;
+/* 不支援 background-clip:text 的瀏覽器：退回單色字，至少看得到字 */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)){
+  .hero h1 .word{
+    background:none !important;color:var(--gold) !important;
+    -webkit-text-fill-color:currentColor !important;animation:none !important;
+  }
 }
+html[data-theme="light"] .hero h1 .word{
+  background-image:linear-gradient(100deg,#8b5210 0%,#a9721b 32%,#7c2333 58%,#a9721b 78%,#8b5210 100%);
+  background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-fill-color:transparent;
+}
+.hero .role{margin:14px 0 0;font-family:var(--serif);font-size:clamp(1.02rem,2.2vw,1.28rem);color:var(--ink-2);letter-spacing:.055em}
 .hero .role .sep{color:var(--gold);margin:0 .5em}
-.hero .lead{margin:18px 0 0;max-width:46ch;color:var(--muted);font-size:1rem}
+.hero .lead{margin:18px 0 0;max-width:48ch;color:var(--muted);font-size:1.005rem}
 .hero .lead strong{color:var(--ink-2);font-weight:600}
-.hero-meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font-size:13.5px;color:var(--muted)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:22px;font-size:13.4px;color:var(--muted)}
 .hero-meta span{display:inline-flex;align-items:center;gap:7px}
-.hero-meta svg{width:14px;height:14px;color:var(--gold);opacity:.9}
+.hero-meta svg{width:14px;height:14px;color:var(--gold);opacity:.95}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .btn{
   display:inline-flex;align-items:center;gap:9px;text-decoration:none;cursor:pointer;
   padding:12px 22px;border-radius:11px;font-size:14.5px;font-weight:600;letter-spacing:.02em;
-  border:1px solid transparent;transition:transform .25s,box-shadow .25s,background .25s,border-color .25s;
+  border:1px solid transparent;transition:transform .25s,box-shadow .25s,background .25s,border-color .25s,color .25s;
 }
-.btn-primary{background:linear-gradient(145deg,var(--gold),#a97b22);color:#14161c;box-shadow:0 14px 34px -16px rgba(217,168,78,.9)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -18px rgba(217,168,78,1)}
+.btn-primary{background:linear-gradient(145deg,var(--btn-a),var(--btn-b));color:var(--btn-ink);box-shadow:0 14px 30px -16px rgba(217,168,78,.85)}
+html[data-theme="light"] .btn-primary{box-shadow:0 14px 30px -16px rgba(109,26,40,.6)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 38px -18px rgba(217,168,78,.95)}
+html[data-theme="light"] .btn-primary:hover{box-shadow:0 20px 38px -18px rgba(109,26,40,.7)}
 .btn-ghost{background:var(--panel);border-color:var(--line);color:var(--ink)}
-.btn-ghost:hover{transform:translateY(-2px);border-color:var(--gold);color:var(--gold)}
+html[data-theme="light"] .btn-ghost{background:#fff;border-color:#e2d3b6;box-shadow:0 10px 24px -22px rgba(92,62,22,.8)}
+.btn-ghost:hover{transform:translateY(-2px);border-color:var(--gold);color:var(--gold);background:var(--panel-2)}
+html[data-theme="light"] .btn-ghost:hover{background:#fff8ea;border-color:var(--gold);color:#8b5210}
 
-/* Hero seal / 八卦 ring */
-.seal{
-  position:relative;aspect-ratio:1;width:min(100%,380px);margin-inline:auto;display:grid;place-items:center;
+/* 八卦羅盤 */
+.seal{position:relative;aspect-ratio:1;width:min(100%,372px);margin-inline:auto;display:grid;place-items:center;overflow:hidden}
+.seal::before{
+  content:"";position:absolute;inset:14%;border-radius:50%;
+  background:radial-gradient(circle,rgba(217,168,78,.16),transparent 68%);
+  filter:blur(6px);
+}
+html[data-theme="light"] .seal::before{
+  background:radial-gradient(circle,rgba(233,190,110,.55),rgba(186,112,124,.12) 55%,transparent 72%);
+  filter:blur(10px);
 }
 .seal .ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--line)}
-.seal .ring:nth-child(2){inset:9%;border-style:dashed;border-color:color-mix(in srgb,var(--gold) 35%,transparent);animation:spin 74s linear infinite}
-.seal .ring:nth-child(3){inset:20%;border-color:color-mix(in srgb,var(--gold) 28%,transparent)}
+.seal .ring:nth-child(2){inset:9%;border-style:dashed;border-color:rgba(217,168,78,.36);animation:spin 74s linear infinite}
+.seal .ring:nth-child(3){inset:20%;border-color:rgba(217,168,78,.28)}
 .seal .ring:nth-child(4){inset:32%;border-color:var(--line)}
+html[data-theme="light"] .seal .ring{border-color:#e7d9bd}
+html[data-theme="light"] .seal .ring:nth-child(2){border-color:rgba(169,114,27,.45)}
+html[data-theme="light"] .seal .ring:nth-child(3){border-color:rgba(169,114,27,.32)}
 .seal .core{
   position:relative;width:44%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;
   background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.14),transparent 62%),var(--panel-2);
-  border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);
+  border:1px solid rgba(217,168,78,.42);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 30px 70px -34px rgba(0,0,0,.9);
   backdrop-filter:blur(6px);
 }
-.seal .core b{
-  display:block;font-family:var(--serif);font-size:clamp(1.35rem,4.4vw,2rem);letter-spacing:.1em;
-  background:linear-gradient(120deg,var(--gold-2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;
+html[data-theme="light"] .seal .core{
+  background:radial-gradient(circle at 32% 24%,#ffffff,#fffaf0 70%);
+  border-color:#e3c68d;
+  box-shadow:inset 0 1px 0 #fff,0 26px 50px -30px rgba(122,80,24,.55);
 }
-.seal .core small{display:block;margin-top:3px;font-size:9.5px;letter-spacing:.34em;color:var(--muted);text-transform:uppercase}
-.trigram{
-  position:absolute;inset:0;display:flex;justify-content:center;align-items:flex-start;
-  transform:rotate(var(--a,0deg));pointer-events:none;
-}
-.trigram span{
-  display:block;margin-top:6.5%;font-size:clamp(14px,3vw,19px);line-height:1;
-  color:var(--gold);opacity:.72;transform:rotate(calc(-1 * var(--a,0deg)));
-}
+.seal .core img{width:54%;height:auto;filter:drop-shadow(0 6px 12px rgba(139,82,16,.25))}
+.seal .core small{display:block;margin-top:2px;font-size:9px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase}
+.trigram{position:absolute;inset:0;display:flex;justify-content:center;align-items:flex-start;transform:rotate(var(--a,0deg));pointer-events:none}
+.trigram span{display:block;margin-top:6.5%;font-size:clamp(14px,3vw,19px);line-height:1;color:var(--gold);opacity:.72;transform:rotate(calc(-1 * var(--a,0deg)))}
+html[data-theme="light"] .trigram span{color:#a9721b;opacity:.85}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ═══════════════ Sections ═══════════════ */
-section{position:relative;padding:clamp(46px,6vw,74px) 0}
-.sec-head{max-width:62ch}
+/* ══════════════════════ Sections ══════════════════════ */
+section{position:relative;padding:clamp(44px,5.6vw,72px) 0}
+.sec-head{max-width:64ch}
 .sec-head p{margin-top:12px;color:var(--muted);font-size:.98rem}
 
-/* principles strip */
+/* 原則 */
 .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden}
 .strip div{background:var(--bg-2);background:color-mix(in srgb,var(--bg-2) 88%,transparent);padding:22px 18px}
+html[data-theme="light"] .strip{background:#e9dcc2;border-color:#e9dcc2;box-shadow:var(--shadow-soft)}
+html[data-theme="light"] .strip div{background:#fffdf7}
 .strip b{display:block;font-family:var(--serif);font-size:1.05rem;color:var(--ink)}
-.strip small{display:block;margin-top:4px;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);opacity:.9}
+.strip small{display:block;margin-top:4px;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);opacity:.95}
 .strip p{margin-top:8px;font-size:13.6px;color:var(--muted);line-height:1.66}
 
-/* about */
-.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,4vw,52px);margin-top:34px;align-items:start}
+/* 關於 */
+.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,4vw,50px);margin-top:32px;align-items:start}
 .prose p+p{margin-top:15px}
 .prose{font-size:1rem;color:var(--ink-2);line-height:1.9}
 .prose b{color:var(--ink);font-weight:600}
 .card{
   background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:24px;
   box-shadow:var(--shadow);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:transform .3s,border-color .3s,box-shadow .3s;
 }
+html[data-theme="light"] .card{background:#fff;border-color:#ebdfc6;box-shadow:var(--shadow-soft)}
 .card h3{margin-bottom:14px}
 .kv{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-top:1px dashed var(--line);font-size:14px}
 .kv:first-of-type{border-top:0;padding-top:0}
 .kv span{color:var(--muted);letter-spacing:.02em}
 .kv b{font-weight:600;text-align:right}
+html[data-theme="light"] .kv{border-top-color:#ebdfc6}
 
-/* skills */
-.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:16px;margin-top:34px}
-.skill{padding:22px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);transition:transform .3s,border-color .3s}
-.skill:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--gold) 45%,transparent)}
-.skill h4{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700}
-.skill h4 svg{width:16px;height:16px}
+/* 技能 */
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:16px;margin-top:32px}
+.skill{padding:22px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);transition:transform .3s,border-color .3s,box-shadow .3s}
+html[data-theme="light"] .skill{background:#fff;border-color:#ebdfc6;box-shadow:var(--shadow-soft)}
+.skill:hover{transform:translateY(-3px);border-color:rgba(217,168,78,.5)}
+html[data-theme="light"] .skill:hover{border-color:#d9b877;box-shadow:0 20px 38px -28px rgba(122,80,24,.55)}
+.skill h4{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.skill h4 svg{width:16px;height:16px;flex:0 0 auto}
 .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
 .chip{
-  font-size:12.6px;padding:4px 10px;border-radius:99px;border:1px solid var(--line);
-  color:var(--ink-2);background:var(--panel-2);letter-spacing:.01em;white-space:nowrap;
+  font-size:12.6px;padding:4px 10px;border-radius:99px;border:1px solid var(--chip-line);
+  color:var(--ink-2);background:var(--chip-bg);letter-spacing:.01em;white-space:nowrap;
+  transition:border-color .25s,background .25s,color .25s,transform .25s;
 }
+.chip:hover{border-color:rgba(217,168,78,.6);color:var(--gold);transform:translateY(-1px)}
+html[data-theme="light"] .chip:hover{background:#fff8e9;border-color:#d9b877;color:#8b5210}
 .bars{margin-top:16px;display:grid;gap:13px}
 .bar-row b{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--ink-2)}
 .bar-row b i{font-style:normal;color:var(--muted);font-weight:500;font-size:12px}
-.bar{height:5px;border-radius:99px;background:rgba(128,128,128,.22);margin-top:7px;overflow:hidden}
-.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--maroon),var(--gold));transition:width 1.15s cubic-bezier(.2,.8,.2,1)}
+.bar{height:5px;border-radius:99px;background:var(--bar-track);margin-top:7px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--bar-a),var(--bar-b));transition:width 1.15s cubic-bezier(.2,.8,.2,1)}
 
-/* bazi showcase */
+/* showcase */
 .showcase{
-  margin-top:34px;padding:clamp(22px,3.4vw,38px);border:1px solid var(--line);border-radius:calc(var(--r) + 6px);
+  margin-top:32px;padding:clamp(22px,3.4vw,38px);border:1px solid var(--line);border-radius:calc(var(--r) + 6px);
   background:
-    radial-gradient(120% 130% at 0% 0%, color-mix(in srgb,var(--maroon) 22%,transparent), transparent 58%),
-    radial-gradient(120% 130% at 100% 100%, color-mix(in srgb,var(--gold) 16%,transparent), transparent 62%),
+    radial-gradient(120% 130% at 0% 0%, rgba(142,31,47,.20), transparent 58%),
+    radial-gradient(120% 130% at 100% 100%, rgba(217,168,78,.15), transparent 62%),
     var(--panel);
-  box-shadow:var(--shadow);
+  box-shadow:var(--shadow);transition:border-color .35s,box-shadow .35s;
 }
+html[data-theme="light"] .showcase{
+  background:
+    radial-gradient(120% 130% at 0% 0%, rgba(124,35,51,.07), transparent 58%),
+    radial-gradient(120% 130% at 100% 100%, rgba(233,190,110,.30), transparent 64%),
+    #fffdf8;
+  border-color:#ebdfc6;box-shadow:var(--shadow-soft);
+}
+.showcase:hover{border-color:rgba(217,168,78,.45)}
+html[data-theme="light"] .showcase:hover{border-color:#dcbf87}
 .showcase-head{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between}
 .tag-private{
   font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
-  border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-radius:99px;padding:5px 12px;white-space:nowrap;
+  border:1px solid rgba(217,168,78,.45);border-radius:99px;padding:5px 12px;white-space:nowrap;
 }
-.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:1px;margin-top:26px;background:var(--line-2);border:1px solid var(--line-2);border-radius:14px;overflow:hidden}
-.feat{background:var(--bg-2);background:color-mix(in srgb,var(--bg-2) 80%,transparent);padding:20px 18px}
+html[data-theme="light"] .tag-private{background:#fff6e2;border-color:#e2c48c;color:#8b5210}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:1px;margin-top:24px;background:var(--line-2);border:1px solid var(--line-2);border-radius:14px;overflow:hidden}
+.feat{background:var(--bg-2);background:color-mix(in srgb,var(--bg-2) 80%,transparent);padding:20px 18px;transition:background .3s}
+html[data-theme="light"] .feat-grid{background:#eee2cb;border-color:#eee2cb}
+html[data-theme="light"] .feat{background:#fffdf7}
+html[data-theme="light"] .feat:hover{background:#fffaee}
 .feat b{display:block;font-family:var(--serif);font-size:1rem;color:var(--ink)}
 .feat b em{font-style:normal;color:var(--gold);margin-right:7px;font-size:.85em}
 .feat p{margin-top:7px;font-size:13.7px;color:var(--muted);line-height:1.68}
 
-/* mobile apps */
+/* 手機 Apps */
 .app-card{
-  margin-top:26px;padding:clamp(22px,3.4vw,36px);border:1px solid var(--line);border-radius:calc(var(--r) + 6px);
+  margin-top:24px;padding:clamp(22px,3.4vw,36px);border:1px solid var(--line);border-radius:calc(var(--r) + 6px);
   background:
-    radial-gradient(110% 120% at 100% 0%, color-mix(in srgb,var(--gold) 14%,transparent), transparent 60%),
-    radial-gradient(110% 120% at 0% 100%, color-mix(in srgb,var(--teal) 10%,transparent), transparent 62%),
+    radial-gradient(110% 120% at 100% 0%, rgba(217,168,78,.13), transparent 60%),
+    radial-gradient(110% 120% at 0% 100%, rgba(87,201,189,.10), transparent 62%),
     var(--panel);
   box-shadow:var(--shadow);transition:transform .35s,border-color .35s;
 }
-.app-card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--gold) 40%,transparent)}
+html[data-theme="light"] .app-card{
+  background:
+    radial-gradient(110% 120% at 100% 0%, rgba(233,190,110,.28), transparent 62%),
+    radial-gradient(110% 120% at 0% 100%, rgba(96,160,150,.12), transparent 64%),
+    #fffdf8;
+  border-color:#ebdfc6;box-shadow:var(--shadow-soft);
+}
+.app-card:hover{transform:translateY(-3px);border-color:rgba(217,168,78,.45)}
+html[data-theme="light"] .app-card:hover{border-color:#dcbf87}
 .app-head{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
 .app-icon{
   width:54px;height:54px;flex:0 0 auto;border-radius:15px;display:grid;place-items:center;
@@ -275,54 +392,72 @@ section{position:relative;padding:clamp(46px,6vw,74px) 0}
   background:linear-gradient(145deg,var(--gold-2),var(--gold));
   box-shadow:0 14px 30px -14px rgba(217,168,78,.9),inset 0 1px 0 rgba(255,255,255,.5);
 }
+html[data-theme="light"] .app-icon{
+  background:linear-gradient(145deg,#f0cf90,#c99a3a);color:#3a2508;
+  box-shadow:0 12px 24px -16px rgba(139,82,16,.7),inset 0 1px 0 #fff;
+}
 .app-title{flex:1 1 220px;min-width:0}
 .app-title h3{font-size:1.22rem;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
 .app-ver{
   font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--gold);
-  border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);border-radius:99px;padding:2px 9px;
+  border:1px solid rgba(217,168,78,.4);border-radius:99px;padding:2px 9px;
 }
+html[data-theme="light"] .app-ver{background:#fff6e2;border-color:#e2c48c;color:#8b5210}
 .app-sub{margin-top:5px;font-size:13.4px;color:var(--muted);letter-spacing:.02em}
 .app-head .tag-private{margin-left:auto}
 .app-desc{margin-top:16px;font-size:15.2px;line-height:1.85;color:var(--ink-2);max-width:70ch}
-.app-note{
-  margin-top:18px;font-size:13.2px;color:var(--muted);
-  border-top:1px dashed var(--line);padding-top:14px;
-}
+.app-note{margin-top:18px;font-size:13.2px;color:var(--muted);border-top:1px dashed var(--line);padding-top:14px}
+html[data-theme="light"] .app-note{border-top-color:#ebdfc6}
 .app-card code,.showcase code{
   font-family:var(--mono);font-size:.9em;background:var(--panel-2);
   border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--gold-2);
 }
+html[data-theme="light"] .app-card code,html[data-theme="light"] .showcase code{
+  background:#fff6e2;border-color:#e8d6b3;color:#8b5210;
+}
 
-/* process */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:34px;counter-reset:s}
-.step{position:relative;padding:24px 20px 20px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel)}
+/* 流程 */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:32px;counter-reset:s}
+.step{position:relative;padding:24px 20px 20px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);transition:transform .3s,border-color .3s}
+html[data-theme="light"] .step{background:#fff;border-color:#ebdfc6;box-shadow:var(--shadow-soft)}
+.step:hover{transform:translateY(-3px);border-color:rgba(217,168,78,.45)}
+html[data-theme="light"] .step:hover{border-color:#dcbf87}
 .step::before{
   counter-increment:s;content:"0" counter(s);
-  font-family:var(--serif);font-size:1.5rem;color:var(--gold);opacity:.55;display:block;line-height:1;margin-bottom:10px;
+  font-family:var(--serif);font-size:1.5rem;color:var(--gold);opacity:.6;display:block;line-height:1;margin-bottom:10px;
 }
+html[data-theme="light"] .step::before{color:#c08a2e;opacity:.85}
 .step b{display:block;font-size:1rem;letter-spacing:.02em}
 .step p{margin-top:7px;font-size:13.7px;color:var(--muted);line-height:1.68}
 
-/* contact */
-.contact-grid{display:grid;grid-template-columns:1fr .82fr;gap:clamp(22px,4vw,44px);margin-top:30px;align-items:start}
+/* 聯絡 */
+.contact-grid{display:grid;grid-template-columns:1fr .82fr;gap:clamp(22px,4vw,44px);margin-top:28px;align-items:start}
 .mail-chip{
   display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:18px;padding:14px 16px;
-  border:1px dashed color-mix(in srgb,var(--gold) 42%,transparent);border-radius:12px;background:var(--panel);
+  border:1px dashed rgba(217,168,78,.45);border-radius:12px;background:var(--panel);
 }
+html[data-theme="light"] .mail-chip{background:#fffdf6;border-color:#dcbf87}
 .mail-chip code{font-family:var(--mono);font-size:14.5px;color:var(--gold-2);letter-spacing:.01em}
+html[data-theme="light"] .mail-chip code{color:#8b5210}
 .copy-btn{
   border:1px solid var(--line);background:var(--panel-2);color:var(--ink-2);cursor:pointer;
   border-radius:9px;padding:7px 13px;font-size:12.5px;font-family:var(--sans);letter-spacing:.04em;
-  transition:border-color .25s,color .25s,transform .2s;
+  transition:border-color .25s,color .25s,transform .2s,background .25s;
 }
+html[data-theme="light"] .copy-btn{background:#fff;border-color:#e2d3b6}
 .copy-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px)}
+html[data-theme="light"] .copy-btn:hover{background:#fff8e9;color:#8b5210}
 .copy-btn.done{border-color:var(--teal);color:var(--teal)}
+html[data-theme="light"] .copy-btn.done{border-color:#1b6e64;color:#1b6e64}
 .contact-note{margin-top:14px;font-size:13.4px;color:var(--muted)}
 
 /* footer */
-footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
+footer{border-top:1px solid var(--line-2);padding:28px 0 44px;margin-top:18px}
+html[data-theme="light"] footer{border-top-color:#e8dcc4}
 .foot-in{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;font-size:13px;color:var(--muted)}
-.foot-in .brand{font-size:.86rem;letter-spacing:.2em}
+.foot-in .brand-name{font-size:.86rem;letter-spacing:.18em}
+.foot-in .mark-img{height:24px;width:24px}
+.foot-in .brand-sub{display:none}
 
 /* reveal */
 .js .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
@@ -333,13 +468,20 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
 .js .reveal.d4{transition-delay:.28s}
 
 /* responsive */
+@media (max-width:980px){
+  .nav-links{gap:14px;font-size:12.6px}
+  .nav-links a:nth-child(1),.nav-links a:nth-child(2){display:none}
+}
 @media (max-width:900px){
-  .hero-in{grid-template-columns:1fr;gap:34px}
+  .hero-in{grid-template-columns:1fr;gap:32px}
   .seal{order:-1;width:min(78%,300px)}
   .about-grid,.contact-grid{grid-template-columns:1fr}
   .strip{grid-template-columns:repeat(2,1fr)}
-  .nav-links{gap:14px;font-size:12.6px}
-  .nav-links a:nth-child(1),.nav-links a:nth-child(2){display:none}
+}
+@media (max-width:640px){
+  .nav-links{display:none}
+  .brand-sub{display:none}
+  .brand-name{font-size:.98rem}
 }
 @media (max-width:520px){
   body{font-size:16px}
@@ -347,7 +489,6 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
   .strip{grid-template-columns:1fr}
   .cta-row .btn{flex:1 1 100%;justify-content:center}
   .hero-meta{gap:6px 16px;font-size:12.8px}
-  .nav-links{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -361,19 +502,29 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
 <!-- ══════════════ NAV ══════════════ -->
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#top" aria-label="Tmaxius Smart Tech 回首頁 Home">
-      <img class="brand-logo on-dark" src="logo-on-dark.png" alt="Tmaxius Smart Tech" width="760" height="228" decoding="async" />
-      <img class="brand-logo on-light" src="logo-on-light.png" alt="" aria-hidden="true" width="760" height="228" decoding="async" />
+    <a class="brand" href="#top" aria-label="Tmaxius Smart Tech">
+      <img class="mark-img mark-dark" src="mark-gold.png" alt="" width="250" height="250" />
+      <img class="mark-img mark-light" src="mark-amber.png" alt="" width="250" height="250" />
+      <span class="brand-text">
+        <span class="brand-name">Tmaxius</span>
+        <span class="brand-sub">Smart Tech</span>
+      </span>
     </a>
-    <nav class="nav-links" aria-label="頁內導覽">
-      <a href="#about">關於 About</a>
-      <a href="#skills">技能 Skills</a>
-      <a href="#work">作品 Work</a>
-      <a href="#apps">手機 Apps</a>
-      <a href="#contact">聯絡 Contact</a>
+
+    <nav class="nav-links" aria-label="Navigation">
+      <a href="#about"><span class="zh">關於</span><span class="en">About</span></a>
+      <a href="#skills"><span class="zh">技能</span><span class="en">Skills</span></a>
+      <a href="#work"><span class="zh">作品</span><span class="en">Work</span></a>
+      <a href="#apps"><span class="zh">手機</span><span class="en">Apps</span></a>
+      <a href="#contact"><span class="zh">聯絡</span><span class="en">Contact</span></a>
     </nav>
+
     <div class="nav-tools">
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="切換明暗主題" title="切換明暗主題">
+      <div class="lang-toggle" role="group" aria-label="Language 語言">
+        <button type="button" data-set-lang="zh" aria-pressed="true">中</button>
+        <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="切換明暗主題 / Toggle theme" title="Light / Dark">
         <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
         <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.3A8.6 8.6 0 1 1 9.7 3.5a7 7 0 0 0 10.8 10.8Z"/></svg>
       </button>
@@ -387,39 +538,46 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
   <section class="hero">
     <div class="wrap hero-in">
       <div>
-        <span class="badge"><span class="dot"></span> 接受新專案 · Available for selected projects</span>
+        <span class="badge"><span class="dot"></span>
+          <span class="zh">接受新專案</span><span class="en">Available for selected projects</span>
+        </span>
 
         <h1><span class="word">Tmaxius</span></h1>
         <p class="role">Software Developer <span class="sep">/</span> Digital Craftsman <span class="sep">/</span> Designer</p>
 
         <p class="lead">
-          我寫程式，也畫設計。從 <strong>資料庫結構</strong> 到 <strong>手機上的第一眼</strong>，
-          一個人把想法做成能上線、能長久使用的產品。
-          <span class="muted"><br>I build complete digital products — code, data and visuals, end to end.</span>
+          <span class="zh">我寫程式，也畫設計。從 <strong>資料庫結構</strong>、<strong>手機 App</strong>，到 <strong>Kiosk 自助機</strong>與 <strong>POS 收銀終端</strong> —— 一個人把想法做成能上線、能長久使用的產品。</span>
+          <span class="en">I write code and draw the design too — from <strong>database schemas</strong> and <strong>mobile apps</strong> to <strong>kiosks</strong> and <strong>POS terminals</strong>: one pair of hands takes an idea to something that ships and lasts.</span>
         </p>
 
         <div class="hero-meta">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg> 馬來西亞 · 檳城 Penang, Malaysia</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg> 全端開發 · 資料庫 · 平面設計</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg> Penang, Malaysia</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg>
+            <span class="zh">全端 · 資料庫 · 硬體整合</span><span class="en">Full-stack · Data · Hardware</span>
+          </span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.6"/><path d="M10.5 18.6h3"/></svg> Android · Flutter · Kiosk</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.5 12h17M12 3.2c2.6 2.6 2.6 15 0 17.6M12 3.2c-2.6 2.6-2.6 15 0 17.6"/></svg> 中文 · English</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.6"/><path d="M10.5 18.6h3"/></svg> Android · Flutter 手機應用</span>
         </div>
 
         <div class="cta-row">
-          <a class="btn btn-primary" href="#about">認識我 About me
+          <a class="btn btn-primary" href="#about">
+            <span class="zh">認識我</span><span class="en">About me</span>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
           </a>
-          <a class="btn btn-ghost" href="#work">看作品 Work</a>
+          <a class="btn btn-ghost" href="#work"><span class="zh">看作品</span><span class="en">View work</span></a>
         </div>
       </div>
 
-      <!-- 八卦／羅盤視覺 -->
       <div class="seal" aria-hidden="true">
         <div class="ring"></div>
         <div class="ring"></div>
         <div class="ring"></div>
         <div class="ring"></div>
-        <div class="core"><b>T</b><small>Build · Design</small></div>
+        <div class="core">
+          <img class="mark-img mark-dark" src="mark-gold.png" alt="" width="250" height="250" />
+          <img class="mark-img mark-light" src="mark-amber.png" alt="" width="250" height="250" />
+          <small>Smart Tech</small>
+        </div>
         <div class="trigram" style="--a:0deg"><span>☰</span></div>
         <div class="trigram" style="--a:45deg"><span>☱</span></div>
         <div class="trigram" style="--a:90deg"><span>☲</span></div>
@@ -436,10 +594,14 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
   <section style="padding-top:0">
     <div class="wrap">
       <div class="strip reveal">
-        <div><small>01</small><b>清楚 Clear</b><p>程式碼與畫面都不藏祕密，接手的人看得懂。</p></div>
-        <div><small>02</small><b>耐用 Durable</b><p>先想三年後的維護，再寫今天的程式。</p></div>
-        <div><small>03</small><b>輕快 Fast</b><p>少一個依賴，就少一個會壞的地方。</p></div>
-        <div><small>04</small><b>好看 Beautiful</b><p>功能對了，細節才決定別人信不信你。</p></div>
+        <div><small>01</small><b><span class="zh">清楚</span><span class="en">Clear</span></b>
+          <p><span class="zh">程式碼與畫面都不藏祕密，接手的人看得懂。</span><span class="en">Code and screens hide nothing; whoever takes over can read them.</span></p></div>
+        <div><small>02</small><b><span class="zh">耐用</span><span class="en">Durable</span></b>
+          <p><span class="zh">先想三年後的維護，再寫今天的程式。</span><span class="en">Think about maintenance three years out, then write today's code.</span></p></div>
+        <div><small>03</small><b><span class="zh">輕快</span><span class="en">Fast</span></b>
+          <p><span class="zh">少一個依賴，就少一個會壞的地方。</span><span class="en">Every dependency you skip is one less thing that can break.</span></p></div>
+        <div><small>04</small><b><span class="zh">好看</span><span class="en">Beautiful</span></b>
+          <p><span class="zh">功能對了，細節才決定別人信不信你。</span><span class="en">Function first — but the details decide whether people trust it.</span></p></div>
       </div>
     </div>
   </section>
@@ -448,45 +610,42 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
   <section id="about">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow">About · 關於我</span>
-        <h2>一個人，從資料庫到印刷品</h2>
-        <p>我不把「工程」和「設計」分開做 —— 同一雙手，寫得出後端邏輯，也排得出海報的字距。</p>
+        <span class="eyebrow">About</span>
+        <h2><span class="zh">一個人，從資料庫到印刷品</span><span class="en">One person, from database to print</span></h2>
+        <p><span class="zh">我不把「工程」和「設計」分開做 —— 同一雙手，寫得出後端邏輯，也排得出海報的字距。</span>
+          <span class="en">I don't split engineering from design — the same hands write the backend logic and set the kerning on the poster.</span></p>
       </div>
 
       <div class="about-grid">
         <div class="prose reveal d1">
           <p>
-            我是 <b>Tmaxius</b>，一位在馬來西亞檳城的軟體開發者與設計師。日常的工作橫跨
-            <b>JavaScript / Node.js</b> 的應用開發、<b>PHP + MySQL</b> 的資料庫系統、
-            以及 <b>Cloudflare Workers</b> 這類無伺服器（serverless）部署；
-            版本控制、指令列自動化、上線維運也都是自己來。
+            <span class="zh">我是 <b>Tmaxius</b>，在馬來西亞檳城做軟體與設計。日常橫跨 <b>React</b> 與 <b>Node.js</b> 的應用開發、<b>PHP + MySQL</b> 的資料庫系統、<b>Java</b> 與 <b>Flutter</b> 的行動與終端程式，以及 Cloudflare Workers 這類無伺服器部署。</span>
+            <span class="en">I'm <b>Tmaxius</b>, a developer and designer in Penang, Malaysia. My day spans <b>React</b> and <b>Node.js</b> apps, <b>PHP + MySQL</b> database systems, <b>Java</b> and <b>Flutter</b> for mobile and terminal software, and serverless deploys on Cloudflare Workers.</span>
           </p>
           <p>
-            另一隻手則在設計：<b>界面與排版</b>、<b>海報與印刷品</b>、品牌視覺與資訊圖表。
-            我習慣把「使用者第一次看到什麼」和「資料實際上怎麼跑」放在同一張桌上想，
-            所以交付的東西通常不是只有功能，而是整體說得通的一件作品。
+            <span class="zh">這幾年也把程式帶到硬體旁邊：<b>Arduino</b> 與 <b>Raspberry Pi</b> 的感測與控制、<b>Kiosk</b> 自助機的觸控流程、<b>POS</b> 收銀系統的票據與周邊整合 —— 從一個感測器讀值，到客人按下「結帳」那一刻，中間每一段都是我寫的。</span>
+            <span class="en">Lately the code also sits next to hardware: sensing and control on <b>Arduino</b> and <b>Raspberry Pi</b>, touch flows on <b>kiosks</b>, receipt and peripheral integration on <b>POS</b> systems — from a sensor reading to the moment a customer taps "pay", I write every step in between.</span>
           </p>
           <p>
-            我偏好<b>單檔、輕量、可長期維護</b>的做法：能用原生技術解決的，不急著堆框架；
-            能寫清楚的，就不用人猜。這頁也是這樣寫成的 —— 純 HTML、CSS 與一點點 JavaScript，
-            沒有外部字型、沒有追蹤腳本。
+            <span class="zh">另一隻手在設計：界面與排版、海報與印刷品、品牌視覺與資訊圖表。我習慣把「使用者第一次看到什麼」和「資料實際上怎麼跑」放在同一張桌上想。</span>
+            <span class="en">The other hand does design: interfaces and typesetting, posters and print, brand visuals and infographics. I like thinking about "what the user sees first" and "how the data actually moves" on the same desk.</span>
           </p>
           <p>
-            手機方面我也自己走完整條路：<b>Android（Kotlin）</b>與 <b>Flutter（Dart）</b> 都做，
-            從介面、狀態管理、離線資料、到打包與發佈；其中一支是路上司機每天在用的行車翻譯工具，
-            另一支是我自己排命盤、出報告用的八字 App。
+            <span class="zh">我偏好<b>單檔、輕量、可長期維護</b>的做法；這頁也是純 HTML、CSS 與一點點 JavaScript 寫成的 —— 沒有外部字型、沒有追蹤腳本。</span>
+            <span class="en">I prefer <b>single-file, lightweight, long-lived</b> work; this page is hand-coded HTML, CSS and a little JavaScript — no web fonts, no trackers.</span>
           </p>
         </div>
 
         <div class="card reveal d2">
-          <h3>快速一覽 At a glance</h3>
-          <div class="kv"><span>角色 Role</span><b>Full-stack Developer<br>Visual Designer</b></div>
-          <div class="kv"><span>主力語言 Primary</span><b>JavaScript · PHP · SQL</b></div>
-          <div class="kv"><span>手機 Mobile</span><b>Android (Kotlin) · Flutter</b></div>
-          <div class="kv"><span>設計工具 Design</span><b>Photoshop · Illustrator</b></div>
-          <div class="kv"><span>所在地 Location</span><b>Penang, Malaysia</b></div>
-          <div class="kv"><span>語言 Spoken</span><b>中文 · English · Malay</b></div>
-          <div class="kv"><span>狀態 Status</span><b style="color:var(--teal)">開放合作 Open</b></div>
+          <h3><span class="zh">快速一覽</span><span class="en">At a glance</span></h3>
+          <div class="kv"><span class="zh">角色</span><span class="en">Role</span><b>Full-stack Dev<br>Visual Designer</b></div>
+          <div class="kv"><span class="zh">主力技術</span><span class="en">Primary stack</span><b>React · Node.js<br>Java · PHP · SQL</b></div>
+          <div class="kv"><span class="zh">手機</span><span class="en">Mobile</span><b>Flutter · Android (Kotlin)</b></div>
+          <div class="kv"><span class="zh">硬體與終端</span><span class="en">Hardware</span><b>Arduino · Raspberry Pi<br>Kiosk · POS</b></div>
+          <div class="kv"><span class="zh">設計工具</span><span class="en">Design</span><b>Photoshop · Illustrator</b></div>
+          <div class="kv"><span class="zh">所在地</span><span class="en">Location</span><b>Penang, Malaysia</b></div>
+          <div class="kv"><span class="zh">語言</span><span class="en">Spoken</span><b>中文 · English · Malay</b></div>
+          <div class="kv"><span class="zh">狀態</span><span class="en">Status</span><b style="color:var(--teal)"><span class="zh">開放合作</span><span class="en">Open to work</span></b></div>
         </div>
       </div>
     </div>
@@ -496,54 +655,70 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
   <section id="skills">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow">Capabilities · 能力</span>
-        <h2>技術與手藝</h2>
-        <p>從需求梳理、資料結構、前後端實作，到交付前的視覺打磨。</p>
+        <span class="eyebrow">Capabilities</span>
+        <h2><span class="zh">技術與手藝</span><span class="en">Stack and craft</span></h2>
+        <p><span class="zh">從需求梳理、資料結構、前後端實作，到硬體整合與交付前的視覺打磨。</span>
+          <span class="en">From requirements and schema design through front end, back end and hardware integration, to the visual polish before delivery.</span></p>
       </div>
 
       <div class="skill-grid">
         <div class="skill reveal d1">
-          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 8-4 4 4 4M15 8l4 4-4 4"/></svg> 語言 Languages</h4>
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 8-4 4 4 4M15 8l4 4-4 4"/></svg>
+            <span class="zh">語言與框架</span><span class="en">Languages &amp; Frameworks</span></h4>
           <div class="bars">
-            <div class="bar-row"><b>JavaScript / ES6+ <i>核心</i></b><div class="bar"><i data-val="94"></i></div></div>
-            <div class="bar-row"><b>PHP <i>熟練</i></b><div class="bar"><i data-val="86"></i></div></div>
-            <div class="bar-row"><b>SQL / MySQL <i>熟練</i></b><div class="bar"><i data-val="88"></i></div></div>
-            <div class="bar-row"><b>HTML / CSS <i>核心</i></b><div class="bar"><i data-val="92"></i></div></div>
-            <div class="bar-row"><b>Dart <i>應用</i></b><div class="bar"><i data-val="74"></i></div></div>
-            <div class="bar-row"><b>Kotlin <i>應用</i></b><div class="bar"><i data-val="78"></i></div></div>
+            <div class="bar-row"><b>JavaScript <i>core</i></b><div class="bar"><i data-val="94"></i></div></div>
+            <div class="bar-row"><b>React <i>core</i></b><div class="bar"><i data-val="90"></i></div></div>
+            <div class="bar-row"><b>Node.js <i>core</i></b><div class="bar"><i data-val="88"></i></div></div>
+            <div class="bar-row"><b>PHP <i>strong</i></b><div class="bar"><i data-val="86"></i></div></div>
+            <div class="bar-row"><b>SQL / MySQL <i>strong</i></b><div class="bar"><i data-val="88"></i></div></div>
+            <div class="bar-row"><b>Java <i>working</i></b><div class="bar"><i data-val="74"></i></div></div>
+            <div class="bar-row"><b>Flutter / Dart <i>working</i></b><div class="bar"><i data-val="76"></i></div></div>
           </div>
         </div>
 
         <div class="skill reveal d2">
-          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.6"/><path d="M10.5 18.6h3"/></svg> 手機 Mobile</h4>
-          <div class="chips">
-            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Kotlin / Android SDK</span>
-            <span class="chip">Firebase Auth / Firestore</span><span class="chip">Google Places</span><span class="chip">離線翻譯 ML Kit</span>
-            <span class="chip">APK 打包與發佈</span><span class="chip">手機優先版面</span><span class="chip">PDF 列印輸出</span>
-          </div>
-        </div>
-
-        <div class="skill reveal d2">
-          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg> 前端 Front-end</h4>
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+            <span class="zh">前端</span><span class="en">Front-end</span></h4>
           <div class="chips">
             <span class="chip">React</span><span class="chip">原生 JS</span><span class="chip">響應式設計</span>
-            <span class="chip">CSS 動效</span><span class="chip">無障礙 a11y</span><span class="chip">單檔 SPA</span>
-            <span class="chip">Canvas 手寫</span><span class="chip">PWA / Service Worker</span>
-            <span class="chip">語音合成 TTS</span><span class="chip">列印樣式 @page</span>
+            <span class="chip">CSS 動效</span><span class="chip">Canvas 手寫</span><span class="chip">PWA / Service Worker</span>
+            <span class="chip">語音合成 TTS</span><span class="chip">無障礙 a11y</span><span class="chip">列印樣式 @page</span>
           </div>
         </div>
 
         <div class="skill reveal d3">
-          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg> 後端與資料 Back-end</h4>
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
+            <span class="zh">後端與資料</span><span class="en">Back-end &amp; Data</span></h4>
           <div class="chips">
-            <span class="chip">Node.js</span><span class="chip">PHP</span><span class="chip">REST API</span>
+            <span class="chip">Node.js</span><span class="chip">PHP</span><span class="chip">Java</span><span class="chip">REST API</span>
             <span class="chip">Cloudflare Workers</span><span class="chip">KV 儲存</span><span class="chip">MySQL 設計與優化</span>
-            <span class="chip">資料匯入 / 匯出</span><span class="chip">報表產出</span>
+            <span class="chip">資料匯入／匯出</span><span class="chip">報表產出</span>
           </div>
         </div>
 
         <div class="skill reveal d4">
-          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.3 0 2-.9 2-1.9 0-1.4-1.3-1.6-1.3-2.8 0-.9.8-1.6 1.8-1.6H17a4 4 0 0 0 4-4c0-4.4-4-7.7-9-7.7Z"/><circle cx="8.2" cy="9.4" r="1.15" fill="currentColor" stroke="none"/><circle cx="12" cy="7.4" r="1.15" fill="currentColor" stroke="none"/><circle cx="15.8" cy="9.4" r="1.15" fill="currentColor" stroke="none"/></svg> 設計 Design</h4>
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.6"/><path d="M10.5 18.6h3"/></svg>
+            <span class="zh">手機</span><span class="en">Mobile</span></h4>
+          <div class="chips">
+            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Kotlin / Android SDK</span>
+            <span class="chip">Firebase Auth / Firestore</span><span class="chip">Google Places</span><span class="chip">離線翻譯 ML Kit</span>
+            <span class="chip">APK 打包與發佈</span><span class="chip">PDF 列印輸出</span>
+          </div>
+        </div>
+
+        <div class="skill reveal d2">
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2.5v3M15 2.5v3M9 18.5v3M15 18.5v3M2.5 9h3M2.5 15h3M18.5 9h3M18.5 15h3"/><circle cx="12" cy="12" r="2.4"/></svg>
+            <span class="zh">硬體與終端</span><span class="en">Hardware &amp; Terminals</span></h4>
+          <div class="chips">
+            <span class="chip">Arduino</span><span class="chip">Raspberry Pi</span><span class="chip">控制器 / 繼電器</span>
+            <span class="chip">GPIO · 序列通訊</span><span class="chip">感測器</span><span class="chip">Kiosk 自助機</span>
+            <span class="chip">POS 收銀系統</span><span class="chip">觸控介面</span><span class="chip">熱感／票據列印</span>
+          </div>
+        </div>
+
+        <div class="skill reveal d3">
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.3 0 2-.9 2-1.9 0-1.4-1.3-1.6-1.3-2.8 0-.9.8-1.6 1.8-1.6H17a4 4 0 0 0 4-4c0-4.4-4-7.7-9-7.7Z"/><circle cx="8.2" cy="9.4" r="1.15" fill="currentColor" stroke="none"/><circle cx="12" cy="7.4" r="1.15" fill="currentColor" stroke="none"/><circle cx="15.8" cy="9.4" r="1.15" fill="currentColor" stroke="none"/></svg>
+            <span class="zh">設計</span><span class="en">Design</span></h4>
           <div class="chips">
             <span class="chip">Photoshop</span><span class="chip">Illustrator</span><span class="chip">海報 / 印刷品</span>
             <span class="chip">品牌視覺</span><span class="chip">UI / UX</span><span class="chip">字體與排版</span>
@@ -551,34 +726,27 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
           </div>
         </div>
 
-        <div class="skill reveal d2">
-          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 3.5 6 6-11 11H3.5v-6l11-11Z"/><path d="m12 6 6 6"/></svg> 工程習慣 Engineering</h4>
+        <div class="skill reveal d4">
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 3.5 6 6-11 11H3.5v-6l11-11Z"/><path d="m12 6 6 6"/></svg>
+            <span class="zh">工程習慣</span><span class="en">Engineering</span></h4>
           <div class="chips">
             <span class="chip">Git</span><span class="chip">CLI / 自動化腳本</span><span class="chip">建置與打包</span>
-            <span class="chip">部署 wrangler</span><span class="chip">快取與 no-store</span><span class="chip">資料備份</span>
+            <span class="chip">部署 wrangler</span><span class="chip">快取策略</span><span class="chip">資料備份</span>
             <span class="chip">除錯與驗證</span><span class="chip">文件交接</span>
-          </div>
-        </div>
-
-        <div class="skill reveal d3">
-          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v3M12 18.2v3M4.5 12h3M16.5 12h3M6.7 6.7l2.1 2.1M15.2 15.2l2.1 2.1M17.3 6.7l-2.1 2.1M8.8 15.2l-2.1 2.1"/></svg> 產品思維 Product</h4>
-          <div class="chips">
-            <span class="chip">需求梳理</span><span class="chip">流程設計</span><span class="chip">雙語介面</span>
-            <span class="chip">列印輸出 A4</span><span class="chip">手機優先</span><span class="chip">資料隱私</span>
-            <span class="chip">特殊教育友善</span><span class="chip">獎勵與回饋設計</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════ WORK / BAZI ══════════════ -->
+  <!-- ══════════════ WORK ══════════════ -->
   <section id="work">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow">Selected Work · 作品</span>
-        <h2>工具、教材與遊戲</h2>
-        <p>三個自己從頭做到能用的東西：一個命理排盤系統、一個給特殊兒童的描紅 PWA、一支原生 JavaScript 的老虎機。</p>
+        <span class="eyebrow">Selected Work</span>
+        <h2><span class="zh">工具、教材與遊戲</span><span class="en">Tools, teaching and games</span></h2>
+        <p><span class="zh">三個自己從頭做到能用的東西：一個命理排盤系統、一個給特殊兒童的描紅 PWA、一支原生 JavaScript 的老虎機。</span>
+          <span class="en">Three things built end to end: a Chinese astrology charting system, a tracing PWA for special-needs children, and a slots machine in vanilla JavaScript.</span></p>
       </div>
 
       <div class="showcase reveal d1">
@@ -586,138 +754,176 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
           <div>
             <h3>Bazi Report Suite</h3>
             <p class="muted" style="margin-top:6px;font-size:14.2px">
-              命盤 · 五行 · 格局 · 運勢　｜　自行研發的排盤引擎 + 可列印報告
+              <span class="zh">命盤 · 五行 · 格局 · 運勢　｜　自行研發的排盤引擎 + 可列印報告</span>
+              <span class="en">Chart · Five Elements · Structure · Fortune　|　own charting engine + printable report</span>
             </p>
           </div>
-          <span class="tag-private">私人工具 Private</span>
+          <span class="tag-private"><span class="zh">私人工具</span><span class="en">Private</span></span>
         </div>
 
         <div class="feat-grid">
-          <div class="feat"><b><em>01</em>四柱命盤</b><p>年、月、日、時四柱與十神、藏干一次排清，干支標音，初學者也能對照。</p></div>
-          <div class="feat"><b><em>02</em>五行與格局</b><p>身強身弱的判斷、喜神忌神與開運建議，說明文字依需求持續校對。</p></div>
-          <div class="feat"><b><em>03</em>師承神煞</b><p>只放老師親授的神煞條目，文字完整呈現、不截斷，避免似是而非的通用說法。</p></div>
-          <div class="feat"><b><em>04</em>報告輸出</b><p>依固定版式產出 4–5 頁 A4 報告，可直接列印或存成 PDF，邊界與分頁都已調好。</p></div>
-          <div class="feat"><b><em>05</em>中英雙語</b><p>介面與解說可一鍵切換；英文內容以老師確認過的版本為準，不是機器直譯。</p></div>
-          <div class="feat"><b><em>06</em>輕量架構</b><p>React 前端 + 無伺服器後端 + KV 儲存，部署快、成本低，手機上也能順暢使用。</p></div>
+          <div class="feat"><b><em>01</em><span class="zh">四柱命盤</span><span class="en">Four Pillars</span></b>
+            <p><span class="zh">年、月、日、時四柱與十神、藏干一次排清，干支標音，初學者也能對照。</span><span class="en">Year, month, day and hour pillars with ten gods and hidden stems in one view.</span></p></div>
+          <div class="feat"><b><em>02</em><span class="zh">五行與格局</span><span class="en">Elements &amp; Structure</span></b>
+            <p><span class="zh">身強身弱的判斷、喜神忌神與開運建議，說明文字依需求持續校對。</span><span class="en">Strength assessment, favourable elements and practical advice, revised with each round of feedback.</span></p></div>
+          <div class="feat"><b><em>03</em><span class="zh">師承神煞</span><span class="en">Taught-only shensha</span></b>
+            <p><span class="zh">只放老師親授的神煞條目，文字完整呈現、不截斷，避免似是而非的通用說法。</span><span class="en">Only the shensha entries my teacher actually teaches, shown in full rather than truncated.</span></p></div>
+          <div class="feat"><b><em>04</em><span class="zh">報告輸出</span><span class="en">Report output</span></b>
+            <p><span class="zh">依固定版式產出 4–5 頁 A4 報告，可直接列印或存成 PDF，邊界與分頁都已調好。</span><span class="en">A fixed 4–5 page A4 report, ready to print or save as PDF, with margins and page breaks tuned.</span></p></div>
+          <div class="feat"><b><em>05</em><span class="zh">中英雙語</span><span class="en">Bilingual</span></b>
+            <p><span class="zh">介面與解說可一鍵切換；英文內容以老師確認過的版本為準，不是機器直譯。</span><span class="en">One-tap language switch; the English text follows a teacher-approved version, not machine output.</span></p></div>
+          <div class="feat"><b><em>06</em><span class="zh">輕量架構</span><span class="en">Light stack</span></b>
+            <p><span class="zh">React 前端 + 無伺服器後端 + KV 儲存，部署快、成本低，手機上也能順暢使用。</span><span class="en">React front end, serverless back end and KV storage: quick to deploy, cheap to run, smooth on mobile.</span></p></div>
         </div>
 
-        <p class="muted" style="margin-top:20px;font-size:13.6px">
-          這個工具目前作為私人作業系統使用，不對外提供連結；若你對其中的做法（排盤邏輯、報告版式、列印樣式）有興趣，歡迎直接來信聊聊。
+        <p class="muted" style="margin-top:18px;font-size:13.6px">
+          <span class="zh">這個工具目前作為私人作業系統使用，不對外提供連結；若你對其中的做法有興趣，歡迎直接來信聊聊。</span>
+          <span class="en">This one stays private as my own working tool; if you're curious about how it's built, just write and ask.</span>
         </p>
       </div>
 
-      <!-- 副作品：描紅學習 PWA（特殊兒童） -->
       <div class="showcase reveal d2" style="margin-top:18px">
         <div class="showcase-head">
           <div>
-            <h3>跟我学 · 描红乐园 <span class="muted" style="font-family:var(--sans);font-size:14px;font-weight:400">Miaohong Learning</span></h3>
+            <h3><span class="zh">跟我学 · 描红乐园</span><span class="en">Miaohong Learning</span> <span class="muted" style="font-family:var(--sans);font-size:14px;font-weight:400">Tracing PWA</span></h3>
             <p class="muted" style="margin-top:6px;font-size:14.2px">
-              特殊兒童描紅學習 PWA　｜　HTML + CSS + 原生 JavaScript + Canvas 手寫
+              <span class="zh">特殊兒童描紅學習 PWA　｜　HTML + CSS + 原生 JavaScript + Canvas 手寫</span>
+              <span class="en">A tracing PWA for special-needs children　|　HTML + CSS + vanilla JS + Canvas</span>
             </p>
           </div>
-          <span class="tag-private">教育應用 Education</span>
+          <span class="tag-private"><span class="zh">教育應用</span><span class="en">Education</span></span>
         </div>
 
         <div class="feat-grid">
-          <div class="feat"><b><em>01</em>描紅練習</b><p>大字提示當天要學的字，手指沿著筆畫描，畫面上即時顯示完成度百分比。</p></div>
-          <div class="feat"><b><em>02</em>難度與門檻</b><p>啟蒙／基礎／進階／挑戰／自訂五個級別，過關門檻預設 75%，可調筆畫粗細與顏色。</p></div>
-          <div class="feat"><b><em>03</em>語音與回饋</b><p>內建語音朗讀（語速可調）、音效與震動回饋 —— 不識字的孩子也能靠聽覺跟著做。</p></div>
-          <div class="feat"><b><em>04</em>自訂字表</b><p>老師或家長用逗號／換行貼上自己的字表並存檔；換教材不必改程式。</p></div>
-          <div class="feat"><b><em>05</em>貼紙與作品集</b><p>寫完給貼紙、貼紙冊收集；作品集可單張保存，也可以一次打包下載。</p></div>
-          <div class="feat"><b><em>06</em>PWA 安裝</b><p>Service Worker 離線可用、可加入手機主畫面，家長手機不需要另外裝 App。</p></div>
+          <div class="feat"><b><em>01</em><span class="zh">描紅練習</span><span class="en">Tracing practice</span></b>
+            <p><span class="zh">大字提示當天要學的字，手指沿著筆畫描，畫面上即時顯示完成度百分比。</span><span class="en">One big character a day; trace it with a finger and the completion percentage updates live.</span></p></div>
+          <div class="feat"><b><em>02</em><span class="zh">難度與門檻</span><span class="en">Levels &amp; thresholds</span></b>
+            <p><span class="zh">啟蒙／基礎／進階／挑戰／自訂五個級別，過關門檻預設 75%，可調筆畫粗細與顏色。</span><span class="en">Five levels from starter to challenge, a 75% pass mark, adjustable stroke width and colour.</span></p></div>
+          <div class="feat"><b><em>03</em><span class="zh">語音與回饋</span><span class="en">Voice &amp; feedback</span></b>
+            <p><span class="zh">內建語音朗讀（語速可調）、音效與震動回饋 —— 不識字的孩子也能靠聽覺跟著做。</span><span class="en">Built-in speech (adjustable rate), sound and vibration — children who can't read yet can still follow.</span></p></div>
+          <div class="feat"><b><em>04</em><span class="zh">自訂字表</span><span class="en">Custom word lists</span></b>
+            <p><span class="zh">老師或家長用逗號／換行貼上自己的字表並存檔；換教材不必改程式。</span><span class="en">Teachers and parents paste their own list and save it; changing material needs no code change.</span></p></div>
+          <div class="feat"><b><em>05</em><span class="zh">貼紙與作品集</span><span class="en">Stickers &amp; gallery</span></b>
+            <p><span class="zh">寫完給貼紙、貼紙冊收集；作品集可單張保存，也可以一次打包下載。</span><span class="en">Stickers after each finished character, collected in an album; save one artwork or download them all.</span></p></div>
+          <div class="feat"><b><em>06</em><span class="zh">PWA 安裝</span><span class="en">Installable PWA</span></b>
+            <p><span class="zh">Service Worker 離線可用、可加入手機主畫面，家長手機不需要另外裝 App。</span><span class="en">Service-worker offline support and add-to-home-screen — no app store needed on a parent's phone.</span></p></div>
         </div>
 
-        <p class="muted" style="margin-top:20px;font-size:13.6px">
-          設計前提是「特殊兒童的專注時間很短」：一次只出現一個字、一個動作、一個明確的回饋，
-          沒有排行榜、沒有倒數、不會因為做錯而中斷練習。
+        <p class="muted" style="margin-top:18px;font-size:13.6px">
+          <span class="zh">設計前提是「特殊兒童的專注時間很短」：一次只出現一個字、一個動作、一個明確的回饋，沒有排行榜、沒有倒數、不會因為做錯而中斷練習。</span>
+          <span class="en">The design premise: attention spans are short. One character, one action, one clear response at a time — no leaderboard, no countdown, no interruption for mistakes.</span>
         </p>
       </div>
 
-      <!-- 副作品：老虎機網頁遊戲 -->
       <div class="showcase reveal d3" style="margin-top:18px">
         <div class="showcase-head">
           <div>
-            <h3>5×5 經典老虎機 <span class="muted" style="font-family:var(--sans);font-size:14px;font-weight:400">Casino Lucky Slots</span></h3>
+            <h3><span class="zh">5×5 經典老虎機</span><span class="en">5×5 Classic Slots</span> <span class="muted" style="font-family:var(--sans);font-size:14px;font-weight:400">Casino Lucky Slots</span></h3>
             <p class="muted" style="margin-top:6px;font-size:14.2px">
-              網頁遊戲原型　｜　單檔 HTML + 原生 JavaScript + Canvas 物理動效
+              <span class="zh">網頁遊戲原型　｜　單檔 HTML + 原生 JavaScript + Canvas 物理動效</span>
+              <span class="en">Web game prototype　|　single-file HTML + vanilla JS + Canvas physics</span>
             </p>
           </div>
-          <span class="tag-private">實驗作品 Experiment</span>
+          <span class="tag-private"><span class="zh">實驗作品</span><span class="en">Experiment</span></span>
         </div>
 
         <div class="feat-grid">
-          <div class="feat"><b><em>01</em>5×5 滾輪</b><p>五軸五列的轉輪與符號序列，中獎只認「五連」—— 從左到右、或從右到左。</p></div>
-          <div class="feat"><b><em>02</em>53 條支付線</b><p>支付線結果以數字列即時顯示，命中時逐格亮起，看得懂中了哪一條。</p></div>
-          <div class="feat"><b><em>03</em>拖拽拉桿</b><p>金色拉桿可以真的往下拖，放手才啟動轉輪；速度與停止順序逐軸錯開。</p></div>
-          <div class="feat"><b><em>04</em>餘額／下注／獎池</b><p>三組數值即時連動，累積獎池與下注倍率都在同一套狀態裡計算。</p></div>
-          <div class="feat"><b><em>05</em>全球排行榜</b><p>Cloudflare Pages Functions 提供 <code>/api/leaderboard</code>，Top 20 玩家以 API 讀取。</p></div>
-          <div class="feat"><b><em>06</em>單檔交付</b><p>沒有框架、沒有建置流程：一個 HTML 檔就是整個遊戲，部署在 Cloudflare Pages。</p></div>
+          <div class="feat"><b><em>01</em><span class="zh">5×5 滾輪</span><span class="en">5×5 reels</span></b>
+            <p><span class="zh">五軸五列的轉輪與符號序列，中獎只認「五連」—— 從左到右、或從右到左。</span><span class="en">Five reels by five rows; only five-in-a-row pays, left-to-right or right-to-left.</span></p></div>
+          <div class="feat"><b><em>02</em><span class="zh">53 條支付線</span><span class="en">53 paylines</span></b>
+            <p><span class="zh">支付線結果以數字列即時顯示，命中時逐格亮起，看得懂中了哪一條。</span><span class="en">Payline results stream in as digits; hits light up cell by cell so you can see which line paid.</span></p></div>
+          <div class="feat"><b><em>03</em><span class="zh">拖拽拉桿</span><span class="en">Draggable lever</span></b>
+            <p><span class="zh">金色拉桿可以真的往下拖，放手才啟動轉輪；速度與停止順序逐軸錯開。</span><span class="en">The gold lever genuinely drags down and releases to spin, with staggered stops per reel.</span></p></div>
+          <div class="feat"><b><em>04</em><span class="zh">餘額／下注／獎池</span><span class="en">Balance / bet / jackpot</span></b>
+            <p><span class="zh">三組數值即時連動，累積獎池與下注倍率都在同一套狀態裡計算。</span><span class="en">Three linked readouts; jackpot accumulation and bet multipliers share one state model.</span></p></div>
+          <div class="feat"><b><em>05</em><span class="zh">全球排行榜</span><span class="en">Leaderboard</span></b>
+            <p><span class="zh">Cloudflare Pages Functions 提供 <code>/api/leaderboard</code>，Top 20 玩家以 API 讀取。</span><span class="en">Cloudflare Pages Functions serve <code>/api/leaderboard</code>; the top 20 load over the API.</span></p></div>
+          <div class="feat"><b><em>06</em><span class="zh">單檔交付</span><span class="en">Single file</span></b>
+            <p><span class="zh">沒有框架、沒有建置流程：一個 HTML 檔就是整個遊戲，部署在 Cloudflare Pages。</span><span class="en">No framework, no build step: one HTML file is the whole game, deployed on Cloudflare Pages.</span></p></div>
         </div>
 
-        <p class="muted" style="margin-top:20px;font-size:13.6px">
-          這個遊戲當作「原生 JavaScript 手感與狀態管理」的練功場：物理緩動、音效合成、資料同步都在一個檔案裡完成。
+        <p class="muted" style="margin-top:18px;font-size:13.6px">
+          <span class="zh">這個遊戲當作「原生 JavaScript 手感與狀態管理」的練功場：物理緩動、音效合成、資料同步都在一個檔案裡完成。</span>
+          <span class="en">It doubles as a workout for vanilla-JS feel and state: easing, synthesized sound and data sync, all in one file.</span>
         </p>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════ MOBILE APPS ══════════════ -->
+  <!-- ══════════════ APPS ══════════════ -->
   <section id="apps">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow">Mobile · 手機應用</span>
-        <h2>Android 與 Flutter</h2>
-        <p>兩支自己從頭做到可以安裝在手機上的 App：一支原生 Kotlin，一支 Flutter；都離線可用、都在真實使用中。</p>
+        <span class="eyebrow">Mobile</span>
+        <h2><span class="zh">Android 與 Flutter</span><span class="en">Android and Flutter</span></h2>
+        <p><span class="zh">兩支自己從頭做到可以安裝在手機上的 App：一支原生 Kotlin，一支 Flutter；都離線可用、都在真實使用中。</span>
+          <span class="en">Two apps built end to end and installed on real phones: one native Kotlin, one Flutter; both work offline and both are in daily use.</span></p>
       </div>
 
-      <!-- Velo -->
       <div class="app-card reveal d1">
         <div class="app-head">
           <div class="app-icon" aria-hidden="true">V</div>
           <div class="app-title">
             <h3>Velo <span class="app-ver">v4.19</span></h3>
-            <p class="app-sub">Android · Kotlin　｜　駕駛人的行車副駕 Driving Co-Pilot</p>
+            <p class="app-sub">Android · Kotlin　｜　<span class="zh">駕駛人的行車副駕</span><span class="en">Driver's co-pilot</span></p>
           </div>
-          <span class="tag-private">已發佈 Shipped</span>
+          <span class="tag-private"><span class="zh">已發佈</span><span class="en">Shipped</span></span>
         </div>
         <p class="app-desc">
-          為馬來西亞路上駕駛設計的溝通工具：把「路線變更、資費調整、ETA 提示」做成可一鍵播放的預設短語，
-          再加上語音對語音的即時翻譯，讓司機不必低頭打字，也能和乘客講清楚。
+          <span class="zh">為馬來西亞路上駕駛設計的溝通工具：把「路線變更、資費調整、ETA 提示」做成可一鍵播放的預設短語，再加上語音對語音的即時翻譯，讓司機不必低頭打字，也能和乘客講清楚。</span>
+          <span class="en">A communication tool for drivers in Malaysia: route changes, fare adjustments and ETA notices play from one tap, plus voice-to-voice translation so the driver never has to type and can still be understood.</span>
         </p>
         <div class="feat-grid">
-          <div class="feat"><b><em>01</em>預設行車短語</b><p>高頻句子一鍵觸發，路線／價錢／時間三類情境都預先寫好。</p></div>
-          <div class="feat"><b><em>02</em>語音對語音</b><p>點一下說話，立刻替乘客翻成對方語言並念出來。</p></div>
-          <div class="feat"><b><em>03</em>100% 離線</b><p>可預先下載語言包（馬來語／中文／英語／泰米爾語／泰語／日語），沒有訊號也能用。</p></div>
-          <div class="feat"><b><em>04</em>帳號與雲端</b><p>Firebase 認證與資料同步；地點查詢串接 Google Places。</p></div>
-          <div class="feat"><b><em>05</em>四頁結構</b><p>主頁／預設短語／離線語言包／系統設定，底部導覽一眼切換。</p></div>
-          <div class="feat"><b><em>06</em>安裝體驗</b><p>APK 直發佈＋雙語安裝指南頁，Android 8.0 以上都能裝。</p></div>
+          <div class="feat"><b><em>01</em><span class="zh">預設行車短語</span><span class="en">Preset phrases</span></b>
+            <p><span class="zh">高頻句子一鍵觸發，路線／價錢／時間三類情境都預先寫好。</span><span class="en">High-frequency sentences at one tap, written for routes, fares and time.</span></p></div>
+          <div class="feat"><b><em>02</em><span class="zh">語音對語音</span><span class="en">Voice to voice</span></b>
+            <p><span class="zh">點一下說話，立刻替乘客翻成對方語言並念出來。</span><span class="en">Tap, speak, and the passenger hears it in their own language.</span></p></div>
+          <div class="feat"><b><em>03</em><span class="zh">100% 離線</span><span class="en">100% offline</span></b>
+            <p><span class="zh">可預先下載語言包（馬來語／中文／英語／泰米爾語／泰語／日語），沒有訊號也能用。</span><span class="en">Downloadable packs (Malay, Chinese, English, Tamil, Thai, Japanese) work with no signal at all.</span></p></div>
+          <div class="feat"><b><em>04</em><span class="zh">帳號與雲端</span><span class="en">Accounts &amp; cloud</span></b>
+            <p><span class="zh">Firebase 認證與資料同步；地點查詢串接 Google Places。</span><span class="en">Firebase auth and sync; places lookup wired to Google Places.</span></p></div>
+          <div class="feat"><b><em>05</em><span class="zh">四頁結構</span><span class="en">Four-tab flow</span></b>
+            <p><span class="zh">主頁／預設短語／離線語言包／系統設定，底部導覽一眼切換。</span><span class="en">Home, phrases, offline packs and settings, all one tap apart.</span></p></div>
+          <div class="feat"><b><em>06</em><span class="zh">安裝體驗</span><span class="en">Install experience</span></b>
+            <p><span class="zh">APK 直發佈＋雙語安裝指南頁，Android 8.0 以上都能裝。</span><span class="en">Direct APK distribution with a bilingual install guide; runs on Android 8.0 and up.</span></p></div>
         </div>
-        <p class="app-note">原生 Kotlin 開發，單一 APK 交付；介面與官網都做中英雙語。</p>
+        <p class="app-note">
+          <span class="zh">原生 Kotlin 開發，單一 APK 交付；介面與官網都做中英雙語。</span>
+          <span class="en">Native Kotlin, delivered as a single APK; the app and the site are both bilingual.</span>
+        </p>
       </div>
 
-      <!-- FreePaths 生命八字 -->
       <div class="app-card reveal d2">
         <div class="app-head">
           <div class="app-icon" aria-hidden="true">八</div>
           <div class="app-title">
-            <h3>FreePaths 生命八字 <span class="app-ver">v1.15</span></h3>
-            <p class="app-sub">Flutter · Dart　｜　命理排盤與報告 App</p>
+            <h3><span class="zh">FreePaths 生命八字</span><span class="en">FreePaths Bazi</span> <span class="app-ver">v1.15</span></h3>
+            <p class="app-sub">Flutter · Dart　｜　<span class="zh">命理排盤與報告 App</span><span class="en">Charting &amp; report app</span></p>
           </div>
-          <span class="tag-private">持續開發 In Use</span>
+          <span class="tag-private"><span class="zh">持續開發</span><span class="en">In use</span></span>
         </div>
         <p class="app-desc">
-          同一套命理引擎，從網頁帶進手機：四柱排盤、十神藏干、身強弱與從格的逐步判讀、合盤與流年方案，
-          最後輸出可以直接列印的 A4 報告。
+          <span class="zh">同一套命理引擎，從網頁帶進手機：四柱排盤、十神藏干、身強弱與從格的逐步判讀、合盤與流年方案，最後輸出可以直接列印的 A4 報告。</span>
+          <span class="en">The same astrology engine, moved from web to phone: four pillars, ten gods and hidden stems, step-by-step strength and follow-pattern reading, compatibility and yearly plans, ending in a printable A4 report.</span>
         </p>
         <div class="feat-grid">
-          <div class="feat"><b><em>01</em>四柱排盤</b><p>時／日／月／年四柱，主星、天干、地支、十神、藏干、副星、長生七列俱全，五行配色。</p></div>
-          <div class="feat"><b><em>02</em>逐步判讀</b><p>身強弱四步、從格六步：按一步亮一格，跟著命盤看到結論怎麼來。</p></div>
-          <div class="feat"><b><em>03</em>合盤與貴人</b><p>夫妻／親子／家庭／同事的契合度分析，以及貴人方位的查詢。</p></div>
-          <div class="feat"><b><em>04</em>流年方案</b><p>年度運勢、吉凶月份與開運建議，一次列在同一頁。</p></div>
-          <div class="feat"><b><em>05</em>引擎內嵌</b><p>用 QuickJS（flutter_js）在手機裡跑與網頁版同一份 JavaScript 命理引擎，結果一致。</p></div>
-          <div class="feat"><b><em>06</em>離線與隱私</b><p>本機帳號（鹽＋SHA-256）、資料存在裝置端；真太陽時校正、繁簡轉換、A4 PDF 輸出。</p></div>
+          <div class="feat"><b><em>01</em><span class="zh">四柱排盤</span><span class="en">Four pillars</span></b>
+            <p><span class="zh">時／日／月／年四柱，主星、天干、地支、十神、藏干、副星、長生七列俱全，五行配色。</span><span class="en">Seven rows — main star, stem, branch, ten god, hidden stem, sub-star, life stage — with element colours.</span></p></div>
+          <div class="feat"><b><em>02</em><span class="zh">逐步判讀</span><span class="en">Step-by-step reading</span></b>
+            <p><span class="zh">身強弱四步、從格六步：按一步亮一格，跟著命盤看到結論怎麼來。</span><span class="en">Four strength steps and six follow-pattern steps, each highlighting the cells it uses.</span></p></div>
+          <div class="feat"><b><em>03</em><span class="zh">合盤與貴人</span><span class="en">Compatibility</span></b>
+            <p><span class="zh">夫妻／親子／家庭／同事的契合度分析，以及貴人方位的查詢。</span><span class="en">Spouse, parent-child, family and colleague compatibility, plus benefactor direction.</span></p></div>
+          <div class="feat"><b><em>04</em><span class="zh">流年方案</span><span class="en">Yearly plans</span></b>
+            <p><span class="zh">年度運勢、吉凶月份與開運建議，一次列在同一頁。</span><span class="en">Yearly outlook, good and difficult months and practical suggestions on one page.</span></p></div>
+          <div class="feat"><b><em>05</em><span class="zh">引擎內嵌</span><span class="en">Embedded engine</span></b>
+            <p><span class="zh">用 QuickJS（flutter_js）在手機裡跑與網頁版同一份 JavaScript 命理引擎，結果一致。</span><span class="en">QuickJS (flutter_js) runs the very same JavaScript engine on the phone, so results match the web.</span></p></div>
+          <div class="feat"><b><em>06</em><span class="zh">離線與隱私</span><span class="en">Offline &amp; private</span></b>
+            <p><span class="zh">本機帳號（鹽＋SHA-256）、資料存在裝置端；真太陽時校正、繁簡轉換、A4 PDF 輸出。</span><span class="en">Local accounts (salt + SHA-256), data stays on device; true-solar-time correction, script conversion, A4 PDF.</span></p></div>
         </div>
-        <p class="app-note">Flutter 單一程式碼庫；61 項自動測試全綠、<code>flutter analyze</code> 0 issue；同一引擎與網頁版互相驗證。</p>
+        <p class="app-note">
+          <span class="zh">Flutter 單一程式碼庫；61 項自動測試全綠、<code>flutter analyze</code> 0 issue；同一引擎與網頁版互相驗證。</span>
+          <span class="en">One Flutter codebase; 61 automated tests green, <code>flutter analyze</code> clean, and the engine is cross-checked against the web version.</span>
+        </p>
       </div>
     </div>
   </section>
@@ -726,16 +932,21 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
   <section id="process">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow">How I work · 工作方式</span>
-        <h2>四個步驟，交出能用的東西</h2>
-        <p>不追求一次做很大，而是每一步都留下可以驗證的成果。</p>
+        <span class="eyebrow">How I work</span>
+        <h2><span class="zh">四個步驟，交出能用的東西</span><span class="en">Four steps, something that works</span></h2>
+        <p><span class="zh">不追求一次做很大，而是每一步都留下可以驗證的成果。</span>
+          <span class="en">Not one giant leap — every step leaves something you can check.</span></p>
       </div>
 
       <div class="steps">
-        <div class="step reveal d1"><b>理解需求 Understand</b><p>先把「誰要用、用來做什麼、什麼時候會壞」問清楚，再決定技術。</p></div>
-        <div class="step reveal d2"><b>設計 Design</b><p>資料結構與畫面一起畫，先確認資訊順序，再談風格與細節。</p></div>
-        <div class="step reveal d3"><b>實作 Build</b><p>小步交付、實際測試；能用單純寫法解決的，就不多加一層。</p></div>
-        <div class="step reveal d4"><b>上線與維護 Ship</b><p>部署、驗證、寫下交接說明；後續的調整與優化也一起照顧。</p></div>
+        <div class="step reveal d1"><b><span class="zh">理解需求</span><span class="en">Understand</span></b>
+          <p><span class="zh">先把「誰要用、用來做什麼、什麼時候會壞」問清楚，再決定技術。</span><span class="en">Ask who uses it, what for, and how it breaks — then pick the technology.</span></p></div>
+        <div class="step reveal d2"><b><span class="zh">設計</span><span class="en">Design</span></b>
+          <p><span class="zh">資料結構與畫面一起畫，先確認資訊順序，再談風格與細節。</span><span class="en">Sketch schema and screen together; settle the order of information before style.</span></p></div>
+        <div class="step reveal d3"><b><span class="zh">實作</span><span class="en">Build</span></b>
+          <p><span class="zh">小步交付、實際測試；能用單純寫法解決的，就不多加一層。</span><span class="en">Ship in small steps, test for real, and never add a layer a simpler approach avoids.</span></p></div>
+        <div class="step reveal d4"><b><span class="zh">上線與維護</span><span class="en">Ship &amp; maintain</span></b>
+          <p><span class="zh">部署、驗證、寫下交接說明；後續的調整與優化也一起照顧。</span><span class="en">Deploy, verify, write the handover notes, and stay for the tweaks afterwards.</span></p></div>
       </div>
     </div>
   </section>
@@ -744,29 +955,30 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
   <section id="contact">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow">Contact · 聯絡</span>
-        <h2>有想法，就寫封信來</h2>
-        <p>網站、系統、資料整理，或是一張要印出來的設計稿 —— 說明一下需求與時間，我會回覆可行性。</p>
+        <span class="eyebrow">Contact</span>
+        <h2><span class="zh">有想法，就寫封信來</span><span class="en">Got something in mind? Write.</span></h2>
+        <p><span class="zh">網站、系統、手機 App、Kiosk 或 POS 整合，或是一張要印出來的設計稿 —— 說明需求與時間，我會回覆可行性。</span>
+          <span class="en">A site, a system, a mobile app, kiosk or POS integration, or a design that has to go to print — tell me what and when, and I'll tell you if it's doable.</span></p>
       </div>
 
       <div class="contact-grid">
         <div class="reveal d1">
           <div class="mail-chip">
             <code id="mailText">maxt9967@gmail.com</code>
-            <button class="copy-btn" id="copyBtn" type="button">複製 Copy</button>
+            <button class="copy-btn" id="copyBtn" type="button"><span class="zh">複製</span><span class="en">Copy</span></button>
           </div>
           <p class="contact-note">
-            習慣用 email 溝通，通常一兩天內回覆；急件請在信裡註明。<br>
-            <span class="muted">Email is best — usually a reply within a day or two.</span>
+            <span class="zh">習慣用 email 溝通，通常一兩天內回覆；急件請在信裡註明。</span>
+            <span class="en">Email is best — usually a reply within a day or two; flag it if it's urgent.</span>
           </p>
         </div>
 
         <div class="card reveal d2">
-          <h3>可以直接告訴我</h3>
-          <div class="kv"><span>想做什麼</span><b>網站 / 系統 / App / 設計</b></div>
-          <div class="kv"><span>給誰用</span><b>客戶 / 內部 / 自己</b></div>
-          <div class="kv"><span>何時要</span><b>日期或「不急」</b></div>
-          <div class="kv"><span>預算範圍</span><b>有就好談</b></div>
+          <h3><span class="zh">可以直接告訴我</span><span class="en">Tell me directly</span></h3>
+          <div class="kv"><span class="zh">想做什麼</span><span class="en">What</span><b><span class="zh">網站 / 系統 / App / 硬體</span><span class="en">Site / system / app / hardware</span></b></div>
+          <div class="kv"><span class="zh">給誰用</span><span class="en">For whom</span><b><span class="zh">客戶 / 內部 / 自己</span><span class="en">Customers / internal / self</span></b></div>
+          <div class="kv"><span class="zh">何時要</span><span class="en">When</span><b><span class="zh">日期或「不急」</span><span class="en">A date, or "no rush"</span></b></div>
+          <div class="kv"><span class="zh">預算範圍</span><span class="en">Budget</span><b><span class="zh">有就好談</span><span class="en">A range helps</span></b></div>
         </div>
       </div>
     </div>
@@ -776,9 +988,10 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
 
 <footer>
   <div class="wrap foot-in">
-    <a class="brand" href="#top" aria-label="Tmaxius Smart Tech 回首頁 Home">
-      <img class="brand-logo on-dark" src="logo-on-dark.png" alt="Tmaxius Smart Tech" width="760" height="228" decoding="async" />
-      <img class="brand-logo on-light" src="logo-on-light.png" alt="" aria-hidden="true" width="760" height="228" decoding="async" />
+    <a class="brand" href="#top" aria-label="Tmaxius Smart Tech">
+      <img class="mark-img mark-dark" src="mark-gold.png" alt="" width="250" height="250" />
+      <img class="mark-img mark-light" src="mark-amber.png" alt="" width="250" height="250" />
+      <span class="brand-text"><span class="brand-name">Tmaxius</span></span>
     </a>
     <span>© <span id="year">2026</span> Tmaxius · Penang, Malaysia　·　Hand-coded with HTML · CSS · JavaScript</span>
   </div>
@@ -788,27 +1001,46 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
 (function () {
   "use strict";
 
-  /* ── 主題切換（記住選擇） ── */
   var root = document.documentElement;
-  var btn = document.getElementById('themeBtn');
-  try {
-    var saved = localStorage.getItem('tmaxius-theme');
-    if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
-  } catch (e) {}
+
+  /* ── 主題 ── */
   function syncThemeColor() {
     var dark = root.getAttribute('data-theme') !== 'light';
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', dark ? '#0a0c11' : '#f7f2e8');
+    if (meta) meta.setAttribute('content', dark ? '#0a0c11' : '#faf5ea');
   }
   syncThemeColor();
-  if (btn) {
-    btn.addEventListener('click', function () {
+  var themeBtn = document.getElementById('themeBtn');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
       var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       root.setAttribute('data-theme', next);
       syncThemeColor();
       try { localStorage.setItem('tmaxius-theme', next); } catch (e) {}
     });
   }
+
+  /* ── 語言 ── */
+  var TITLES = {
+    zh: 'Tmaxius — 軟體開發者與數位工藝',
+    en: 'Tmaxius — Software Developer & Digital Craftsman'
+  };
+  function applyLang(lang) {
+    root.setAttribute('data-lang', lang);
+    root.setAttribute('lang', lang === 'en' ? 'en' : 'zh-Hant');
+    document.title = TITLES[lang] || TITLES.zh;
+    [].slice.call(document.querySelectorAll('.lang-toggle button')).forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-set-lang') === lang ? 'true' : 'false');
+    });
+  }
+  applyLang(root.getAttribute('data-lang') === 'en' ? 'en' : 'zh');
+  [].slice.call(document.querySelectorAll('.lang-toggle button')).forEach(function (b) {
+    b.addEventListener('click', function () {
+      var lang = b.getAttribute('data-set-lang');
+      applyLang(lang);
+      try { localStorage.setItem('tmaxius-lang', lang); } catch (e) {}
+    });
+  });
 
   /* ── 進場動畫 ── */
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -818,7 +1050,7 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
     [].slice.call(scope.querySelectorAll('.bar i')).forEach(function (el, i) {
       var v = el.getAttribute('data-val') || '0';
       if (reduce) { el.style.width = v + '%'; return; }
-      setTimeout(function () { el.style.width = v + '%'; }, 120 + i * 110);
+      setTimeout(function () { el.style.width = v + '%'; }, 120 + i * 100);
     });
   }
 
@@ -842,13 +1074,12 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
   if (copyBtn && mail) {
     copyBtn.addEventListener('click', function () {
       var text = mail.textContent.trim();
+      var lang = root.getAttribute('data-lang') === 'en' ? 'en' : 'zh';
+      function reset() { copyBtn.innerHTML = '<span class="zh">複製</span><span class="en">Copy</span>'; }
       function done() {
-        copyBtn.textContent = '已複製 Copied ✓';
+        copyBtn.innerHTML = lang === 'en' ? 'Copied ✓' : '已複製 ✓';
         copyBtn.classList.add('done');
-        setTimeout(function () {
-          copyBtn.textContent = '複製 Copy';
-          copyBtn.classList.remove('done');
-        }, 1900);
+        setTimeout(function () { reset(); copyBtn.classList.remove('done'); }, 1900);
       }
       function fallback() {
         var ta = document.createElement('textarea');
@@ -867,7 +1098,7 @@ footer{border-top:1px solid var(--line-2);padding:30px 0 44px;margin-top:20px}
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
 
-  /* ── 導覽：游標滑過時的柔光跟隨 ── */
+  /* ── 羅盤視差 ── */
   if (!reduce && window.matchMedia('(hover: hover)').matches) {
     var seal = document.querySelector('.seal');
     if (seal) {
