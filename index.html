@@ -360,6 +360,8 @@ html[data-theme="light"] .showcase{
 }
 .showcase:hover{border-color:rgba(217,168,78,.45)}
 html[data-theme="light"] .showcase:hover{border-color:#dcbf87}
+.showcase.rnd{transition:transform .3s,border-color .3s,box-shadow .3s}
+.showcase.rnd:hover{transform:translateY(-3px)}
 .showcase-head{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between}
 .tag-private{
   font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
@@ -855,6 +857,35 @@ html[data-theme="light"] footer{border-top-color:#e8dcc4}
           <span class="en">It doubles as a workout for vanilla-JS feel and state: easing, synthesized sound and data sync, all in one file.</span>
         </p>
       </div>
+
+      <!-- 研究願景（連到 projects.html） -->
+      <a class="showcase rnd reveal d4" href="projects.html" style="display:block;text-decoration:none;margin-top:18px">
+        <div class="showcase-head">
+          <div>
+            <h3>
+              <span class="zh">研究願景 R&amp;D Vision</span>
+              <span class="en">R&amp;D Vision Projects</span>
+              <span class="muted" style="font-family:var(--sans);font-size:14px;font-weight:400">　AI 面診 App · 助行機械腿</span>
+            </h3>
+            <p class="muted" style="margin-top:6px;font-size:14.2px">
+              <span class="zh">兩個把硬體帶回人群的專案：用鏡頭讀臉部線索做健康早期提示；為截肢者與長者做一只機械腿。</span>
+              <span class="en">Two projects that put hardware back in front of people: reading facial cues for early health signals, and a mechanical leg for amputees and the elderly.</span>
+            </p>
+          </div>
+          <span class="tag-private"><span class="zh">概念與研究</span><span class="en">Concept &amp; Research</span></span>
+        </div>
+        <div class="feat-grid">
+          <div class="feat"><b><em>01</em><span class="zh">AI 面診 App</span><span class="en">AI Facial Diagnosis</span></b>
+            <p><span class="zh">手機鏡頭取像 → 電腦視覺讀臉型與氣色 → AI 早期提示（附醫療免責）。</span><span class="en">Phone capture → computer vision on shape and complexion → AI early signals (with medical disclaimers).</span></p></div>
+          <div class="feat"><b><em>02</em><span class="zh">助行機械腿</span><span class="en">Mechanical Leg</span></b>
+            <p><span class="zh">機電整合＋步態感測與控制，目標是讓截肢者與長者重新自己出門。</span><span class="en">Mechatronics with gait sensing and control, so amputees and the elderly can go out on their own again.</span></p></div>
+          <div class="feat"><b><em>03</em><span class="zh">為什麼是我</span><span class="en">Why me</span></b>
+            <p><span class="zh">10 年機電設備工程的校正、良率與安全思維，加上自學開發的能力。</span><span class="en">Ten years of calibration, yield and safety discipline in equipment engineering, plus self-taught development.</span></p></div>
+        </div>
+        <p class="muted" style="margin-top:16px;font-size:13.6px">
+          <span class="zh">看兩個專案的完整說明 →</span><span class="en">Read the full write-up →</span>
+        </p>
+      </a>
     </div>
   </section>
 

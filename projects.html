@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark" data-lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tmaxius — R&D Vision Projects</title>
+<meta name="description" content="Tmaxius 的研究願景專案：AI 面診 App（以手機鏡頭分析臉部視覺線索）與助行機械腿（為截肢者與長者恢復行動力）。兩者皆為概念／研究階段。" />
+<meta name="theme-color" content="#0a0c11" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Tmaxius" />
+<meta property="og:url" content="https://www.tmaxius.com/projects" />
+<meta property="og:title" content="Tmaxius — R&D Vision Projects" />
+<meta property="og:description" content="AI 面診 App 與助行機械腿：兩個以人為本的硬體／軟體整合研究。Concept & research stage." />
+<meta property="og:image" content="https://tmaxius.com/og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="favicon-64.png" sizes="64x64" type="image/png" />
+<link rel="apple-touch-icon" href="apple-touch-180.png" />
+<script>
+  (function () {
+    var d = document.documentElement;
+    try {
+      var t = localStorage.getItem('tmaxius-theme');
+      if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) d.setAttribute('data-theme', 'light');
+      var l = localStorage.getItem('tmaxius-lang');
+      if (l === 'zh' || l === 'en') d.setAttribute('data-lang', l);
+    } catch (e) {}
+  })();
+</script>
+<style>
+:root{
+  --bg:#0a0c11; --bg-2:#0e1118; --ink:#eae7e1; --ink-2:#cbc7bf; --muted:#8d94a1;
+  --line:rgba(255,255,255,.10); --panel:rgba(255,255,255,.04); --gold:#d9a84e; --gold-2:#f2d49a;
+  --maroon:#8e1f2f; --teal:#57c9bd; --shadow:0 24px 60px -30px rgba(0,0,0,.85);
+  --serif:Georgia,"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --sans:"Segoe UI","Noto Sans TC","Microsoft JhengHei",system-ui,-apple-system,Arial,sans-serif;
+  --max:960px;
+}
+html[data-theme="light"]{
+  --bg:#faf5ea; --bg-2:#f3e9d7; --ink:#201c15; --ink-2:#3c362b; --muted:#6c6455;
+  --line:rgba(32,28,21,.15); --panel:#fff; --gold:#8b5210; --gold-2:#6f4409;
+  --maroon:#7c2333; --teal:#1b6e64; --shadow:0 20px 44px -28px rgba(92,62,22,.5);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans);
+  font-size:16.5px; line-height:1.75; overflow-x:hidden;
+  background-image:
+    radial-gradient(58% 44% at 12% 0%, rgba(217,168,78,.16), transparent 68%),
+    radial-gradient(46% 40% at 92% 8%, rgba(142,31,47,.18), transparent 70%);
+  transition:background-color .4s,color .4s;
+}
+html[data-theme="light"] body{
+  background-image:
+    radial-gradient(60% 44% at 10% -4%, rgba(233,190,110,.45), transparent 66%),
+    radial-gradient(48% 40% at 94% 6%, rgba(186,112,124,.18), transparent 70%);
+}
+a{color:inherit}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:22px}
+img{max-width:100%;display:block}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);
+  background:color-mix(in srgb,var(--bg) 76%,transparent);border-bottom:1px solid var(--line)}
+html[data-theme="light"] .nav{background:rgba(250,245,234,.88)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:12px;height:60px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none}
+.mark{height:28px;width:28px}
+.mark.light{display:none}
+html[data-theme="light"] .mark.dark{display:none}
+html[data-theme="light"] .mark.light{display:block}
+.brand b{font-family:var(--serif);font-size:1rem;letter-spacing:.14em;text-transform:uppercase}
+.tools{display:flex;align-items:center;gap:8px}
+.i18n{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.i18n button{border:0;background:transparent;color:var(--muted);font-family:inherit;font-size:12px;
+  font-weight:700;letter-spacing:.06em;padding:7px 10px;cursor:pointer}
+html[data-lang="zh"] .i18n [data-set-lang="zh"],html[data-lang="en"] .i18n [data-set-lang="en"]{background:var(--gold);color:#12141a}
+.icon{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--panel);
+  color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.icon svg{width:16px;height:16px}
+html[data-theme="light"] .i-sun{display:none}
+html[data-theme="dark"] .i-moon{display:none}
+.back{font-size:13.5px;color:var(--muted);text-decoration:none;border-bottom:1px dashed var(--line);padding-bottom:1px}
+.back:hover{color:var(--gold);border-color:var(--gold)}
+html[data-lang="zh"] .en{display:none!important}
+html[data-lang="en"] .zh{display:none!important}
+
+/* hero */
+.hero{padding:clamp(38px,6vw,68px) 0 clamp(22px,3vw,32px)}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);font-weight:800}
+.eyebrow::before{content:"";width:24px;height:1px;background:currentColor}
+h1{font-family:var(--serif);font-weight:600;line-height:1.16;margin:14px 0 0;
+  font-size:clamp(1.9rem,4.6vw,2.9rem);letter-spacing:.01em}
+.hero p{margin:14px 0 0;max-width:60ch;color:var(--muted);font-size:1.01rem}
+.hero .lead-b{color:var(--ink-2)}
+
+/* project */
+.proj{position:relative;margin-top:26px;padding:clamp(20px,3.4vw,32px);border:1px solid var(--line);
+  border-radius:20px;
+  background:
+    radial-gradient(120% 120% at 0% 0%, rgba(142,31,47,.16), transparent 58%),
+    radial-gradient(120% 120% at 100% 100%, rgba(217,168,78,.13), transparent 62%),
+    var(--panel);
+  box-shadow:var(--shadow)}
+html[data-theme="light"] .proj{background:
+    radial-gradient(120% 120% at 0% 0%, rgba(124,35,51,.06), transparent 58%),
+    radial-gradient(120% 120% at 100% 100%, rgba(233,190,110,.26), transparent 64%), #fffdf8;
+  border-color:#ebdfc6}
+.proj-h{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.proj-h h2{font-family:var(--serif);font-size:clamp(1.25rem,2.8vw,1.6rem);margin:0;letter-spacing:.01em}
+.proj-h .num{font-family:var(--serif);font-size:.9em;color:var(--gold);margin-right:10px}
+.status{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;
+  padding:5px 12px;border-radius:99px;white-space:nowrap;border:1px solid rgba(217,168,78,.45);color:var(--gold)}
+html[data-theme="light"] .status{background:#fff6e2;border-color:#e2c48c;color:#8b5210}
+.status.concept{border-color:rgba(87,201,189,.5);color:var(--teal)}
+html[data-theme="light"] .status.concept{background:#e9f6f4;border-color:#9ecfc6;color:#1b6e56}
+.vision{margin-top:12px;color:var(--ink-2);font-size:1rem;line-height:1.8}
+.vision b{color:var(--ink)}
+.cols{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(16px,3vw,30px);margin-top:18px}
+.block h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);font-weight:800;margin:0 0 9px;padding-bottom:5px;border-bottom:1px solid var(--line)}
+.block ul{margin:0;padding:0;list-style:none}
+.block li{position:relative;padding-left:17px;margin-bottom:7px;font-size:13.6px;color:var(--muted);line-height:1.66}
+.block li::before{content:"▸";position:absolute;left:0;color:var(--gold)}
+.block li b{color:var(--ink-2)}
+.why{margin-top:16px;padding:12px 15px;border-left:3px solid var(--gold);border-radius:0 10px 10px 0;
+  background:color-mix(in srgb,var(--gold) 8%,transparent);font-size:13.6px;color:var(--muted);line-height:1.7}
+html[data-theme="light"] .why{background:#fff6e2}
+.why b{color:var(--ink-2)}
+
+/* 免責 + CTA */
+.note{margin-top:22px;padding:14px 16px;border:1px dashed var(--line);border-radius:12px;
+  font-size:12.8px;color:var(--muted);line-height:1.7}
+.cta{margin:34px 0 0;text-align:center;padding:26px 18px;border-radius:18px;
+  border:1px solid var(--line);background:var(--panel)}
+.cta h2{font-family:var(--serif);font-size:1.25rem;margin:0 0 6px}
+.cta p{margin:0;color:var(--muted);font-size:13.8px}
+.mail{display:inline-flex;align-items:center;gap:10px;margin-top:14px;padding:11px 20px;border-radius:11px;
+  background:linear-gradient(145deg,#d9a84e,#a97b22);color:#14161c;font-weight:700;font-size:14px;
+  border:0;cursor:pointer;font-family:inherit}
+html[data-theme="light"] .mail{background:linear-gradient(145deg,#8e2a3a,#6d1a28);color:#fff8ec}
+.mail:hover{transform:translateY(-1px)}
+.foot{margin:34px 0 40px;padding-top:18px;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:12.6px;color:var(--muted)}
+.foot a{text-decoration:none;color:var(--muted)}
+.foot a:hover{color:var(--gold)}
+
+@media (max-width:820px){
+  .cols{grid-template-columns:1fr}
+  .nav .back{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="Tmaxius">
+      <img class="mark dark" src="mark-gold.png" alt="" width="250" height="250" />
+      <img class="mark light" src="mark-amber.png" alt="" width="250" height="250" />
+      <b>Tmaxius</b>
+    </a>
+    <div class="tools">
+      <a class="back" href="index.html">← <span class="zh">回首頁</span><span class="en">Home</span></a>
+      <div class="i18n" role="group" aria-label="Language">
+        <button type="button" data-set-lang="zh">中</button>
+        <button type="button" data-set-lang="en">EN</button>
+      </div>
+      <button class="icon" id="themeBtn" type="button" aria-label="Light / Dark">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.3A8.6 8.6 0 1 1 9.7 3.5a7 7 0 0 0 10.8 10.8Z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow"><span class="zh">研究願景</span><span class="en">R&amp;D Vision</span></span>
+    <h1>
+      <span class="zh">兩個把硬體帶回人群的專案</span>
+      <span class="en">Two projects that put hardware back in front of people</span>
+    </h1>
+    <p class="lead-b">
+      <span class="zh">做設備工程十年、再自學寫程式之後，我最想做的是把「量測、校正、控制」這套思維，用在人身上 —— 不是工廠裡的機台，而是每個人都會遇到的健康與行動問題。</span>
+      <span class="en">After ten years in equipment engineering and a second life in software, I want to apply the same discipline — measure, calibrate, control — to people rather than machines: the health and mobility problems everyone eventually meets.</span>
+    </p>
+    <p>
+      <span class="zh">以下兩個專案目前都在概念與研究階段，尚未成為產品，也不是醫療器材。</span>
+      <span class="en">Both projects below are at concept and research stage: not products, not medical devices.</span>
+    </p>
+  </section>
+
+  <!-- ── 專案 1 ── -->
+  <article class="proj">
+    <div class="proj-h">
+      <h2><span class="num">01</span>
+        <span class="zh">AI 面診 App</span><span class="en">AI Facial Diagnosis App</span>
+      </h2>
+      <span class="status"><span class="zh">概念與研究</span><span class="en">Concept &amp; Research</span></span>
+    </div>
+
+    <p class="vision">
+      <b><span class="zh">願景　</span><span class="en">Vision　</span></b>
+      <span class="zh">用手機前鏡頭掃描臉部，依臉型、氣色（膚色）與五官特徵等視覺線索，結合 AI 與大型醫學／生理資料，提供健康風險的早期提示 —— 讓「看一眼就知道要不要去看醫生」變得更可行。</span>
+      <span class="en">Use the phone's front camera to scan a face and read visual cues — facial shape, complexion, colour tone and feature patterns — combining AI with large-scale medical and physiological data to surface early-warning signals: making “should I see a doctor?” easier to answer.</span>
+    </p>
+
+    <div class="cols">
+      <div class="block">
+        <h3><span class="zh">做法</span><span class="en">Approach</span></h3>
+        <ul>
+          <li><b><span class="zh">取像</span><span class="en">Capture</span></b> —
+            <span class="zh">手機鏡頭拍攝，含光線、白平衡與角度校正。</span>
+            <span class="en">phone capture with lighting, white-balance and angle normalisation.</span></li>
+          <li><b><span class="zh">電腦視覺</span><span class="en">Computer vision</span></b> —
+            <span class="zh">臉部地標、臉型與氣色分析，區域層級的變化比對。</span>
+            <span class="en">facial landmarks, shape and complexion analysis, region-level comparison.</span></li>
+          <li><b><span class="zh">AI 模型</span><span class="en">AI models</span></b> —
+            <span class="zh">以「臉部特徵 ↔ 健康狀況」的大規模資料訓練。</span>
+            <span class="en">trained on large datasets correlating facial symptoms with conditions.</span></li>
+          <li><b><span class="zh">輸出</span><span class="en">Output</span></b> —
+            <span class="zh">易懂的提示與就醫建議，並附明確醫療免責。</span>
+            <span class="en">plain-language insights and guidance, with explicit medical disclaimers.</span></li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3><span class="zh">階段目標</span><span class="en">Next milestones</span></h3>
+        <ul>
+          <li><span class="zh">資料來源與倫理審查（影像、同意、去識別化）</span>
+              <span class="en">data sourcing and ethics review (images, consent, de-identification)</span></li>
+          <li><span class="zh">建立可重複的取像標準（光線／白平衡／距離）</span>
+              <span class="en">a repeatable capture standard (light, white balance, distance)</span></li>
+          <li><span class="zh">先做「氣色／膚色」單一目的的可行性驗證</span>
+              <span class="en">feasibility test on one narrow task first (complexion / tone)</span></li>
+          <li><span class="zh">法規定位（健康建議 ≠ 診斷）</span>
+              <span class="en">regulatory positioning (guidance ≠ diagnosis)</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="why">
+      <b><span class="zh">為什麼是我　</span><span class="en">Why me　</span></b>
+      <span class="zh">已自學完成命理類 App（數字命理、八字），從資料到介面的流程熟悉；設備工程累積的圖樣辨識、感測器校正與量測偏差控制，正是「把一張手機照片變成可重複量測」的核心難題。</span>
+      <span class="en">I have already shipped self-taught apps in the metaphysical domain (Numerology, BaZi), so the data-to-interface pipeline is familiar; equipment engineering contributes pattern recognition, sensor calibration discipline and measurement-variance control — exactly the hard part of turning a phone photo into a repeatable measurement.</span>
+    </p>
+  </article>
+
+  <!-- ── 專案 2 ── -->
+  <article class="proj">
+    <div class="proj-h">
+      <h2><span class="num">02</span>
+        <span class="zh">助行機械腿</span><span class="en">Mechanical Leg for Mobility</span>
+      </h2>
+      <span class="status concept"><span class="zh">概念</span><span class="en">Concept</span></span>
+    </div>
+
+    <p class="vision">
+      <b><span class="zh">願景　</span><span class="en">Vision　</span></b>
+      <span class="zh">為截肢者、長者與腿部功能受損的人設計一只機械腿，幫助他們重新走路、重新自己出門 —— 把獨立還給人，而不是把人留在家裡。</span>
+      <span class="en">Design and build a mechanical leg that helps amputees, the elderly and people with leg impairments walk again and go out on their own — giving independence back instead of keeping people at home.</span>
+    </p>
+
+    <div class="cols">
+      <div class="block">
+        <h3><span class="zh">做法</span><span class="en">Approach</span></h3>
+        <ul>
+          <li><b><span class="zh">系統</span><span class="en">System</span></b> —
+            <span class="zh">機械／機器腿，支援行走與日常活動。</span>
+            <span class="en">a mechanical / robotic leg supporting walking and daily movement.</span></li>
+          <li><b><span class="zh">使用者</span><span class="en">Users</span></b> —
+            <span class="zh">截肢者、長者、腿部功能受損者。</span>
+            <span class="en">amputees, the elderly, people with leg impairments.</span></li>
+          <li><b><span class="zh">整合</span><span class="en">Integration</span></b> —
+            <span class="zh">機電整合＋輔助科技設計：致動器、控制、步態感測、安全與舒適。</span>
+            <span class="en">mechanical-electronic integration plus assistive design: actuators, control, gait sensing, safety, comfort.</span></li>
+          <li><b><span class="zh">目標</span><span class="en">Goal</span></b> —
+            <span class="zh">改善生活品質、恢復獨立。</span>
+            <span class="en">improve quality of life and restore independence.</span></li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3><span class="zh">階段目標</span><span class="en">Next milestones</span></h3>
+        <ul>
+          <li><span class="zh">使用者訪談：真正卡住的是哪一段路</span>
+              <span class="en">user interviews: which part of walking actually fails</span></li>
+          <li><span class="zh">法規路徑（醫療器材分級與認證）</span>
+              <span class="en">regulatory path (device classification and certification)</span></li>
+          <li><span class="zh">機構原型：對位、負重、散熱、電力</span>
+              <span class="en">mechanical prototype: alignment, load, heat, power</span></li>
+          <li><span class="zh">控制：步態感測與安全停止</span>
+              <span class="en">control: gait sensing and safe-stop behaviour</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="why">
+      <b><span class="zh">為什麼是我　</span><span class="en">Why me　</span></b>
+      <span class="zh">十年機電設備工程（維護、校正、良率、安全）＋自動化與控制系統經驗可以直接轉用；這是從工業設備走向「以人為本」的工程，最自然的一步。</span>
+      <span class="en">Ten years of mechanical-electronic equipment engineering — maintenance, calibration, yield, safety — plus automation and control experience transfers directly; this is the natural step from industrial equipment to human-centred engineering.</span>
+    </p>
+  </article>
+
+  <p class="note">
+    <span class="zh">⚠️ 兩者目前皆為概念與研究階段，不是醫療器材、未經臨床驗證，本頁內容不構成醫療建議或診斷。若你對其中任何一個專案有興趣（合作、指導、法規經驗、使用者訪談），歡迎來信。</span>
+    <span class="en">⚠️ Both projects are at concept / research stage. They are not medical devices, have not been clinically validated, and nothing on this page constitutes medical advice or a diagnostic claim. If either project interests you — collaboration, mentorship, regulatory experience or user interviews — please get in touch.</span>
+  </p>
+
+  <div class="cta">
+    <h2><span class="zh">聊聊？</span><span class="en">Let's talk</span></h2>
+    <p><span class="zh">合作、指導、或只是覺得某個做法不對 —— 都歡迎。</span>
+       <span class="en">Collaboration, mentorship, or just telling me where the approach is wrong — all welcome.</span></p>
+    <button class="mail" id="mailBtn" type="button">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+      <span id="mailText">maxt9967@gmail.com</span>
+    </button>
+  </div>
+
+  <footer class="foot">
+    <span>© <span id="year">2026</span> Tmaxius · Penang, Malaysia</span>
+    <span><a href="index.html"><span class="zh">回首頁</span><span class="en">Back to home</span></a></span>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var root = document.documentElement, d = root;
+
+  // 主題
+  function syncMeta() {
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', root.getAttribute('data-theme') === 'light' ? '#faf5ea' : '#0a0c11');
+  }
+  syncMeta();
+  var tb = document.getElementById('themeBtn');
+  if (tb) tb.addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    syncMeta();
+    try { localStorage.setItem('tmaxius-theme', next); } catch (e) {}
+  });
+
+  // 語言
+  var TITLES = { zh: 'Tmaxius — 研究願景專案', en: 'Tmaxius — R&D Vision Projects' };
+  function applyLang(lang) {
+    root.setAttribute('data-lang', lang);
+    root.setAttribute('lang', lang === 'en' ? 'en' : 'zh-Hant');
+    document.title = TITLES[lang] || TITLES.zh;
+  }
+  applyLang(root.getAttribute('data-lang') === 'en' ? 'en' : 'zh');
+  [].slice.call(document.querySelectorAll('.i18n [data-set-lang]')).forEach(function (b) {
+    b.addEventListener('click', function () {
+      var lang = b.getAttribute('data-set-lang');
+      applyLang(lang);
+      try { localStorage.setItem('tmaxius-lang', lang); } catch (e) {}
+    });
+  });
+
+  // 複製 email
+  var btn = document.getElementById('mailBtn');
+  if (btn) btn.addEventListener('click', function () {
+    var text = document.getElementById('mailText').textContent.trim();
+    function done() {
+      var old = btn.querySelector('#mailText').textContent;
+      btn.querySelector('#mailText').textContent = root.getAttribute('data-lang') === 'en' ? 'Copied ✓' : '已複製 ✓';
+      setTimeout(function () { btn.querySelector('#mailText').textContent = old; }, 1800);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done).catch(function () {});
+    else { try { document.execCommand('copy'); done(); } catch (e) {} }
+  });
+
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

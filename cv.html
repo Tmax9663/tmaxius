@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- 私人頁面：不要被搜尋引擎收錄，也不要出現在首頁任何地方 -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<meta name="googlebot" content="noindex, nofollow" />
+<meta name="referrer" content="no-referrer" />
+<title>Professional Portfolio — Tmaxius (Private)</title>
+<!--
+  ══════════════════════════════════════════════════════════════════
+  私人作品集 / Private CV page
+  · 上傳到 tmaxius.com repo 根目錄，檔名建議：cv.html
+  · 不要從 index.html 連過來（不連 = 搜不到）
+  · 換名字／電話：改下面 <div class="p-name"> 與 .p-contact 那兩行
+  · 要 PDF：開這頁按右上角「列印 / Print」→ 選「另存為 PDF」
+  ══════════════════════════════════════════════════════════════════
+-->
+<style>
+  :root{
+    --ink:#1d1a15; --ink-2:#3b352b; --muted:#6c6455;
+    --gold:#8b5210; --gold-2:#a9721b; --maroon:#7c2333;
+    --line:#e3d7c0; --cream:#fbf7ef;
+    --serif: Georgia, "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+    --sans: "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", system-ui, -apple-system, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans); color:var(--ink); line-height:1.62; background:#efe7d8;
+    -webkit-font-smoothing:antialiased; font-size:14.2px;
+  }
+  .sheet{
+    width:210mm; min-height:297mm; margin:24px auto; background:#fff; padding:16mm 15mm;
+    box-shadow:0 30px 70px -40px rgba(60,40,15,.6);
+  }
+
+  /* ── 抬頭 ── */
+  .p-head{ border-bottom:2px solid var(--gold); padding-bottom:14px; }
+  .p-name{ font-family:var(--serif); font-size:30px; line-height:1.15; letter-spacing:.01em; color:var(--maroon); }
+  .p-role{ margin-top:6px; font-size:13px; letter-spacing:.04em; color:var(--ink-2); }
+  .p-role em{ font-style:normal; color:var(--gold); margin:0 6px; }
+  .p-contact{ margin-top:10px; font-size:12.2px; color:var(--muted); }
+  .p-contact b{ color:var(--ink-2); font-weight:600; }
+  .p-contact span{ margin-right:16px; white-space:nowrap; }
+
+  /* ── 區塊 ── */
+  section{ margin-top:20px; break-inside:auto; }
+  h2{
+    font-family:var(--sans); font-size:11.5px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--gold); font-weight:800; padding-bottom:5px; border-bottom:1px solid var(--line);
+    margin-bottom:10px;
+  }
+  p{ margin:0 0 8px; }
+  p:last-child{ margin-bottom:0; }
+  .lead{ color:var(--ink-2); text-align:justify; }
+
+  /* 核心能力（兩欄） */
+  .comp{ display:grid; grid-template-columns:1fr 1fr; gap:2px 22px; }
+  .comp li{ list-style:none; padding-left:16px; position:relative; color:var(--ink-2); font-size:13.2px; line-height:1.75; }
+  .comp li::before{ content:"▸"; position:absolute; left:0; color:var(--gold-2); }
+
+  /* 經歷 */
+  .job{ break-inside:avoid; margin-bottom:14px; }
+  .job:last-child{ margin-bottom:0; }
+  .job-h{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .job-co{ font-family:var(--serif); font-size:16px; color:var(--ink); }
+  .job-t{ font-size:12.5px; color:var(--muted); letter-spacing:.02em; }
+  .job-sub{ font-size:12.6px; color:var(--gold); font-weight:700; margin-top:2px; }
+  ul.dots{ margin:7px 0 0 0; padding-left:17px; }
+  ul.dots li{ color:var(--ink-2); margin-bottom:3px; font-size:13.2px; }
+  .kpi{ margin-top:7px; padding:8px 11px; background:var(--cream); border-left:3px solid var(--gold-2); border-radius:0 6px 6px 0; }
+  .kpi b{ display:block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:3px; }
+  .kpi li{ font-size:12.8px; color:var(--ink-2); }
+
+  /* 專案（兩欄卡） */
+  .proj-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .proj{ break-inside:avoid; border:1px solid var(--line); border-radius:9px; padding:11px 13px; background:#fffdf8; }
+  .proj h3{ font-family:var(--serif); font-size:13.6px; color:var(--maroon); font-weight:600; }
+  .proj .tag{ display:inline-block; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-top:2px; }
+  .proj p{ margin-top:5px; font-size:12.5px; color:var(--ink-2); line-height:1.6; }
+
+  /* R&D 願景專案 */
+  .vision{ break-inside:avoid; border:1px solid var(--line); border-radius:10px; padding:12px 14px;
+    background:#fffdf8; margin-bottom:12px; }
+  .vision:last-of-type{ margin-bottom:8px; }
+  .vision-h{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .vision h3{ font-family:var(--serif); font-size:14.4px; color:var(--maroon); font-weight:600; }
+  .zh-tag{ font-family:var(--sans); font-size:11.5px; color:var(--muted); font-weight:400; margin-left:6px; }
+  .status{ font-family:var(--sans); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    font-weight:800; padding:3px 9px; border-radius:99px; white-space:nowrap; }
+  .status.research{ color:#7a4a0c; background:#fff3d8; border:1px solid #d8b478; }
+  .status.concept{ color:#1b5e56; background:#e7f5f2; border:1px solid #9ecfc6; }
+  .vision-p{ margin-top:6px; font-size:12.6px; color:var(--ink-2); line-height:1.62; }
+  .vision-p b, .vision-rel b{ color:var(--ink); }
+  .vision ul.dots{ margin-top:6px; }
+  .vision-rel{ margin-top:6px; font-size:12.2px; color:var(--muted); line-height:1.6; }
+  .disclaimer{ margin-top:2px; font-size:11.4px; color:#8a7a63; line-height:1.55;
+    border-top:1px dashed var(--line); padding-top:7px; }
+
+  /* 技能表 */
+  table{ width:100%; border-collapse:collapse; font-size:12.8px; }
+  th,td{ text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th{ width:34%; color:var(--gold); font-weight:800; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; background:#fffdf6; }
+  td{ color:var(--ink-2); }
+  tr:last-child th, tr:last-child td{ border-bottom:0; }
+
+  /* 教育 / 亮點 */
+  .edu li, .win li{ list-style:none; padding-left:16px; position:relative; color:var(--ink-2); font-size:13px; margin-bottom:4px; }
+  .edu li::before{ content:"·"; position:absolute; left:4px; color:var(--gold-2); font-weight:700; }
+  .win li::before{ content:"✓"; position:absolute; left:0; color:#1b6e64; font-weight:800; }
+  .edu b, .win b{ color:var(--ink); }
+
+  /* 螢幕上的小工具列（列印不顯示） */
+  .bar{
+    position:sticky; top:0; z-index:9; display:flex; gap:10px; justify-content:flex-end;
+    padding:10px 16px; background:rgba(239,231,216,.92); backdrop-filter:blur(8px);
+    border-bottom:1px solid #e0d3ba;
+  }
+  .bar button{
+    font-family:var(--sans); font-size:13px; font-weight:700; cursor:pointer;
+    padding:8px 16px; border-radius:9px; border:1px solid #d8c8a6; background:#fff; color:var(--maroon);
+    transition:transform .2s, background .2s;
+  }
+  .bar button:hover{ transform:translateY(-1px); background:#fff8e9; }
+  .bar .hint{ margin-right:auto; align-self:center; font-size:12px; color:#7a6a55; }
+
+  /* ── 列印：A4、去掉背景與工具列（目標 2 頁）── */
+  @page{ size:A4; margin:12mm 11mm; }
+  @media print{
+    html,body{ background:#fff; font-size:12.4px; line-height:1.5; }
+    .bar{ display:none !important; }
+    .sheet{ width:auto; min-height:0; margin:0; padding:0; box-shadow:none; }
+    .sections,.sheet{ }
+    section{ margin-top:12px; }
+    .job,.proj,.vision{ break-inside:avoid; }
+    .vision{ padding:9px 11px; margin-bottom:9px; }
+    .vision h3{ font-size:12.6px; }
+    .vision-p{ font-size:11.6px; line-height:1.55; }
+    .vision-rel{ font-size:11.2px; line-height:1.5; }
+    .vision ul.dots li{ font-size:11.6px; margin-bottom:1px; }
+    .disclaimer{ font-size:10.8px; padding-top:5px; }
+    h2{ margin-bottom:7px; padding-bottom:4px; font-size:10.6px; }
+    .p-name{ font-size:25px; }
+    .p-head{ padding-bottom:10px; }
+    .p-role{ font-size:12px; }
+    .p-contact{ font-size:11.2px; margin-top:7px; }
+    .lead{ font-size:12.2px; }
+    .comp li{ font-size:12px; line-height:1.55; }
+    .job{ margin-bottom:10px; }
+    .job-co{ font-size:14.5px; }
+    .job-sub{ font-size:11.8px; }
+    ul.dots li{ font-size:12px; margin-bottom:1px; }
+    .kpi{ padding:6px 9px; margin-top:5px; }
+    .kpi li{ font-size:11.8px; }
+    .proj-grid{ gap:9px; }
+    .proj{ padding:9px 11px; }
+    .proj h3{ font-size:12.4px; }
+    .proj p{ font-size:11.6px; line-height:1.5; }
+    table{ font-size:11.8px; }
+    th,td{ padding:4px 7px; }
+    .edu li,.win li{ font-size:11.9px; margin-bottom:2px; }
+  }
+  @media (max-width:840px){
+    .sheet{ width:auto; margin:0; padding:20px 16px; }
+    .comp,.proj-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <span class="hint">私人頁面 · 未收錄於搜尋引擎 · 未從首頁連結</span>
+  <button type="button" onclick="window.print()">列印 / 存 PDF</button>
+</div>
+
+<div class="sheet">
+
+  <header class="p-head">
+    <div class="p-name">Tmaxius</div>
+    <div class="p-role">Equipment Engineer <em>→</em> Automation Specialist <em>→</em> Software Developer</div>
+    <div class="p-contact">
+      <span><b>Penang, Malaysia</b></span>
+      <span>Email: <b>maxt9967@gmail.com</b></span>
+      <span>Portfolio: <b>tmaxius.com</b></span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Professional Summary</h2>
+    <p class="lead">
+      A versatile engineer-turned-developer with 10 years of hands-on experience at AMD's manufacturing facility,
+      progressing from Electronic Technician to Equipment Engineer. Combines deep hardware expertise with
+      self-taught software development skills to build practical automation and consumer applications.
+      Proven ability to identify operational inefficiencies and deliver custom solutions — from equipment
+      automation to POS systems, photo kiosks, and metaphysical / astrological apps.
+    </p>
+  </section>
+
+  <section>
+    <h2>Core Competencies</h2>
+    <ul class="comp">
+      <li>Equipment Engineering &amp; Automation</li>
+      <li>Electronics &amp; Mechanical-Electronic Integration</li>
+      <li>Yield Improvement &amp; Process Optimization</li>
+      <li>POS System Development</li>
+      <li>Kiosk Application Development</li>
+      <li>Mobile / Web App Development</li>
+      <li>Numerology &amp; BaZi (Chinese Astrology) Systems</li>
+      <li>Hardware–Software Integration</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Professional Experience</h2>
+
+    <div class="job">
+      <div class="job-h">
+        <span class="job-co">AMD — Manufacturing Facility</span>
+        <span class="job-t">10 Years</span>
+      </div>
+      <div class="job-sub">Electronic Technician → Equipment Engineer</div>
+      <ul class="dots">
+        <li>Started as Electronic Technician, gaining foundational expertise in semiconductor manufacturing equipment.</li>
+        <li>Promoted to Equipment Engineer based on technical proficiency and problem-solving capabilities.</li>
+        <li>Maintained, troubleshot, and optimized complex electronic and mechanical systems.</li>
+        <li>Collaborated with cross-functional teams to ensure equipment reliability and production continuity.</li>
+      </ul>
+      <div class="kpi">
+        <b>Key Achievements</b>
+        <ul class="dots">
+          <li>Enhanced mechanical-electronic operations to improve equipment performance.</li>
+          <li>Implemented process improvements that increased product yield.</li>
+          <li>Developed deep understanding of equipment lifecycle and maintenance optimization.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="job-h">
+        <span class="job-co">Equipment Automation</span>
+        <span class="job-t">Post-AMD</span>
+      </div>
+      <div class="job-sub">Automation Specialist</div>
+      <ul class="dots">
+        <li>Involved in equipment automation initiatives, bridging hardware and software systems.</li>
+        <li>Applied engineering background to design and implement automated solutions.</li>
+        <li>Focused on reducing manual intervention and improving operational efficiency.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Software Development Projects</h2>
+    <div class="proj-grid">
+
+      <div class="proj">
+        <h3>POS System — Cash Register Retrofit</h3>
+        <span class="tag">Self-Taught Developer</span>
+        <p>Modified and retrofitted cash register hardware; self-learned software development to build a custom
+           Point-of-Sale system. Delivered a functional, tailored POS solution from hardware modification
+           through software implementation.</p>
+      </div>
+
+      <div class="proj">
+        <h3>PhotoKiosk — Photo Shop Application</h3>
+        <span class="tag">Developer</span>
+        <p>Developed a photo kiosk application for photo shops. Enabled customers to easily select, edit and print
+           photos; created an intuitive user interface that streamlines the selection and printing workflow.</p>
+      </div>
+
+      <div class="proj">
+        <h3>Numerology Philosophy App</h3>
+        <span class="tag">Developer</span>
+        <p>Studied numerology philosophy independently and built a mobile application where users input their date
+           of birth to generate a personalised character analysis, with V-chart visualisation and charted results.</p>
+      </div>
+
+      <div class="proj">
+        <h3>BaZi (Chinese Astrology) App</h3>
+        <span class="tag">Developer</span>
+        <p>Studied BaZi (Four Pillars of Destiny) under a teacher using classical BaZi texts, then applied those
+           principles to build a BaZi analysis application — translating traditional astrological calculations
+           into a functional digital tool.</p>
+      </div>
+
+    </div>
+  </section>
+
+    <p class="vision-rel" style="margin-top:12px">
+    <b>R&amp;D concepts (not yet shipped):</b> AI facial-diagnosis app · mechanical mobility leg for amputees
+    and the elderly — see <a href="projects.html">projects.html</a>.
+  </p>
+
+  <section>
+    <h2>Technical Skills</h2>
+    <table>
+      <tbody>
+        <tr><th>Hardware</th><td>Electronic systems · mechanical-electronic integration · equipment maintenance</td></tr>
+        <tr><th>Automation</th><td>Equipment automation · process optimization · yield improvement</td></tr>
+        <tr><th>Software</th><td>POS development · kiosk applications · mobile / web app development
+          (JavaScript, React, Node.js, PHP, MySQL, Java, Flutter)</td></tr>
+        <tr><th>Domain Knowledge</th><td>Numerology · BaZi astrology · semiconductor equipment engineering</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Education &amp; Self-Development</h2>
+    <ul class="edu">
+      <li><b>Electronic Technician Training</b> — foundational electronics</li>
+      <li><b>On-the-job Engineering Training</b> — AMD equipment engineering</li>
+      <li><b>Self-Taught Software Development</b> — POS, kiosk and app development</li>
+      <li><b>Numerology Philosophy</b> — independent study</li>
+      <li><b>BaZi (Four Pillars of Destiny)</b> — studied under a teacher with classical texts</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Career Highlights</h2>
+    <ul class="win">
+      <li>10 years of progressive experience at a leading semiconductor company.</li>
+      <li>Successfully transitioned from hardware engineering to software development.</li>
+      <li>Built 4+ functional applications across diverse domains (POS, photo kiosk, numerology, BaZi).</li>
+      <li>Self-directed learner who converts domain knowledge into working software products.</li>
+    </ul>
+  </section>
+
+</div>
+</body>
+</html>
