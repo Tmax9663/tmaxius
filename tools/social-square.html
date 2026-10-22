@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<title>Tmaxius 1080x1080</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; }
+  body {
+    font-family: "Noto Serif TC", "Songti TC", "PMingLiU", Georgia, serif;
+    color: #201c15; position: relative;
+    background:
+      radial-gradient(62% 58% at 6% -8%, rgba(233,190,110,.55), transparent 62%),
+      radial-gradient(52% 48% at 100% 106%, rgba(186,112,124,.24), transparent 70%),
+      linear-gradient(165deg, #fbf7ef 0%, #f6eddd 55%, #eee1c9 100%);
+  }
+  body::after { content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(32,28,21,.07) 1px, transparent 1px);
+    background-size: 26px 26px; opacity: .42; }
+  .rings { position: absolute; right: -230px; bottom: -290px; width: 820px; height: 820px; opacity: .9; }
+  .rings i { position: absolute; inset: 0; border-radius: 50%; border: 3px solid rgba(139,82,16,.14); }
+  .rings i:nth-child(2) { inset: 90px; border-style: dashed; border-color: rgba(139,82,16,.20); }
+  .rings i:nth-child(3) { inset: 190px; border-color: rgba(124,35,51,.16); }
+
+  .wrap { position: relative; z-index: 2; height: 100%; padding: 96px 92px 84px; display: flex; flex-direction: column; }
+
+  .brand { display: flex; align-items: center; gap: 26px; }
+  .brand img { width: 150px; height: 150px; filter: drop-shadow(0 12px 26px rgba(122,74,10,.26)); }
+  .brand .name { font-size: 96px; line-height: 1; color: #8b5210; }
+  .brand .sub { display: block; margin-top: 14px; font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    font-size: 21px; letter-spacing: .44em; text-transform: uppercase; color: #a9721b; }
+
+  .rule { height: 3px; width: 210px; margin: 46px 0 40px;
+    background: linear-gradient(90deg, #a9721b, rgba(169,114,27,0)); }
+
+  h1 { font-size: 70px; line-height: 1.3; font-weight: 600; letter-spacing: .01em; }
+  h1 b { color: #7c2333; font-weight: 600; }
+  .sub2 { margin-top: 22px; font-size: 41px; line-height: 1.55; color: #3c362b; }
+  .en { margin-top: 26px; font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    font-size: 27px; line-height: 1.55; color: #6c6455; }
+
+  .foot { margin-top: auto; display: flex; align-items: center; gap: 24px; }
+  .url { font-family: Consolas, "Courier New", monospace; font-size: 40px; letter-spacing: .04em;
+    color: #8b5210; background: #fff6e2; border: 3px solid #e2c48c; border-radius: 18px; padding: 14px 30px; }
+  .loc { font-family: "Segoe UI", "Noto Sans TC", sans-serif; font-size: 26px; color: #7a6f5d; }
+</style>
+</head>
+<body>
+  <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <div class="brand">
+      <img src="../mylogo.png" alt="" />
+      <div>
+        <div class="name">Tmaxius</div>
+        <span class="sub">Smart Tech</span>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <h1>軟體開發 ・ 手機 App<br><b>硬體整合</b></h1>
+    <div class="sub2">Kiosk 自助機 ・ POS 收銀<br>Arduino ・ Raspberry Pi</div>
+    <div class="en">Full-stack development · mobile apps ·<br>hardware integration · design</div>
+
+    <div class="foot">
+      <span class="url">tmaxius.com</span>
+      <span class="loc">Penang, Malaysia</span>
+    </div>
+  </div>
+</body>
+</html>

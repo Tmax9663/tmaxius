@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<title>Tmaxius OG</title>
+<style>
+  @page { size: 1200px 630px; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: "Noto Serif TC", "Songti TC", "PMingLiU", Georgia, serif;
+    background:
+      radial-gradient(60% 70% at 8% -10%, rgba(233,190,110,.55), transparent 62%),
+      radial-gradient(50% 60% at 96% 108%, rgba(186,112,124,.22), transparent 70%),
+      linear-gradient(160deg, #fbf7ef 0%, #f6eddd 52%, #efe3cd 100%);
+    color: #201c15;
+    position: relative;
+  }
+  /* 紙紋 */
+  body::after {
+    content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(32,28,21,.07) 1px, transparent 1px);
+    background-size: 22px 22px; opacity: .45;
+  }
+  /* 右側羅盤 */
+  .rings { position: absolute; right: -110px; top: 50%; transform: translateY(-50%); width: 700px; height: 700px; }
+  .rings i {
+    position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(139,82,16,.16);
+  }
+  .rings i:nth-child(2) { inset: 70px; border-style: dashed; border-color: rgba(139,82,16,.22); }
+  .rings i:nth-child(3) { inset: 150px; border-color: rgba(139,82,16,.20); }
+  .rings i:nth-child(4) { inset: 235px; border-color: rgba(124,35,51,.18); }
+  .trigram { position: absolute; inset: 0; display: flex; justify-content: center; align-items: flex-start;
+    transform: rotate(var(--a)); font-family: serif; }
+  .trigram span { margin-top: 6.5%; font-size: 30px; color: rgba(139,82,16,.30);
+    transform: rotate(calc(-1 * var(--a))); }
+
+  .wrap { position: relative; z-index: 2; height: 100%; padding: 62px 76px; display: flex; flex-direction: column; }
+
+  .brand { display: flex; align-items: center; gap: 20px; }
+  .brand img { width: 108px; height: 108px; filter: drop-shadow(0 10px 22px rgba(122,74,10,.28)); }
+  .brand .txt { display: flex; flex-direction: column; }
+  .brand .name {
+    font-size: 74px; line-height: 1; letter-spacing: .01em;
+    color: #8b5210;
+  }
+  .brand .sub {
+    font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    font-size: 17px; letter-spacing: .42em; text-transform: uppercase;
+    color: #a9721b; margin-top: 12px;
+  }
+
+  .rule { height: 2px; width: 168px; margin: 30px 0 26px;
+    background: linear-gradient(90deg, #a9721b, rgba(169,114,27,0)); }
+
+  .zh { font-size: 40px; line-height: 1.42; color: #241f17; letter-spacing: .02em; }
+  .zh b { color: #7c2333; font-weight: 600; }
+  .en { font-family: "Segoe UI", "Noto Sans TC", sans-serif; font-size: 23px; line-height: 1.5;
+    color: #6c6455; margin-top: 16px; letter-spacing: .01em; }
+
+  .foot { margin-top: auto; display: flex; align-items: baseline; gap: 22px; }
+  .foot .url {
+    font-family: Consolas, "Courier New", monospace; font-size: 28px; letter-spacing: .04em;
+    color: #8b5210; background: #fff6e2; border: 2px solid #e2c48c;
+    border-radius: 14px; padding: 10px 22px;
+  }
+  .foot .loc { font-family: "Segoe UI", "Noto Sans TC", sans-serif; font-size: 21px; color: #7a6f5d; }
+  .badge {
+    position: absolute; right: 76px; bottom: 70px; z-index: 2;
+    font-family: "Segoe UI", "Noto Sans TC", sans-serif; font-size: 17px; letter-spacing: .18em;
+    text-transform: uppercase; color: #8b5210;
+    border: 2px dashed rgba(139,82,16,.45); border-radius: 99px; padding: 9px 20px;
+    background: rgba(255,255,255,.5);
+  }
+</style>
+</head>
+<body>
+  <div class="rings" aria-hidden="true">
+    <i></i><i></i><i></i><i></i>
+    <div class="trigram" style="--a:0deg"><span>☰</span></div>
+    <div class="trigram" style="--a:45deg"><span>☱</span></div>
+    <div class="trigram" style="--a:90deg"><span>☲</span></div>
+    <div class="trigram" style="--a:135deg"><span>☳</span></div>
+    <div class="trigram" style="--a:180deg"><span>☴</span></div>
+    <div class="trigram" style="--a:225deg"><span>☵</span></div>
+    <div class="trigram" style="--a:270deg"><span>☶</span></div>
+    <div class="trigram" style="--a:315deg"><span>☷</span></div>
+  </div>
+
+  <div class="wrap">
+    <div class="brand">
+      <img src="../mylogo.png" alt="" />
+      <div class="txt">
+        <span class="name">Tmaxius</span>
+        <span class="sub">Smart Tech</span>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="zh">軟體開發 ・ 手機 App ・ <b>硬體整合</b></div>
+    <div class="zh" style="font-size:33px;margin-top:10px;color:#3c362b">
+      Kiosk 自助機 ・ POS 收銀 ・ Arduino ・ Raspberry Pi
+    </div>
+
+    <div class="en">Full-stack development, mobile apps, hardware integration and design.</div>
+
+    <div class="foot">
+      <span class="url">tmaxius.com</span>
+      <span class="loc">Penang, Malaysia</span>
+    </div>
+  </div>
+
+  <div class="badge">Software · Mobile · Hardware · Design</div>
+</body>
+</html>
