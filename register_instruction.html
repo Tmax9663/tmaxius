@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FreePaths 八字課堂｜學生報名操作說明（老師版）</title>
+<style>
+  :root { --gold:#7a4e00; --gold2:#a86a08; --bg:#f8f4ea; --card:#fffdf7; --line:#d9cfb6; --ink:#2f2a21; --ink2:#6b5f48; --ok:#2e7d32; --warn:#c62828; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:"PingFang TC","Microsoft JhengHei","Noto Sans TC",Arial,sans-serif; line-height:1.85; }
+  .page { max-width:900px; margin:0 auto; padding:24px 18px 60px; }
+  h1 { font-size:24px; letter-spacing:2px; color:var(--gold); margin:0 0 4px; }
+  .sub { font-size:13px; color:var(--ink2); margin-bottom:18px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:14px; }
+  h2 { font-size:17px; color:var(--gold); margin:0 0 8px; letter-spacing:1px; }
+  h2 .n { display:inline-block; background:linear-gradient(180deg,#f0a020,#c97b10); color:#fff; border-radius:50%; width:26px; height:26px; line-height:26px; text-align:center; font-size:14px; margin-right:8px; }
+  h3 { font-size:14.5px; color:var(--ink); margin:14px 0 4px; }
+  ol, ul { margin:6px 0 6px 20px; padding:0; }
+  li { margin:4px 0; }
+  code, .code { background:#f3ecdc; border:1px solid #e2d6ba; border-radius:6px; padding:1px 7px; font-size:13px; color:#7a4e00; font-weight:700; letter-spacing:1px; }
+  .big-code { display:inline-block; font-size:30px; font-weight:800; letter-spacing:8px; color:var(--gold); background:#fdf3dd; border:1px dashed #c9a86a; border-radius:10px; padding:6px 16px; }
+  .btn { display:inline-block; background:linear-gradient(180deg,#f0a020,#c97b10); color:#fff; border-radius:8px; padding:5px 12px; font-weight:800; font-size:13px; }
+  .tip { background:#eef7ee; border:1px solid #bcd9bc; border-radius:10px; padding:10px 12px; font-size:13px; margin:8px 0; }
+  .warn { background:#fdeeee; border:1px solid #e0b4b4; border-radius:10px; padding:10px 12px; font-size:13px; margin:8px 0; }
+  .note { background:#fdf3dd; border:1px solid #e2d6ba; border-radius:10px; padding:10px 12px; font-size:13px; margin:8px 0; }
+  table { border-collapse:collapse; width:100%; font-size:13px; margin:8px 0; }
+  th, td { border:1px solid var(--line); padding:6px 8px; text-align:left; vertical-align:top; }
+  th { background:#f3ecdc; color:var(--gold); white-space:nowrap; }
+  .muted { color:var(--ink2); font-size:12.5px; }
+  .kbd { border:1px solid #c9b98c; border-bottom-width:2px; border-radius:5px; background:#fff; padding:1px 6px; font-size:12px; }
+  @media print { body{background:#fff;} .page{max-width:none;padding:0;} .card{break-inside:avoid;} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>FreePaths 八字課堂｜學生報名操作說明</h1>
+  <div class="sub">給老師的現場操作步驟（網站：<b>https://freepaths.tmaxius.com/</b>）｜版本 v1.31.76</div>
+
+  <div class="card">
+    <h2>開課前先確認</h2>
+    <ul>
+      <li>你有老師金鑰（<code>FP-T-…</code>）；若沒有，請管理員在「設定 → 管理」產生一組給你。</li>
+      <li>學生每人一台手機（平板也可）；同一台裝置之後可用同一個金鑰繼續用。</li>
+      <li>每位學生可綁定 <b>2 台裝置</b>；學員金鑰到期日：<b>2027-02-15</b>。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">1</span>老師登入</h2>
+    <ol>
+      <li>手機或電腦開 <b>https://freepaths.tmaxius.com/</b></li>
+      <li>在啟用畫面選 <b>② 我已有利金鑰</b>，輸入你的教師金鑰 <code>FP-T-…</code> → 按送出。</li>
+      <li>登入後上方會看到「✅ FreePaths · 教師版」。</li>
+    </ol>
+    <div class="tip">第一次登入會綁定「這一台裝置」；之後同一台裝置可直接用，不必再輸入。</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">2</span>準備學生名單</h2>
+    <ol>
+      <li>上方分頁點 <b>【設定】</b> → 在「教師後台」找到 <b>名單</b> 區塊。</li>
+      <li>把班上的 <b>姓名</b> 一個一個加進去（或用名單匯入貼上）。</li>
+      <li>名單順序就是等等產生個人報名碼的順序；請先核對姓名沒有錯字。</li>
+    </ol>
+    <div class="note">名單只用「姓名」；學生生日、Email、電話由學生自己在【設定】填寫，你會在名冊看到。</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">3</span>開始上課：先【開放報名】</h2>
+    <ol>
+      <li>在「教師後台」的 <b>課堂報名</b> 區，設定「開放分鐘」（例：30 分鐘）與「名額」（例：40 人）。</li>
+      <li>按 <span class="btn">開放報名</span>。</li>
+      <li>畫面會出現一組 <b>每 60 秒自動更換</b> 的 6 位數即時碼，這是「全班共用」的備用碼。</li>
+    </ol>
+    <div class="center" style="text-align:center;margin:8px 0;"><span class="big-code">3 7 0 1 3 9</span></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">4</span>產生「每人一組」個人報名碼（推薦）</h2>
+    <ol>
+      <li>仍然在「教師後台」→ 找到 <b>個人報名碼（依名單．每人一組 6 位數）</b>。</li>
+      <li>設定「有效分鐘」（例：30），按 <span class="btn">產生個人報名碼（N 人）</span>。</li>
+      <li>畫面會列出「姓名 → 6 位數字」，每位學生一組，例如：</li>
+    </ol>
+    <table>
+      <tr><th>姓名</th><th>個人報名碼</th></tr>
+      <tr><td>王小明</td><td><span class="code">482913</span></td></tr>
+      <tr><td>陳小美</td><td><span class="code">905174</span></td></tr>
+      <tr><td>李小華</td><td><span class="code">330862</span></td></tr>
+    </table>
+    <div class="tip">
+      每人一組的規定：<b>一人一碼、用過即失效</b>；學生輸入後系統會<b>自動用名單姓名寫入班級名冊</b>。
+      你可以按「複製」把「姓名：號碼」貼到群組，或寫在白板上讓學生自己找自己的號碼。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">5</span>學生在自己手機報名</h2>
+    <ol>
+      <li>學生開 <b>https://freepaths.tmaxius.com/</b>（手機瀏覽器）。</li>
+      <li>選 <b>① 課堂報名碼</b>。</li>
+      <li>輸入<b>自己</b>的 6 位數字（例：王小明輸入 <span class="code">482913</span>）。</li>
+      <li>按送出 → 顯示「已綁定此裝置」即完成；之後直接可用。</li>
+    </ol>
+    <div class="warn">
+      <b>常見錯誤：</b>
+      <ul>
+        <li>輸入別人的號碼 → 系統會用<b>那個人的姓名</b>寫入名冊（請務必發對人）。</li>
+        <li>同一組號碼第二次使用 → 會顯示「此報名碼已使用過」，請在面板<b>重新產生</b>。</li>
+        <li>超過「有效分鐘」才輸入 → 顯示「已過期」，重新產生即可。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">6</span>沒有個人碼的學生（備用做法）</h2>
+    <ol>
+      <li>在學生手機的 <b>① 課堂報名碼</b> 中，輸入畫面上<b>老師那組 60 秒即時碼</b>。</li>
+      <li>下面「姓名」欄位填學生的名字（會顯示在名冊）。</li>
+      <li>送出後同樣完成綁定；即時碼每 60 秒換一次，晚到的學生要用最新號碼。</li>
+    </ol>
+    <div class="note">同時用「個人報名碼＋即時碼」也可以，兩者不衝突。</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">7</span>看成績：班級名冊</h2>
+    <ol>
+      <li>「教師後台」→ <b>班級名冊</b>（每 20 秒自動更新，也可按「重新整理」）。</li>
+      <li>會看到：姓名、報名時間、裝置、學生自填的電話與 Email。</li>
+      <li>學生換手機或裝置要重新綁定：在名冊按 <b>解除綁定</b>，學生再用同一個金鑰／報名碼登入即可。</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">8</span>學生自己的【設定】頁（請提醒學生填寫）</h2>
+    <ul>
+      <li>學生登入後點 <b>【設定】</b>，可填：出生日期、出生時間、Email、聯絡電話。</li>
+      <li>可看／隱藏<b>自己的個人金鑰</b>（換手機時用）。</li>
+      <li>【WhatsApp 管理員／老師】按鈕可直接聯絡。</li>
+      <li>學生儲存後，老師的「班級名冊」會顯示電話與 Email。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>課堂後的收尾</h2>
+    <ol>
+      <li>按 <span class="btn">結束報名</span> 停止接受新學生（已報名的學生不受影響）。</li>
+      <li>若要停用某位學生（例如可疑共用金鑰）：請管理員在「設定 → 管理」按 <b>停用</b>，該學生已登入的畫面也會立即失效。</li>
+      <li>換班級／新學期：老師可按「開放報名」重新開始，或請管理員產生新教師碼。</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>一頁速查表</h2>
+    <table>
+      <tr><th>動作</th><th>位置</th><th>說明</th></tr>
+      <tr><td>老師登入</td><td>啟用畫面 → ② 金鑰</td><td>FP-T-…</td></tr>
+      <tr><td>名單</td><td>設定 → 教師後台</td><td>先加姓名</td></tr>
+      <tr><td>開放報名</td><td>設定 → 教師後台</td><td>產生 60 秒即時碼</td></tr>
+      <tr><td>個人報名碼</td><td>設定 → 教師後台</td><td>每人一組、一次性</td></tr>
+      <tr><td>學生報名</td><td>學生手機 → ① 報名碼</td><td>輸入自己的 6 位數</td></tr>
+      <tr><td>名冊／解除綁定</td><td>設定 → 教師後台</td><td>20 秒更新</td></tr>
+      <tr><td>學生資料</td><td>學生 → 設定</td><td>生日／Email／電話／金鑰</td></tr>
+      <tr><td>停用可疑學生</td><td>設定 → 管理（管理員）</td><td>立即失效</td></tr>
+    </table>
+    <div class="muted">＊學員每人可綁 2 台裝置；到期日 2027-02-15（管理員可逐筆調整）。</div>
+  </div>
+
+  <div class="card" style="text-align:center;color:var(--ink2);font-size:12.5px;">
+    FreePaths 生命數據庫｜學生報名操作說明（老師版）｜如需修改流程，請聯絡管理員。
+  </div>
+
+</div>
+</body>
+</html>
