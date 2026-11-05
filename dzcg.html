@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>地支藏干 · 动画演示</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    font-family: "Microsoft YaHei", "PingFang SC", serif;
+    background: radial-gradient(ellipse at center, #1a1a3e 0%, #0a0a1f 100%);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    color: #fff;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1vh 1vw;
+  }
+  h1 {
+    font-size: clamp(1.2em, 3vw, 2.4em);
+    background: linear-gradient(90deg, #ffd700, #ff6b6b, #4ecdc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.3em;
+    margin-bottom: 1vh;
+    white-space: nowrap;
+  }
+  .controls {
+    display: flex;
+    gap: clamp(6px, 1vw, 14px);
+    margin-bottom: 1vh;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn {
+    padding: clamp(6px, 0.8vh, 12px) clamp(10px, 1.5vw, 26px);
+    background: linear-gradient(135deg, #4a4a7a, #2a2a5a);
+    border: 1px solid #6a6aaa;
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: clamp(0.7em, 1.2vw, 1em);
+    letter-spacing: 0.1em;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+  .btn:hover {
+    background: linear-gradient(135deg, #6a6aaa, #4a4a7a);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(106,106,170,0.5);
+  }
+  .btn.active {
+    background: linear-gradient(135deg, #ffd700, #ff8c00);
+    color: #1a1a3e;
+    border-color: #ffd700;
+    font-weight: bold;
+  }
+  .stage {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    max-height: calc(100vh - 10vh);
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  svg.lines {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .node {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    cursor: default;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+  }
+  .dizhi {
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    border: 2px solid rgba(255,255,255,0.5);
+  }
+  .dizhi.wx-shui { background: linear-gradient(135deg, #3498db, #2980b9); box-shadow: 0 0 25px rgba(52,152,219,0.6); }
+  .dizhi.wx-tu   { background: linear-gradient(135deg, #f39c12, #e67e22); box-shadow: 0 0 25px rgba(243,156,18,0.6); }
+  .dizhi.wx-mu   { background: linear-gradient(135deg, #2ecc71, #27ae60); box-shadow: 0 0 25px rgba(46,204,113,0.6); }
+  .dizhi.wx-huo  { background: linear-gradient(135deg, #ff6b6b, #ee5a6f); box-shadow: 0 0 25px rgba(255,107,107,0.6); }
+  .dizhi.wx-jin  { background: linear-gradient(135deg, #ecf0f1, #bdc3c7); color:#333; text-shadow:none; box-shadow: 0 0 25px rgba(236,240,241,0.6); }
+
+  .dizhi.group-zheng { box-shadow: 0 0 35px rgba(255,107,107,0.8); border-color: #ffaaaa; }
+  .dizhi.group-changsheng { box-shadow: 0 0 35px rgba(255,215,0,0.8); border-color: #ffdd66; }
+  .dizhi.group-ku { box-shadow: 0 0 35px rgba(78,205,196,0.8); border-color: #88eeee; }
+
+  .tiangan {
+    background: rgba(255,255,255,0.1);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    z-index: 3;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+  .tiangan.w-mu { background: linear-gradient(135deg, #2ecc71, #27ae60); border-color: #6fd89a; }
+  .tiangan.w-huo { background: linear-gradient(135deg, #ff6b6b, #ee5a6f); border-color: #ff9999; }
+  .tiangan.w-tu { background: linear-gradient(135deg, #f39c12, #e67e22); border-color: #f5c066; }
+  .tiangan.w-jin { background: linear-gradient(135deg, #ecf0f1, #bdc3c7); border-color: #fff; color:#333; text-shadow:none; }
+  .tiangan.w-shui { background: linear-gradient(135deg, #3498db, #2980b9); border-color: #6bb6ff; }
+
+  .cg-node {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    z-index: 4;
+    transform: scale(0);
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+  }
+  .cg-node.show { transform: scale(1); opacity: 1; }
+  .cg-node .type-tag {
+    position: absolute;
+    bottom: -14px;
+    font-size: 0.5em;
+    color: #ddd;
+    font-weight: normal;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .cg-node.w-mu { background: linear-gradient(135deg, #2ecc71, #27ae60); border: 1.5px solid #6fd89a; }
+  .cg-node.w-huo { background: linear-gradient(135deg, #ff6b6b, #ee5a6f); border: 1.5px solid #ff9999; }
+  .cg-node.w-tu { background: linear-gradient(135deg, #f39c12, #e67e22); border: 1.5px solid #f5c066; }
+  .cg-node.w-jin { background: linear-gradient(135deg, #ecf0f1, #bdc3c7); border: 1.5px solid #fff; color:#333; text-shadow:none; }
+  .cg-node.w-shui { background: linear-gradient(135deg, #3498db, #2980b9); border: 1.5px solid #6bb6ff; }
+
+  .group-label {
+    position: absolute;
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    opacity: 0;
+    transition: opacity 0.8s ease 0.5s;
+    pointer-events: none;
+    z-index: 0;
+    white-space: nowrap;
+  }
+  .group-label.show { opacity: 1; }
+  .label-zheng { color: #ff6b6b; }
+  .label-changsheng { color: #ffd700; }
+  .label-ku { color: #4ecdc4; }
+</style>
+</head>
+<body>
+
+<h1>地支藏干 · 动画演示</h1>
+
+<div class="controls">
+  <button class="btn active" data-stage="0">① 初始</button>
+  <button class="btn" data-stage="1">② 分组</button>
+  <button class="btn" data-stage="2">③ 藏干</button>
+</div>
+
+<div class="stage" id="stage">
+  <svg class="lines" id="lines"></svg>
+</div>
+
+<script>
+const stage = document.getElementById('stage');
+const linesSvg = document.getElementById('lines');
+
+const DIZHI_DATA = [
+  {name:'子', group:'zheng', wx:'shui'},
+  {name:'丑', group:'ku', wx:'tu'},
+  {name:'寅', group:'changsheng', wx:'mu'},
+  {name:'卯', group:'zheng', wx:'mu'},
+  {name:'辰', group:'ku', wx:'tu'},
+  {name:'巳', group:'changsheng', wx:'huo'},
+  {name:'午', group:'zheng', wx:'huo'},
+  {name:'未', group:'ku', wx:'tu'},
+  {name:'申', group:'changsheng', wx:'jin'},
+  {name:'酉', group:'zheng', wx:'jin'},
+  {name:'戌', group:'ku', wx:'tu'},
+  {name:'亥', group:'changsheng', wx:'shui'}
+];
+
+const TIANGAN_DATA = [
+  {name:'甲', wx:'mu'}, {name:'乙', wx:'mu'},
+  {name:'丙', wx:'huo'}, {name:'丁', wx:'huo'},
+  {name:'戊', wx:'tu'}, {name:'己', wx:'tu'},
+  {name:'庚', wx:'jin'}, {name:'辛', wx:'jin'},
+  {name:'壬', wx:'shui'}, {name:'癸', wx:'shui'}
+];
+
+const CANGGAN = {
+  '子': [{g:'癸', wx:'shui', t:'本'}],
+  '丑': [{g:'己', wx:'tu', t:'本'}, {g:'癸', wx:'shui', t:'中'}, {g:'辛', wx:'jin', t:'余'}],
+  '寅': [{g:'甲', wx:'mu', t:'本'}, {g:'丙', wx:'huo', t:'中'}, {g:'戊', wx:'tu', t:'余'}],
+  '卯': [{g:'乙', wx:'mu', t:'本'}],
+  '辰': [{g:'戊', wx:'tu', t:'本'}, {g:'乙', wx:'mu', t:'中'}, {g:'癸', wx:'shui', t:'余'}],
+  '巳': [{g:'丙', wx:'huo', t:'本'}, {g:'戊', wx:'tu', t:'中'}, {g:'庚', wx:'jin', t:'余'}],
+  '午': [{g:'丁', wx:'huo', t:'本'}, {g:'己', wx:'tu', t:'中'}],
+  '未': [{g:'己', wx:'tu', t:'本'}, {g:'丁', wx:'huo', t:'中'}, {g:'乙', wx:'mu', t:'余'}],
+  '申': [{g:'庚', wx:'jin', t:'本'}, {g:'壬', wx:'shui', t:'中'}, {g:'戊', wx:'tu', t:'余'}],
+  '酉': [{g:'辛', wx:'jin', t:'本'}],
+  '戌': [{g:'戊', wx:'tu', t:'本'}, {g:'辛', wx:'jin', t:'中'}, {g:'丁', wx:'huo', t:'余'}],
+  '亥': [{g:'壬', wx:'shui', t:'本'}, {g:'甲', wx:'mu', t:'中'}]
+};
+
+function getSize() {
+  const w = stage.clientWidth || 1400;
+  const h = stage.clientHeight || 900;
+  const minDim = Math.min(w, h);
+  return {
+    w, h,
+    dzSize: Math.max(36, Math.min(70, minDim * 0.075)),
+    tgSize: Math.max(28, Math.min(52, minDim * 0.055)),
+    cgSize: Math.max(26, Math.min(46, minDim * 0.048)),
+    cgGap: Math.max(32, Math.min(56, minDim * 0.055)),
+    circleR: Math.min(w * 0.28, h * 0.32),
+    circleCX: w * 0.55,
+    circleCY: h * 0.5,
+    tgX: w * 0.08,
+    fontSize: Math.max(14, Math.min(24, minDim * 0.028))
+  };
+}
+
+let S = getSize();
+window.addEventListener('resize', () => { S = getSize(); applyLayout(currentStage); });
+
+const dzNodes = DIZHI_DATA.map((d, i) => {
+  const el = document.createElement('div');
+  el.className = 'node dizhi wx-' + d.wx;
+  el.textContent = d.name;
+  el.dataset.name = d.name;
+  el.dataset.group = d.group;
+  stage.appendChild(el);
+  return { el, data: d, idx: i };
+});
+
+const tgNodes = TIANGAN_DATA.map((t, i) => {
+  const el = document.createElement('div');
+  el.className = 'node tiangan w-' + t.wx;
+  el.textContent = t.name;
+  el.dataset.name = t.name;
+  stage.appendChild(el);
+  return { el, data: t, idx: i };
+});
+
+const labels = {
+  zheng: createLabel('四 正', 'label-zheng'),
+  changsheng: createLabel('四 长 生', 'label-changsheng'),
+  ku: createLabel('四 库', 'label-ku')
+};
+function createLabel(text, cls) {
+  const el = document.createElement('div');
+  el.className = 'group-label ' + cls;
+  el.textContent = text;
+  stage.appendChild(el);
+  return el;
+}
+
+let cgNodes = [];
+let currentStage = 0;
+
+function applyLayout(n) {
+  S = getSize();
+  const { w, h, dzSize, tgSize, cgSize, cgGap, circleR, circleCX, circleCY, tgX, fontSize } = S;
+
+  if (n === 0) {
+    for (let i = 0; i < 12; i++) {
+      const a = (-90 + 360/12 * i) * Math.PI / 180;
+      const x = circleCX + circleR * Math.cos(a) - dzSize/2;
+      const y = circleCY + circleR * Math.sin(a) - dzSize/2;
+      setPos(dzNodes[i].el, x, y, dzSize, fontSize);
+      dzNodes[i].el.classList.remove('group-zheng', 'group-changsheng', 'group-ku');
+    }
+  } else {
+    const groups = ['zheng', 'ku', 'changsheng'];
+    const groupY = [h * 0.18, h * 0.50, h * 0.82];
+    const groupX = [w * 0.28, w * 0.48, w * 0.68, w * 0.88];
+    
+    const counters = { zheng:0, ku:0, changsheng:0 };
+    dzNodes.forEach(dz => {
+      const g = dz.data.group;
+      const gi = groups.indexOf(g);
+      const xi = counters[g];
+      counters[g]++;
+      const x = groupX[xi] - dzSize/2;
+      const y = groupY[gi] - dzSize/2;
+      setPos(dz.el, x, y, dzSize, fontSize);
+      dz.el.classList.remove('group-zheng', 'group-changsheng', 'group-ku');
+      dz.el.classList.add('group-' + g);
+    });
+
+    // 分组标签移到右侧靠近屏幕边缘
+    groups.forEach((g, gi) => {
+      const lbl = labels[g];
+      lbl.style.left = (w * 0.94) + 'px';
+      lbl.style.top = (groupY[gi] - fontSize/2) + 'px';
+      lbl.style.fontSize = fontSize + 'px';
+      lbl.classList.toggle('show', true);
+    });
+  }
+
+  const tgSpacing = (h * 0.85) / 10;
+  const tgStartY = h * 0.08;
+  tgNodes.forEach((tg, i) => {
+    const x = tgX - tgSize/2;
+    const y = tgStartY + i * tgSpacing - tgSize/2;
+    setPos(tg.el, x, y, tgSize, fontSize * 0.9);
+    tg.el.style.opacity = (n === 2) ? '0.18' : '1';
+  });
+
+  clearCgNodes();
+  if (n === 2) {
+    setTimeout(() => generateCgNodes(), 300);
+  }
+
+  linesSvg.innerHTML = '';
+  if (n === 2) {
+    setTimeout(drawLines, 2200);
+  }
+}
+
+function setPos(el, x, y, size, fs) {
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+  el.style.width = size + 'px';
+  el.style.height = size + 'px';
+  el.style.fontSize = fs + 'px';
+}
+
+function clearCgNodes() {
+  cgNodes.forEach(n => n.el.remove());
+  cgNodes = [];
+}
+
+function generateCgNodes() {
+  S = getSize();
+  const { w, h, dzSize, tgSize, cgSize, cgGap, fontSize } = S;
+  const groups = ['zheng', 'ku', 'changsheng'];
+  const groupY = [h * 0.18, h * 0.50, h * 0.82];
+  const groupX = [w * 0.28, w * 0.48, w * 0.68, w * 0.88];
+  const counters = { zheng:0, ku:0, changsheng:0 };
+
+  const dzOrder = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+  let globalDelay = 0;
+
+  dzOrder.forEach(dzName => {
+    const dzNode = dzNodes.find(d => d.data.name === dzName);
+    const cg = CANGGAN[dzName];
+    const g = dzNode.data.group;
+    const xi = counters[g];
+    counters[g]++;
+    
+    const dzCX = groupX[xi];
+    const dzCY = groupY[groups.indexOf(g)];
+
+    const totalW = cg.length * cgGap;
+    const startX = dzCX - totalW/2 + cgGap/2 - cgSize/2;
+    const startY = dzCY + dzSize/2 + 20;
+
+    cg.forEach((c, i) => {
+      const tgNode = tgNodes.find(t => t.data.name === c.g);
+      const tgCX = parseFloat(tgNode.el.style.left) + tgSize/2;
+      const tgCY = parseFloat(tgNode.el.style.top) + tgSize/2;
+
+      const el = document.createElement('div');
+      el.className = 'cg-node w-' + c.wx;
+      el.innerHTML = `${c.g}<span class="type-tag">${c.t}气</span>`;
+      el.style.width = cgSize + 'px';
+      el.style.height = cgSize + 'px';
+      el.style.fontSize = (fontSize * 0.85) + 'px';
+      el.style.left = (tgCX - cgSize/2) + 'px';
+      el.style.top = (tgCY - cgSize/2) + 'px';
+      stage.appendChild(el);
+
+      const targetX = startX + i * cgGap;
+      const targetY = startY;
+
+      const node = { el, data: c, dzName, dzCX, dzCY, targetX: targetX + cgSize/2, targetY: targetY + cgSize/2 };
+      cgNodes.push(node);
+
+      setTimeout(() => {
+        el.style.left = targetX + 'px';
+        el.style.top = targetY + 'px';
+        el.classList.add('show');
+      }, globalDelay);
+      globalDelay += 80;
+    });
+  });
+}
+
+function drawLines() {
+  linesSvg.innerHTML = '';
+  const colors = { mu:'#2ecc71', huo:'#ff6b6b', tu:'#f39c12', jin:'#ecf0f1', shui:'#3498db' };
+  const w = stage.clientWidth || 1400, h = stage.clientHeight || 900;
+  linesSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+
+  cgNodes.forEach(node => {
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', node.dzCX);
+    line.setAttribute('y1', node.dzCY);
+    line.setAttribute('x2', node.targetX);
+    line.setAttribute('y2', node.targetY);
+    line.setAttribute('stroke', colors[node.data.wx]);
+    line.setAttribute('stroke-width', '1.5');
+    line.setAttribute('stroke-opacity', '0.55');
+    line.setAttribute('stroke-dasharray', '4,3');
+    linesSvg.appendChild(line);
+  });
+}
+
+function setStage(n) {
+  currentStage = n;
+  document.querySelectorAll('.btn').forEach(b => {
+    b.classList.toggle('active', +b.dataset.stage === n);
+  });
+  applyLayout(n);
+}
+
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', () => setStage(+btn.dataset.stage));
+});
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => applyLayout(0), 100);
+  });
+} else {
+  setTimeout(() => applyLayout(0), 100);
+}
+</script>
+
+</body>
+</html>
