@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八字十神解说 / Bazi Ten Gods Explanation</title>
+    <style>
+        :root {
+            --bg-color: #f7f5f0;
+            --text-color: #2c2c2c;
+            --accent-color: #8b1a1a;
+            --card-bg: #ffffff;
+            --border-color: #e0dcd3;
+            --shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        body {
+            font-family: 'Noto Serif SC', 'Georgia', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #555;
+            margin: 0;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            margin-top: 40px;
+            font-size: 1.6em;
+        }
+
+        h3 {
+            color: #444;
+            margin-top: 25px;
+            font-size: 1.2em;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f1ea;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fdfcfb;
+        }
+
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(139, 26, 26, 0.3);
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .lang-toggle:hover {
+            background: #a52a2a;
+            transform: translateY(-2px);
+        }
+
+        blockquote {
+            border-left: 3px solid var(--accent-color);
+            margin: 20px 0;
+            padding: 10px 20px;
+            background: #fdfbf7;
+            font-style: italic;
+            color: #555;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* Language Switching Logic */
+        html[lang="zh"] .en { display: none !important; }
+        html[lang="en"] .zh { display: none !important; }
+        
+        html[lang="en"] body {
+            font-family: 'Georgia', 'Noto Serif SC', serif;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+            font-size: 0.9em;
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">English</button>
+
+<div class="container">
+    <header>
+        <h1><span class="zh">八字十神解说</span><span class="en">Bazi Ten Gods Explanation</span></h1>
+        <p>
+            <span class="zh">从「我」与世界的关系，看懂人际、性格与人生</span>
+            <span class="en">Understanding interpersonal relationships, personality, and life from the relationship between "Me" and the world</span>
+        </p>
+    </header>
+
+    <!-- 总论 -->
+    <div class="card">
+        <h2><span class="zh">一、什么是十神</span><span class="en">1. What are the Ten Gods?</span></h2>
+        <p>
+            <span class="zh">这里所说的「十神」，与神鬼没有任何关系。简单来说，十神就是以我们的日元——也就是「我」——为中心，观察「我」与八字中其他五行之间所形成的生克关系。因此，看一个人的性格、思维方式以及人生际遇，不能只看他的日元是什么，也需要观察八字中出现了哪些十神、它们处在什么位置，以及彼此之间的力量和关系。</span>
+            <span class="en">The "Ten Gods" here have nothing to do with deities or ghosts. Simply put, the Ten Gods use our Day Master (the "Me") as the center to observe the generating and overcoming relationships between "Me" and the other Five Elements in the Bazi chart. Therefore, to understand a person's personality, mindset, and life encounters, we cannot just look at the Day Master; we must also observe which Ten Gods appear, their positions, and their relative strengths and relationships.</span>
+        </p>
+        <h3><span class="zh">十神从哪里来</span><span class="en">Where do the Ten Gods come from?</span></h3>
+        <p>
+            <span class="zh">十神最有意思的地方，就是它把人与人之间的关系，用五行的生克制化表现出来。简单来说：</span>
+            <span class="en">The most interesting part of the Ten Gods is that it expresses human relationships through the generating and overcoming of the Five Elements. Simply put:</span>
+        </p>
+        <ul>
+            <li><span class="zh"><span class="highlight">生我者为印</span>——滋养、保护、教育、知识</span><span class="en"><span class="highlight">Generates Me is Resource</span> — Nurturing, protection, education, knowledge</span></li>
+            <li><span class="zh"><span class="highlight">我生者为食伤</span>——表达、创造、输出</span><span class="en"><span class="highlight">I Generate is Output</span> — Expression, creation, output</span></li>
+            <li><span class="zh"><span class="highlight">我克者为财</span>——现实、资源、责任</span><span class="en"><span class="highlight">I Overcome is Wealth</span> — Reality, resources, responsibility</span></li>
+            <li><span class="zh"><span class="highlight">克我者为官杀</span>——规则、责任、压力与约束</span><span class="en"><span class="highlight">Overcomes Me is Officer/Killings</span> — Rules, responsibility, pressure, constraints</span></li>
+            <li><span class="zh"><span class="highlight">同我者为比劫</span>——同辈、朋友、竞争</span><span class="en"><span class="highlight">Same as Me is Friend/Rob</span> — Peers, friends, competition</span></li>
+        </ul>
+        <p>
+            <span class="zh">没有一个十神是绝对的好，也没有一个十神是绝对的坏。关键不是你有什么十神，而是这个十神在你的八字里面，是不是用得好。</span>
+            <span class="en">No Ten God is absolutely good or bad. The key is not what Ten Gods you have, but whether they are used well in your specific chart.</span>
+        </p>
+    </div>
+
+    <!-- 十神关系总表 -->
+    <div class="card">
+        <h2><span class="zh">二、十神关系总表</span><span class="en">2. Ten Gods Relationship Table</span></h2>
+        <p>
+            <span class="zh">以日元为「我」，依五行生克与阴阳同异，得出十个神。下表以甲木日元为例：</span>
+            <span class="en">Taking the Day Master as "Me", the Ten Gods are derived based on the Five Elements' interactions and Yin/Yang polarities. The table below uses Jia Wood (甲木) as the Day Master example:</span>
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th><span class="zh">关系</span><span class="en">Relationship</span></th>
+                    <th><span class="zh">十神</span><span class="en">Ten God</span></th>
+                    <th><span class="zh">阴阳</span><span class="en">Polarity</span></th>
+                    <th><span class="zh">甲木举例</span><span class="en">Example (Jia)</span></th>
+                    <th><span class="zh">主要象征</span><span class="en">Main Symbolism</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="zh">生我（印）</span><span class="en">Generates Me (Resource)</span></td>
+                    <td><span class="zh">正印</span><span class="en">Direct Resource</span></td>
+                    <td><span class="zh">异性</span><span class="en">Opposite</span></td>
+                    <td><span class="zh">癸水</span><span class="en">Gui Water</span></td>
+                    <td><span class="zh">母亲、知识、保护、福气</span><span class="en">Mother, knowledge, protection, blessings</span></td>
+                </tr>
+                <tr>
+                    <td><span class="zh">生我（印）</span><span class="en">Generates Me (Resource)</span></td>
+                    <td><span class="zh">偏印</span><span class="en">Indirect Resource</span></td>
+                    <td><span class="zh">同性</span><span class="en">Same</span></td>
+                    <td><span class="zh">壬水</span><span class="en">Ren Water</span></td>
+                    <td><span class="zh">养母、偏门技能、玄学宗教</span><span class="en">Adoptive mother, unconventional skills, metaphysics</span></td>
+                </tr>
+                <tr>
+                    <td><span class="zh">我生（食伤）</span><span class="en">I Generate (Output)</span></td>
+                    <td><span class="zh">伤官</span><span class="en">Hurting Officer</span></td>
+                    <td><span class="zh">异性</span><span class="en">Opposite</span></td>
+                    <td><span class="zh">丁火</span><span class="en">Ding Fire</span></td>
+                    <td><span class="zh">才华、表达、改革、挑战规则</span><span class="en">Talent, expression, reform, challenging rules</span></td>
+                </tr>
+                <tr>
+                    <td><span class="zh">我生（食伤）</span><span class="en">I Generate (Output)</span></td>
+                    <td><span class="zh">食神</span><span class="en">Eating God</span></td>
+                    <td><span class="zh">同性</span><span class="en">Same</span></td>
+                    <td><span class="zh">丙火</span><span class="en">Bing Fire</span></td>
+                    <td><span class="zh">才艺、福气、温和输出</span><span class="en">Arts, blessings, gentle output</span></td>
+                </tr>
+                <tr>
+                    <td><span class="zh">我克（财）</span><span class="en">I Overcome (Wealth)</span></td>
+                    <td><span class="zh">正财</span><span class="en">Direct Wealth</span></td>
+                    <td><span class="zh">异性</span><span class="en">Opposite</span></td>
+                    <td><span class="zh">己土</span><span class="en">Ji Earth</span></td>
+                    <td><span class="zh">固定收入、正妻、踏实</span><span class="en">Fixed income, lawful wife, grounded</span></td>
+                </tr>
+                <tr>
+                    <td><span class="zh">我克（财）</span><span class="en">I Overcome (Wealth)</span></td>
+                    <td><span class="zh">偏财</span><span class="en">Indirect Wealth</span></td>
+                    <td><span class="zh">同性</span><span class="en">Same</span></td>
+                    <td><span class="zh">戊土</span><span class="en">Wu Earth</span></td>
+                    <td><span class="zh">不固定收入、生意、情人</span><span class="en">Variable income, business, lovers</span></td>
+                </tr>
+                <tr>
+                    <td><span class="zh">克我（官杀）</span><span class="en">Overcomes Me (Officer)</span></td>
+                    <td><span class="zh">正官</span><span class="en">Direct Officer</span></td>
+                    <td><span class="zh">异性</span><span class="en">Opposite</span></td>
+                    <td><span class="zh">辛金</span><span class="en">Xin Metal</span></td>
+                    <td><span class="zh">规则、名分、正夫</span><span class="en">Rules, status, lawful husband</span></td>
+                </tr>
+                <tr>
+                    <td><span class="zh">克我（官杀）</span><span class="en">Overcomes Me (Officer)</span></td>
+                    <td><span class="zh">七杀</span><span class="en">Seven Killings</span></td>
+                    <td><span class="zh">同性</span><span class="en">Same</span></td>
+                    <td><span class="zh">庚金</span><span class="en">Geng Metal</span></td>
+                    <td><span class="zh">压力、魄力、偏夫</span><span class="en">Pressure, boldness, lover/boyfriend</span></td>
+                </tr>
+                <tr>
+                    <td><span class="zh">同我（比劫）</span><span class="en">Same as Me (Peer)</span></td>
+                    <td><span class="zh">比肩</span><span class="en">Friend</span></td>
+                    <td><span class="zh">同性</span><span class="en">Same</span></td>
+                    <td><span class="zh">甲木</span><span class="en">Jia Wood</span></td>
+                    <td><span class="zh">兄弟、同辈、自我</span><span class="en">Siblings, peers, self</span></td>
+                </tr>
+                <tr>
+                    <td><span class="zh">同我（比劫）</span><span class="en">Same as Me (Peer)</span></td>
+                    <td><span class="zh">劫财</span><span class="en">Rob Wealth</span></td>
+                    <td><span class="zh">异性</span><span class="en">Opposite</span></td>
+                    <td><span class="zh">乙木</span><span class="en">Yi Wood</span></td>
+                    <td><span class="zh">竞争、合伙、分夺</span><span class="en">Competition, partnership, taking</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 比肩 -->
+    <div class="card">
+        <h2><span class="zh">三、比肩——我自己来</span><span class="en">3. Friend (Bi Jian) — I'll do it myself</span></h2>
+        <p><span class="zh"><strong>五行定义：</strong>与日元同一种五行，阴阳同性。</span><span class="en"><strong>Definition:</strong> Same element as Day Master, same polarity.</span></p>
+        <p>
+            <span class="zh">比肩顾名思义，就是跟我同肩、同辈的人。代表兄弟姐妹、朋友、同辈、同事，以及与自己能力条件接近的人。「比」也有比较的意思，所以比肩带有比较与竞争的性质。</span>
+            <span class="en">As the name suggests, Friend represents people on the same level and generation. It symbolizes siblings, friends, peers, colleagues, and those with similar abilities. The character "Bi" also implies comparison, so Friend carries a nature of comparison and competition.</span>
+        </p>
+        <h3><span class="zh">独立、自主、有主见</span><span class="en">Independent, Autonomous, Opinionated</span></h3>
+        <p>
+            <span class="zh">比肩格的人通常比较有自己的想法，独立、自主、有原则。他们不喜欢受到太多规则和限制。适合个人品牌、自由职业、创业。如果你给他一个明确的目标，放手让他自己去做，他可能做得更加好。</span>
+            <span class="en">People with strong Friend energy usually have their own ideas, are independent, autonomous, and principled. They dislike excessive rules and restrictions. They are suited for personal branding, freelancing, and entrepreneurship. If given a clear goal and the freedom to execute, they often perform exceptionally well.</span>
+        </p>
+        <h3><span class="zh">自尊心与原则 / 合伙要小心</span><span class="en">Self-esteem & Principles / Caution in Partnerships</span></h3>
+        <p>
+            <span class="zh">他们非常有自尊心和原则，不会因为别人不认同就轻易改变想法。缺点是容易固执、主观、我行我素。合伙做生意时要特别注意，如果大家都是非常有主见的人，容易把权责和决定权讲清楚，否则朋友容易变成竞争对手。</span>
+            <span class="en">They possess strong self-esteem and principles, rarely changing their minds just because others disagree. The downside is that they can be stubborn, subjective, and do things their own way. In business partnerships, it's crucial to clarify responsibilities and decision-making power; otherwise, friends can easily become competitors.</span>
+        </p>
+    </div>
+
+    <!-- 劫财 -->
+    <div class="card">
+        <h2><span class="zh">四、劫财——大家一起来</span><span class="en">4. Rob Wealth (Jie Cai) — Let's do it together</span></h2>
+        <p><span class="zh"><strong>五行定义：</strong>与日元同一种五行，阴阳异性。</span><span class="en"><strong>Definition:</strong> Same element as Day Master, opposite polarity.</span></p>
+        <p>
+            <span class="zh">如果说比肩比较像「我自己来」，那么劫财比较像「我们一起来」。劫财的人通常比较有行动力，喜欢与人互动、合作、竞争。反应快、胆量大、敢冒险，看到机会就会「先做了再说！」，具有很强的开创精神。</span>
+            <span class="en">If Friend is like "I'll do it myself," Rob Wealth is like "Let's do it together." People with Rob Wealth are action-oriented, enjoy interacting, cooperating, and competing. They react quickly, are bold, dare to take risks, and will often say "Let's just do it first!" when they see an opportunity, showing strong pioneering spirit.</span>
+        </p>
+        <h3><span class="zh">朋友、人脉与竞争 / 财来财去</span><span class="en">Friends, Network & Competition / Wealth Comes and Goes</span></h3>
+        <p>
+            <span class="zh">劫财强的人通常不会喜欢一个人孤孤单单地做事情，比较容易认识很多人，懂得利用人脉。但需要注意的是「财来财去」。他们赚钱的能力不一定差，甚至很敢赚钱，但赚得到未必守得住。容易为了朋友、合作、机会而花钱。因此，劫财格的人最好找一个正财格的人来帮他守着财。</span>
+            <span class="en">Those with strong Rob Wealth dislike working alone; they easily meet many people and know how to leverage networks. However, a key trait is "wealth comes and goes." Their ability to make money is not bad, and they dare to invest, but they may struggle to keep it. They tend to spend on friends, partnerships, or opportunities. Thus, it's best for them to find someone with Direct Wealth to manage their finances.</span>
+        </p>
+    </div>
+
+    <!-- 比肩与劫财对照 -->
+    <div class="card">
+        <h2><span class="zh">五、比肩与劫财对照</span><span class="en">5. Comparison: Friend vs. Rob Wealth</span></h2>
+        <table>
+            <tr>
+                <th><span class="zh">比肩 (Friend)</span><span class="en">Friend (Bi Jian)</span></th>
+                <th><span class="zh">劫财 (Rob Wealth)</span><span class="en">Rob Wealth (Jie Cai)</span></th>
+            </tr>
+            <tr>
+                <td>
+                    <span class="zh">「我自己来。」<br>重视想法、原则和独立性。<br>一个人也可以做得很好。<br>独立判断、坚持方向。</span>
+                    <span class="en">"I'll do it myself."<br>Values ideas, principles, and independence.<br>Can do well alone.<br>Independent judgment, sticks to direction.</span>
+                </td>
+                <td>
+                    <span class="zh">「大家一起来。」<br>重视行动、人脉、机会和竞争。<br>一群人一起做，力量更大。<br>开拓市场、建立人脉、寻找机会。</span>
+                    <span class="en">"Let's do it together."<br>Values action, network, opportunities, and competition.<br>Stronger as a group.<br>Expands markets, builds networks, finds opportunities.</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 食神 -->
+    <div class="card">
+        <h2><span class="zh">六、食神——把兴趣变成才华</span><span class="en">6. Eating God — Turning Interest into Talent</span></h2>
+        <p><span class="zh"><strong>五行定义：</strong>我生的五行，阴阳同性。代表才华、兴趣、优雅、享受生活；女命亦代表女儿。</span><span class="en"><strong>Definition:</strong> Element I generate, same polarity. Represents talent, interests, elegance, enjoying life; for females, it also represents daughters.</span></p>
+        <p>
+            <span class="zh">食神格的人能够很自然地把自己的才华发挥出来。在传统命理中，食神格也有「富神格」之称。这类人通常比较懂得享受生活，喜欢美好的事物、美食、音乐、艺术，性格温和、乐观。他们适合从事艺术家、作家、创作者或自由业者等工作，能够把兴趣发挥成才华。</span>
+            <span class="en">People with Eating God can naturally express their talents. In traditional命理, it is also called the "Rich God" structure. Such people know how to enjoy life, appreciate beauty, food, music, and art, and have a gentle, optimistic character. They are suited for artists, writers, creators, or freelancers, turning their interests into talents.</span>
+        </p>
+        <blockquote>
+            <span class="zh"><strong>食神生财：</strong>做自己喜欢的事情，把兴趣变成才华，再把才华发挥出来，最后创造财富。以嗜好赚钱，以才华得财。</span>
+            <span class="en"><strong>Eating God generates Wealth:</strong> Do what you love, turn interest into talent, express that talent, and ultimately create wealth — "make money from your hobby, gain wealth through your talent."</span>
+        </blockquote>
+    </div>
+
+    <!-- 伤官 -->
+    <div class="card">
+        <h2><span class="zh">七、伤官——敢于挑战规则的力量</span><span class="en">7. Hurting Officer — The Power to Challenge Rules</span></h2>
+        <p><span class="zh"><strong>五行定义：</strong>我生的五行，阴阳异性。代表创意、才华、聪明、独特思想、不墨守成规。</span><span class="en"><strong>Definition:</strong> Element I generate, opposite polarity. Represents creativity, talent, intelligence, unique thinking, and non-conformity.</span></p>
+        <p>
+            <span class="zh">顾名思义，「伤官」就是「伤害管理者」。伤官不喜欢被管理、约束，不喜欢受到太多规则的限制。如果女命的伤官坐在夫妻宫，婚姻生活中往往比较容易出现矛盾，因为天生不喜欢被另一半管束。但伤官也代表创意、才华、独特的思想，喜欢 think out of the box。就像一匹千里野马，敢于打破旧有的规则，是创造大事业的重要力量。</span>
+            <span class="en">Literally "the one who hurts the Officer," Hurting Officer dislikes being managed, restricted, or bound by rules. If a female's Hurting Officer sits in the Spouse Palace, marital conflicts may arise as she naturally dislikes being controlled. Yet, it also represents creativity, talent, and unique thinking, liking to think outside the box. Like a wild horse, it dares to break old rules and is a powerful force for creating great endeavors.</span>
+        </p>
+        <p>
+            <span class="zh">伤官是一把双刃剑。太旺的人往往不太适合朝九晚五、处处受到约束的工作，更适合创业或需要创意、自由发挥的工作。尤其是伤官加七杀，往往更有创业和开创事业的气势。</span>
+            <span class="en">Hurting Officer is a double-edged sword. When too strong, they are unsuited for rigid 9-to-5 jobs and better fit for entrepreneurship or creative, free-flowing work. Especially when combined with Seven Killings, they have the momentum to pioneer and start businesses.</span>
+        </p>
+    </div>
+
+    <!-- 专题：伤官配印 -->
+    <div class="card">
+        <h2><span class="zh">专题：伤官配印</span><span class="en">Topic: Hurting Officer paired with Resource</span></h2>
+        <p>
+            <span class="zh">伤官太旺要怎样化解呢？这就是八字里很重要的一句话：伤官配印。印代表智慧、教育、修养与学习。伤官太旺，就需要通过教育、智慧、修养和定力来引导它。真正的智慧，不是把伤官的个性压下去，而是要学会驾驭它。就像一匹千里野马，如果没有缰绳，它可能会横冲直撞；但如果能够驯服它、引导它，它就能够跑得更远。伤官配印的真正意义，就是让它学会——在对的地方奔跑，在对的地方叛逆。</span>
+            <span class="en">How to resolve an excessively strong Hurting Officer? This brings us to the principle: "Hurting Officer paired with Resource." Resource represents wisdom, education, cultivation, and learning. An overly strong Hurting Officer needs to be guided by wisdom and self-discipline. True wisdom is not to suppress the Hurting Officer's nature, but to learn to harness it. Like a wild horse without reins, it may charge blindly; but if tamed and guided, it can run much further. The true meaning is to teach it to run and rebel in the right places.</span>
+        </p>
+    </div>
+
+    <!-- 专题：食神生财 -->
+    <div class="card">
+        <h2><span class="zh">专题：食神生财</span><span class="en">Topic: Eating God generates Wealth</span></h2>
+        <p><span class="zh">「食神生财」不只是财的运行路线，更是一种人生的运作方式：</span><span class="en">"Eating God generates Wealth" is not just a wealth flow, but a way of operating in life:</span></p>
+        <ul>
+            <li><span class="zh"><strong>第一步：</strong>让兴趣变成才华。</span><span class="en"><strong>Step 1:</strong> Turn interest into talent.</span></li>
+            <li><span class="zh"><strong>第二步：</strong>让才华创造价值。</span><span class="en"><strong>Step 2:</strong> Let talent create value.</span></li>
+            <li><span class="zh"><strong>第三步：</strong>让价值转化为财富。</span><span class="en"><strong>Step 3:</strong> Convert value into wealth.</span></li>
+        </ul>
+    </div>
+
+    <!-- 专题：枭神夺食 -->
+    <div class="card">
+        <h2><span class="zh">专题：枭神夺食</span><span class="en">Topic: Indirect Resource suppresses Eating God</span></h2>
+        <p>
+            <span class="zh">所谓「枭神」，就是偏印。古人把偏印比喻成「枭」，因为枭鸟会夺取幼鸟的食物，用来形容偏印克制食神。当一个人的食神受到压制时，才华和行动力可能无法正常发挥，变得被动、缺乏动力、依赖别人。有些人整天没有事情做，就容易胡思乱想，心情低落。化解之道在于「食神生财」，鼓励去做自己喜欢的事情，让兴趣有机会发挥出来，甚至通过才华创造财富。</span>
+            <span class="en">The "Owl God" refers to Indirect Resource. Ancients compared it to an owl that steals food from young birds, describing how Indirect Resource suppresses Eating God. When suppressed, one's talent and action may fail to express, leading to passivity, lack of motivation, and dependency. People may overthink and feel depressed when idle. The cure lies in "Eating God generates Wealth" — encouraging them to pursue their interests, letting their talents shine, and ultimately creating wealth through their hobbies.</span>
+        </p>
+    </div>
+
+    <!-- 正财 -->
+    <div class="card">
+        <h2><span class="zh">十一、正财——稳定踏实的财务头脑</span><span class="en">11. Direct Wealth — The Steady & Disciplined Financial Mind</span></h2>
+        <p><span class="zh"><strong>五行定义：</strong>我克的五行，阴阳异性。代表固定收入、俸禄、正妻、储蓄、原则。</span><span class="en"><strong>Definition:</strong> Element I overcome, opposite polarity. Represents fixed income, salary, lawful wife, savings, principles.</span></p>
+        <p>
+            <span class="zh">正财好比一个人的俸禄，那是固定的收入。性格特质：稳定踏实、节俭、重视储蓄、为人正派、做事有原则、不爱冒险。但有时因为太重视金钱，会显得冷淡无情，缺乏人生乐趣，太过保守。正财格的男性比较喜欢年长的女性。大老板通常会请正财格的人来当财务总监。</span>
+            <span class="en">Direct Wealth is like a person's salary, a fixed income. Personality: Grounded, frugal, values savings, honest, principled, dislikes risks. However, they can sometimes appear emotionally distant due to an over-focus on money, lacking life's joys, and being overly conservative. Men with Direct Wealth often prefer older partners. Bosses usually hire them as CFOs.</span>
+        </p>
+    </div>
+
+    <!-- 偏财 -->
+    <div class="card">
+        <h2><span class="zh">十二、偏财——豪爽大方的生意奇才</span><span class="en">12. Indirect Wealth — The Generous Business Genius</span></h2>
+        <p><span class="zh"><strong>五行定义：</strong>我克的五行，阴阳同性。代表不固定收入、生意、大财、情人、交际。</span><span class="en"><strong>Definition:</strong> Element I overcome, same polarity. Represents variable income, business, large wealth, lovers, socializing.</span></p>
+        <p>
+            <span class="zh">偏财是不固定的收入，遇到好时机就可能赚大钱。对赚钱嗅觉灵敏，看重的是大财。性格豪爽大方，江湖气十足，交际手腕好。财来得快去得快，善用机会赚钱，喜欢独创事业。处理事情圆滑机智，喜欢与人谈笑风生。偏财多的男人多数有情人，因为他们幽默、容易吸引异性。他们不吝啬，日子过得很快活——work smart, play hard。</span>
+            <span class="en">Indirect Wealth is variable income; they can make big money when the timing is right. Sharp business instinct, playing for high stakes. Generous, charismatic, excellent networkers. Easy come, easy go. They seize opportunities, love entrepreneurship, and handle things tactfully. Men with much Indirect Wealth often have mistresses, as their humor attracts romance. They are not stingy and live by "work smart, play hard."</span>
+        </p>
+    </div>
+
+    <!-- 专题：财多身子弱 -->
+    <div class="card">
+        <h2><span class="zh">专题：为什么说「财多身子弱」？</span><span class="en">Topic: Why "Too Much Wealth Makes a Weak Body"?</span></h2>
+        <p>
+            <span class="zh">如果八字里财多，这个八字一般上是比较弱的（身弱）。因为如果日元力量都去克其他元素了，力量就已经消耗了。常见呈现方式：1. 健康透支（努力工作耗尽健康）；2. 纵欲伤身（男命财为女人，好色弄垮身体）；3. 资产富有，现金贫穷（看起来有钱，住大房子，但都是不动产，不是现金）。</span>
+            <span class="en">When there is too much Wealth in a chart, the Day Master's energy becomes heavily depleted (Weak Body). This shows up in three main ways: 1. Health Burnout (working so hard you ruin your health); 2. Indulgence (since Wealth represents women for men, overindulgence harms physical well-being); 3. Asset Rich, Cash Poor (looking wealthy with big assets, but lacking liquid cash).</span>
+        </p>
+    </div>
+
+    <!-- 正官 -->
+    <div class="card">
+        <h2><span class="zh">十四、正官——规矩与秩序</span><span class="en">14. Direct Officer — Rules and Order</span></h2>
+        <p><span class="zh"><strong>五行定义：</strong>克我的五行，阴阳异性。代表规则、秩序、管理、责任、名分；女命亦代表丈夫。</span><span class="en"><strong>Definition:</strong> Element that overcomes Me, opposite polarity. Represents rules, order, management, responsibility, status; for females, it represents the husband.</span></p>
+        <p>
+            <span class="zh">正官像一位管理者或文官，最重要的四个字：规矩、秩序。正官格的人通常服从规矩，做事稳重、可靠，不喜欢做出格的事情。有责任感，分辨是非，适合做主管、管理层、公务员。但正官太旺也有问题：太重视规矩，太在意别人眼光，活得很累。最大的优点是「稳」，最大的缺点也是「太稳」，容易优柔寡断、错过时机。</span>
+            <span class="en">Direct Officer is like an administrator or civil official; the core is rules and order. They are stable, reliable, law-abiding, and suited for management or public service. However, too much Direct Officer makes them overly concerned with appearances and others' opinions, living a respectable but tiring life. Their greatest strength is stability; their greatest weakness is being too stable, leading to indecisiveness and missed opportunities.</span>
+        </p>
+    </div>
+
+    <!-- 七杀 -->
+    <div class="card">
+        <h2><span class="zh">十五、七杀——魄力与突破</span><span class="en">15. Seven Killings — Courage and Breakthrough</span></h2>
+        <p><span class="zh"><strong>五行定义：</strong>克我的五行，阴阳同性。代表魄力、积极、竞争、突破、开创、压力。</span><span class="en"><strong>Definition:</strong> Element that overcomes Me, same polarity. Represents boldness, initiative, competition, breakthrough, pioneering, pressure.</span></p>
+        <p>
+            <span class="zh">如果正官是文官，七杀就是一位将军。面对战场，必须马上决定、马上行动。七杀的人行动力强，性格直接，雷厉风行，有竞争心，不怕困难。七杀也代表压力，但压力迫使一个人成长。在竞争激烈时更能发挥实力。但七杀也是一把双刃剑，容易太强势、冲动、爱面子。适合军警、管理、创业等需要勇气和决断的工作。</span>
+            <span class="en">If Direct Officer is a civil official, Seven Killings is a general. Facing the battlefield, decisions must be immediate. They are action-oriented, direct, competitive, and unafraid of difficulties. Seven Killings also represents pressure, which often forces growth. They perform best under intense competition. But it's a double-edged sword: can become too aggressive, impulsive, or face-saving. Suited for military, police, management, and entrepreneurship requiring courage and decisiveness.</span>
+        </p>
+    </div>
+
+    <!-- 正官与七杀对照 -->
+    <div class="card">
+        <h2><span class="zh">十六、正官与七杀对照</span><span class="en">16. Comparison: Direct Officer vs. Seven Killings</span></h2>
+        <table>
+            <tr>
+                <th><span class="zh">正官 (Direct Officer)</span><span class="en">Direct Officer</span></th>
+                <th><span class="zh">七杀 (Seven Killings)</span><span class="en">Seven Killings</span></th>
+            </tr>
+            <tr>
+                <td>
+                    <span class="zh">守规矩<br>稳定<br>责任<br>像一位主管或文官</span>
+                    <span class="en">Follows rules<br>Stability<br>Responsibility<br>Like an administrator</span>
+                </td>
+                <td>
+                    <span class="zh">破局<br>突破<br>魄力<br>像一位将军</span>
+                    <span class="en">Breaks the mold<br>Breakthrough<br>Boldness<br>Like a general</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 正印 -->
+    <div class="card">
+        <h2><span class="zh">十七、正印——母亲、滋养、保护与无条件的支持</span><span class="en">17. Direct Resource — The Mother, Nurturing, Protection and Unconditional Support</span></h2>
+        <p><span class="zh"><strong>五行定义：</strong>生我的五行，阴阳异性。代表母亲、师长、贵人、知识、文化、修养、精神世界。</span><span class="en"><strong>Definition:</strong> Element that generates Me, opposite polarity. Represents mother, teachers, benefactors, knowledge, culture, cultivation, spiritual world.</span></p>
+        <p>
+            <span class="zh">正印可以说是最好的十神，也是智慧的代表。母亲就像太阳与大地，给予生命、养育、保护、教育。正印明显的人容易得到长辈、贵人的帮助，重视精神层面的满足，善良、温和、有涵养。但正印太强，如果保护过度，可能表现为依赖、顾虑较多、行动前思考太久。真正好的正印，是先给予养分，再让他走自己的路。</span>
+            <span class="en">Direct Resource is often considered the best Ten God, representing wisdom. A mother is like the sun and earth, giving life, nurturing, and protecting. Those with strong Direct Resource easily receive help from elders and benefactors, value spiritual fulfillment, and are kind, gentle, and cultured. However, if overly protected, it can lead to dependency, overthinking, and hesitation. True Direct Resource gives nourishment first, then lets them walk their own path.</span>
+        </p>
+    </div>
+
+    <!-- 偏印 -->
+    <div class="card">
+        <h2><span class="zh">十八、偏印——不按常理出牌的技能大师</span><span class="en">18. Indirect Resource — The Unconventional Skill Master</span></h2>
+        <p><span class="zh"><strong>五行定义：</strong>生我的五行，阴阳同性。代表养母、继母、偏门知识、玄学、宗教、艺术、技能。</span><span class="en"><strong>Definition:</strong> Element that generates Me, same polarity. Represents adoptive/step mother, unconventional knowledge, metaphysics, religion, arts, skills.</span></p>
+        <p>
+            <span class="zh">如果正印是母亲，偏印就是养母、继母。正印给温暖，偏印给技能。偏印的人脑子转得特别快，对偏门知识、玄学、宗教、艺术特别有缘。他们善变，喜欢弃旧立新，不按部就班，具有个人主义色彩。警戒心强，观察力敏锐，学习玄学是一把手。但容易钻牛角尖、思考过度、没有耐心。</span>
+            <span class="en">If Direct Resource is the birth mother, Indirect Resource is the adoptive/step mother. Direct Resource gives warmth; Indirect Resource gives skills. They have razor-sharp minds, naturally excelling in metaphysics, religion, psychology, and arts. They dislike following rules, are often seen as eccentric visionaries, and have keen observation. However, they tend to overthink, hesitate, and lack patience.</span>
+        </p>
+    </div>
+
+    <!-- 综合部分 -->
+    <div class="card">
+        <h2><span class="zh">十九、从日柱看「我」和我的另一半</span><span class="en">19. Day Pillar: "Me" and My Spouse</span></h2>
+        <p>
+            <span class="zh">八字里面，日柱非常重要。日元代表「我」，而日支则是距离日元最近的位置，传统命理中常用来观察夫妻宫，也就是我们与另一半之间的关系。男命通常以财星观察妻星，女命则通常以官杀观察夫星。例如男命日支坐正财，可以从这个组合去观察他与妻子的缘分。提醒：这些都不能单独看一个位置就下定论，必须结合整个八字。</span>
+            <span class="en">In Bazi, the Day Pillar is extremely important. The Day Master represents "Me", and the Day Branch is the closest position, traditionally used to observe the Spouse Palace (the relationship with the partner). For males, Wealth represents the wife; for females, Officer/Killings represents the husband. For example, if a male's Day Branch sits on Direct Wealth, we can observe his affinity with his wife. Reminder: These cannot be judged by a single position alone; the entire chart must be considered.</span>
+        </p>
+    </div>
+
+    <div class="card">
+        <h2><span class="zh">二十、四柱分别代表什么？</span><span class="en">20. What do the Four Pillars represent?</span></h2>
+        <table>
+            <tr>
+                <th><span class="zh">柱位</span><span class="en">Pillar</span></th>
+                <th><span class="zh">传统定位</span><span class="en">Traditional Representation</span></th>
+            </tr>
+            <tr>
+                <td><span class="zh">年柱</span><span class="en">Year Pillar</span></td>
+                <td><span class="zh">祖辈、家族、早年环境</span><span class="en">Ancestors, family, early environment</span></td>
+            </tr>
+            <tr>
+                <td><span class="zh">月柱</span><span class="en">Month Pillar</span></td>
+                <td><span class="zh">父母、长辈、成长环境，也常用来观察事业与社会环境</span><span class="en">Parents, elders, growth environment, career & society</span></td>
+            </tr>
+            <tr>
+                <td><span class="zh">日柱</span><span class="en">Day Pillar</span></td>
+                <td><span class="zh">自己与夫妻关系</span><span class="en">Self and spouse relationship</span></td>
+            </tr>
+            <tr>
+                <td><span class="zh">时柱</span><span class="en">Hour Pillar</span></td>
+                <td><span class="zh">子女、晚辈、下属，以及人生后期</span><span class="en">Children, subordinates, later life</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2><span class="zh">二十一、十神：一张人生关系图</span><span class="en">21. Ten Gods: A Map of Life Relationships</span></h2>
+        <p>
+            <span class="zh">十神把人与人之间的关系，用五行的生克制化表现出来。例如「财克印」：男命的财星代表妻子，印星代表母亲。财与印之间的「克」，经常用来解释家庭关系中妻子与母亲之间可能出现的不同立场（婆媳问题）。另外，正印也常被视为一个人的良知、原则。当财星过旺而强力克印时，也可以引申为一个人过度追求现实利益，而忽略了内在原则与良知。</span>
+            <span class="en">The Ten Gods express human relationships through the Five Elements. For example, "Wealth overcomes Resource": For a male, Wealth represents the wife, and Resource represents the mother. The "overcoming" between them often explains the potential conflict between wife and mother (mother-in-law issues). Also, Direct Resource represents one's conscience and principles. When Wealth is too strong and overcomes Resource, it can imply that a person pursues material benefits excessively, ignoring their inner conscience and principles.</span>
+        </p>
+    </div>
+
+    <div class="card">
+        <h2><span class="zh">二十二、名人八字参考</span><span class="en">22. Famous People's Bazi Reference</span></h2>
+        <p><span class="zh">重要说明：有些名人的出生时间资料并不一定完全可靠，只能以年月日三柱六字作为参考。</span><span class="en">Important Note: Some famous people's birth times are not fully reliable, so we only use the Year, Month, and Day pillars (Six Characters) as reference.</span></p>
+        <table>
+            <tr>
+                <th><span class="zh">人物</span><span class="en">Person</span></th>
+                <th><span class="zh">出生日期</span><span class="en">Birth Date</span></th>
+                <th><span class="zh">格局参考</span><span class="en">Structure Reference</span></th>
+            </tr>
+            <tr>
+                <td>Bill Gates</td>
+                <td>28/10/1955</td>
+                <td><span class="zh">七杀格</span><span class="en">Seven Killings</span></td>
+            </tr>
+            <tr>
+                <td>Elon Musk</td>
+                <td>28/6/1971</td>
+                <td><span class="zh">伤官＋七杀格</span><span class="en">Hurting Officer + Seven Killings</span></td>
+            </tr>
+            <tr>
+                <td><span class="zh">乔布斯（Apple）</span><span class="en">Steve Jobs (Apple)</span></td>
+                <td>—</td>
+                <td><span class="zh">食神、伤官、印都有</span><span class="en">Eating God, Hurting Officer, Resource</span></td>
+            </tr>
+            <tr>
+                <td><span class="zh">马化腾（腾讯）</span><span class="en">Pony Ma (Tencent)</span></td>
+                <td>—</td>
+                <td><span class="zh">很明显的伤官格；伤官生财，财再生官</span><span class="en">Strong Hurting Officer; generates Wealth, which generates Officer</span></td>
+            </tr>
+            <tr>
+                <td><span class="zh">黄仁勋</span><span class="en">Jensen Huang</span></td>
+                <td>—</td>
+                <td><span class="zh">财格很明显</span><span class="en">Obvious Wealth Structure</span></td>
+            </tr>
+            <tr>
+                <td><span class="zh">巴菲特</span><span class="en">Warren Buffett</span></td>
+                <td>—</td>
+                <td><span class="zh">劫财、偏印、食财格</span><span class="en">Rob Wealth, Indirect Resource, Eating/Wealth</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 结语 -->
+    <div class="card">
+        <h2><span class="zh">二十三、结语：知己知彼</span><span class="en">23. Conclusion: Know Yourself, Know Others</span></h2>
+        <p>
+            <span class="zh">八字不是用来给自己贴标签，而是让我们更了解自己。知道自己的性格以后，懂得发挥自己的长处，也懂得修正自己的弱点。能够知己，也能够知人。这就是孙子兵法里面的「知己知彼，百战不殆」。学八字，其实就是学会从「我」出发，看懂我与父母、伴侣、子女、朋友、社会，以及这个世界之间的关系。当你真正看懂十神，你看的就不再只是一个人的命盘，你看到的，其实是一幅人生关系图。</span>
+            <span class="en">Bazi is not meant to label ourselves, but to help us understand ourselves better. Knowing our personality, we can leverage our strengths and correct our weaknesses. To know yourself and to know others — this is the essence of "Know yourself, know your enemy, and you will never be defeated" from The Art of War. Learning Bazi is essentially learning to start from "Me" and understand the relationships with parents, partners, children, friends, society, and the world. When you truly understand the Ten Gods, you are no longer just looking at a chart; you are looking at a map of life relationships.</span>
+        </p>
+    </div>
+
+    <footer>
+        <p><span class="zh">比肩 · 劫财 · 食神 · 伤官 · 正财 · 偏财 · 正官 · 七杀 · 正印 · 偏印</span><span class="en">Friend · Rob Wealth · Eating God · Hurting Officer · Direct Wealth · Indirect Wealth · Direct Officer · Seven Killings · Direct Resource · Indirect Resource</span></p>
+    </footer>
+</div>
+
+<script>
+    function toggleLang() {
+        const html = document.documentElement;
+        const btn = document.getElementById('lang-toggle');
+        if (html.getAttribute('lang') === 'zh') {
+            html.setAttribute('lang', 'en');
+            btn.textContent = '中文';
+        } else {
+            html.setAttribute('lang', 'zh');
+            btn.textContent = 'English';
+        }
+    }
+</script>
+
+</body>
+</html>
