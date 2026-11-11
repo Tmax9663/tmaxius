@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>地支藏干 · 五行音律 (悬停发声版)</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 10px;
+    overflow-x: hidden;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    margin-bottom: 5px;
+    letter-spacing: 4px;
+    background: linear-gradient(90deg, #22c55e, #ef4444, #eab308, #e2e8f0, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+  }
+
+  .subtitle { font-size: clamp(0.8rem, 3vw, 0.95rem); color: #64748b; margin-bottom: 15px; text-align: center;}
+
+  .controls { 
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 15px; 
+    z-index: 100; 
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  button {
+    padding: 8px 20px;
+    font-size: clamp(0.85rem, 3vw, 1rem);
+    border: 1px solid #334155;
+    border-radius: 30px;
+    cursor: pointer;
+    background: rgba(30, 41, 59, 0.8);
+    color: #cbd5e1;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    letter-spacing: 2px;
+    backdrop-filter: blur(5px);
+  }
+
+  button:hover { border-color: #94a3b8; color: #fff; transform: translateY(-2px); }
+  button.active { background: #3b82f6; border-color: #3b82f6; color: #fff; box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
+
+  .stage-wrapper {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+    border-radius: 20px;
+    border: 1px solid #334155;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    overflow: hidden;
+  }
+
+  /* 背景四季水印 */
+  .bg-season {
+    position: absolute;
+    font-weight: 900;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    pointer-events: none;
+    color: #fff;
+    z-index: 1;
+  }
+  [data-step="2"] .bg-season, [data-step="3"] .bg-season { opacity: 0.03; }
+  .bg-spring { left: 5%; top: 10%; }
+  .bg-summer { right: 5%; top: 10%; }
+  .bg-autumn { right: 5%; bottom: 10%; }
+  .bg-winter { left: 5%; bottom: 10%; }
+
+  /* 地支卡片基础样式 */
+  .dz-card {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.1);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* 缩短过渡时间，让hover更灵敏 */
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .dz-card:hover, .dz-card.touch-active {
+    transform: scale(1.15) !important;
+    z-index: 20;
+    border-color: rgba(255,255,255,0.6);
+    filter: brightness(1.2);
+  }
+
+  /* 藏干容器 */
+  .cg-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    opacity: 0;
+    transform: translateY(-20px) scale(0.8);
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  [data-step="3"] .cg-container {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  /* 藏干小球基础样式 */
+  .cg-ball {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255,255,255,0.2);
+    user-select: none;
+  }
+  
+  .cg-ball:hover, .cg-ball.touch-active { 
+    transform: scale(1.25); 
+    filter: brightness(1.3);
+    border-color: #fff;
+  }
+
+  .note, .audio-hint {
+    font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+    color: #64748b;
+    text-align: center;
+    max-width: 800px;
+    line-height: 1.6;
+    margin-top: 15px;
+    padding: 0 10px;
+  }
+  
+  .audio-hint {
+    color: #eab308;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+</style>
+</head>
+<body>
+
+<h1>地支藏干 · 五行音律</h1>
+<p class="subtitle">动画演示：十二地支与藏干奥秘 (悬停发声版)</p>
+<p class="audio-hint">🔊 鼠标悬停 / 手指轻触 卡片，即刻聆听“宫商角徵羽”</p>
+
+<div class="controls">
+  <button id="btn1" onclick="setStep(1)">① 初始</button>
+  <button id="btn2" onclick="setStep(2)">② 四季分组</button>
+  <button id="btn3" onclick="setStep(3)">③ 展开藏干</button>
+</div>
+
+<div class="stage-wrapper">
+  <div class="stage" id="stage" data-step="1">
+    <div class="bg-season bg-spring">春</div>
+    <div class="bg-season bg-summer">夏</div>
+    <div class="bg-season bg-autumn">秋</div>
+    <div class="bg-season bg-winter">冬</div>
+  </div>
+</div>
+
+<p class="note">
+  * 提示：首次点击按钮以解锁浏览器音频权限。12地支颜色严格对应其本气五行。
+</p>
+
+<script>
+  // ================= 专属五行配色 =================
+  const WX = [
+    {n:'木', c:'#22c55e', g:'#15803d'},
+    {n:'火', c:'#ef4444', g:'#b91c1c'},
+    {n:'土', c:'#eab308', g:'#a16207'},
+    {n:'金', c:'#e2e8f0', g:'#64748b'},
+    {n:'水', c:'#3b82f6', g:'#1d4ed8'}
+  ];
+
+  function applyWxStyle(el, wxName, isBall = false) {
+    const wxObj = WX.find(w => w.n === wxName);
+    if (!wxObj) return;
+    const isMetal = wxName === '金';
+    el.style.background = wxObj.c;
+    el.style.color = isMetal ? '#0f172a' : '#fff';
+    const glowSize = isBall ? 8 : 12;
+    el.style.boxShadow = `0 0 ${glowSize}px ${wxObj.g}`;
+    el.style.textShadow = isMetal ? 'none' : '0 1px 2px rgba(0,0,0,0.5)';
+  }
+
+  // ================= 音频引擎 =================
+  let audioCtx;
+  function initAudio() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+  }
+
+  const wuxingFreq = {
+    '土': 261.63, '金': 293.66, '木': 329.63, '火': 392.00, '水': 440.00
+  };
+
+  // 悬停音效：更短促、更轻柔，避免嘈杂
+  function playTone(freq, duration = 0.3, type = 'sine', volume = 0.1) {
+    if(!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    
+    gain.gain.setValueAtTime(0, audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(volume, audioCtx.currentTime + 0.02); // 极快起音
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(audioCtx.currentTime);
+    osc.stop(audioCtx.currentTime + duration);
+  }
+
+  function playMelody(step) {
+    initAudio();
+    let notes = [];
+    if(step === 1) notes = ['土', '木', '水'];
+    if(step === 2) notes = ['金', '火', '木'];
+    if(step === 3) notes = ['水', '土', '火'];
+    
+    notes.forEach((wx, i) => {
+      setTimeout(() => playTone(wuxingFreq[wx], 0.8, 'triangle', 0.15), i * 200);
+    });
+  }
+
+  // ================= 数据定义 =================
+  const dizhiData = [
+    { name: '子', cg: [{g:'癸', wx:'水'}], season: 'winter' },
+    { name: '丑', cg: [{g:'己', wx:'土'}, {g:'癸', wx:'水'}, {g:'辛', wx:'金'}], season: 'winter' },
+    { name: '寅', cg: [{g:'甲', wx:'木'}, {g:'丙', wx:'火'}, {g:'戊', wx:'土'}], season: 'spring' },
+    { name: '卯', cg: [{g:'乙', wx:'木'}], season: 'spring' },
+    { name: '辰', cg: [{g:'戊', wx:'土'}, {g:'乙', wx:'木'}, {g:'癸', wx:'水'}], season: 'spring' },
+    { name: '巳', cg: [{g:'丙', wx:'火'}, {g:'戊', wx:'土'}, {g:'庚', wx:'金'}], season: 'summer' },
+    { name: '午', cg: [{g:'丁', wx:'火'}, {g:'己', wx:'土'}], season: 'summer' },
+    { name: '未', cg: [{g:'己', wx:'土'}, {g:'丁', wx:'火'}, {g:'乙', wx:'木'}], season: 'summer' },
+    { name: '申', cg: [{g:'庚', wx:'金'}, {g:'壬', wx:'水'}, {g:'戊', wx:'土'}], season: 'autumn' },
+    { name: '酉', cg: [{g:'辛', wx:'金'}], season: 'autumn' },
+    { name: '戌', cg: [{g:'戊', wx:'土'}, {g:'辛', wx:'金'}, {g:'丁', wx:'火'}], season: 'autumn' },
+    { name: '亥', cg: [{g:'壬', wx:'水'}, {g:'甲', wx:'木'}], season: 'winter' }
+  ];
+
+  // ================= DOM 构建与事件绑定 =================
+  const stage = document.getElementById('stage');
+  
+  dizhiData.forEach((dz, i) => {
+    // 1. 地支卡片
+    const card = document.createElement('div');
+    card.className = 'dz-card';
+    card.id = `dz-${i}`;
+    card.innerText = dz.name;
+    const mainWx = dz.cg[0].wx;
+    applyWxStyle(card, mainWx);
+    
+    // 桌面端：鼠标悬停发声
+    card.addEventListener('mouseenter', () => {
+        initAudio();
+        playTone(wuxingFreq[mainWx], 0.3, 'sine', 0.12);
+    });
+    // 移动端：触摸发声 (等效悬停)
+    card.addEventListener('touchstart', (e) => {
+        e.preventDefault(); 
+        initAudio();
+        playTone(wuxingFreq[mainWx], 0.3, 'sine', 0.12);
+        card.classList.add('touch-active');
+    }, {passive: false});
+    card.addEventListener('touchend', () => card.classList.remove('touch-active'));
+    
+    stage.appendChild(card);
+
+    // 2. 藏干容器
+    const cgCont = document.createElement('div');
+    cgCont.className = 'cg-container';
+    cgCont.id = `cg-${i}`;
+    
+    dz.cg.forEach(item => {
+        const ball = document.createElement('div');
+        ball.className = 'cg-ball';
+        ball.innerText = item.g;
+        applyWxStyle(ball, item.wx, true);
+        
+        // 桌面端：悬停发声
+        ball.addEventListener('mouseenter', () => {
+            initAudio();
+            playTone(wuxingFreq[item.wx], 0.25, 'triangle', 0.1);
+        });
+        // 移动端：触摸发声
+        ball.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            initAudio();
+            playTone(wuxingFreq[item.wx], 0.25, 'triangle', 0.1);
+            ball.classList.add('touch-active');
+        }, {passive: false});
+        ball.addEventListener('touchend', () => ball.classList.remove('touch-active'));
+        
+        cgCont.appendChild(ball);
+    });
+    stage.appendChild(cgCont);
+  });
+
+  // ================= 响应式布局引擎 =================
+  let currentStep = 1;
+
+  function getStep1Pos(i, scale) {
+    const cx = 400 * scale, cy = 300 * scale, r = 220 * scale;
+    const angle = (-90 + i * 30) * Math.PI / 180;
+    return { x: cx + r * Math.cos(angle) - 30 * scale, y: cy + r * Math.sin(angle) - 30 * scale };
+  }
+
+  function getStep2Pos(i, scale) {
+    const dz = dizhiData[i];
+    let groupCx, groupCy, idxInGroup;
+    // 修复版坐标：防止秋冬藏干被截断
+    if(dz.season === 'spring') { groupCx = 200; groupCy = 120; idxInGroup = [2,3,4].indexOf(i); }
+    else if(dz.season === 'summer') { groupCx = 600; groupCy = 120; idxInGroup = [5,6,7].indexOf(i); }
+    else if(dz.season === 'autumn') { groupCx = 600; groupCy = 360; idxInGroup = [8,9,10].indexOf(i); }
+    else { groupCx = 200; groupCy = 360; idxInGroup = [11,0,1].indexOf(i); }
+    return { x: (groupCx - 70 + idxInGroup * 70) * scale, y: groupCy * scale };
+  }
+
+  function updateLayout() {
+    const W = stage.offsetWidth;
+    const scale = W / 800;
+    
+    const cardSize = 60 * scale;
+    const cgBallSize = 32 * scale;
+    const dzFontSize = 28 * scale;
+    const cgFontSize = 16 * scale;
+    const bgFontSize = 120 * scale;
+
+    document.querySelectorAll('.bg-season').forEach(el => el.style.fontSize = `${bgFontSize}px`);
+
+    dizhiData.forEach((dz, i) => {
+      const card = document.getElementById(`dz-${i}`);
+      const cgCont = document.getElementById(`cg-${i}`);
+      
+      card.style.width = `${cardSize}px`;
+      card.style.height = `${cardSize}px`;
+      card.style.fontSize = `${dzFontSize}px`;
+      
+      cgCont.style.width = `${100 * scale}px`;
+      cgCont.style.gap = `${5 * scale}px`;
+      
+      cgCont.querySelectorAll('.cg-ball').forEach(ball => {
+          ball.style.width = `${cgBallSize}px`;
+          ball.style.height = `${cgBallSize}px`;
+          ball.style.fontSize = `${cgFontSize}px`;
+      });
+
+      let pos;
+      if(currentStep === 1) pos = getStep1Pos(i, scale);
+      else pos = getStep2Pos(i, scale);
+
+      card.style.left = `${pos.x}px`;
+      card.style.top = `${pos.y}px`;
+
+      cgCont.style.left = `${pos.x - 20 * scale}px`;
+      cgCont.style.top = `${pos.y + 70 * scale}px`;
+    });
+  }
+
+  // ================= 动画控制 =================
+  function setStep(step) {
+    initAudio(); // 确保首次点击按钮时解锁音频
+    currentStep = step;
+    stage.setAttribute('data-step', step);
+    
+    document.querySelectorAll('.controls button').forEach((btn, index) => {
+      btn.classList.toggle('active', index + 1 === step);
+    });
+
+    updateLayout();
+    playMelody(step);
+  }
+
+  window.addEventListener('resize', updateLayout);
+  setStep(1);
+</script>
+
+</body>
+</html>
