@@ -161,7 +161,7 @@ svg{width:min(96vw,700px);height:min(96vw,700px)}
   <button id="btn-ccw" onclick="rotate(-1)">↺ 逆转 72°</button>
   <button id="btn-cw" onclick="rotate(1)">↻ 顺转 72°</button>
   <button id="spin-btn">
-    🎰 老虎机
+    🎰 随机
     <span class="hint" id="spin-hint">长按蓄力 · 松开滑行</span>
   </button>
 </div>
@@ -183,9 +183,9 @@ const CX=350,CY=350,OR=232,IR=122,NOR=50,NIR=34;
 const TG=[
   {p:['比肩','劫财'],g:'比劫'},
   {p:['食神','伤官'],g:'食伤'},
-  {p:['偏财','正财'],g:'财星'},
-  {p:['七杀','正官'],g:'官杀'},
-  {p:['偏印','正印'],g:'印星'}
+  {p:['正财','偏财'],g:'财星'},
+  {p:['正官','七杀'],g:'官杀'},
+  {p:['正印','偏印'],g:'印星'}
 ];
 const WX=[
   {n:'木',c:'#22c55e',g:'#15803d'},
@@ -211,7 +211,7 @@ let steps=0;
 let currentAngle=0;
 let velocity=0;  // 角速度（度/秒）
 
-// 物理参数（老虎机风格）
+// 物理参数（随机风格）
 const MAX_VELOCITY=2520;   // 最大速度（7圈/秒）
 const ACCELERATION=4200;   // 加速度
 const FRICTION=0.982;      // 摩擦系数（每帧）
@@ -238,7 +238,7 @@ function initAudio(){
   masterGain.connect(audioCtx.destination);
 }
 
-// 启动音效：老虎机拉杆 + 机械启动
+// 启动音效：随机拉杆 + 机械启动
 function playStart(){
   if(!audioCtx) return;
   const t=audioCtx.currentTime;
@@ -453,8 +453,8 @@ function build(){
   // 中心日主（单独分组以便弹跳）
   h+=`<g id="rz-group">`;
   h+=`<circle id="rz-circle" cx="${CX}" cy="${CY}" r="38" fill="#15803d" stroke="#22c55e" stroke-width="2.5" filter="url(#gl2)"/>`;
-  h+=`<text id="rz-text" x="${CX}" y="${CY-2}" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">日主</text>`;
-  h+=`<text id="rz-sub" x="${CX}" y="${CY+18}" text-anchor="middle" fill="rgba(255,255,255,.6)" font-size="11">太极</text>`;
+  h+=`<text id="rz-text" x="${CX}" y="${CY}" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">日主</text>`;
+  // h+=`<text id="rz-sub" x="${CX}" y="${CY+18}" text-anchor="middle" fill="rgba(255,255,255,.6)" font-size="11">太极</text>`;
   h+=`</g>`;
 
   svg.innerHTML=h;
