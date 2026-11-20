@@ -1,0 +1,88 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700" width="700" height="700">
+	<defs>
+		<marker id="ag" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+			<path d="M0,0L9,3.5L0,7Z" fill="#4ade80"/>
+		</marker>
+		<marker id="ar" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+			<path d="M0,0L9,3.5L0,7Z" fill="#f87171"/>
+		</marker>
+		<marker id="at" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+			<path d="M0,0L9,3.5L0,7Z" fill="#2dd4bf"/>
+		</marker>
+	</defs>
+	<style>
+		.inner-group text {font-family: "MaShanZheng-Regular", "Ma Shan Zheng"}
+		.tg-group text { pointer-events: none; font-size: 18px;fill: #ffffff;font-weight: 400;font-family: "MaShanZheng-Regular", "Ma Shan Zheng" } 
+		.wood { fill: #15803d; stroke: #22c55e; stroke-width: 2.5; }
+        .fire { fill: #b91c1c; stroke: #ef4444; stroke-width: 2.5; }
+        .earth { fill: #a16207; stroke: #eab308; stroke-width: 2.5; }
+        .metal { fill: #64748b; stroke: #e2e8f0; stroke-width: 2.5; }
+        .water { fill: #1d4ed8; stroke: #3b82f6; stroke-width: 2.5; }
+	</style>
+	<circle cx="350" cy="350" r="340" fill="url(#bg)"/>
+	<circle cx="350" cy="350" r="257" fill="none" stroke="rgba(240,192,96,.08)" stroke-width="1"/>
+	<circle cx="350" cy="350" r="232" fill="none" stroke="rgba(240,192,96,.12)" stroke-width="1" stroke-dasharray="5,5"/>
+	<circle cx="350" cy="350" r="122" fill="none" stroke="rgba(100,200,255,.12)" stroke-width="1" stroke-dasharray="5,5"/>
+	<path d="M440.3087232854157 114.73773252270516A252 252 0 0 1 545.8407822871566 191.41126145544095" fill="none" stroke="#4ade80" stroke-width="2.5" marker-end="url(#ag)" opacity=".65"/>
+	<path d="M601.6546427581526 363.18866097322183A252 252 0 0 1 561.3449831222468 487.2490368237868" fill="none" stroke="#4ade80" stroke-width="2.5" marker-end="url(#ag)" opacity=".65"/>
+	<path d="M415.22239936583526 593.4133082248452A252 252 0 0 1 284.7776006341648 593.4133082248452" fill="none" stroke="#4ade80" stroke-width="2.5" marker-end="url(#ag)" opacity=".65"/>
+	<path d="M138.65501687775316 487.2490368237869A252 252 0 0 1 98.34535724184735 363.1886609732217" fill="none" stroke="#4ade80" stroke-width="2.5" marker-end="url(#ag)" opacity=".65"/>
+	<path d="M154.15921771284337 191.41126145544092A252 252 0 0 1 259.6912767145843 114.73773252270516" fill="none" stroke="#4ade80" stroke-width="2.5" marker-end="url(#ag)" opacity=".65"/>
+	<line stroke="#f87171" stroke-width="1.5" stroke-dasharray="7,5" marker-end="url(#ar)" opacity=".45" x2="410" y2="415" y1="260" x1="365"/>
+	<line stroke="#f87171" stroke-width="1.5" stroke-dasharray="7,5" marker-end="url(#ar)" opacity=".45" x2="310" y2="430" y1="335" x1="440"/>
+	<line stroke="#f87171" stroke-width="1.5" stroke-dasharray="7,5" marker-end="url(#ar)" opacity=".45" y2="340" x2="260" y1="425" x1="395"/>
+	<line stroke="#f87171" stroke-width="1.5" stroke-dasharray="7,5" marker-end="url(#ar)" opacity=".45" y2="260" y1="415" x1="290" x2="335"/>
+	<line stroke="#f87171" stroke-width="1.5" stroke-dasharray="7,5" marker-end="url(#ar)" opacity=".45" x1="260" y1="310" y2="310" x2="430"/>
+	<g class="tg-group tg-index-0">
+		<circle cx="350" cy="118" r="50" fill="rgba(25,25,55,.92)" stroke="#f0c060" stroke-width="2" filter="url(#gl)"/>
+		<text x="350" text-anchor="middle" fill="#f0c060" font-size="18" font-weight="bold" y="100">比肩</text>
+		<text x="350" text-anchor="middle" fill="#f0c060" font-size="18" font-weight="bold" y="126">劫财</text>
+		<text x="350" text-anchor="middle" fill="rgba(240,192,96,.6)" font-size="12" y="148">〔比劫〕</text>
+	</g>
+	<g class="tg-group tg-index-1">
+		<circle cx="570.6451117804756" r="50" fill="rgba(25,25,55,.92)" stroke="#f0c060" stroke-width="2" filter="url(#gl)" cy="278.3080573050122"/>
+		<text x="570.6451117804756" text-anchor="middle" fill="#f0c060" font-size="18" font-weight="bold" y="260">食神</text>
+		<text x="570.6451117804756" text-anchor="middle" fill="#f0c060" font-size="18" font-weight="bold" y="286">伤官</text>
+		<text x="570.6451117804756" text-anchor="middle" fill="rgba(240,192,96,.6)" font-size="12" y="308">〔食伤〕</text>
+	</g>
+	<g class="tg-group tg-index-2">
+		<circle cx="486.36617853185373" cy="537.6919426949878" r="50" fill="rgba(25,25,55,.92)" stroke="#f0c060" stroke-width="2" filter="url(#gl)"/>
+		<text x="486.36617853185373" text-anchor="middle" fill="#f0c060" font-size="18" font-weight="bold" y="520">正财</text>
+		<text x="486.36617853185373" text-anchor="middle" fill="#f0c060" font-size="18" font-weight="bold" y="546">偏财</text>
+		<text x="486.36617853185373" text-anchor="middle" fill="rgba(240,192,96,.6)" font-size="12" y="568">〔财星〕</text>
+	</g>
+	<g class="tg-group tg-index-3">
+		<circle cx="213.63382146814627" cy="537.6919426949878" r="50" fill="rgba(25,25,55,.92)" stroke="#f0c060" stroke-width="2" filter="url(#gl)"/>
+		<text x="213.63382146814627" text-anchor="middle" fill="#f0c060" font-size="18" font-weight="bold" y="520">正官</text>
+		<text x="213.63382146814627" text-anchor="middle" fill="#f0c060" font-size="18" font-weight="bold" y="546">七杀</text>
+		<text x="213.63382146814627" text-anchor="middle" fill="rgba(240,192,96,.6)" font-size="12" y="568">〔官杀〕</text>
+	</g>
+	<g class="tg-group tg-index-4">
+		<circle cx="129.35488821952438" cy="278.30805730501214" r="50" fill="rgba(25,25,55,.92)" stroke="#f0c060" stroke-width="2" filter="url(#gl)"/>
+		<text x="129.35488821952438" text-anchor="middle" fill="#f0c060" font-size="18" font-weight="bold" y="260">正印</text>
+		<text x="129.35488821952438" text-anchor="middle" fill="#f0c060" font-size="18" font-weight="bold" y="286">偏印</text>
+		<text x="129.35488821952438" text-anchor="middle" fill="rgba(240,192,96,.6)" font-size="12" y="308">〔印星〕</text>
+	</g>
+	<g class="inner-group" style="transform-origin: 350px 350px 0px; transform: rotate(0deg);" filter="url(#motion-blur)">
+		<path d="M413.84813253888115 229.91912737118594A136 136 0 0 1 444.4735383824236 252.16978715394345" fill="none" stroke="#2dd4bf" stroke-width="2" marker-end="url(#at)" opacity=".55"/>
+		<path d="M483.9338544096603 373.6161521627025A136 136 0 0 1 472.23599029668674 409.6184759633145" fill="none" stroke="#2dd4bf" stroke-width="2" marker-end="url(#at)" opacity=".55"/>
+		<path d="M368.9275417305689 484.67645734885355A136 136 0 0 1 331.07245826943114 484.67645734885355" fill="none" stroke="#2dd4bf" stroke-width="2" marker-end="url(#at)" opacity=".55"/>
+		<path d="M227.76400970331332 409.61847596331455A136 136 0 0 1 216.06614559033972 373.6161521627025" fill="none" stroke="#2dd4bf" stroke-width="2" marker-end="url(#at)" opacity=".55"/>
+		<path d="M255.52646161757642 252.1697871539434A136 136 0 0 1 286.1518674611189 229.9191273711859" fill="none" stroke="#2dd4bf" stroke-width="2" marker-end="url(#at)" opacity=".55"/>
+		<circle cx="350" cy="228" r="34" class="water" filter="url(#gl)" opacity=".92"/>
+		<text x="350" y="236" text-anchor="middle" fill="#fff" font-size="22" font-weight="bold" class="wt" data-i="0" transform="rotate(0,350,228)">水</text>
+		<circle cx="466.02889498800874" cy="312.2999266862564" r="34" class="wood" filter="url(#gl)" opacity=".92"/>
+		<text x="466.02889498800874" y="320.2999266862564" text-anchor="middle" fill="#fff" font-size="22" font-weight="bold" class="wt" data-i="1" transform="rotate(0,466.02889498800874,312.2999266862564)">木</text>
+		<circle cx="421.7098007796817" cy="448.7000733137436" r="34" class="fire" filter="url(#gl)" opacity=".92"/>
+		<text x="421.7098007796817" y="456.7000733137436" text-anchor="middle" fill="#fff" font-size="22" font-weight="bold" class="wt" data-i="2" transform="rotate(0,421.7098007796817,448.7000733137436)">火</text>
+		<circle cx="278.2901992203183" cy="448.7000733137436" r="34" class="earth" filter="url(#gl)" opacity=".92"/>
+		<text x="278.2901992203183" y="456.7000733137436" text-anchor="middle" fill="#fff" font-size="22" font-weight="bold" class="wt" data-i="3" transform="rotate(0,278.2901992203183,448.7000733137436)">土</text>
+		<circle cx="233.97110501199126" cy="312.29992668625636" r="34" class="metal" filter="url(#gl)" opacity=".92"/>
+		<text x="233.97110501199126" y="320.29992668625636" text-anchor="middle" fill="#fff" font-size="22" font-weight="bold" class="wt" data-i="4" transform="rotate(0,233.97110501199126,312.29992668625636)">金</text>
+	</g>
+	<circle id="flash-ring" cx="350" cy="350" r="100" fill="url(#flash-grad)"/>
+	<g class="inner-group">
+		<circle id="rz-circle" cx="350" cy="350" r="38" class="water"  stroke-width="2.5" filter="url(#gl2)"/>
+		<text id="rz-text" x="350" y="354" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">日主</text>
+	</g>
+</svg>
