@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bazi Ten Gods: Favorability in Luck/Annual Pillars & Gender Perspectives</title>
+<style>
+  :root {
+    --good-bg: #e8f5e9; --good-border: #4caf50; --good-text: #2e7d32;
+    --bad-bg: #ffebee; --bad-border: #f44336; --bad-text: #c62828;
+    --male-tag: #1976d2; --female-tag: #8e24aa;
+    --card-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+  }
+  body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6; color: #333; background-color: #f4f6f8;
+    margin: 0; padding: 20px; overflow-wrap: break-word;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  header {
+    text-align: center; margin-bottom: 30px; padding: 20px;
+    background: linear-gradient(135deg, #2c3e50, #3498db); color: white;
+    border-radius: 12px; box-shadow: var(--card-shadow);
+  }
+  header h1 { margin: 0; font-size: 1.8em; }
+  .disclaimer {
+    background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px;
+    margin-bottom: 30px; border-radius: 6px; font-size: 0.95em;
+  }
+  .disclaimer strong { color: #856404; }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 25px;
+  }
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.4em; }
+  }
+
+  .god-card {
+    background: #fff; border-radius: 12px; overflow: hidden;
+    box-shadow: var(--card-shadow); transition: transform 0.2s;
+  }
+  .god-card:hover { transform: translateY(-3px); }
+  
+  .card-header {
+    background: #34495e; color: white; padding: 15px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .card-header h2 { margin: 0; font-size: 1.3em; }
+  .card-header .en-name { font-size: 0.85em; opacity: 0.8; font-style: italic; }
+
+  .card-body { padding: 20px; }
+  
+  .section-title {
+    font-weight: bold; margin: 15px 0 8px 0; font-size: 1.05em;
+    border-bottom: 2px dashed #ccc; padding-bottom: 5px;
+  }
+  
+  .pros-cons { display: flex; gap: 15px; margin-bottom: 15px; }
+  .pros-cons > div { flex: 1; font-size: 0.9em; padding: 10px; border-radius: 6px; }
+  .pros { background: #f1f8e9; color: #33691e; }
+  .cons { background: #fbe9e7; color: #bf360c; }
+  .pros-cons ul { margin: 5px 0 0 0; padding-left: 18px; }
+
+  .luck-box {
+    border-radius: 8px; padding: 12px; margin-bottom: 12px;
+    border-left: 5px solid;
+  }
+  .luck-good { background: var(--good-bg); border-color: var(--good-border); }
+  .luck-bad { background: var(--bad-bg); border-color: var(--bad-border); }
+  
+  .luck-title { font-weight: bold; margin-bottom: 8px; font-size: 1em; }
+  .luck-good .luck-title { color: var(--good-text); }
+  .luck-bad .luck-title { color: var(--bad-text); }
+
+  .gender-row { display: flex; gap: 10px; margin-top: 8px; }
+  .gender-item { flex: 1; font-size: 0.88em; background: rgba(255,255,255,0.6); padding: 8px; border-radius: 4px; }
+  
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    color: white; font-size: 0.75em; font-weight: bold; margin-right: 5px;
+  }
+  .tag-male { background: var(--male-tag); }
+  .tag-female { background: var(--female-tag); }
+
+  footer {
+    text-align: center; margin-top: 40px; color: #7f8c8d; font-size: 0.85em;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Bazi Ten Gods: Favorability in Luck/Annual Pillars & Gender Perspectives</h1>
+    <p>Exploring the profound impact of the Ten Gods on male and female destinies as time flows.</p>
+  </header>
+
+  <div class="disclaimer">
+    <strong>⚠️ Core Bazi Premise:</strong> The auspiciousness of a Ten God in a Luck Pillar (Da Yun) or Annual Pillar (Liu Nian) is <strong>never absolute</strong>.
+    <br>• <strong>When Favorable (Useful God):</strong> It brings out positive traits, smoothness, opportunities, and achievements.
+    <br>• <strong>When Unfavorable (Inauspicious God):</strong> It amplifies negative traits, bringing pressure, financial loss, and disasters.
+    <br>• <strong>Gender Differences:</strong> Male destiny focuses on Wealth (Wife/Finance) and Officer (Career); Female destiny focuses on Officer (Husband), Killings (Alternative romance/Career), and Eating/Hurting Officer (Children/Talent).
+  </div>
+
+  <div class="grid">
+    <!-- 1. Direct Resource -->
+    <div class="god-card">
+      <div class="card-header"><h2>Direct Resource</h2><span class="en-name">Zheng Yin</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ Pros</strong><ul><li>Strong learning ability, profound wisdom.</li><li>Easily receives help from nobles, elders, and mother.</li><li>Academic success, good reputation, peaceful mindset.</li></ul></div>
+          <div class="cons"><strong>❌ Cons</strong><ul><li>Rich in thought but lacks action.</li><li>Complacent with the status quo, highly dependent.</li><li>Lacks pioneering spirit and courage to take risks.</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 When Direct Resource is FAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Promoted by nobles, academic/career success, strong support from elders, dual harvest of reputation and status.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Harmonious family, loved by mother/elders, good for pregnancy/fertility, inner sense of security.</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ When Direct Resource is UNFAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Career stagnation, heavy dependence, troubled by documents/real estate/mother issues, lack of fighting spirit.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Depressed thoughts, mother-in-law conflicts (Resource clashes Eating God), lacks independent thought, easily over-interfered by elders.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Indirect Resource -->
+    <div class="god-card">
+      <div class="card-header"><h2>Indirect Resource</h2><span class="en-name">Pian Yin (Owl)</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ Pros</strong><ul><li>Sharp intuition, strong insight.</li><li>Excels in niche and highly difficult fields.</li><li>Possesses unique problem-solving abilities.</li></ul></div>
+          <div class="cons"><strong>❌ Cons</strong><ul><li>Suspicious and sensitive, overthinks.</li><li>Eccentric personality, extreme thoughts.</li><li>Fickle, easily gives up halfway. Clashes with Eating God ("Owl Stealing Food").</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 When Indirect Resource is FAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Fame in niche industries, bursts of inspiration, good for certifications/research/metaphysics, solves tricky problems.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Extremely accurate intuition, good for niche arts/design, rich spiritual world, unique charm.</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ When Indirect Resource is UNFAVORABLE (Owl Stealing Food)</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Career setbacks, financial loss/unemployment, lonely and depressed, easily ambushed by villains, health impaired.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Emotional depression, gynecological/endocrine issues, bad for children (Owl steals Food), emotional loneliness.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Direct Wealth -->
+    <div class="god-card">
+      <div class="card-header"><h2>Direct Wealth</h2><span class="en-name">Zheng Cai</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ Pros</strong><ul><li>Strong financial management skills.</li><li>Down-to-earth, honest, and principled.</li><li>Good at saving and steadily accumulating assets.</li></ul></div>
+          <div class="cons"><strong>❌ Cons</strong><ul><li>Wealth heavy but body weak, overworks for money.</li><li>Overvalues money, appears stingy.</li><li>Easily ignores life's pleasures.</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 When Direct Wealth is FAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Smooth wealth, promotion/raise; single men meet true love/marry, wife is virtuous and helps husband.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Proper financial management, wealthy family, practical and stable, receives help from female nobles or father.</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ When Direct Wealth is UNFAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Troubles caused by wealth, wife gets sick or relationship discord; greedy for wealth ruins reputation.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Exhausted running for money, stingy; high realistic pressure, easily has mother-in-law conflicts (Wealth clashes Resource).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Indirect Wealth -->
+    <div class="god-card">
+      <div class="card-header"><h2>Indirect Wealth</h2><span class="en-name">Pian Cai</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ Pros</strong><ul><li>Flexible business mind, good at seizing opportunities.</li><li>Wide network, knows how to integrate resources.</li><li>Entrepreneurial spirit and wealth-creating ability.</li></ul></div>
+          <div class="cons"><strong>❌ Cons</strong><ul><li>Wealth comes and goes, even into debt.</li><li>Speculation/gambling or blind expansion leads to bankruptcy.</li><li>Indulges in socializing, alcohol, and sex, damaging health.</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 When Indirect Wealth is FAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Unexpected wealth, profitable investments; father's health is good; easily meets female confidantes or gets help from romance.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Wide social circle, commercial profits; generous, possesses "strong woman" traits, receives help from male nobles.</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ When Indirect Wealth is UNFAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Bankruptcy/gambling losses; father's health declines; easily ruined by romance/alcohol/sex.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Extravagant, unfaithful in love/bad romance; too much wealth ruins Resource, damaging reputation or elders.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Eating God -->
+    <div class="god-card">
+      <div class="card-header"><h2>Eating God</h2><span class="en-name">Shi Shen</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ Pros</strong><ul><li>Outstanding talent, strong creativity.</li><li>Gentle personality, optimistic and calm.</li><li>Knows how to enjoy life, easily generates wealth.</li></ul></div>
+          <div class="cons"><strong>❌ Cons</strong><ul><li>Day Master's strength is further drained.</li><li>Lacks action and urgency.</li><li>Indulges in pleasure, easily lazy.</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 When Eating God is FAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Talent displayed, good food/enjoyment; happy mood, good for investment/wealth generation, blessings arrive.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Star of blessings, good mood; good for childbirth (Eating God represents daughter), warm and relaxed family.</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ When Eating God is UNFAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Lazy and decadent, obesity/health issues; ideals detached from reality, talent buried.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Gluttonous and lazy, highly dependent; Eating God transforms into Hurting Officer, easily dissatisfied with marriage/picky about partner.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Hurting Officer -->
+    <div class="god-card">
+      <div class="card-header"><h2>Hurting Officer</h2><span class="en-name">Shang Guan</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ Pros</strong><ul><li>Smart and witty, strong innovation.</li><li>Outstanding eloquence, strong persuasiveness.</li><li>Unafraid of challenges, good at breaking traditions.</li></ul></div>
+          <div class="cons"><strong>❌ Cons</strong><ul><li>Arrogant and aloof, looks down on others.</li><li>Sharp tongue, easily offends people.</li><li>Clashes with authority/rules. May trigger "Hurting Officer meets Direct Officer".</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 When Hurting Officer is FAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Innovative breakthroughs, brilliant talent; good for entrepreneurship/tech/fame, solves industry problems.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Radiant charm; good for acting/design/freelance; independent thought, breaks conventional bonds.</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ When Hurting Officer is UNFAVORABLE (Meets Direct Officer)</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Gossip and disputes, arrogance causes trouble; lawsuits, clashes with bosses, career setbacks.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span><strong>Major taboo for marriage:</strong> Picky about husband, emotional ups and downs, easily leads to divorce, arguments, or scandalous affairs.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Direct Officer -->
+    <div class="god-card">
+      <div class="card-header"><h2>Direct Officer</h2><span class="en-name">Zheng Guan</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ Pros</strong><ul><li>Strong sense of responsibility, self-disciplined.</li><li>Upright, principled.</li><li>Easily appreciated by bosses/institutions, builds social status.</li></ul></div>
+          <div class="cons"><strong>❌ Cons</strong><ul><li>Easily feels pressured and constrained.</li><li>Stereotyped, conservative, timid.</li><li>Mentally anxious, lacks adaptability.</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 When Direct Officer is FAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Promotion/raise, good for civil service/fame; promoted by nobles, acts openly, status elevates.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>True love appears, good for marriage/stable relationship; capable husband, family has status, respected by others.</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ When Direct Officer is UNFAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Immense pressure, villains make things difficult; lawsuits, career setbacks, actions restricted.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Emotionally oppressed, husband is incompetent or brings pressure; strong sense of traditional bondage, easily troubled by romance.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Seven Killings -->
+    <div class="god-card">
+      <div class="card-header"><h2>Seven Killings</h2><span class="en-name">Qi Sha (Indirect Officer)</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ Pros</strong><ul><li>Full of boldness, decisive and brave.</li><li>Strong crisis management and execution.</li><li>Rises in adversity, excellent leader.</li></ul></div>
+          <div class="cons"><strong>❌ Cons</strong><ul><li>Easily faces villains and external pressure.</li><li>Mentally tense, lacks security.</li><li>Easily encounters accidents, injuries, and challenges.</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 When Seven Killings is FAVORABLE (Controlled/Generated)</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Gains power/promotion, full of boldness; good for military/police/pioneering, turns danger into safety, achieves great deeds.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Attracts high-quality/dominant "CEO" type men; career woman, decisive and capable, receives help from male nobles.</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ When Seven Killings is UNFAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Ambushed by villains, accidental disasters; extreme pressure, bad temper causes trouble, easily faces lawsuits/injuries.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Meets toxic men/bad romance, emotionally hurt; high physical/mental pressure, easily faces gynecological/accidental issues.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Friend Star -->
+    <div class="god-card">
+      <div class="card-header"><h2>Friend Star</h2><span class="en-name">Bi Jian</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ Pros</strong><ul><li>Independent, firm will.</li><li>Easily receives help from friends, siblings, colleagues.</li><li>Suitable for teamwork to overcome difficulties.</li></ul></div>
+          <div class="cons"><strong>❌ Cons</strong><ul><li>Obstinate, hard to accept others' opinions.</li><li>Easily competes with peers.</li><li>Cooperation may lead to wealth division and resource competition.</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 When Friend Star is FAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Friends' help, profitable partnerships; firm will, good for teamwork, gets through hardships together.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Help from female friends/sisters; independent, confident, does not rely on men.</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ When Friend Star is UNFAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Financial loss/competition, partnership disputes; <strong>Clashes Wealth</strong> (bad for wife), relationship discord.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Meets competitors in love (Bi-Jie competing for husband); financial loss, obstinate personality causes interpersonal/marital tension.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. Rob Wealth -->
+    <div class="god-card">
+      <div class="card-header"><h2>Rob Wealth</h2><span class="en-name">Jie Cai</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ Pros</strong><ul><li>Strong will to survive, high competitiveness.</li><li>Strong social skills, easily gathers network.</li><li>Good at rallying others for help in difficulties.</li></ul></div>
+          <div class="cons"><strong>❌ Cons</strong><ul><li>Impulsive consumption and investment losses.</li><li>High risk of bankruptcy, losses due to partnerships.</li><li>Easily dragged down by relatives/partners.</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 When Rob Wealth is FAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span>Strong competitiveness, turnaround in adversity; high social skills, good for market expansion, gets deadly loyalty from peers.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Soft on outside, tough on inside, strong social skills; can help husband or independently carry burdens, possesses heroic spirit.</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ When Rob Wealth is UNFAVORABLE</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">Male</span><strong>Severe financial loss</strong>, clashes wife/relationship breakdown; impulsive trouble, betrayed by others, blind investment.</div>
+            <div class="gender-item"><span class="tag tag-female">Female</span>Love triangle/love stolen; impulsive spending, extreme personality, easily has fierce arguments with partner.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Note: This material is for Bazi learning and reference only. The Ten Gods have no absolute auspiciousness or inauspiciousness. The favorability in Luck and Annual Pillars must be comprehensively analyzed based on the "Strong/Weak Day Master" and the "Useful God" of the original chart.</p>
+  </footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>八字十神大运流年喜忌与男女命解析</title>
+<style>
+  :root {
+    --good-bg: #e8f5e9; --good-border: #4caf50; --good-text: #2e7d32;
+    --bad-bg: #ffebee; --bad-border: #f44336; --bad-text: #c62828;
+    --male-tag: #1976d2; --female-tag: #8e24aa;
+    --card-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+  }
+  body {
+    font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+    line-height: 1.6; color: #333; background-color: #f4f6f8;
+    margin: 0; padding: 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  header {
+    text-align: center; margin-bottom: 30px; padding: 20px;
+    background: linear-gradient(135deg, #2c3e50, #3498db); color: white;
+    border-radius: 12px; box-shadow: var(--card-shadow);
+  }
+  header h1 { margin: 0; font-size: 2em; }
+  .disclaimer {
+    background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px;
+    margin-bottom: 30px; border-radius: 6px; font-size: 0.95em;
+  }
+  .disclaimer strong { color: #856404; }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 25px;
+  }
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .god-card {
+    background: #fff; border-radius: 12px; overflow: hidden;
+    box-shadow: var(--card-shadow); transition: transform 0.2s;
+  }
+  .god-card:hover { transform: translateY(-3px); }
+  
+  .card-header {
+    background: #34495e; color: white; padding: 15px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .card-header h2 { margin: 0; font-size: 1.4em; }
+  .card-header .en-name { font-size: 0.85em; opacity: 0.8; font-style: italic; }
+
+  .card-body { padding: 20px; }
+  
+  .section-title {
+    font-weight: bold; margin: 15px 0 8px 0; font-size: 1.05em;
+    border-bottom: 2px dashed #ccc; padding-bottom: 5px;
+  }
+  
+  .pros-cons { display: flex; gap: 15px; margin-bottom: 15px; }
+  .pros-cons > div { flex: 1; font-size: 0.9em; padding: 10px; border-radius: 6px; }
+  .pros { background: #f1f8e9; color: #33691e; }
+  .cons { background: #fbe9e7; color: #bf360c; }
+  .pros-cons ul { margin: 5px 0 0 0; padding-left: 18px; }
+
+  .luck-box {
+    border-radius: 8px; padding: 12px; margin-bottom: 12px;
+    border-left: 5px solid;
+  }
+  .luck-good { background: var(--good-bg); border-color: var(--good-border); }
+  .luck-bad { background: var(--bad-bg); border-color: var(--bad-border); }
+  
+  .luck-title { font-weight: bold; margin-bottom: 8px; font-size: 1em; }
+  .luck-good .luck-title { color: var(--good-text); }
+  .luck-bad .luck-title { color: var(--bad-text); }
+
+  .gender-row { display: flex; gap: 10px; margin-top: 8px; }
+  .gender-item { flex: 1; font-size: 0.9em; background: rgba(255,255,255,0.6); padding: 8px; border-radius: 4px; }
+  
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    color: white; font-size: 0.75em; font-weight: bold; margin-right: 5px;
+  }
+  .tag-male { background: var(--male-tag); }
+  .tag-female { background: var(--female-tag); }
+
+  footer {
+    text-align: center; margin-top: 40px; color: #7f8c8d; font-size: 0.85em;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>八字十神：大运/流年 喜忌与男女命解析</h1>
+    <p>探究十神在岁月流转中对男女命局的深层影响</p>
+  </header>
+
+  <div class="disclaimer">
+    <strong>⚠️ 核心命理前提：</strong>大运或流年遇到某十神，其吉凶<strong>并非绝对</strong>。
+    <br>• <strong>为【喜用神】时（吉）</strong>：发挥该十神正面特质，带来顺遂、机遇与成就。
+    <br>• <strong>为【忌神】时（凶）</strong>：放大该十神负面特质，带来压力、破耗与灾厄。
+    <br>• <strong>男女差异</strong>：男命重“财（妻/财）官（事业）”，女命重“官（夫）杀（偏缘/事业）”及“食伤（子女/才华）”。
+  </div>
+
+  <div class="grid">
+    <!-- 1. 正印 -->
+    <div class="god-card">
+      <div class="card-header"><h2>正印</h2><span class="en-name">Direct Resource</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ 优点</strong><ul><li>学习能力强，智慧深厚</li><li>易得贵人、长辈帮助</li><li>学业有成，心态平和</li></ul></div>
+          <div class="cons"><strong>❌ 缺点</strong><ul><li>思想丰富但缺乏行动力</li><li>安于现状，依赖心强</li><li>缺乏开创及冒险勇气</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 当正印为【喜用神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>贵人提拔，学业/事业有成，得长辈鼎力相助，名誉地位双收。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>家庭和睦，得母亲/长辈疼爱，利备孕生育，内心充满安全感。</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ 当正印为【忌神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>事业停滞，依赖心重，易因文书/房产/母亲之事烦心，缺乏斗志。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>思想压抑，婆媳不和（印克食伤），缺乏主见，易受长辈过度干涉。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 偏印 -->
+    <div class="god-card">
+      <div class="card-header"><h2>偏印 (枭神)</h2><span class="en-name">Indirect Resource</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ 优点</strong><ul><li>直觉敏锐，洞察力强</li><li>擅长冷门及高难度领域</li><li>具备独特破局能力</li></ul></div>
+          <div class="cons"><strong>❌ 缺点</strong><ul><li>多疑敏感，钻牛角尖</li><li>性格孤僻，思想偏激</li><li>遇食神易“枭神夺食”</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 当偏印为【喜用神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>偏业成名，灵感爆发，利考证/研究/玄学，能解决棘手难题。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>直觉极准，利偏门艺术/设计，精神世界丰富，具独特魅力。</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ 当偏印为【忌神】降临 (枭神夺食)</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>事业受挫，破财失业，孤独抑郁，易遇小人暗算，健康受损。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>情绪抑郁，妇科/内分泌问题，不利子女（枭夺食），感情孤独。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 正财 -->
+    <div class="god-card">
+      <div class="card-header"><h2>正财</h2><span class="en-name">Direct Wealth</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ 优点</strong><ul><li>理财能力强，懂管理</li><li>脚踏实地，诚信守原则</li><li>善于稳健累积资产</li></ul></div>
+          <div class="cons"><strong>❌ 缺点</strong><ul><li>易财多身弱，过度劳累</li><li>过于看重金钱，计较</li><li>易忽略生活情趣</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 当正财为【喜用神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>财运亨通，升职加薪；单身易遇正缘/结婚，妻子贤惠助夫。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>理财得当，家庭富裕，务实安稳，得女性贵人或父亲助力。</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ 当正财为【忌神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>因财惹祸，妻子生病或感情不和；贪财坏印，名誉受损。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>为钱奔波劳累，吝啬计较；现实压力大，易有婆媳矛盾（财克印）。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 偏财 -->
+    <div class="god-card">
+      <div class="card-header"><h2>偏财</h2><span class="en-name">Indirect Wealth</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ 优点</strong><ul><li>商业头脑灵活，善抓机会</li><li>人脉广，懂整合资源</li><li>具备创业及创富能力</li></ul></div>
+          <div class="cons"><strong>❌ 缺点</strong><ul><li>财来财去，甚至负债</li><li>投机/盲目扩张致破财</li><li>沉迷应酬酒色损健康</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 当偏财为【喜用神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>意外之财，投资获利；父亲身体好；易有红颜知己或桃花助力。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>交际广阔，商业获利；慷慨大方，具女强人特质，得男性贵人助。</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ 当偏财为【忌神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>破财/赌博失利；父亲健康不佳；易因风流/酒色破财惹祸。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>挥霍无度，感情不专/烂桃花；财多坏印，名誉或长辈受损。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 食神 -->
+    <div class="god-card">
+      <div class="card-header"><h2>食神</h2><span class="en-name">Eating God</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ 优点</strong><ul><li>才华出众，创造力强</li><li>性格温和，乐观从容</li><li>懂享受，易食神生财</li></ul></div>
+          <div class="cons"><strong>❌ 缺点</strong><ul><li>日主力量被泄弱</li><li>缺乏行动力及紧迫感</li><li>贪图享乐，容易懒散</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 当食神为【喜用神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>才华展现，口福/享受；心情愉悦，利投资/生财，福气临门。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>福气之星，心情好；利生育（食神代表女儿），家庭温馨从容。</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ 当食神为【忌神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>懒散颓废，肥胖/健康问题；理想脱离现实，才华被埋没。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>好吃懒做，依赖心重；食神多变伤官，易对婚姻不满/挑剔伴侣。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 伤官 -->
+    <div class="god-card">
+      <div class="card-header"><h2>伤官</h2><span class="en-name">Hurting Officer</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ 优点</strong><ul><li>聪明机智，创新力强</li><li>口才出众，说服力强</li><li>不畏挑战，善突破传统</li></ul></div>
+          <div class="cons"><strong>❌ 缺点</strong><ul><li>自傲清高，目中无人</li><li>说话尖锐，易得罪人</li><li>易与权威/规则冲突</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 当伤官为【喜用神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>创新突破，才华横溢；利创业/技术/名气，能解决行业难题。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>魅力四射；利演艺/设计/自由职业；思想独立，打破常规束缚。</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ 当伤官为【忌神】降临 (伤官见官)</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>口舌是非，傲气惹祸；官司纠纷，顶撞上司，事业受挫。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span><strong>婚姻大忌</strong>：挑剔丈夫，感情波折，易有婚变、争吵或桃色纠纷。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. 正官 -->
+    <div class="god-card">
+      <div class="card-header"><h2>正官</h2><span class="en-name">Direct Officer</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ 优点</strong><ul><li>责任感强，自律守规矩</li><li>为人正直，做事有原则</li><li>易获赏识，建立社会地位</li></ul></div>
+          <div class="cons"><strong>❌ 缺点</strong><ul><li>易感压力及受约束</li><li>性格刻板保守，胆小</li><li>精神焦虑，缺乏应变力</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 当正官为【喜用神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>升职加薪，利考公/名声；贵人提拔，行事光明磊落，地位提升。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>正缘出现，利结婚/感情稳定；丈夫得力，家庭有地位，受人尊重。</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ 当正官为【忌神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>压力巨大，小人刁难；官非诉讼，事业受挫，行事束手束脚。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>感情受压迫，丈夫无能或带来压力；传统束缚感强，易有桃花烦恼。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. 七杀 -->
+    <div class="god-card">
+      <div class="card-header"><h2>七杀 (偏官)</h2><span class="en-name">Seven Killings</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ 优点</strong><ul><li>魄力十足，果断勇敢</li><li>危机处理及执行能力强</li><li>逆境中崛起，优秀领导者</li></ul></div>
+          <div class="cons"><strong>❌ 缺点</strong><ul><li>易面对小人及外来压力</li><li>精神紧张，缺乏安全感</li><li>易遭遇意外及伤害挑战</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 当七杀为【喜用神】降临 (食神制杀/杀印相生)</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>掌权/升职，魄力十足；利武职/开拓/创业，能化险为夷，成就霸业。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>吸引优质/霸道总裁型异性；职场女强人，果断干练，利异性贵人。</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ 当七杀为【忌神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>小人暗算，意外灾祸；压力极大，脾气暴躁惹祸，易有官非/伤病。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>遇渣男/偏桃花，感情受伤害；身体/精神压力大，易有妇科/意外问题。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. 比肩 -->
+    <div class="god-card">
+      <div class="card-header"><h2>比肩</h2><span class="en-name">Friend Star</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ 优点</strong><ul><li>独立自主，意志坚定</li><li>易得朋友/同事帮助</li><li>适合团队合作克服困难</li></ul></div>
+          <div class="cons"><strong>❌ 缺点</strong><ul><li>固执己见，不易接受意见</li><li>易与同辈竞争</li><li>合作易分财及资源争夺</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 当比肩为【喜用神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>朋友助力，合伙得利；意志坚定，利团队合作，共渡难关。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>闺蜜/姐妹相助；独立自主，自信增强，不依赖男性。</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ 当比肩为【忌神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>破财/竞争，合伙纠纷；<strong>克妻</strong>（男命比劫克财），感情不和。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>感情遇竞争者（比劫争夫）；破财，性格固执导致人际/婚姻紧张。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. 劫财 -->
+    <div class="god-card">
+      <div class="card-header"><h2>劫财</h2><span class="en-name">Rob Wealth</span></div>
+      <div class="card-body">
+        <div class="pros-cons">
+          <div class="pros"><strong>✅ 优点</strong><ul><li>求生意志强，竞争力高</li><li>社交能力强，凝聚人脉</li><li>善于号召他人协助</li></ul></div>
+          <div class="cons"><strong>❌ 缺点</strong><ul><li>易冲动消费及投资失利</li><li>破财风险高，因合伙损失</li><li>易遭亲友或合作伙伴拖累</li></ul></div>
+        </div>
+        <div class="luck-box luck-good">
+          <div class="luck-title">🌟 当劫财为【喜用神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span>竞争力强，逆境翻盘；社交手腕高，利开拓市场，得同辈死力。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>外柔内刚，社交力强；能帮夫或独立扛事，具巾帼不让须眉之气。</div>
+          </div>
+        </div>
+        <div class="luck-box luck-bad">
+          <div class="luck-title">⚠️ 当劫财为【忌神】降临</div>
+          <div class="gender-row">
+            <div class="gender-item"><span class="tag tag-male">男命</span><strong>严重破财</strong>，克妻/感情破裂；冲动惹祸，遭人背叛，盲目投资。</div>
+            <div class="gender-item"><span class="tag tag-female">女命</span>感情三角恋/被夺爱；冲动消费，性格偏激，易与伴侣发生激烈争吵。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>注：本资料仅供命理学习与参考。十神无绝对吉凶，大运流年之喜忌，必须结合原命局之“身强身弱”及“格局用神”综合推演。</p>
+  </footer>
+</div>
+
+</body>
+</html>
