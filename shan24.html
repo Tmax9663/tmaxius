@@ -428,7 +428,7 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
 
     <!-- 罗盘 / 摄像头（移动端置顶） -->
     <div class="view on" id="viewCompass">
-      <div class="m-ribbon" id="mRibbon" >
+      <div class="m-ribbon" id="mRibbon">
         <span class="sit" id="mrSit">坐子向午</span><span class="s"></span>
         <span>灶 <b id="mrStove">未</b></span><span>口 <b id="mrFace">卯</b></span>
         <span class="gr" id="mrGrade">吉 · 76</span>
@@ -436,8 +436,8 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
       <div class="viewer" id="viewer">
         <video id="camVideo" playsinline autoplay muted></video>
         <svg id="dial" viewBox="0 0 1000 1000" role="img" aria-label="二十四山安灶罗盘"></svg>
-        <div class="cam-badge" style="display:none"><span class="rec"></span>实景对灶 · 后置镜头</div>
-        <div class="cam-hud" style="display:none"><b id="hudDeg">135.0°</b><span id="hudMtn">巽山 · 东南</span><span id="hudVerdict">灶座判读</span></div>
+        <div class="cam-badge"><span class="rec"></span>实景对灶 · 后置镜头</div>
+        <div class="cam-hud"><b id="hudDeg">135.0°</b><span id="hudMtn">巽山 · 东南</span><span id="hudVerdict">灶座判读</span></div>
       </div>
       <div class="steps">
         <span class="step" id="step1"><i>1</i>定宅向</span>
@@ -846,14 +846,14 @@ function buildDial(){
   el('line',{x1:C,y1:22,x2:C,y2:48,'stroke-width':3,class:'idx'},indexG);
   el('path',{d:`M ${C} 74 L ${C-12} 46 L ${C+12} 46 Z`,class:'idxf'},indexG);
   el('text',{x:C,y:96,'font-size':14,'text-anchor':'middle','font-weight':700,class:'idxt',text:'向'},svg);
-  //el('text',{x:60,y:74,'font-size':26,'letter-spacing':3,'font-family':"'Ma Shan Zheng','KaiTi',serif",class:'capt',text:'二十四山安灶诀'},svg);
- // capSub=el('text',{x:60,y:100,'font-size':12.5,'letter-spacing':1.6,class:'caps'},svg);
+  el('text',{x:60,y:74,'font-size':26,'letter-spacing':3,'font-family':"'Ma Shan Zheng','KaiTi',serif",class:'capt',text:'二十四山安灶诀'},svg);
+  capSub=el('text',{x:60,y:100,'font-size':12.5,'letter-spacing':1.6,class:'caps'},svg);
   capMode=el('text',{x:940,y:74,'font-size':14,'letter-spacing':1.6,'text-anchor':'end',class:'capm'},svg);
-  //el('text',{x:60,y:946,'font-size':12.5,'letter-spacing':1.6,class:'capk',text:'灶座压凶 · 火口向吉 · 每山十五度 正针九度 兼线三度'},svg);
-  // const seal=el('g',{transform:'translate(912 912) rotate(-8)',opacity:.92},svg);
-  // el('rect',{x:-40,y:-40,width:80,height:80,rx:9,fill:'#b8352a',stroke:'#7e1f16','stroke-width':2},seal);
-  // el('rect',{x:-33,y:-33,width:66,height:66,rx:4,fill:'none',stroke:'#f6e7d3',opacity:.5,'stroke-width':1.4},seal);
-  // [['安',-16,-13],['灶',16,-13],['之',-16,19],['诀',16,19]].forEach(c=>el('text',{x:c[1],y:c[2],'font-size':26,'font-weight':700,'text-anchor':'middle',fill:'#f8ecd9','font-family':"'Ma Shan Zheng','KaiTi',serif",text:c[0]},seal));
+  el('text',{x:60,y:946,'font-size':12.5,'letter-spacing':1.6,class:'capk',text:'灶座压凶 · 火口向吉 · 每山十五度 正针九度 兼线三度'},svg);
+  const seal=el('g',{transform:'translate(912 912) rotate(-8)',opacity:.92},svg);
+  el('rect',{x:-40,y:-40,width:80,height:80,rx:9,fill:'#b8352a',stroke:'#7e1f16','stroke-width':2},seal);
+  el('rect',{x:-33,y:-33,width:66,height:66,rx:4,fill:'none',stroke:'#f6e7d3',opacity:.5,'stroke-width':1.4},seal);
+  [['安',-16,-13],['灶',16,-13],['之',-16,19],['诀',16,19]].forEach(c=>el('text',{x:c[1],y:c[2],'font-size':26,'font-weight':700,'text-anchor':'middle',fill:'#f8ecd9','font-family':"'Ma Shan Zheng','KaiTi',serif",text:c[0]},seal));
   pulsesG=el('g',{},svg);
   buildTicks();
 }
