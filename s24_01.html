@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>二十四山安灶诀 · 实景罗盘判灶</title>
+<meta name="description" content="二十四山安灶诀：倾斜补偿罗盘随手机转动，实景摄像头对准炉灶，一键快照合成灶景＋罗盘＋读数存入相册；户型图定中心定北向判灶，八宅游年灶座压凶、火口向吉逐条判读。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1226'/%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%23e9c46a' stroke-width='1.5'/%3E%3Cpath d='M16 6l3 8-3 3-3-3z' fill='%23e04a38'/%3E%3Cpath d='M16 26l-3-8 3-3 3 3z' fill='%23cfd6e6'/%3E%3Cpath d='M16 13c2 2 3 3.4 3 5a3 3 0 01-6 0c0-1.6 1-3 3-5z' fill='%23f5a623'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#e9c46a;--gold-hi:#f7dfa0;--gold-lo:#c9973f;
+  --flame:#f5a623;--ember:#ff7a3d;
+  --jade:#3ddc97;--ok2:#a3d977;--warn:#f5b32b;--danger:#ff5d52;--deep:#ff3b30;--info:#5eb6ff;--violet:#c77dff;
+  --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --kai:"Ma Shan Zheng","KaiTi","STKaiti","Noto Serif SC",serif;
+  --camx:0px;
+}
+body[data-theme="xuanye"]{
+  --bg0:#05070f;--bg1:#0b1226;--surface:#0e1730;--surface2:#152142;--edge:#2c3d6e;
+  --text:#f2ecdc;--muted:#9aa3c4;--accent:#e9c46a;--accent2:#c77dff;
+  --cinnabar:#e04a38;--silver:#cfd6e6;--plate0:#16224a;--plate1:#080d1e;--glass0:#1b2a55;--glass1:#0a1226;
+  --svg-in:#131f42;--svg-out:#05070f;--neb1:rgba(245,166,35,.10);--neb2:rgba(199,125,255,.10);--neb3:rgba(94,120,255,.14);
+}
+body[data-theme="zhusha"]{
+  --bg0:#100604;--bg1:#1e0d0b;--surface:#251210;--surface2:#331a16;--edge:#6b3423;
+  --text:#f7ebd9;--muted:#c39d89;--accent:#f2c14e;--accent2:#ff7a3d;
+  --cinnabar:#ff5d4a;--silver:#e8d9c8;--plate0:#3a1c12;--plate1:#150806;--glass0:#422115;--glass1:#1a0b08;
+  --svg-in:#31160f;--svg-out:#100604;--neb1:rgba(255,122,61,.14);--neb2:rgba(242,193,78,.10);--neb3:rgba(199,80,60,.10);
+}
+body[data-theme="qingyu"]{
+  --bg0:#04100e;--bg1:#0a1d1a;--surface:#0d2421;--surface2:#143530;--edge:#28604f;
+  --text:#ecf4e6;--muted:#8fb3a3;--accent:#ffd166;--accent2:#57e6b8;
+  --cinnabar:#ff6a55;--silver:#d8e6df;--plate0:#123a31;--plate1:#061512;--glass0:#164238;--glass1:#081b17;
+  --svg-in:#123a31;--svg-out:#04100e;--neb1:rgba(245,166,35,.09);--neb2:rgba(87,230,184,.12);--neb3:rgba(94,182,255,.08);
+}
+body[data-theme="xuanzhi"]{
+  --bg0:#ece2cc;--bg1:#e2d6ba;--surface:#f6efdd;--surface2:#fbf6ea;--edge:#c4b184;
+  --text:#2b2118;--muted:#6b5d4a;--accent:#a87b2a;--accent2:#b8352a;
+  --cinnabar:#b8352a;--silver:#5b6472;--plate0:#dcc9a0;--plate1:#c8b183;--glass0:#fffdf4;--glass1:#e6d8b8;
+  --svg-in:#f2e8d0;--svg-out:#d9c9a4;--neb1:rgba(184,53,42,.07);--neb2:rgba(168,123,42,.10);--neb3:rgba(90,70,40,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--gold-lo) var(--surface)}
+body{font-family:var(--serif);background:var(--bg0);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .5s,color .5s}
+*::-webkit-scrollbar{width:10px;height:8px}
+*::-webkit-scrollbar-track{background:var(--surface);border-radius:8px}
+*::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));border-radius:8px;border:2px solid var(--surface)}
+*::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--flame),var(--gold))}
+*{scrollbar-width:thin;scrollbar-color:var(--gold-lo) var(--surface)}
+body::before{content:"";position:fixed;inset:-10%;z-index:0;pointer-events:none;
+  background:radial-gradient(40% 32% at 14% 84%,var(--neb1),transparent 70%),
+    radial-gradient(38% 30% at 86% 12%,var(--neb2),transparent 70%),
+    radial-gradient(46% 38% at 60% 30%,var(--neb3),transparent 70%),
+    linear-gradient(180deg,var(--bg0),var(--bg1) 55%,var(--bg0));
+  animation:neb 40s ease-in-out infinite alternate}
+@keyframes neb{from{transform:translate3d(-1%,-.6%,0)}to{transform:translate3d(1%,1%,0) scale(1.04)}}
+#bg{position:fixed;inset:0;z-index:1;pointer-events:none}
+.grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.6'/></svg>")}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:60;height:64px;background:color-mix(in srgb,var(--bg0) 82%,transparent);
+  backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid var(--edge)}
+.topbar::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--flame) 25%,var(--gold) 55%,var(--cinnabar) 80%,transparent);opacity:.6}
+.topbar-in{max-width:1620px;margin:0 auto;height:100%;padding:0 16px;display:flex;align-items:center;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand svg{flex:none;filter:drop-shadow(0 0 7px rgba(245,166,35,.45))}
+.brand h1{font-family:var(--kai);font-weight:400;font-size:24px;letter-spacing:2px;line-height:1;white-space:nowrap;
+  background:linear-gradient(100deg,var(--gold-hi),var(--flame) 55%,var(--cinnabar));-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand p{font-size:10px;letter-spacing:2.6px;color:var(--muted);margin-top:3px;white-space:nowrap}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.status{display:flex;align-items:center;gap:7px;font-size:12px;letter-spacing:1.4px;color:var(--muted);border:1px solid var(--edge);
+  border-radius:99px;padding:6px 12px;background:color-mix(in srgb,var(--surface) 78%,transparent);white-space:nowrap}
+.status .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.status.sensor .dot{background:var(--jade);box-shadow:0 0 8px var(--jade)}
+.status.manual .dot{background:var(--info);box-shadow:0 0 8px var(--info)}
+.status.demo .dot{animation:pd 1.2s ease-in-out infinite}
+@keyframes pd{50%{transform:scale(1.5);opacity:.55}}
+.tbtn{display:inline-flex;align-items:center;gap:6px;cursor:pointer;font-family:var(--serif);font-size:12.5px;letter-spacing:1.6px;
+  color:var(--text);background:linear-gradient(160deg,var(--surface2),var(--surface));border:1px solid var(--edge);border-radius:99px;padding:7px 13px;transition:.18s;white-space:nowrap}
+.tbtn:hover{border-color:var(--gold);transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(233,196,106,.6)}
+.tbtn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.tbtn svg{width:16px;height:16px;fill:var(--gold);flex:none}
+.tbtn.primary{background:linear-gradient(150deg,var(--gold-hi),var(--gold-lo));color:#241a05;font-weight:700;border-color:var(--gold-lo)}
+.tbtn.primary svg{fill:#241a05}
+.tbtn.primary.live{background:linear-gradient(150deg,#7ff0bd,#1fae74);border-color:#1fae74;color:#04241a}
+.tbtn.primary.live svg{fill:#04241a}
+.tbtn.fire{background:linear-gradient(150deg,var(--flame),var(--cinnabar));color:#2b1004;font-weight:700;border-color:var(--cinnabar)}
+.tbtn.fire svg{fill:#2b1004}
+.tbtn.fire.live{background:linear-gradient(150deg,#ffd08a,var(--ember));box-shadow:0 0 18px -4px var(--ember)}
+.sound .wave{stroke:var(--gold);fill:none;stroke-width:1.8;stroke-linecap:round}
+.sound .slash{stroke:var(--danger);stroke-width:2;stroke-linecap:round}
+.sound[aria-pressed="false"] .spk{fill:var(--muted)}
+
+.layout{position:relative;z-index:10;max-width:1620px;margin:0 auto;padding:80px 16px 34px;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;align-items:start}
+.stage{display:flex;flex-direction:column;gap:11px;min-width:0}
+.tabs{display:flex;gap:6px;background:color-mix(in srgb,var(--surface) 80%,transparent);border:1px solid var(--edge);border-radius:14px;padding:5px}
+.tabs button{flex:1;border:none;background:transparent;color:var(--muted);font-family:var(--serif);font-size:13.5px;letter-spacing:2px;
+  padding:9px 6px;border-radius:10px;cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center;gap:7px}
+.tabs button svg{width:15px;height:15px;fill:currentColor}
+.tabs button:hover{color:var(--text)}
+.tabs button.on{background:linear-gradient(150deg,var(--gold-hi),var(--gold-lo));color:#241a05;font-weight:700;box-shadow:0 3px 12px -4px rgba(233,196,106,.7)}
+.tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+
+.readout{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:8px}
+.ro{background:linear-gradient(165deg,var(--surface2),var(--surface));border:1px solid var(--edge);border-radius:13px;padding:8px 12px;display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0}
+.ro .lb{font-size:9.5px;letter-spacing:2.4px;color:var(--muted)}
+.ro b{font-weight:900;line-height:1.15;font-size:19px;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ro span.sm{font-size:10.5px;color:var(--muted);letter-spacing:.8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ro.head b{font-size:26px;font-variant-numeric:tabular-nums;background:linear-gradient(100deg,var(--gold-hi),var(--flame));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ro .big{font-family:var(--kai);font-weight:400;font-size:26px;color:var(--c)}
+.ro.grade{flex-direction:row;align-items:center;gap:10px}
+.score-ring{flex:none;width:54px;height:54px;position:relative}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring i{position:absolute;inset:0;display:grid;place-items:center;font-style:normal;font-size:16px;font-weight:900;font-variant-numeric:tabular-nums}
+.grade-txt{min-width:0}
+.grade-txt b{font-size:16px}
+.veto{font-size:9.5px;letter-spacing:1px;color:var(--deep);font-weight:700}
+.gd-daji{color:var(--jade)}.gd-ji{color:var(--ok2)}.gd-ping{color:var(--warn)}.gd-ji2{color:var(--danger)}
+
+.view{display:none;flex-direction:column;align-items:center;gap:10px}
+.view.on{display:flex}
+.m-ribbon{display:none;align-items:center;gap:9px;width:100%;overflow-x:auto;padding:7px 11px;border-radius:12px;
+  border:1px solid var(--edge);background:linear-gradient(160deg,var(--surface2),var(--surface));white-space:nowrap;font-size:11.5px;letter-spacing:1px;color:var(--muted)}
+.m-ribbon .sit{font-family:var(--kai);font-size:17px;letter-spacing:2px;color:var(--text)}
+.m-ribbon b{font-family:var(--kai);font-size:17px;font-weight:400;color:var(--gold)}
+.m-ribbon .s{width:1px;height:15px;background:var(--edge);flex:none}
+.m-ribbon .gr{margin-left:auto;flex:none;font-weight:700;font-size:11.5px;letter-spacing:1.2px;color:var(--c);border:1px solid var(--c);border-radius:99px;padding:3px 10px;background:color-mix(in srgb,var(--c) 12%,transparent)}
+body.cam-on .m-ribbon{display:none!important}
+
+/* ==== 实景 HUD 条（移出罗盘画面之外） ==== */
+.cam-strip{display:none;align-items:center;gap:12px;width:min(100%,660px);padding:9px 12px;border-radius:14px;
+  border:1px solid color-mix(in srgb,var(--flame) 55%,var(--edge));
+  background:linear-gradient(120deg,color-mix(in srgb,var(--flame) 12%,var(--surface2)),var(--surface) 70%);
+  box-shadow:0 10px 30px -18px rgba(0,0,0,.8),inset 0 0 0 1px color-mix(in srgb,var(--gold) 12%,transparent)}
+body.cam-on .cam-strip{display:flex}
+.cam-strip.warn{border-color:var(--warn);background:linear-gradient(120deg,color-mix(in srgb,var(--warn) 14%,var(--surface2)),var(--surface) 70%)}
+.cam-strip.bad{border-color:var(--danger)}
+.cs-live{flex:none;display:flex;align-items:center;gap:5px;font-size:9.5px;letter-spacing:1.6px;color:var(--danger);
+  border:1px solid color-mix(in srgb,var(--danger) 55%,transparent);border-radius:99px;padding:3px 8px}
+.cs-live i{width:6px;height:6px;border-radius:50%;background:var(--danger);animation:pd 1s infinite}
+.cs-deg{flex:none;display:flex;flex-direction:column;line-height:1.05}
+.cs-deg b{font-size:27px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:.5px;
+  background:linear-gradient(100deg,var(--gold-hi),var(--flame));-webkit-background-clip:text;background-clip:text;color:transparent}
+.cs-deg span{font-size:10.5px;color:var(--muted);letter-spacing:1.2px;margin-top:2px}
+.cs-mid{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.cs-mid b{font-size:13px;letter-spacing:1px;color:var(--c,var(--text));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cs-mid span{font-size:10px;color:var(--muted);letter-spacing:.8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cs-acc{flex:none;font-size:9.5px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:99px;border:1px solid var(--c);color:var(--c)}
+.cs-snap{flex:none;padding:10px 14px!important;font-size:12.5px!important}
+.snap-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:6}
+.snap-flash.go{animation:flash .42s ease-out}
+@keyframes flash{0%{opacity:.85}100%{opacity:0}}
+
+.viewer{position:relative;width:min(100%,calc(100vh - 350px - var(--camx)),660px);min-width:280px;aspect-ratio:1;border-radius:28px;overflow:hidden;
+  background:var(--bg1);box-shadow:0 26px 70px -24px rgba(0,0,0,.75),0 0 0 1px var(--edge),0 0 46px -10px rgba(245,166,35,.18)}
+body.cam-on{--camx:74px}
+#camVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;background:#000}
+.viewer.cam #camVideo{display:block}
+#dial{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab}
+#dial.grabbing{cursor:grabbing}
+#dial text{user-select:none}
+.steps{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;width:100%}
+.step{display:flex;align-items:center;gap:6px;font-size:11px;letter-spacing:1px;color:var(--muted);border:1px dashed var(--edge);border-radius:99px;padding:4px 11px}
+.step i{font-style:normal;width:16px;height:16px;border-radius:50%;display:grid;place-items:center;font-size:9.5px;background:var(--edge);color:var(--text)}
+.step.done{color:var(--jade);border-color:color-mix(in srgb,var(--jade) 50%,transparent)}
+.step.done i{background:var(--jade);color:#04241a}
+.cap-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:min(100%,660px)}
+.ruler{display:flex;align-items:center;gap:10px;width:min(100%,560px)}
+.ruler .side{font-family:var(--kai);font-size:20px;color:var(--muted);width:26px;text-align:center}
+.ru-wrap{flex:1;position:relative;padding-top:4px}
+.ru-bar{position:relative;height:15px;border-radius:8px;border:1px solid var(--edge);overflow:hidden;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--danger) 55%,transparent) 0 2px,color-mix(in srgb,var(--warn) 26%,transparent) 2px 30%,
+  color-mix(in srgb,var(--jade) 24%,transparent) 30% 70%,color-mix(in srgb,var(--warn) 26%,transparent) 70% calc(100% - 2px),color-mix(in srgb,var(--danger) 55%,transparent) calc(100% - 2px) 100%)}
+.ru-bar::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:color-mix(in srgb,var(--text) 55%,transparent)}
+.ru-marker{position:absolute;top:-3px;bottom:-3px;width:3px;border-radius:2px;background:var(--cinnabar);box-shadow:0 0 9px var(--cinnabar);transform:translateX(-50%)}
+.ru-labels{display:flex;justify-content:space-between;font-size:9.5px;color:var(--muted);letter-spacing:1px;margin-top:3px}
+.ru-labels b{color:var(--gold)}
+.hint{font-size:11.5px;color:var(--muted);letter-spacing:1.3px;text-align:center;line-height:1.8;max-width:680px}
+.hint em{font-style:normal;color:var(--gold)}
+.hint b{color:var(--danger)}
+
+.plan-tools{display:flex;flex-wrap:wrap;gap:7px;align-items:center;width:100%}
+.plan-wrap{position:relative;width:100%;border-radius:18px;overflow:hidden;border:1px solid var(--edge);background:var(--surface);
+  box-shadow:0 20px 50px -26px rgba(0,0,0,.7);touch-action:none}
+#planImg{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+#planSvg{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+#planSvg .mk{cursor:grab}
+#planSvg .mk:active{cursor:grabbing}
+.plan-legend{display:flex;flex-wrap:wrap;gap:9px;font-size:10.5px;color:var(--muted);letter-spacing:1px;align-items:center}
+.plan-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.plan-info{font-size:11.5px;color:var(--muted);letter-spacing:1px;line-height:1.9;width:100%}
+.plan-info b{color:var(--gold)}
+.drop-hint{position:absolute;inset:0;display:none;place-items:center;background:color-mix(in srgb,var(--bg0) 72%,transparent);
+  border:2px dashed var(--gold);border-radius:18px;font-size:15px;letter-spacing:2px;color:var(--gold);z-index:5}
+.plan-wrap.dragover .drop-hint{display:grid}
+
+.ov-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;width:100%}
+.search{flex:1;min-width:150px;position:relative}
+.search input{width:100%;font-family:var(--serif);font-size:12.5px;color:var(--text);background:color-mix(in srgb,var(--bg1) 65%,transparent);
+  border:1px solid var(--edge);border-radius:10px;padding:8px 11px 8px 30px;outline:none;letter-spacing:1px}
+.search input:focus{border-color:var(--gold)}
+.search svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:14px;height:14px;fill:var(--muted)}
+.cards24{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:9px;width:100%;max-height:min(62vh,620px);overflow-y:auto;padding:2px 6px 8px 2px}
+.mcard{text-align:left;font-family:var(--serif);cursor:pointer;border:1px solid var(--edge);border-radius:13px;padding:10px 11px;
+  background:linear-gradient(165deg,var(--surface2),var(--surface));color:var(--text);transition:.16s;position:relative;overflow:hidden}
+.mcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c)}
+.mcard:hover{transform:translateY(-3px);border-color:var(--c);box-shadow:0 10px 22px -14px var(--c)}
+.mcard.cur{border-color:var(--gold);box-shadow:0 0 0 1.5px var(--gold)}
+.mcard .top{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.mcard .mt{font-family:var(--kai);font-size:27px;line-height:1;color:var(--c)}
+.mcard .mm{font-size:10.5px;color:var(--muted);letter-spacing:.8px;line-height:1.5;min-width:0}
+.mcard .mm b{display:block;color:var(--text);font-size:11.5px;letter-spacing:1px}
+.mcard .sc{margin-left:auto;font-size:17px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--c)}
+.mcard .bar{height:4px;border-radius:3px;background:var(--edge);overflow:hidden;margin:5px 0 6px}
+.mcard .bar i{display:block;height:100%;background:var(--c);border-radius:3px}
+.mcard .bt{display:flex;justify-content:space-between;align-items:center;font-size:10.5px;letter-spacing:.8px;color:var(--muted)}
+.mcard .bt b{color:var(--text);font-weight:700}
+.gb{font-size:9.5px;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:99px;border:1px solid var(--c);color:var(--c)}
+.ov-sum{font-size:11.5px;color:var(--muted);letter-spacing:1px;line-height:1.9;width:100%}
+.ov-sum b{color:var(--gold)}
+
+.panel{position:sticky;top:78px;max-height:calc(100vh - 94px);overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:13px;padding:2px 8px 22px 2px}
+.card{background:linear-gradient(168deg,var(--surface2),var(--surface) 72%);border:1px solid var(--edge);border-radius:16px;padding:13px 14px;box-shadow:0 12px 34px -18px rgba(0,0,0,.6)}
+.card h3{font-size:12px;font-weight:700;letter-spacing:4.5px;color:var(--gold);margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.card h3::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold-lo),transparent);opacity:.5}
+.card h3 svg{width:14px;height:14px;fill:var(--gold);flex:none}
+.card h3 small{font-size:10px;letter-spacing:1px;color:var(--muted);font-weight:400}
+.row{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.row:last-child{margin-bottom:0}
+.row-label{flex:none;width:58px;font-size:11.5px;letter-spacing:1.6px;color:var(--muted)}
+.row-val{flex:none;min-width:46px;text-align:right;font-size:11.5px;color:var(--gold);font-variant-numeric:tabular-nums}
+input[type=range]{--p:50%;flex:1;-webkit-appearance:none;appearance:none;height:6px;border-radius:6px;outline:none;cursor:pointer;background:linear-gradient(90deg,var(--flame) var(--p),var(--edge) var(--p))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:radial-gradient(circle at 32% 30%,var(--gold-hi),var(--gold-lo));border:2px solid var(--bg0);box-shadow:0 0 8px rgba(245,166,35,.6);transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.25)}
+input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 32% 30%,var(--gold-hi),var(--gold-lo));border:2px solid var(--bg0)}
+input[type=range]::-moz-range-track{height:6px;border-radius:6px;background:transparent}
+input[type=range]:disabled{opacity:.35;cursor:not-allowed}
+input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--gold)}
+.selwrap{flex:1;position:relative;min-width:0}
+.selwrap::after{content:"▾";position:absolute;right:10px;top:50%;transform:translateY(-52%);color:var(--gold);pointer-events:none;font-size:12px}
+.selwrap select{width:100%;appearance:none;-webkit-appearance:none;font-family:var(--serif);font-size:12px;letter-spacing:1px;color:var(--text);
+  background:color-mix(in srgb,var(--bg1) 70%,transparent);border:1px solid var(--edge);border-radius:10px;padding:7px 26px 7px 10px;cursor:pointer}
+.selwrap select:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.selwrap option{background:var(--surface);color:var(--text)}
+.switch{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:11.5px;letter-spacing:1.2px;color:var(--text)}
+.switch input{position:absolute;opacity:0;width:1px;height:1px}
+.switch .track{flex:none;width:34px;height:19px;border-radius:99px;background:var(--edge);position:relative;transition:.22s}
+.switch .track::after{content:"";position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:#c8c2b0;transition:.22s}
+.switch input:checked + .track{background:linear-gradient(120deg,var(--jade),#1fae74)}
+.switch input:checked + .track::after{left:17px;background:#04241a}
+.switch input:focus-visible + .track{outline:2px solid var(--gold);outline-offset:2px}
+.toggles{display:grid;grid-template-columns:1fr 1fr;gap:8px 8px;margin-top:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--serif);cursor:pointer;font-size:12px;letter-spacing:1.6px;
+  border-radius:10px;padding:8px 11px;transition:.18s;border:1px solid var(--edge);background:linear-gradient(165deg,var(--surface2),var(--surface));color:var(--text)}
+.btn svg{width:14px;height:14px;fill:currentColor;flex:none}
+.btn:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 6px 16px -8px rgba(233,196,106,.5)}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.btn.primary{background:linear-gradient(150deg,var(--gold-hi),var(--gold-lo));color:#241a05;font-weight:700;border-color:var(--gold-lo)}
+.btn.fire{background:linear-gradient(150deg,var(--flame),var(--cinnabar));color:#2b1004;font-weight:700;border-color:var(--cinnabar)}
+.btn.danger{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 45%,var(--edge))}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.btn-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.span2{grid-column:span 2}
+.gua-info{font-size:11.5px;color:var(--muted);letter-spacing:1px;line-height:1.8;margin:8px 0 6px}
+.gua-info b{color:var(--text)}
+.chip8{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.chip8 div{border:1px solid var(--edge);border-radius:9px;padding:5px 4px;text-align:center;font-size:10px;letter-spacing:.5px;background:color-mix(in srgb,var(--bg1) 45%,transparent)}
+.chip8 div b{display:block;font-size:11.5px;letter-spacing:1px;color:var(--c)}
+.chip8 div span{color:var(--muted)}
+.rule-list{display:flex;flex-direction:column;gap:5px;max-height:330px;overflow-y:auto;padding-right:4px}
+.rule{border:1px solid var(--edge);border-radius:10px;background:color-mix(in srgb,var(--bg1) 42%,transparent);overflow:hidden}
+.rule>button{width:100%;display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;background:transparent;border:none;cursor:pointer;
+  font-family:var(--serif);color:var(--text);padding:7px 9px;text-align:left}
+.rule .dot{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 7px var(--c)}
+.rule .tt{font-size:11.5px;letter-spacing:1px;font-weight:700}
+.rule .tt em{font-style:normal;font-weight:400;color:var(--muted);font-size:10.5px;letter-spacing:.5px}
+.rule .st{font-size:9.5px;font-weight:700;letter-spacing:1px;color:var(--c);border:1px solid var(--c);border-radius:99px;padding:1px 7px;white-space:nowrap}
+.rule .body{display:none;padding:0 10px 9px 27px;font-size:11px;line-height:1.85;color:var(--muted);letter-spacing:.6px}
+.rule.open .body{display:block}
+.rule .body b{color:var(--text)}
+.rule .body .fix{color:var(--gold);display:block;margin-top:3px}
+.grade-line{display:flex;align-items:center;gap:9px;margin-bottom:10px;padding:8px 10px;border-radius:11px;border:1px solid var(--c);
+  background:color-mix(in srgb,var(--c) 10%,transparent)}
+.grade-line b{font-size:14px;letter-spacing:1.5px;color:var(--c)}
+.grade-line span{font-size:10.5px;color:var(--muted);letter-spacing:.8px;line-height:1.6}
+.sensor-line{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sensor-state{flex:1;font-size:11px;letter-spacing:.8px;color:var(--muted);line-height:1.65}
+.sensor-state b{color:var(--text)}
+.level{flex:none;display:flex;flex-direction:column;align-items:center;gap:3px}
+.level .bub{width:52px;height:52px;border-radius:50%;border:1px solid var(--edge);position:relative;overflow:hidden;
+  background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--glass0) 80%,transparent),color-mix(in srgb,var(--glass1) 80%,transparent))}
+.level .bub::before,.level .bub::after{content:"";position:absolute;background:color-mix(in srgb,var(--edge) 80%,transparent)}
+.level .bub::before{left:50%;top:5px;bottom:5px;width:1px}
+.level .bub::after{top:50%;left:5px;right:5px;height:1px}
+.level .ring{position:absolute;inset:14px;border-radius:50%;border:1px dashed color-mix(in srgb,var(--jade) 55%,transparent)}
+.level .ball{position:absolute;left:50%;top:50%;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle at 35% 30%,#b6ffd9,var(--jade));box-shadow:0 0 9px var(--jade)}
+.level.tilt .ball{background:radial-gradient(circle at 35% 30%,#ffd9a0,var(--warn));box-shadow:0 0 9px var(--warn)}
+.level span{font-size:9px;letter-spacing:.8px;color:var(--muted)}
+/* 精度 / 水平基准 */
+.acc-box{border:1px solid var(--edge);border-radius:11px;padding:8px 10px;margin:9px 0;background:color-mix(in srgb,var(--bg1) 45%,transparent)}
+.acc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:7px}
+.acc-cell{text-align:center;border:1px solid var(--edge);border-radius:8px;padding:4px 2px}
+.acc-cell b{display:block;font-size:13px;font-variant-numeric:tabular-nums;color:var(--c,var(--text))}
+.acc-cell span{font-size:9px;letter-spacing:1px;color:var(--muted)}
+.ref-line{display:flex;align-items:center;gap:8px;font-size:10.5px;letter-spacing:.8px;color:var(--muted);margin-bottom:7px;flex-wrap:wrap}
+.ref-line b{color:var(--gold);font-variant-numeric:tabular-nums}
+.ref-line .dv{font-weight:700;color:var(--c);border:1px solid var(--c);border-radius:99px;padding:2px 8px}
+.snap-note{font-size:10px;color:var(--muted);line-height:1.75;letter-spacing:.6px;margin-top:8px}
+.snap-note b{color:var(--gold)}
+.rec-tools{display:flex;gap:6px;margin:9px 0 7px}
+.rec-tools .selwrap select{padding:5px 22px 5px 8px;font-size:11px}
+.rec-list{display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto;padding-right:4px}
+.rec{display:grid;grid-template-columns:auto 1fr auto;gap:3px 9px;align-items:center;border:1px solid var(--edge);border-radius:11px;padding:7px 9px;
+  background:color-mix(in srgb,var(--bg1) 45%,transparent);cursor:pointer;transition:.15s;animation:rin .3s cubic-bezier(.2,1.3,.4,1)}
+@keyframes rin{from{opacity:0;transform:translateY(-8px)}}
+.rec:hover{border-color:var(--gold)}
+.rec.pinned{border-color:color-mix(in srgb,var(--flame) 55%,var(--edge))}
+.rec .th{width:38px;height:38px;border-radius:8px;object-fit:cover;border:1px solid var(--edge);grid-row:span 2}
+.rec .th.ph{display:grid;place-items:center;font-family:var(--kai);font-size:19px;color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent)}
+.rec .nm{font-size:12px;font-weight:700;letter-spacing:.8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rec .mt{font-size:10px;color:var(--muted);letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rec .gb2{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:99px;border:1px solid var(--c);color:var(--c);justify-self:end;white-space:nowrap}
+.rec .acts{display:flex;gap:2px;justify-self:end}
+.rec .acts button{border:none;background:transparent;color:var(--muted);cursor:pointer;width:23px;height:23px;border-radius:6px;font-size:12px;transition:.15s}
+.rec .acts button:hover{color:var(--gold);background:color-mix(in srgb,var(--gold) 14%,transparent)}
+.rec .acts button.del:hover{color:var(--danger);background:color-mix(in srgb,var(--danger) 14%,transparent)}
+.rec-empty{font-size:11.5px;color:var(--muted);text-align:center;padding:14px 0;letter-spacing:1px}
+.panel-foot{font-size:10.5px;color:var(--muted);line-height:1.95;letter-spacing:.8px;padding:2px 6px 0}
+.panel-foot .kou{font-family:var(--kai);font-size:15px;color:color-mix(in srgb,var(--flame) 80%,var(--text));letter-spacing:2.2px;display:block;margin-bottom:5px;line-height:1.7}
+.panel-foot kbd{border:1px solid var(--edge);border-bottom-width:2px;border-radius:5px;padding:0 4px;font-size:9.5px;color:var(--gold);background:var(--bg1);font-family:var(--serif)}
+.disclaim{border:1px dashed color-mix(in srgb,var(--warn) 45%,var(--edge));border-radius:11px;padding:8px 10px;font-size:10.5px;line-height:1.8;color:var(--muted);letter-spacing:.6px}
+.disclaim b{color:var(--warn)}
+
+.scrim{position:fixed;inset:0;z-index:70;background:rgba(4,6,12,.62);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:.25s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(430px,94vw);z-index:71;background:linear-gradient(180deg,var(--surface2),var(--surface));
+  border-left:1px solid var(--edge);box-shadow:-30px 0 70px -30px rgba(0,0,0,.85);transform:translateX(102%);transition:transform .3s cubic-bezier(.3,1,.4,1);
+  display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.drawer header{display:flex;align-items:center;gap:10px;padding:15px 16px;border-bottom:1px solid var(--edge)}
+.drawer header b{font-family:var(--kai);font-weight:400;font-size:22px;letter-spacing:2px;color:var(--gold);flex:1;min-width:0}
+.drawer header button{border:1px solid var(--edge);background:transparent;color:var(--text);width:30px;height:30px;border-radius:9px;cursor:pointer;font-size:15px}
+.drawer header button:hover{border-color:var(--danger);color:var(--danger)}
+.drawer .dbody{flex:1;overflow-y:auto;padding:14px 16px 20px;display:flex;flex-direction:column;gap:12px}
+.dsec{border:1px solid var(--edge);border-radius:12px;padding:10px 12px;background:color-mix(in srgb,var(--bg1) 40%,transparent)}
+.dsec h4{font-size:11px;letter-spacing:2.5px;color:var(--gold);margin-bottom:7px}
+.dsec p{font-size:11.5px;line-height:1.85;color:var(--muted);letter-spacing:.6px}
+.dsec p b{color:var(--text)}
+.dphoto{width:100%;border-radius:11px;border:1px solid var(--edge);display:block}
+.dfield{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
+.dfield label{font-size:10.5px;letter-spacing:1.5px;color:var(--muted)}
+.dfield input,.dfield textarea{font-family:var(--serif);font-size:12px;color:var(--text);background:color-mix(in srgb,var(--bg1) 60%,transparent);
+  border:1px solid var(--edge);border-radius:9px;padding:7px 9px;outline:none;resize:vertical}
+.dfield input:focus,.dfield textarea:focus{border-color:var(--gold)}
+#toasts{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:90;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:max-content;max-width:92vw}
+.toast{pointer-events:auto;display:flex;align-items:center;gap:11px;font-size:12.5px;letter-spacing:1px;color:var(--text);
+  background:linear-gradient(160deg,var(--surface2),var(--surface));border:1px solid var(--gold-lo);border-radius:12px;padding:10px 14px;
+  box-shadow:0 14px 40px -10px rgba(0,0,0,.8),0 0 18px -6px rgba(245,166,35,.45);animation:tin .3s cubic-bezier(.2,1.4,.4,1);max-width:92vw}
+.toast.out{animation:tout .3s forwards}
+.toast button{border:none;background:linear-gradient(150deg,var(--gold-hi),var(--gold-lo));color:#241a05;font-family:var(--serif);font-weight:700;font-size:11.5px;letter-spacing:1.6px;border-radius:8px;padding:4px 10px;cursor:pointer;flex:none}
+@keyframes tin{from{opacity:0;transform:translateY(16px) scale(.94)}}
+@keyframes tout{to{opacity:0;transform:translateY(10px) scale(.95)}}
+
+@media (max-width:1140px){
+  .layout{grid-template-columns:1fr;padding-top:70px}
+  .panel{position:static;max-height:none;overflow:visible}
+  .stage{gap:9px}
+  .tabs{order:0;flex:none;position:sticky;top:64px;z-index:30;
+    background:color-mix(in srgb,var(--bg0) 94%,transparent);backdrop-filter:blur(10px) saturate(1.2)}
+  .view{order:1}
+  .readout{order:2}
+  .m-ribbon{display:flex}
+  .viewer{width:min(100%,max(272px,calc(100vh - 300px - var(--camx))));aspect-ratio:1}
+  .cam-strip{width:100%}
+  .cards24{max-height:none}
+}
+@media (max-width:680px){
+  .brand h1{font-size:19px}.brand p{display:none}
+  .status{display:none}
+  .tbtn{padding:7px 10px;font-size:11.5px;letter-spacing:1px}
+  .tbtn.sound span,.tbtn.fire span{display:none}
+  .topbar-in{padding:0 10px;gap:6px}
+  .layout{padding:70px 10px 26px;gap:14px}
+  .tabs button{font-size:12px;letter-spacing:1px;padding:8px 3px}
+  .tabs button span{display:none}
+  .readout{grid-template-columns:1fr 1fr}
+  .ro.grade{grid-column:span 2}
+  .viewer{width:min(100%,max(266px,calc(100vh - 296px - var(--camx))))}
+  .cam-strip{gap:8px;padding:8px 10px}
+  .cs-live{display:none}
+  .cs-deg b{font-size:23px}
+  .cs-snap{padding:9px 10px!important;font-size:11.5px!important}
+  .cs-snap span{display:none}
+  .cap-row{grid-template-columns:repeat(3,1fr);gap:6px}
+  .cap-row .btn{font-size:11px;letter-spacing:.4px;padding:9px 3px;gap:4px}
+  .cap-row .btn svg{width:13px;height:13px}
+  .steps .step{font-size:10px;padding:3px 8px;letter-spacing:.5px}
+  .cards24{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  #dial .cap-sub,#dial .cap-kou{display:none}
+}
+@media (pointer:coarse){#dial{touch-action:pan-y}}
+@media (prefers-reduced-motion:reduce){body::before{animation:none}.status.demo .dot{animation:none}.cs-live i{animation:none}.snap-flash.go{animation:none}}
+</style>
+</head>
+<body data-theme="xuanye">
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="none" stroke="var(--gold-lo)" stroke-width="1.3"/>
+        <circle cx="16" cy="16" r="12" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+        <path d="M16 5l2.6 8.4L16 16l-2.6-2.6z" fill="var(--cinnabar)"/>
+        <path d="M16 27l-2.6-8.4L16 16l2.6 2.6z" fill="var(--silver)"/>
+        <path d="M16 12.6c2.1 2.2 3.2 3.7 3.2 5.3a3.2 3.2 0 01-6.4 0c0-1.6 1.1-3.1 3.2-5.3z" fill="var(--flame)"/>
+      </svg>
+      <div><h1>二十四山安灶诀</h1><p>倾斜补偿 · 实景对灶 · 快照存证 · 图纸判灶</p></div>
+    </div>
+    <div class="top-right">
+      <div class="status demo" id="statusBadge" role="status"><span class="dot"></span><span id="statusText">演示模式</span></div>
+      <button class="tbtn primary" id="enableBtn"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 2.5l1.9 4.9 4.9 1.9-4.9 1.9L12 18l-1.9-4.8-4.9-1.9 4.9-1.9z"/></svg><span id="enableLabel">启用罗盘</span></button>
+      <button class="tbtn fire" id="camBtn"><svg viewBox="0 0 24 24"><path d="M9 3h6l1.2 2H20a2 2 0 012 2v11a2 2 0 01-2 2H4a2 2 0 01-2-2V7a2 2 0 012-2h3.8zM12 8a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/></svg><span id="camLabel">摄像头</span></button>
+      <button class="tbtn sound" id="soundBtn" aria-pressed="true" title="音律（M）">
+        <svg viewBox="0 0 24 24"><path class="spk" d="M3 9v6h4l5 5V4L7 9H3z"/>
+          <g id="soundWaves"><path class="wave" d="M15.5 8.6a4.6 4.6 0 010 6.8"/><path class="wave" d="M18.2 6a8.4 8.4 0 010 12"/></g>
+          <g id="soundSlash" style="display:none"><path class="slash" d="M15.5 9.5l6 5M21.5 9.5l-6 5"/></g>
+        </svg><span id="soundLabel">音律</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="stage">
+    <div class="tabs" id="tabs" role="tablist">
+      <button data-mode="compass" class="on" role="tab" aria-selected="true"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm3.5 6.5l-2 5-5 2 2-5z"/></svg>罗盘实测<span>·摄像头</span></button>
+      <button data-mode="plan" role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3zm2 2v14h6v-6h4v6h4V5zm2 2h4v4H7zm6 0h4v4h-4z"/></svg>平面图判灶</button>
+      <button data-mode="table" role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zm9 0h7v7h-7zM4 13h7v7H4zm9 0h7v7h-7z"/></svg>廿四山择位</button>
+    </div>
+
+    <div class="readout">
+      <div class="ro"><span class="lb">宅 向</span><b id="roSit">坐子向午</b><span class="sm" id="roSitGua">坎宅 · 东四宅</span></div>
+      <div class="ro"><span class="lb">灶 座</span><b class="big" id="roStove">未</b><span class="sm" id="roStoveMeta">坤宫 西南 · 绝命</span></div>
+      <div class="ro"><span class="lb">火 口</span><b class="big" id="roFace">卯</b><span class="sm" id="roFaceMeta">震宫 正东 · 天医</span></div>
+      <div class="ro head" id="roHeadCell"><span class="lb">罗盘朝向</span><b id="roHead">135.0°</b><span class="sm" id="roHeadMtn">巽山 · 磁北</span></div>
+      <div class="ro grade"><div class="score-ring"><svg width="54" height="54"><circle cx="27" cy="27" r="22" fill="none" stroke="var(--edge)" stroke-width="5"/><circle id="scoreArc" cx="27" cy="27" r="22" fill="none" stroke="var(--jade)" stroke-width="5" stroke-linecap="round" stroke-dasharray="138.2" stroke-dashoffset="30"/></svg><i id="scoreNum">76</i></div>
+        <div class="grade-txt"><span class="lb">安灶判读</span><b id="roGrade" class="gd-ji">吉 · 可安灶</b><div class="veto" id="roVeto"></div></div></div>
+    </div>
+
+    <div class="view on" id="viewCompass">
+      <div class="m-ribbon" id="mRibbon">
+        <span class="sit" id="mrSit">坐子向午</span><span class="s"></span>
+        <span>灶 <b id="mrStove">未</b></span><span>口 <b id="mrFace">卯</b></span>
+        <span class="gr" id="mrGrade">吉 · 76</span>
+      </div>
+
+      <!-- 实景读数条：置于罗盘画面之外 -->
+      <div class="cam-strip" id="camStrip" aria-live="polite">
+        <span class="cs-live"><i></i>实景</span>
+        <div class="cs-deg"><b id="hudDeg">135.0°</b><span id="hudMtn">巽山 · 东南</span></div>
+        <div class="cs-mid"><b id="hudVerdict">若灶在此：吉</b><span id="hudTilt">俯仰 0° · 横滚 0° · 已补偿</span></div>
+        <span class="cs-acc" id="hudAcc" style="--c:var(--jade)">优</span>
+        <button class="btn fire cs-snap" id="snapBtn" title="快照：灶景＋罗盘＋读数（P）">
+          <svg viewBox="0 0 24 24"><path d="M9 3h6l1.2 2H20a2 2 0 012 2v11a2 2 0 01-2 2H4a2 2 0 01-2-2V7a2 2 0 012-2h3.8zM12 8a5 5 0 100 10 5 5 0 000-10zm0 2.2a2.8 2.8 0 110 5.6 2.8 2.8 0 010-5.6z"/></svg>
+          <span>快照存证</span>
+        </button>
+      </div>
+
+      <div class="viewer" id="viewer">
+        <video id="camVideo" playsinline autoplay muted></video>
+        <svg id="dial" viewBox="0 0 1000 1000" role="img" aria-label="二十四山安灶罗盘"></svg>
+        <div class="snap-flash" id="snapFlash"></div>
+      </div>
+
+      <div class="steps">
+        <span class="step" id="step1"><i>1</i>定宅向</span>
+        <span class="step" id="step2"><i>2</i>对准炉灶取灶座</span>
+        <span class="step" id="step3"><i>3</i>对准灶口取火口</span>
+        <span class="step" id="step4"><i>4</i>看诀断吉凶</span>
+      </div>
+      <div class="cap-row">
+        <button class="btn" id="takeSit"><svg viewBox="0 0 24 24"><path d="M12 3l9 7v11h-6v-6H9v6H3V10z"/></svg>取为宅向</button>
+        <button class="btn fire" id="takeStove"><svg viewBox="0 0 24 24"><path d="M12 2c3 3.4 4.6 5.8 4.6 8.2A4.6 4.6 0 0112 15a4.6 4.6 0 01-4.6-4.8C7.4 7.8 9 5.4 12 2zM5 17h14v2H5zm2 3h10v2H7z"/></svg>取为灶座</button>
+        <button class="btn primary" id="takeFace"><svg viewBox="0 0 24 24"><path d="M4 11h12l-4-4 1.4-1.4L20.8 12l-7.4 6.4L12 17l4-4H4z"/></svg>取为火口</button>
+      </div>
+      <div class="ruler" aria-hidden="true">
+        <span class="side" id="ruPrev">巽</span>
+        <div class="ru-wrap"><div class="ru-bar"><div class="ru-marker" id="ruMarker" style="left:50%"></div></div>
+          <div class="ru-labels"><span>兼线 3°</span><b id="ruCur">辰 · 正针 9°</b><span>兼线 3°</span></div></div>
+        <span class="side" id="ruNext">巳</span>
+      </div>
+      <p class="hint" id="hintLine"></p>
+    </div>
+
+    <div class="view" id="viewPlan">
+      <div class="plan-tools">
+        <button class="btn primary" id="uploadBtn"><svg viewBox="0 0 24 24"><path d="M11 16V6l-3.5 3.5L6.1 8.1 12 2.2l5.9 5.9-1.4 1.4L13 6v10zM5 18h14v2H5z"/></svg>上传户型图</button>
+        <input type="file" id="fileInput" accept="image/*" style="display:none">
+        <button class="btn" id="sampleBtn">示例户型</button>
+        <button class="btn" id="doorBtn">大门标记</button>
+        <button class="btn" id="autoStoveBtn"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.2L21 9l-5 4.4 1.5 6.6L12 16.8 6.5 20 8 13.4 3 9l6.6-.8z"/></svg>自动择吉灶</button>
+        <button class="btn" id="resetMkBtn">重置标记</button>
+      </div>
+      <div class="plan-wrap" id="planWrap">
+        <img id="planImg" alt="户型平面图">
+        <svg id="planSvg" aria-label="平面图二十四山叠加"></svg>
+        <div class="drop-hint">松手即载入户型图</div>
+      </div>
+      <div class="row" style="width:100%"><span class="row-label">图纸浓淡</span><input type="range" id="planAlpha" min="20" max="100" step="1" value="88" aria-label="图纸浓淡"><span class="row-val" id="planAlphaVal">88%</span></div>
+      <div class="row" style="width:100%"><span class="row-label">叠加浓淡</span><input type="range" id="ovAlpha" min="10" max="100" step="1" value="72" aria-label="叠加浓淡"><span class="row-val" id="ovAlphaVal">72%</span></div>
+      <div class="plan-legend">
+        <span><i style="background:var(--jade)"></i>大吉宜灶</span><span><i style="background:var(--ok2)"></i>可安灶</span>
+        <span><i style="background:var(--warn)"></i>平·需化解</span><span><i style="background:var(--danger)"></i>忌安灶</span>
+        <span><i style="background:var(--gold)"></i>宅向轴</span><span><i style="background:var(--cinnabar)"></i>灶座 / 火口</span>
+      </div>
+      <p class="plan-info" id="planInfo"></p>
+      <p class="hint">点击图纸任意处放置<em>灶位</em>；拖动 <em>◎中心</em> / <em>灶</em> / <em>门</em> / <em>N北向</em> / <em>口</em> 标记可调整。火口箭头即灶具开关面所朝之方。</p>
+    </div>
+
+    <div class="view" id="viewTable">
+      <div class="ov-tools">
+        <div class="search"><svg viewBox="0 0 24 24"><path d="M10 2a8 8 0 105.3 14l5.4 5.4 1.4-1.4-5.4-5.4A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/></svg>
+          <input id="searchIn" type="search" placeholder="搜山名 / 宫位 / 游年星…" aria-label="搜索二十四山"></div>
+        <div class="selwrap" style="max-width:132px"><select id="filterSel24" aria-label="筛选宜忌"><option value="all">全部宜忌</option><option value="good">宜灶（吉）</option><option value="ping">平·需化解</option><option value="bad">忌安灶</option></select></div>
+        <div class="selwrap" style="max-width:132px"><select id="sortSel24" aria-label="排序"><option value="score">按评分</option><option value="order">按山序</option><option value="palace">按宫位</option></select></div>
+      </div>
+      <p class="ov-sum" id="ovSum"></p>
+      <div class="cards24" id="cards24"></div>
+      <p class="hint">每张卡为「以该山为灶座」的最优火口配对评分。点卡看逐条诀判与化解，可一键设为当前灶位或在图纸上定位。</p>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <div class="card">
+      <h3><svg viewBox="0 0 24 24"><path d="M12 3l9 7v11h-6v-6H9v6H3V10z"/></svg>宅向定盘</h3>
+      <div class="row"><span class="row-label">坐山</span><div class="selwrap"><select id="sitSel" aria-label="宅之坐山"></select></div>
+        <button class="btn" id="sitFromCompass" title="以罗盘当前朝向的反向为坐山">罗盘取</button></div>
+      <p class="gua-info" id="guaInfo"></p>
+      <div class="chip8" id="chip8"></div>
+    </div>
+
+    <div class="card">
+      <h3><svg viewBox="0 0 24 24"><path d="M12 2c3 3.4 4.6 5.8 4.6 8.2A4.6 4.6 0 0112 15a4.6 4.6 0 01-4.6-4.8C7.4 7.8 9 5.4 12 2zM5 17h14v2H5z"/></svg>灶座 · 火口</h3>
+      <div class="row"><span class="row-label">灶座山</span><div class="selwrap"><select id="stoveSel" aria-label="灶座之山"></select></div>
+        <button class="btn fire" id="stoveFromCompass">罗盘取</button></div>
+      <div class="row"><span class="row-label">火口向</span><input type="range" id="faceSlider" min="0" max="359.9" step="0.1" value="90" aria-label="火口朝向度数"><span class="row-val" id="faceVal">90.0°</span></div>
+      <div class="row"><span class="row-label">火口山</span><div class="selwrap"><select id="faceSel" aria-label="火口之山"></select></div>
+        <button class="btn primary" id="faceFromCompass">罗盘取</button></div>
+      <div class="btn-grid" style="margin-top:9px">
+        <button class="btn primary span2" id="bestFaceBtn"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.2L21 9l-5 4.4 1.5 6.6L12 16.8 6.5 20 8 13.4 3 9l6.6-.8z"/></svg>为此灶座自动择吉火口</button>
+      </div>
+      <p class="gua-info">火口：传统指添柴之口，现代取<b>灶具开关面所朝之方</b>（即操作者站立之方）。灶座将罗盘对准炉灶本体，火口对准开关面朝向。</p>
+    </div>
+
+    <div class="card">
+      <h3><svg viewBox="0 0 24 24"><path d="M4 4h16v2H4zm0 5h16v2H4zm0 5h10v2H4zm0 5h10v2H4z"/></svg>形家现场 <small>勾选为合诀</small></h3>
+      <div class="toggles" style="margin-top:0">
+        <label class="switch"><input type="checkbox" id="ckKao" checked><span class="track"></span>灶后靠实墙</label>
+        <label class="switch"><input type="checkbox" id="ckTang" checked><span class="track"></span>灶前开阔洁净</label>
+        <label class="switch"><input type="checkbox" id="ckLiang" checked><span class="track"></span>无横梁压灶</label>
+        <label class="switch"><input type="checkbox" id="ckShui" checked><span class="track"></span>灶水不相冲</label>
+        <label class="switch"><input type="checkbox" id="ckMen" checked><span class="track"></span>无门路直冲</label>
+        <label class="switch"><input type="checkbox" id="ckCe" checked><span class="track"></span>不与厕相对</label>
+        <label class="switch"><input type="checkbox" id="ckJiao" checked><span class="track"></span>无尖角冲射</label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><svg viewBox="0 0 24 24"><path d="M6 2h9l3 3v17H6zm2 5h8v2H8zm0 4h8v2H8zm0 4h6v2H8z"/></svg>安灶诀判读 <small id="ruleCount"></small></h3>
+      <div class="grade-line" id="gradeLine"><b id="glTitle">吉 · 可安灶</b><span id="glNote"></span></div>
+      <div class="rule-list" id="ruleList"></div>
+      <div class="btn-grid" style="margin-top:10px">
+        <button class="btn" id="copyBtn"><svg viewBox="0 0 24 24"><path d="M8 2h9l3 3v13H8zm-4 4h2v14h11v2H4z"/></svg>复制判读</button>
+        <button class="btn" id="reportBtn"><svg viewBox="0 0 24 24"><path d="M11 3h2v10l3.5-3.5 1.4 1.4L12 17 6.1 10.9l1.4-1.4L11 13zM5 19h14v2H5z"/></svg>导出报告</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 2.5l1.9 4.9 4.9 1.9-4.9 1.9L12 18l-1.9-4.8-4.9-1.9 4.9-1.9z"/></svg>罗盘精度 <small>倾斜补偿</small></h3>
+      <div class="sensor-line">
+        <p class="sensor-state" id="sensorState"></p>
+        <div class="level" id="levelWrap"><div class="bub"><div class="ring"></div><div class="ball" id="levelBall"></div></div><span id="levelText">水平 0°</span></div>
+      </div>
+      <div class="acc-box">
+        <div class="acc-grid">
+          <div class="acc-cell"><b id="accPitch">0°</b><span>镜头俯仰</span></div>
+          <div class="acc-cell"><b id="accRoll">0°</b><span>机身横滚</span></div>
+          <div class="acc-cell"><b id="accQual">优</b><span>读数精度</span></div>
+        </div>
+        <div class="ref-line" id="refLine"><span>水平基准：<b id="refVal">未取</b></span><span class="dv" id="refDev" style="--c:var(--muted)">—</span></div>
+        <div class="btn-grid">
+          <button class="btn" id="refSetBtn">取水平基准</button>
+          <button class="btn" id="refClrBtn">清除基准</button>
+        </div>
+        <div class="toggles" style="margin-top:8px">
+          <label class="switch"><input type="checkbox" id="tiltCompT" checked><span class="track"></span>倾斜补偿</label>
+          <label class="switch"><input type="checkbox" id="refSnapT"><span class="track"></span>贴附基准</label>
+        </div>
+        <div class="row" style="margin-top:9px"><span class="row-label">贴附容差</span><input type="range" id="refTol" min="1" max="15" step="0.5" value="6" aria-label="贴附容差"><span class="row-val" id="refTolVal">6.0°</span></div>
+      </div>
+      <div class="row"><span class="row-label">阻尼</span><input type="range" id="dampS" min="0" max="0.95" step="0.01" value="0.82" aria-label="转动阻尼"><span class="row-val" id="dampVal">0.82</span></div>
+      <div class="row"><span class="row-label">磁偏角</span><input type="range" id="declS" min="-30" max="30" step="0.1" value="0" disabled aria-label="磁偏角"><span class="row-val" id="declVal">0.0°</span></div>
+      <div class="toggles">
+        <label class="switch"><input type="checkbox" id="trueNorthT"><span class="track"></span>真北校正</label>
+        <label class="switch"><input type="checkbox" id="demoT" checked><span class="track"></span>演示旋转</label>
+      </div>
+      <p class="gua-info">举机对灶时，机身俯仰不再影响方位：以<b>相机光轴在水平面的投影</b>定向，与放平实测同值。若现场磁扰大，可先放平取「水平基准」，再举机取景并开启「贴附基准」。</p>
+    </div>
+
+    <div class="card">
+      <h3><svg viewBox="0 0 24 24"><path d="M9 3h6l1.2 2H20a2 2 0 012 2v11a2 2 0 01-2 2H4a2 2 0 01-2-2V7a2 2 0 012-2h3.8zM12 8a5 5 0 100 10 5 5 0 000-10z"/></svg>实景 · 快照</h3>
+      <div class="row"><span class="row-label">镜头</span><div class="selwrap"><select id="camSel" aria-label="选择摄像头"><option value="env">后置 · 对灶</option><option value="front">前置 · 自拍</option></select></div></div>
+      <div class="row"><span class="row-label">盘面透明</span><input type="range" id="camFade" min="0" max="90" step="1" value="72" aria-label="摄像头模式盘面透明度"><span class="row-val" id="camFadeVal">72%</span></div>
+      <div class="row"><span class="row-label">快照尺寸</span><div class="selwrap"><select id="snapSize" aria-label="快照尺寸"><option value="1080">1080 × 1080</option><option value="1440">1440 × 1440</option><option value="2000">2000 × 2000</option></select></div></div>
+      <div class="toggles">
+        <label class="switch"><input type="checkbox" id="snapDialT" checked><span class="track"></span>合成罗盘</label>
+        <label class="switch"><input type="checkbox" id="snapInfoT" checked><span class="track"></span>合成读数</label>
+        <label class="switch"><input type="checkbox" id="snapSealT" checked><span class="track"></span>印章水印</label>
+        <label class="switch"><input type="checkbox" id="snapCaseT" checked><span class="track"></span>同时立案例</label>
+      </div>
+      <div class="btn-grid" style="margin-top:10px">
+        <button class="btn fire span2" id="shotBtn"><svg viewBox="0 0 24 24"><path d="M9 3h6l1.2 2H20a2 2 0 012 2v11a2 2 0 01-2 2H4a2 2 0 01-2-2V7a2 2 0 012-2h3.8zM12 8a5 5 0 100 10 5 5 0 000-10z"/></svg>快照 · 灶景＋罗盘＋读数（P）</button>
+      </div>
+      <p class="snap-note">快照合成后：<b>手机</b>唤起系统分享面板 → 选「存储图像 / 保存到相册」即入相册；<b>桌面</b>直接下载 PNG 至下载目录。同时自动立案，可在案例中再次分享或下载。</p>
+    </div>
+
+    <div class="card">
+      <h3><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg>盘 面</h3>
+      <div class="row"><span class="row-label">主题</span><div class="selwrap"><select id="themeSel" aria-label="主题">
+        <option value="xuanye">玄夜 · 漆盘</option><option value="zhusha">朱砂 · 丹盘</option><option value="qingyu">青玉 · 松盘</option><option value="xuanzhi">宣纸 · 纸盘</option></select></div></div>
+      <div class="row"><span class="row-label">刻度</span><div class="selwrap"><select id="densitySel" aria-label="刻度密度"><option value="1">周天每 1°</option><option value="2">每 2°</option><option value="5">每 5°</option></select></div></div>
+      <div class="row"><span class="row-label">山名</span><input type="range" id="fontS" min="22" max="42" step="1" value="31" aria-label="山名字号"><span class="row-val" id="fontVal">31</span></div>
+      <div class="row"><span class="row-label">辉光</span><input type="range" id="glowS" min="0" max="100" step="1" value="62" aria-label="辉光"><span class="row-val" id="glowVal">62%</span></div>
+      <div class="toggles">
+        <label class="switch"><input type="checkbox" id="verdictT" checked><span class="track"></span>宜忌色环</label>
+        <label class="switch"><input type="checkbox" id="starRingT" checked><span class="track"></span>八宅游年环</label>
+        <label class="switch"><input type="checkbox" id="palT" checked><span class="track"></span>宫位色环</label>
+        <label class="switch"><input type="checkbox" id="triT" checked><span class="track"></span>八卦环</label>
+        <label class="switch"><input type="checkbox" id="degT" checked><span class="track"></span>度数环</label>
+        <label class="switch"><input type="checkbox" id="yuanT" checked><span class="track"></span>三元龙</label>
+        <label class="switch"><input type="checkbox" id="crossT" checked><span class="track"></span>天心十道</label>
+        <label class="switch"><input type="checkbox" id="markT" checked><span class="track"></span>灶座火口标</label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><svg viewBox="0 0 24 24"><path d="M5 4h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1zm2 4h10v2H7zm0 4h10v2H7zm0 4h7v2H7z"/></svg>案例记录 <small id="recCount"></small></h3>
+      <button class="btn primary" id="lockBtn" style="width:100%"><svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 015 5v3h1a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8a2 2 0 012-2h1V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v3h6V7a3 3 0 00-3-3z"/></svg>锁定当前判读为案例（L）</button>
+      <div class="rec-tools">
+        <div class="search" style="min-width:0"><svg viewBox="0 0 24 24"><path d="M10 2a8 8 0 105.3 14l5.4 5.4 1.4-1.4-5.4-5.4A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/></svg>
+          <input id="recSearch" type="search" placeholder="搜案例…" aria-label="搜索案例" style="padding:5px 8px 5px 28px;font-size:11px"></div>
+        <div class="selwrap" style="max-width:96px"><select id="recFilter" aria-label="筛选案例"><option value="all">全部</option><option value="good">宜灶</option><option value="ping">平</option><option value="bad">忌灶</option><option value="photo">有照片</option></select></div>
+        <div class="selwrap" style="max-width:96px"><select id="recSort" aria-label="排序案例"><option value="time">最新</option><option value="score">评分</option><option value="name">名称</option></select></div>
+      </div>
+      <div class="rec-list" id="recList"></div>
+      <div class="btn-grid" style="margin-top:9px">
+        <button class="btn" id="csvBtn"><svg viewBox="0 0 24 24"><path d="M11 3h2v10l3.5-3.5 1.4 1.4L12 17 6.1 10.9l1.4-1.4L11 13zM5 19h14v2H5z"/></svg>导出 CSV</button>
+        <button class="btn danger" id="clearBtn"><svg viewBox="0 0 24 24"><path d="M9 3h6l1 2h4v2H4V5h4zM6 8h12l-1 13H7z"/></svg>清空</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z"/></svg>法 事</h3>
+      <div class="btn-grid">
+        <button class="btn" id="randomBtn">随机布盘</button>
+        <button class="btn" id="resetBtn">复位全盘</button>
+        <button class="btn primary" id="pngBtn">导出 PNG</button>
+        <button class="btn" id="svgBtn">导出 SVG</button>
+      </div>
+    </div>
+
+    <div class="panel-foot">
+      <span class="kou">「灶座宜压凶方，火口宜向吉方。<br>开门见灶，钱财多耗；灶在乾宫，火烧天门。」</span>
+      <kbd>1/2/3</kbd> 切换视图 <kbd>←→</kbd> 微调 <kbd>L</kbd> 立案 <kbd>C</kbd> 摄像头 <kbd>P</kbd> 快照 <kbd>M</kbd> 静音
+    </div>
+    <div class="disclaim"><b>说明：</b>本app依八宅游年（阳宅三要：门、房、灶）与形家禁忌综合判读，属传统民俗文化参考，非科学结论。炉灶实务须以燃气安全、通风排烟与消防规范为先，切勿因方位而改动安全设施。</div>
+  </aside>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+  <header><b id="drawerTitle">判读详情</b><button id="drawerClose" aria-label="关闭">✕</button></header>
+  <div class="dbody" id="drawerBody"></div>
+</aside>
+<div id="toasts" aria-live="polite"></div>
+<noscript><p style="position:fixed;inset:40% 10% auto;text-align:center;z-index:99;color:#e9c46a">此安灶诀app需启用 JavaScript。</p></noscript>
+
+<script>
+(function(){
+"use strict";
+const NS='http://www.w3.org/2000/svg',C=500,DEG=180/Math.PI;
+const $=id=>document.getElementById(id);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const norm=x=>((x%360)+360)%360;
+const sdiff=(a,b)=>((a-b+540)%360)-180;
+const rad=d=>d*Math.PI/180;
+const blendAz=(a,b,w)=>norm(a+sdiff(b,a)*w);
+function el(t,a,p){const n=document.createElementNS(NS,t);for(const k in a){if(k==='text')n.textContent=a[k];else n.setAttribute(k,a[k]);}if(p)p.appendChild(n);return n;}
+
+/* ---------- 二十四山 ---------- */
+const MOUNTS=['壬','子','癸','丑','艮','寅','甲','卯','乙','辰','巽','巳','丙','午','丁','未','坤','申','庚','酉','辛','戌','乾','亥'];
+const GUA_MAP={壬:'坎',子:'坎',癸:'坎',丑:'艮',艮:'艮',寅:'艮',甲:'震',卯:'震',乙:'震',辰:'巽',巽:'巽',巳:'巽',丙:'离',午:'离',丁:'离',未:'坤',坤:'坤',申:'坤',庚:'兑',酉:'兑',辛:'兑',戌:'乾',乾:'乾',亥:'乾'};
+const DIRS={坎:'正北',艮:'东北',震:'正东',巽:'东南',离:'正南',坤:'西南',兑:'正西',乾:'西北'};
+const BITS={坎:[0,1,0],艮:[1,0,0],震:[0,0,1],巽:[1,1,0],离:[1,0,1],坤:[0,0,0],兑:[0,1,1],乾:[1,1,1]};
+const GUA_ORDER=['坎','艮','震','巽','离','坤','兑','乾'];
+const EAST=new Set(['坎','离','震','巽']);
+const YANG=new Set('甲庚壬丙乾坤艮巽寅申巳亥'.split(''));
+const YUAN={};'壬丙甲庚辰戌丑未'.split('').forEach(c=>YUAN[c]='地元');'子午卯酉乾坤艮巽'.split('').forEach(c=>YUAN[c]='天元');'癸丁乙辛寅申巳亥'.split('').forEach(c=>YUAN[c]='人元');
+const ELEM={};'壬子癸亥'.split('').forEach(c=>ELEM[c]='水');'甲乙寅卯巽'.split('').forEach(c=>ELEM[c]='木');'丙丁巳午'.split('').forEach(c=>ELEM[c]='火');'庚辛申酉乾'.split('').forEach(c=>ELEM[c]='金');'辰戌丑未艮坤'.split('').forEach(c=>ELEM[c]='土');
+const BAZHAI={
+ 坎:{巽:'生气',离:'延年',震:'天医',坎:'伏位',坤:'绝命',艮:'五鬼',乾:'六煞',兑:'祸害'},
+ 坤:{艮:'生气',兑:'延年',乾:'天医',坤:'伏位',坎:'绝命',巽:'五鬼',离:'六煞',震:'祸害'},
+ 震:{离:'生气',巽:'延年',坎:'天医',震:'伏位',兑:'绝命',乾:'五鬼',艮:'六煞',坤:'祸害'},
+ 巽:{坎:'生气',震:'延年',离:'天医',巽:'伏位',艮:'绝命',坤:'五鬼',兑:'六煞',乾:'祸害'},
+ 乾:{兑:'生气',坤:'延年',艮:'天医',乾:'伏位',离:'绝命',震:'五鬼',坎:'六煞',巽:'祸害'},
+ 兑:{乾:'生气',艮:'延年',坤:'天医',兑:'伏位',震:'绝命',离:'五鬼',巽:'六煞',坎:'祸害'},
+ 艮:{坤:'生气',乾:'延年',兑:'天医',艮:'伏位',巽:'绝命',坎:'五鬼',震:'六煞',离:'祸害'},
+ 离:{震:'生气',坎:'延年',巽:'天医',离:'伏位',乾:'绝命',兑:'五鬼',坤:'六煞',艮:'祸害'}};
+const STAR={生气:{k:'ji',w:28,n:'贪狼木·大吉'},延年:{k:'ji',w:25,n:'武曲金·上吉'},天医:{k:'ji',w:22,n:'巨门土·次吉'},伏位:{k:'ji',w:16,n:'辅弼木·小吉'},
+ 绝命:{k:'xiong',w:-26,n:'破军金·大凶'},五鬼:{k:'xiong',w:-24,n:'廉贞火·大凶'},六煞:{k:'xiong',w:-16,n:'文曲水·次凶'},祸害:{k:'xiong',w:-12,n:'禄存土·小凶'}};
+const PAL_DARK={坎:'#4f8ef7',艮:'#d4a373',震:'#2dd4bf',巽:'#4ade80',离:'#c77dff',坤:'#9aa3b8',兑:'#ff5d52',乾:'#e8ecf5'};
+const PAL_LIGHT={坎:'#1d4ed8',艮:'#92400e',震:'#0d9488',巽:'#16a34a',离:'#9333ea',坤:'#78716c',兑:'#dc2626',乾:'#ca8a04'};
+const GRADE=[{k:'daji',t:'大吉 · 宜灶',s:'宜',c:'#3ddc97',min:80},{k:'ji',t:'吉 · 可安灶',s:'可',c:'#a3d977',min:65},
+ {k:'ping',t:'平 · 需化解',s:'平',c:'#f5b32b',min:48},{k:'ji2',t:'忌 · 不宜安灶',s:'忌',c:'#ff5d52',min:-1}];
+const mdeg=i=>norm(i*15-15);
+const mIndex=m=>MOUNTS.indexOf(m);
+const mOfDeg=h=>MOUNTS[Math.round(norm(h+15)/15)%24];
+const mCenter=m=>mdeg(mIndex(m));
+const oppMtn=m=>MOUNTS[(mIndex(m)+12)%24];
+function mInfo(h){h=norm(h);const i=Math.round(norm(h+15)/15)%24,m=MOUNTS[i],c=mdeg(i),off=sdiff(h,c),a=Math.abs(off),nb=off>=0?(i+1)%24:(i+23)%24;
+ return{h,i,m,center:c,off,a,nb:MOUNTS[nb],gua:GUA_MAP[m],big:GUA_MAP[m]!==GUA_MAP[MOUNTS[nb]],zone:a<=4.5?'ok':(a<=6.8?'warn':'bad'),lo:norm(c-7.5),hi:norm(c+7.5)};}
+
+/* ---------- 安灶诀 ---------- */
+const RULES=[
+ {id:'zuo',t:'灶座压凶',v:'灶座宜压凶方。',src:'八宅·阳宅三要',fix:'移灶于绝命、五鬼、六煞、祸害之宫，以火压制凶气。'},
+ {id:'kou',t:'火口向吉',v:'火口宜向吉方，生气延年天医伏位。',src:'八宅·阳宅三要',fix:'转灶具开关面朝向四吉方，首选生气、延年。'},
+ {id:'tianmen',t:'火烧天门',v:'灶在乾宫，火烧天门，损及老父。',src:'形家·大忌',fix:'移灶出乾宫（戌乾亥）。若不可移，以陶石厚土泄火，忌红紫色，另择吉向火口。',veto:true},
+ {id:'kan',t:'水火相激',v:'灶居坎位，水火相激，家宅不宁。',src:'形家·五行',fix:'坎宫安灶须以木通关（木质台面/绿植），忌灶紧邻水管水槽。'},
+ {id:'mu',t:'木火通明',v:'震巽木乡安灶，木火通明，财禄渐丰。',src:'形家·五行',fix:'震巽二宫属木生火，为安灶先天有利之方。'},
+ {id:'li',t:'离火重叠',v:'离宫安灶，火上加火，燥气宜泄。',src:'形家·五行',fix:'离宫火旺，宜用土色陶石泄火，加强排烟，忌再设红色照明。'},
+ {id:'jin',t:'火克兑金',v:'兑宫安灶，火克金，主口舌少女不利。',src:'形家·五行',fix:'兑宫安灶以土通关（黄褐石材），并保灶口向吉以补。'},
+ {id:'tu',t:'火土相生',v:'艮坤土宫，火生土泄，平稳无咎。',src:'形家·五行',fix:'艮坤属土，泄火之气，平稳；须靠八宅压凶向吉取吉。'},
+ {id:'bei',t:'背宅反向',v:'灶口与宅向相反，谓背宅反向，主家道反复。',src:'阳宅三要',fix:'调转火口，勿与宅之坐山同向（即与宅向相冲）。'},
+ {id:'kao',t:'灶后有靠',v:'灶后宜实墙有靠，忌背后空旷门窗。',src:'形家',fix:'灶背贴实墙，或加实体背板；忌灶后为窗、为走道。',ck:'kao',pos:true},
+ {id:'tang',t:'前有明堂',v:'灶前宜开阔洁净，忌逼仄堆积。',src:'形家',fix:'清理灶前操作面与走道，留≥90cm 操作空间。',ck:'tang',pos:true},
+ {id:'liang',t:'横梁压灶',v:'灶忌横梁压顶，主妇人损丁。',src:'形家',fix:'吊顶包梁、移灶离梁，或于梁下加平顶化解。',ck:'liang'},
+ {id:'shui',t:'水火相邻',v:'灶忌与水槽冰箱正对紧贴，水火不容。',src:'形家',fix:'灶与水槽间距≥60cm，或中置木质备餐台隔断；忌两水夹灶。',ck:'shui'},
+ {id:'men',t:'开门见灶',v:'开门见灶，钱财多耗；灶忌门路直冲。',src:'阳宅三要',fix:'设屏风、吧台或高柜遮挡视线；改灶位避开门路直冲。',ck:'men'},
+ {id:'ce',t:'厕灶相对',v:'灶忌与厕相对受秽，主疾患。',src:'形家·大忌',fix:'移灶或改厕门朝向，厕门常闭加帘，中间设隔断。',ck:'ce',veto:true},
+ {id:'jiao',t:'尖角冲射',v:'灶忌尖角冲射，主血光。',src:'形家',fix:'包圆角、加柜体或绿植遮挡柱角墙尖。',ck:'jiao'}
+];
+const RULE_MAP={};RULES.forEach(r=>RULE_MAP[r.id]=r);
+const CK_LABEL={kao:'灶后靠实墙',tang:'灶前开阔洁净',liang:'无横梁压灶',shui:'灶水不相冲',men:'无门路直冲',ce:'不与厕相对',jiao:'无尖角冲射'};
+const CK_PEN={liang:-14,shui:-16,men:-14,ce:-18,jiao:-10};
+function evaluate(seatM,faceDeg,sitM,cks,doorHit){
+  const sg=GUA_MAP[sitM],sp=GUA_MAP[seatM],fm=mOfDeg(faceDeg),fp=GUA_MAP[fm];
+  const ss=BAZHAI[sg][sp],fs=BAZHAI[sg][fp];
+  const rows=[];let score=50;const vetoes=[];
+  const add=(id,st,detail,w)=>{rows.push({r:RULE_MAP[id],st,detail,w});score+=w;};
+  if(STAR[ss].k==='xiong')add('zuo','he',`灶坐${sp}宫${ss}（${STAR[ss].n}），压凶得法，以火制凶。`,26);
+  else add('zuo','ji',`灶坐${sp}宫${ss}（${STAR[ss].n}）吉方，反烧吉气，损${ss}之福。`,-22);
+  if(STAR[fs].k==='ji')add('kou','he',`火口向${fp}宫${fs}（${STAR[fs].n}），纳吉气得用。`,STAR[fs].w);
+  else add('kou','ji',`火口向${fp}宫${fs}（${STAR[fs].n}）凶方，纳凶入门。`,-26);
+  if(sp==='乾'){add('tianmen','ji',`灶在乾宫（${seatM}山），火烧天门，损老父、犯头肺。`,-32);vetoes.push('火烧天门');}
+  else add('tianmen','ping','灶不居乾宫，无火烧天门之患。',0);
+  if(sp==='坎')add('kan','ji','灶居坎宫，水克火，水火相激。',-14);else add('kan','ping','灶不居坎宫。',0);
+  if(sp==='震'||sp==='巽')add('mu','he',`${sp}宫属木，木生火，木火通明。`,10);else add('mu','ping','非震巽木乡。',0);
+  if(sp==='离')add('li','ji','离宫火上加火，燥气过盛。',-7);else add('li','ping','不居离宫。',0);
+  if(sp==='兑')add('jin','ji','兑宫属金，火克金，主口舌、少女不利。',-10);else add('jin','ping','不居兑宫。',0);
+  if(sp==='艮'||sp==='坤')add('tu','he',`${sp}宫属土，火生土泄气，平稳无咎。`,3);else add('tu','ping','非艮坤土宫。',0);
+  if(fm===sitM)add('bei','ji',`火口向${fm}（即宅之坐山），与宅向${oppMtn(sitM)}相反，背宅反向。`,-16);
+  else add('bei','he',`火口向${fm}，与宅向不相反。`,0);
+  for(let i=0;i<RULES.length;i++){
+    const r=RULES[i];if(!r.ck)continue;
+    const ok=!!cks[r.ck];
+    if(r.id==='men'&&doorHit){add('men','ji','图纸几何初判：大门视线直冲灶位，开门见灶。',-14);continue;}
+    if(r.pos){ok?add(r.id,'he',`${CK_LABEL[r.ck]}，合诀。`,r.id==='kao'?12:6):add(r.id,'ji',`${CK_LABEL[r.ck]}未合（${r.id==='kao'?'灶后无靠':'灶前逼仄'}）。`,r.id==='kao'?-10:-6);}
+    else{ok?add(r.id,'he',`${CK_LABEL[r.ck]}，无此忌。`,0):add(r.id,'ji',`犯「${r.t}」：${r.v}`,CK_PEN[r.id]);}
+    if(r.veto&&!ok)vetoes.push(r.t);
+  }
+  if(vetoes.length)score=Math.min(score,38);
+  if(STAR[ss].k==='ji'&&STAR[fs].k==='xiong')score=Math.min(score,42);
+  score=clamp(Math.round(score),0,100);
+  return{score,g:GRADE.find(x=>score>=x.min),rows,vetoes,seatM,seatPal:sp,seatStar:ss,faceM:fm,facePal:fp,faceStar:fs,sitM,gua:sg,faceDeg:norm(faceDeg)};
+}
+function bestFace(seatM,sitM,cks){
+  let best=null;
+  for(let i=0;i<24;i++){
+    const m=MOUNTS[i],ev=evaluate(seatM,mdeg(i),sitM,cks,false);
+    const rank=ev.score*100+(STAR[ev.faceStar].k==='ji'?STAR[ev.faceStar].w:0);
+    if(!best||rank>best.rank)best={m,deg:mdeg(i),ev,rank};
+  }
+  return best;
+}
+
+/* ---------- 状态 ---------- */
+const DEF={damp:.82,decl:0,trueNorth:false,tiltComp:true,refSnap:false,refTol:6,density:1,theme:'xuanye',font:31,glow:62,
+ camFade:72,camFace:'env',snapSize:1440,snapDial:true,snapInfo:true,snapSeal:true,snapCase:true,
+ verdict:true,starRing:true,pal:true,tri:true,deg:true,yuan:true,cross:true,mark:true,sound:true,planAlpha:88,ovAlpha:72};
+let state=Object.assign({},DEF);
+try{const s=JSON.parse(localStorage.getItem('zao-set2')||'{}');for(const k in DEF)if(k in s)state[k]=s[k];}catch(e){}
+const DEF_CASE={sit:'子',stove:'未',face:90,cks:{kao:true,tang:true,liang:true,shui:true,men:true,ce:true,jiao:true},
+ northUp:0,center:[.5,.5],stoveXY:[.4,.789],doorXY:[.14,.947],doorOn:true};
+let cs=JSON.parse(JSON.stringify(DEF_CASE));
+try{const s=JSON.parse(localStorage.getItem('zao-case')||'{}');Object.assign(cs,s);cs.cks=Object.assign({},DEF_CASE.cks,s.cks||{});}catch(e){}
+let planSrc=null;try{planSrc=localStorage.getItem('zao-plan')||null;}catch(e){}
+let saveT=null;
+function save(){clearTimeout(saveT);saveT=setTimeout(()=>{
+  try{localStorage.setItem('zao-set2',JSON.stringify(state));localStorage.setItem('zao-case',JSON.stringify(cs));}catch(e){}
+  try{if(planSrc&&planSrc.length<900000)localStorage.setItem('zao-plan',planSrc);else localStorage.removeItem('zao-plan');}catch(e){}
+},260);}
+const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let mode='compass',src=reduced?'manual':'demo',targetH=135,dispH=135,demoT=0,vel=0;
+let lastSensor=0,sensorEver=false,sensorState='idle';
+let tilt={b:0,g:0},pose={pitch:0,roll:0,devTilt:0,acc:null,quality:'优',comp:false};
+let northOffset=0,haveOffset=false,refH=null,lastDelta=null,lastSnapped=false;
+let TH={},PAL=PAL_DARK,light=false,EV=null,OV=[],ovKey='',doorFlag=false;
+let camOn=false,camStream=null;
+let taken={sit:false,stove:false,face:false};
+const snapFull=new Map();
+
+/* ---------- 罗盘 SVG ---------- */
+const svg=$('dial');
+let bgRect,plate,dialG,verdG,ticksG,degG,cardG,sepG,mountG,starG,palG,triG,markG,axisG,hiPath,decor1,decor2,crossG,needleG,indexG,capSub,capMode,sealG,pulsesG;
+let bgS0,bgS1,plS0,plS1,glS0,glS1;
+const mChars=[],yLabels=[],dLabels=[],cChars=[],triEls=[],palPaths=[],starPaths=[],starLabels=[],verdPaths=[],verdLabels=[],sepEls=[],tickEls=[];
+const pulses=[];
+function triGlyph(p,cx,cy,bits,w,rot){
+  const g=el('g',{transform:`translate(${cx} ${cy}) rotate(${rot||0})`},p),bars=[],bh=w*.16,gap=w*.2,tot=3*bh+2*gap,y0=-tot/2;
+  for(let l=0;l<3;l++){const y=y0+l*(bh+gap);
+    if(bits[l])bars.push(el('rect',{x:-w/2,y,width:w,height:bh,rx:bh/2},g));
+    else{bars.push(el('rect',{x:-w/2,y,width:w*.42,height:bh,rx:bh/2},g));bars.push(el('rect',{x:w/2-w*.42,y,width:w*.42,height:bh,rx:bh/2},g));}}
+  return bars;
+}
+function sector(r1,r2,a0,a1){
+  const p=(r,a)=>[C+r*Math.cos(rad(a-90)),C+r*Math.sin(rad(a-90))];
+  const[x1,y1]=p(r2,a0),[x2,y2]=p(r2,a1),[x3,y3]=p(r1,a1),[x4,y4]=p(r1,a0);
+  return`M ${x1} ${y1} A ${r2} ${r2} 0 0 1 ${x2} ${y2} L ${x3} ${y3} A ${r1} ${r1} 0 0 0 ${x4} ${y4} Z`;
+}
+function buildDial(){
+  const defs=el('defs',{},svg);
+  const bg=el('radialGradient',{id:'dbg',cx:'50%',cy:'42%',r:'80%'},defs);bgS0=el('stop',{offset:'0%'},bg);bgS1=el('stop',{offset:'100%'},bg);
+  const pl=el('linearGradient',{id:'dplate',x1:'0',y1:'0',x2:'1',y2:'1'},defs);plS0=el('stop',{offset:'0%'},pl);plS1=el('stop',{offset:'100%'},pl);
+  const gl=el('radialGradient',{id:'dglass',cx:'38%',cy:'30%',r:'85%'},defs);glS0=el('stop',{offset:'0%'},gl);glS1=el('stop',{offset:'100%'},gl);
+  const gf=el('filter',{id:'dglow',x:'-80%',y:'-80%',width:'260%',height:'260%'},defs);el('feGaussianBlur',{stdDeviation:8},gf);
+  const sf=el('filter',{id:'dsoft',x:'-40%',y:'-40%',width:'180%',height:'180%'},defs);el('feGaussianBlur',{stdDeviation:3},sf);
+  bgRect=el('rect',{x:0,y:0,width:1000,height:1000,rx:30,fill:'url(#dbg)'},svg);
+  plate=el('rect',{x:16,y:16,width:968,height:968,rx:44,fill:'url(#dplate)'},svg);
+  el('circle',{cx:C,cy:C,r:478,fill:'none','stroke-width':3,class:'bezel'},svg);
+  el('circle',{cx:C,cy:C,r:469,fill:'none','stroke-width':1,class:'bezel2'},svg);
+  dialG=el('g',{},svg);
+  verdG=el('g',{},dialG);
+  for(let i=0;i<24;i++){
+    verdPaths.push(el('path',{d:sector(434,462,mdeg(i)-7.5,mdeg(i)+7.5),'stroke-width':1},verdG));
+    const a=rad(mdeg(i)-90),r=448,x=C+r*Math.cos(a),y=C+r*Math.sin(a);
+    verdLabels.push(el('text',{x,y,dy:'.35em','font-size':12,'font-weight':700,'text-anchor':'middle',transform:`rotate(${mdeg(i)} ${x} ${y})`},verdG));
+  }
+  ticksG=el('g',{},dialG);
+  degG=el('g',{},dialG);
+  for(let d=0;d<360;d+=15){
+    if(d%90===0)continue;
+    const a=rad(d-90),r=404,x=C+r*Math.cos(a),y=C+r*Math.sin(a);
+    dLabels.push(el('text',{x,y,dy:'.35em','font-size':11.5,'text-anchor':'middle',transform:`rotate(${d} ${x} ${y})`,text:String(d)},degG));
+  }
+  cardG=el('g',{},dialG);
+  [['北',0],['东',90],['南',180],['西',270]].forEach(([c,d])=>{
+    const a=rad(d-90),r=404,x=C+r*Math.cos(a),y=C+r*Math.sin(a);
+    cChars.push(el('text',{x,y,dy:'.35em','font-size':22,'text-anchor':'middle','font-family':"'Ma Shan Zheng','KaiTi',serif",transform:`rotate(${d} ${x} ${y})`,text:c},cardG));
+  });
+  hiPath=el('path',{'stroke-width':1.2},dialG);
+  sepG=el('g',{},dialG);
+  for(let i=0;i<24;i++){const a=rad(mdeg(i)-7.5-90);
+    sepEls.push(el('line',{x1:C+336*Math.cos(a),y1:C+336*Math.sin(a),x2:C+398*Math.cos(a),y2:C+398*Math.sin(a),'stroke-width':1.1},sepG));}
+  mountG=el('g',{},dialG);
+  for(let i=0;i<24;i++){
+    const d=mdeg(i),a=rad(d-90),r=372,x=C+r*Math.cos(a),y=C+r*Math.sin(a);
+    mChars.push(el('text',{x,y,dy:'.35em','font-size':state.font,'font-weight':700,'text-anchor':'middle',transform:`rotate(${d} ${x} ${y})`,
+      'font-family':"'Noto Serif SC','Songti SC',serif",text:MOUNTS[i]},mountG));
+    const r2=346,x2=C+r2*Math.cos(a),y2=C+r2*Math.sin(a);
+    yLabels.push(el('text',{x:x2,y:y2,dy:'.35em','font-size':10,'text-anchor':'middle',transform:`rotate(${d} ${x2} ${y2})`,text:YUAN[MOUNTS[i]][0]},mountG));
+  }
+  starG=el('g',{},dialG);palG=el('g',{},dialG);triG=el('g',{},dialG);
+  GUA_ORDER.forEach((g,j)=>{
+    starPaths.push(el('path',{d:sector(310,332,j*45-22.5,j*45+22.5),'stroke-width':1},starG));
+    const d=j*45,a=rad(d-90),r=321,x=C+r*Math.cos(a),y=C+r*Math.sin(a);
+    starLabels.push(el('text',{x,y,dy:'.35em','font-size':12,'font-weight':700,'text-anchor':'middle',transform:`rotate(${d} ${x} ${y})`},starG));
+    palPaths.push(el('path',{d:sector(288,306,j*45-22.5,j*45+22.5),'stroke-width':1},palG));
+    const bars=triGlyph(triG,C+260*Math.cos(a),C+260*Math.sin(a),BITS[g],24,d);
+    const r3=228,x3=C+r3*Math.cos(a),y3=C+r3*Math.sin(a);
+    triEls.push({bars,t:el('text',{x:x3,y:y3,dy:'.35em','font-size':15,'text-anchor':'middle',transform:`rotate(${d} ${x3} ${y3})`,text:g},triG)});
+  });
+  axisG=el('g',{},dialG);markG=el('g',{},dialG);
+  decor1=el('circle',{cx:C,cy:C,r:206,fill:'none','stroke-width':1.1,'stroke-dasharray':'3 10'},dialG);
+  decor2=el('circle',{cx:C,cy:C,r:192,fill:'none','stroke-width':1,'stroke-dasharray':'1 7'},dialG);
+  crossG=el('g',{},svg);
+  el('line',{x1:C,y1:30,x2:C,y2:970,'stroke-width':1},crossG);el('line',{x1:30,y1:C,x2:970,y2:C,'stroke-width':1},crossG);
+  const tc=el('g',{},svg);
+  el('circle',{cx:C,cy:C,r:150,fill:'url(#dglass)','stroke-width':2.2,class:'tc-ring'},tc);
+  el('circle',{cx:C,cy:C,r:138,fill:'none','stroke-width':1,class:'tc-inner'},tc);
+  needleG=el('g',{},svg);
+  el('line',{x1:C,y1:C-132,x2:C,y2:C+132,'stroke-width':1.4,opacity:.5,class:'nw'},needleG);
+  el('path',{d:`M ${C} ${C-118} L ${C+7} ${C-20} L ${C} ${C-8} L ${C-7} ${C-20} Z`,class:'nN'},needleG);
+  el('path',{d:`M ${C} ${C+118} L ${C+7} ${C+20} L ${C} ${C+8} L ${C-7} ${C+20} Z`,class:'nS'},needleG);
+  el('circle',{cx:C,cy:C-104,r:4.5,class:'nN'},needleG);
+  el('circle',{cx:C,cy:C,r:11,class:'piv'},needleG);el('circle',{cx:C,cy:C,r:4,class:'pivd'},needleG);
+  el('path',{d:`M ${C-104} ${C-72} A 128 128 0 0 1 ${C-30} ${C-124}`,fill:'none',stroke:'#fff','stroke-width':10,'stroke-linecap':'round',opacity:.1,filter:'url(#dsoft)'},svg);
+  el('text',{x:C,y:C+128,'font-size':12,'text-anchor':'middle','letter-spacing':4,class:'tcl',text:'天 池'},svg);
+  indexG=el('g',{filter:'url(#dglow)'},svg);
+  el('line',{x1:C,y1:22,x2:C,y2:48,'stroke-width':3,class:'idx'},indexG);
+  el('path',{d:`M ${C} 74 L ${C-12} 46 L ${C+12} 46 Z`,class:'idxf'},indexG);
+  el('text',{x:C,y:96,'font-size':14,'text-anchor':'middle','font-weight':700,class:'idxt',text:'向'},svg);
+  el('text',{x:60,y:74,'font-size':26,'letter-spacing':3,'font-family':"'Ma Shan Zheng','KaiTi',serif",class:'capt',text:'二十四山安灶诀'},svg);
+  capSub=el('text',{x:60,y:100,'font-size':12.5,'letter-spacing':1.6,class:'caps'},svg);
+  capMode=el('text',{x:940,y:74,'font-size':14,'letter-spacing':1.6,'text-anchor':'end',class:'capm'},svg);
+  el('text',{x:60,y:946,'font-size':12.5,'letter-spacing':1.6,class:'capk',text:'灶座压凶 · 火口向吉 · 每山十五度 正针九度 兼线三度'},svg);
+  sealG=el('g',{transform:'translate(912 912) rotate(-8)',opacity:.92},svg);
+  el('rect',{x:-40,y:-40,width:80,height:80,rx:9,fill:'#b8352a',stroke:'#7e1f16','stroke-width':2},sealG);
+  el('rect',{x:-33,y:-33,width:66,height:66,rx:4,fill:'none',stroke:'#f6e7d3',opacity:.5,'stroke-width':1.4},sealG);
+  [['安',-16,-13],['灶',16,-13],['之',-16,19],['诀',16,19]].forEach(c=>el('text',{x:c[1],y:c[2],'font-size':26,'font-weight':700,'text-anchor':'middle',fill:'#f8ecd9','font-family':"'Ma Shan Zheng','KaiTi',serif",text:c[0]},sealG));
+  pulsesG=el('g',{},svg);
+  buildTicks();
+}
+function buildTicks(){
+  ticksG.innerHTML='';tickEls.length=0;
+  for(let d=0;d<360;d+=state.density){
+    const mj=d%15===0,md=d%5===0,a=rad(d-90),r1=mj?408:(md?416:420);
+    tickEls.push({e:el('line',{x1:C+r1*Math.cos(a),y1:C+r1*Math.sin(a),x2:C+432*Math.cos(a),y2:C+432*Math.sin(a),'stroke-width':mj?2.2:(md?1.4:.9)},ticksG),mj,md});
+  }
+  styleTicks();
+}
+function styleTicks(){tickEls.forEach(t=>{t.e.setAttribute('stroke',t.mj?TH.accent:(t.md?TH.muted:TH.edge));t.e.setAttribute('opacity',t.mj?.95:(t.md?.7:.6));});}
+function refreshTheme(){
+  document.body.dataset.theme=state.theme;
+  const c=getComputedStyle(document.body),v=n=>c.getPropertyValue(n).trim();
+  TH={bg0:v('--bg0'),bg1:v('--bg1'),surface:v('--surface'),surface2:v('--surface2'),edge:v('--edge'),text:v('--text'),muted:v('--muted'),
+   accent:v('--accent'),accent2:v('--accent2'),cinnabar:v('--cinnabar'),silver:v('--silver'),plate0:v('--plate0'),plate1:v('--plate1'),
+   glass0:v('--glass0'),glass1:v('--glass1'),svgIn:v('--svg-in'),svgOut:v('--svg-out'),flame:v('--flame'),jade:v('--jade'),warn:v('--warn'),danger:v('--danger'),info:v('--info')};
+  light=state.theme==='xuanzhi';PAL=light?PAL_LIGHT:PAL_DARK;
+}
+function restyleDial(){
+  bgS0.setAttribute('stop-color',TH.svgIn);bgS1.setAttribute('stop-color',TH.svgOut);
+  plS0.setAttribute('stop-color',TH.plate0);plS1.setAttribute('stop-color',TH.plate1);
+  glS0.setAttribute('stop-color',TH.glass0);glS1.setAttribute('stop-color',TH.glass1);
+  svg.querySelectorAll('.bezel').forEach(e=>e.setAttribute('stroke',TH.accent));
+  svg.querySelectorAll('.bezel2').forEach(e=>e.setAttribute('stroke',TH.edge));
+  styleTicks();
+  dLabels.forEach(e=>e.setAttribute('fill',TH.muted));
+  cChars.forEach(e=>e.setAttribute('fill',TH.accent));
+  sepEls.forEach(e=>e.setAttribute('stroke',TH.edge));
+  mChars.forEach((e,i)=>e.setAttribute('fill',YANG.has(MOUNTS[i])?TH.cinnabar:TH.text));
+  yLabels.forEach(e=>e.setAttribute('fill',TH.muted));
+  triEls.forEach(o=>{o.bars.forEach(b=>b.setAttribute('fill',TH.accent));o.t.setAttribute('fill',TH.muted);});
+  palPaths.forEach((e,j)=>{e.setAttribute('fill',PAL[GUA_ORDER[j]]);e.setAttribute('fill-opacity',light?.7:.45);e.setAttribute('stroke',TH.bg1);});
+  decor1.setAttribute('stroke',TH.edge);decor2.setAttribute('stroke',TH.accent);decor2.setAttribute('opacity','.35');
+  crossG.querySelectorAll('line').forEach(e=>{e.setAttribute('stroke',TH.cinnabar);e.setAttribute('opacity','.3');});
+  svg.querySelectorAll('.tc-ring').forEach(e=>e.setAttribute('stroke',TH.accent));
+  svg.querySelectorAll('.tc-inner').forEach(e=>e.setAttribute('stroke',TH.edge));
+  svg.querySelectorAll('.nw').forEach(e=>e.setAttribute('stroke',TH.cinnabar));
+  svg.querySelectorAll('.nN').forEach(e=>e.setAttribute('fill',TH.cinnabar));
+  svg.querySelectorAll('.nS').forEach(e=>e.setAttribute('fill',TH.silver));
+  svg.querySelectorAll('.piv').forEach(e=>{e.setAttribute('fill',TH.accent);e.setAttribute('stroke',TH.bg0);e.setAttribute('stroke-width',2);});
+  svg.querySelectorAll('.pivd').forEach(e=>e.setAttribute('fill',TH.bg0));
+  svg.querySelectorAll('.tcl').forEach(e=>e.setAttribute('fill',TH.muted));
+  svg.querySelectorAll('.idx').forEach(e=>e.setAttribute('stroke',TH.cinnabar));
+  svg.querySelectorAll('.idxf').forEach(e=>e.setAttribute('fill',TH.cinnabar));
+  svg.querySelectorAll('.idxt').forEach(e=>e.setAttribute('fill',TH.cinnabar));
+  svg.querySelectorAll('.capt').forEach(e=>e.setAttribute('fill',TH.text));
+  capSub.setAttribute('fill',TH.muted);capMode.setAttribute('fill',TH.accent);
+  svg.querySelectorAll('.capk').forEach(e=>{e.setAttribute('fill',TH.muted);e.setAttribute('opacity','.85');});
+  refreshBgPal();
+}
+function paintStatic(){
+  const sg=GUA_MAP[cs.sit];
+  GUA_ORDER.forEach((g,j)=>{
+    const st=BAZHAI[sg][g],ji=STAR[st].k==='ji';
+    starPaths[j].setAttribute('fill',ji?TH.jade:TH.danger);
+    starPaths[j].setAttribute('fill-opacity',ji?(light?.3:.22):(light?.26:.18));
+    starPaths[j].setAttribute('stroke',ji?TH.jade:TH.danger);starPaths[j].setAttribute('stroke-opacity',.5);
+    starLabels[j].textContent=st;starLabels[j].setAttribute('fill',ji?TH.jade:TH.danger);
+  });
+  OV.forEach((o,i)=>{
+    verdPaths[i].setAttribute('fill',o.ev.g.c);verdPaths[i].setAttribute('fill-opacity',light?.4:.3);
+    verdPaths[i].setAttribute('stroke',o.ev.g.c);verdPaths[i].setAttribute('stroke-opacity',.55);
+    verdLabels[i].textContent=o.ev.g.s;verdLabels[i].setAttribute('fill',o.ev.g.c);
+  });
+  axisG.innerHTML='';
+  const fd=mCenter(oppMtn(cs.sit)),sd=mCenter(cs.sit);
+  [[fd,TH.accent,'向'],[sd,TH.muted,'坐']].forEach(([d,col,lab])=>{
+    const a=rad(d-90);
+    el('line',{x1:C,y1:C,x2:C+398*Math.cos(a),y2:C+398*Math.sin(a),stroke:col,'stroke-width':1.6,'stroke-dasharray':'7 6',opacity:.75},axisG);
+    const r=170,x=C+r*Math.cos(a),y=C+r*Math.sin(a);
+    el('text',{x,y,dy:'.35em','font-size':15,'font-weight':700,'text-anchor':'middle',fill:col,transform:`rotate(${d} ${x} ${y})`,text:lab},axisG);
+  });
+  markG.innerHTML='';
+  if(state.mark){
+    const sd2=mCenter(cs.stove),a=rad(sd2-90);
+    hiPath.setAttribute('d',sector(336,398,sd2-7.5,sd2+7.5));
+    hiPath.setAttribute('fill',TH.cinnabar);hiPath.setAttribute('fill-opacity',light?.2:.16);
+    hiPath.setAttribute('stroke',TH.cinnabar);hiPath.setAttribute('stroke-opacity',.6);
+    const r=418,x=C+r*Math.cos(a),y=C+r*Math.sin(a);
+    const g=el('g',{transform:`translate(${x} ${y}) rotate(${sd2})`},markG);
+    el('rect',{x:-13,y:-11,width:26,height:22,rx:5,fill:TH.cinnabar},g);
+    el('text',{x:0,y:5,'font-size':15,'font-weight':700,'text-anchor':'middle',fill:'#fff5ec',text:'灶'},g);
+    const fd2=norm(cs.face),a2=rad(fd2-90),r2=420,x2=C+r2*Math.cos(a2),y2=C+r2*Math.sin(a2);
+    const g2=el('g',{transform:`translate(${x2} ${y2}) rotate(${fd2})`},markG);
+    el('path',{d:'M 0 -14 L 11 6 L 0 1 L -11 6 Z',fill:TH.accent},g2);
+    el('text',{x:0,y:20,'font-size':13,'font-weight':700,'text-anchor':'middle',fill:TH.accent,text:'口'},g2);
+  }else hiPath.setAttribute('fill-opacity',0);
+  applyDialLayers();
+}
+function applyDialLayers(){
+  verdG.style.display=state.verdict?'':'none';
+  starG.style.display=state.starRing?'':'none';
+  palG.style.display=state.pal?'':'none';
+  triG.style.display=state.tri?'':'none';
+  degG.style.display=state.deg?'':'none';
+  crossG.style.display=state.cross?'':'none';
+  markG.style.display=state.mark?'':'none';
+  /* 摄像头开启时：隐去「安灶之诀」印章 */
+  sealG.style.display=camOn?'none':'';
+  yLabels.forEach(e=>e.style.display=state.yuan?'':'none');
+  mChars.forEach(e=>e.setAttribute('font-size',state.font));
+  const fade=camOn?1-state.camFade/100:1;
+  bgRect.setAttribute('opacity',fade);plate.setAttribute('opacity',fade);
+  indexG.setAttribute('opacity',.55+state.glow/100*.55);
+}
+function rawH(){return norm(dispH+(state.trueNorth?state.decl:0));}
+function effH(){
+  let h=rawH();lastSnapped=false;
+  if(state.refSnap&&refH!=null){
+    const d=sdiff(h,refH);
+    if(Math.abs(d)<=state.refTol){h=refH;lastSnapped=true;}
+  }
+  return h;
+}
+let lastIdx=-1,lastDegTxt='';
+function renderDial(){
+  const h=effH(),f=mInfo(h);
+  dialG.setAttribute('transform',`rotate(${-h} ${C} ${C})`);
+  needleG.setAttribute('transform',`rotate(${-h} ${C} ${C})`);
+  if(f.i!==lastIdx){
+    lastIdx=f.i;mChars.forEach((e,i)=>e.setAttribute('font-weight',i===f.i?900:700));
+    $('ruPrev').textContent=MOUNTS[(f.i+23)%24];$('ruNext').textContent=MOUNTS[(f.i+1)%24];
+    $('ruCur').textContent=`${f.m} · ${f.zone==='ok'?'正针 9°':f.zone==='warn'?'兼线':'空亡'}`;
+    $('roHeadMtn').textContent=`${f.m}山 · ${state.trueNorth?'真北':'磁北'}`;
+    $('hudMtn').textContent=`${f.m}山 · ${DIRS[f.gua]}`;
+    const ev=evaluate(f.m,cs.face,cs.sit,cs.cks,false);
+    $('hudVerdict').textContent=`若灶在此：${ev.g.t} ${ev.score}`;
+    $('hudVerdict').style.setProperty('--c',ev.g.c);
+    tickSound();
+  }
+  const t=h.toFixed(1)+'°';
+  if(t!==lastDegTxt){lastDegTxt=t;$('roHead').textContent=t;$('hudDeg').textContent=t;
+    $('ruMarker').style.left=((f.off+7.5)/15*100)+'%';}
+  capSub.textContent=`坐${cs.sit}向${oppMtn(cs.sit)} · 灶${cs.stove} 口${mOfDeg(cs.face)} · ${EV?EV.g.t:''}`;
+  capMode.textContent=`${state.trueNorth?'真北':'磁北'} ${h.toFixed(1)}° · ${src==='sensor'?'罗盘':src==='manual'?'手动':'演示'}`;
+  updateAccUI();
+}
+function updateAccUI(){
+  const q=pose.quality,qc=q==='优'?'var(--jade)':q==='良'?'var(--warn)':'var(--danger)';
+  $('accPitch').textContent=`${pose.pitch.toFixed(0)}°`;
+  $('accRoll').textContent=`${pose.roll.toFixed(0)}°`;
+  const aq=$('accQual');aq.textContent=q;aq.style.setProperty('--c',qc);
+  const ha=$('hudAcc');ha.textContent=q;ha.style.setProperty('--c',qc);
+  const compTxt=src!=='sensor'?'模拟姿态':(state.tiltComp?(pose.comp?'光轴补偿':'顶边定向'):'未补偿');
+  $('hudTilt').textContent=`俯仰 ${pose.pitch.toFixed(0)}° · 横滚 ${pose.roll.toFixed(0)}° · ${compTxt}${lastSnapped?' · 已贴附基准':''}`;
+  const strip=$('camStrip');
+  strip.classList.toggle('warn',q==='良');
+  strip.classList.toggle('bad',q==='差');
+  if(refH!=null){
+    const d=sdiff(rawH(),refH);lastDelta=d;
+    $('refVal').textContent=refH.toFixed(1)+'°';
+    const dv=$('refDev');dv.textContent=`偏差 ${d>=0?'+':''}${d.toFixed(1)}°`;
+    dv.style.setProperty('--c',Math.abs(d)<=state.refTol?'var(--jade)':Math.abs(d)<=state.refTol*2?'var(--warn)':'var(--danger)');
+  }else{
+    $('refVal').textContent='未取';$('refDev').textContent='—';$('refDev').style.setProperty('--c','var(--muted)');
+  }
+}
+
+/* ---------- 平面图 ---------- */
+const SAMPLE=(function(){
+  const s=`<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="760" viewBox="0 0 1000 760">
+  <rect width="1000" height="760" fill="#f5efe0"/>
+  <g stroke="#c9bda4" stroke-width="1">${Array.from({length:24},(_,i)=>`<line x1="${40+i*40}" y1="0" x2="${40+i*40}" y2="760"/>`).join('')}${Array.from({length:19},(_,i)=>`<line x1="0" y1="${40+i*40}" x2="1000" y2="${40+i*40}"/>`).join('')}</g>
+  <g fill="none" stroke="#2b2118" stroke-width="9" stroke-linejoin="miter">
+    <rect x="40" y="40" width="920" height="680"/>
+    <line x1="560" y1="40" x2="560" y2="720"/><line x1="40" y1="480" x2="560" y2="480"/>
+    <line x1="320" y1="480" x2="320" y2="720"/><line x1="560" y1="260" x2="960" y2="260"/>
+    <line x1="760" y1="40" x2="760" y2="260"/><line x1="40" y1="130" x2="560" y2="130"/>
+  </g>
+  <g stroke="#f5efe0" stroke-width="11">
+    <line x1="120" y1="720" x2="200" y2="720"/><line x1="400" y1="480" x2="470" y2="480"/>
+    <line x1="640" y1="260" x2="700" y2="260"/><line x1="560" y1="540" x2="560" y2="610"/>
+    <line x1="840" y1="260" x2="900" y2="260"/><line x1="150" y1="40" x2="450" y2="40"/>
+    <line x1="960" y1="400" x2="960" y2="600"/><line x1="800" y1="40" x2="930" y2="40"/>
+  </g>
+  <g fill="none" stroke="#8a7a5e" stroke-width="2">
+    <path d="M120 720 A80 80 0 0 1 200 640"/><path d="M400 480 A70 70 0 0 1 470 410"/>
+    <path d="M640 260 A60 60 0 0 0 700 200"/><path d="M560 540 A70 70 0 0 0 490 610"/>
+    <path d="M840 260 A60 60 0 0 0 900 200"/>
+  </g>
+  <g stroke="#4a6fa5" stroke-width="4" fill="none">
+    <line x1="150" y1="40" x2="450" y2="40"/><line x1="960" y1="400" x2="960" y2="600"/><line x1="800" y1="40" x2="930" y2="40"/>
+    <line x1="40" y1="220" x2="40" y2="400"/>
+  </g>
+  <g font-family="'Noto Serif SC',serif" fill="#2b2118">
+    <text x="290" y="95" font-size="22" text-anchor="middle">阳 台</text>
+    <text x="290" y="300" font-size="30" text-anchor="middle">客 厅</text><text x="290" y="330" font-size="15" text-anchor="middle" fill="#6b5d4a">28.6 ㎡</text>
+    <text x="180" y="600" font-size="24" text-anchor="middle">餐 厅</text>
+    <text x="440" y="530" font-size="24" text-anchor="middle">厨 房</text><text x="440" y="556" font-size="14" text-anchor="middle" fill="#6b5d4a">6.8 ㎡</text>
+    <text x="660" y="150" font-size="22" text-anchor="middle">卫生间</text>
+    <text x="860" y="150" font-size="22" text-anchor="middle">次 卧</text>
+    <text x="760" y="480" font-size="30" text-anchor="middle">主 卧</text><text x="760" y="510" font-size="15" text-anchor="middle" fill="#6b5d4a">18.2 ㎡</text>
+    <text x="160" y="748" font-size="16" text-anchor="middle" fill="#b8352a">入户门</text>
+    <text x="500" y="26" font-size="15" text-anchor="middle" fill="#6b5d4a">示例户型 · 三室两厅 · 建筑面积 96 ㎡</text>
+  </g>
+  <g stroke="#2b2118" stroke-width="2.5" fill="#e6dcc4">
+    <rect x="356" y="576" width="90" height="52" rx="4"/>
+    <rect x="356" y="640" width="90" height="46" rx="4"/>
+    <rect x="470" y="576" width="60" height="110" rx="4"/>
+  </g>
+  <g fill="#b8352a"><circle cx="380" cy="602" r="9"/><circle cx="422" cy="602" r="9"/></g>
+  <g font-family="'Noto Serif SC',serif" font-size="13" fill="#6b5d4a">
+    <text x="401" y="668" text-anchor="middle">水槽</text><text x="500" y="636" text-anchor="middle">冰箱</text>
+    <text x="401" y="566" text-anchor="middle" fill="#b8352a">灶</text>
+  </g>
+  <g stroke="#6b5d4a" stroke-width="1.2" fill="none"><line x1="40" y1="742" x2="960" y2="742"/><line x1="40" y1="736" x2="40" y2="748"/><line x1="960" y1="736" x2="960" y2="748"/></g>
+  <text x="500" y="736" font-size="13" text-anchor="middle" fill="#6b5d4a" font-family="'Noto Serif SC',serif">11.5 m</text>
+  </svg>`;
+  return'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);
+})();
+const planWrap=$('planWrap'),planImg=$('planImg'),planSvg=$('planSvg');
+let pw=800,ph=600,planReady=false;
+function loadPlan(srcv,quiet){
+  planSrc=srcv;planImg.src=srcv;
+  planImg.onload=()=>{
+    planWrap.style.aspectRatio=(planImg.naturalWidth||1000)+'/'+(planImg.naturalHeight||760);
+    planReady=true;measurePlan();renderPlan();save();
+    if(!quiet)toast('户型图已载入 · 点图纸放灶位，拖标记校正');
+  };
+  planImg.onerror=()=>{planReady=false;toast('图纸载入失败，请换一张图片');};
+}
+function measurePlan(){const r=planWrap.getBoundingClientRect();if(r.width>10){pw=r.width;ph=r.height||r.width*.76;}planSvg.setAttribute('viewBox',`0 0 ${pw} ${ph}`);}
+const PX=p=>[p[0]*pw,p[1]*ph];
+function bearing(from,to){const[x1,y1]=PX(from),[x2,y2]=PX(to);return norm(Math.atan2(x2-x1,-(y2-y1))*180/Math.PI+cs.northUp);}
+function screenVec(deg,r){const a=rad(deg-cs.northUp);return[r*Math.sin(a),-r*Math.cos(a)];}
+function placeAtBearing(deg,frac){
+  const R=Math.min(pw,ph)*frac,[vx,vy]=screenVec(deg,R);
+  return[clamp(cs.center[0]+vx/pw,.04,.96),clamp(cs.center[1]+vy/ph,.04,.96)];
+}
+function renderPlan(){
+  if(!planReady)return;
+  measurePlan();
+  planSvg.innerHTML='';
+  planImg.style.opacity=state.planAlpha/100;
+  const[cx,cy]=PX(cs.center),R=Math.min(pw,ph)*.46,al=state.ovAlpha/100;
+  const gW=el('g',{opacity:al},planSvg);
+  OV.forEach((o,i)=>{
+    const a0=mdeg(i)-7.5-cs.northUp,a1=mdeg(i)+7.5-cs.northUp;
+    const p=(r,a)=>[cx+r*Math.sin(rad(a)),cy-r*Math.cos(rad(a))];
+    const[x1,y1]=p(R,a0),[x2,y2]=p(R,a1);
+    el('path',{d:`M ${cx} ${cy} L ${x1} ${y1} A ${R} ${R} 0 0 1 ${x2} ${y2} Z`,fill:o.ev.g.c,'fill-opacity':.16,stroke:o.ev.g.c,'stroke-opacity':.4,'stroke-width':1},gW);
+    const mid=mdeg(i)-cs.northUp,[lx,ly]=p(R*.9,mid);
+    el('text',{x:lx,y:ly,dy:'.35em','font-size':Math.max(10,R*.055),'text-anchor':'middle',fill:o.ev.g.c,'font-weight':700,text:MOUNTS[i]},gW);
+    const[tx,ty]=p(R*.76,mid);
+    el('text',{x:tx,y:ty,dy:'.35em','font-size':Math.max(8,R*.04),'text-anchor':'middle',fill:o.ev.g.c,opacity:.85,text:o.ev.g.s},gW);
+  });
+  for(let i=0;i<24;i++){const a=mdeg(i)-7.5-cs.northUp,x=cx+R*Math.sin(rad(a)),y=cy-R*Math.cos(rad(a));
+    el('line',{x1:cx,y1:cy,x2:x,y2:y,stroke:TH.text,'stroke-opacity':.16,'stroke-width':.8},gW);}
+  el('circle',{cx,cy,r:R,fill:'none',stroke:TH.accent,'stroke-opacity':.5,'stroke-width':1.2},gW);
+  const fd=mCenter(oppMtn(cs.sit)),[fx,fy]=screenVec(fd,R);
+  el('line',{x1:cx-fx,y1:cy-fy,x2:cx+fx,y2:cy+fy,stroke:TH.accent,'stroke-width':1.8,'stroke-dasharray':'8 6',opacity:.85},planSvg);
+  el('text',{x:cx+fx*1.06,y:cy+fy*1.06,dy:'.35em','font-size':13,'text-anchor':'middle',fill:TH.accent,'font-weight':700,text:'向'+oppMtn(cs.sit)},planSvg);
+  el('text',{x:cx-fx*1.06,y:cy-fy*1.06,dy:'.35em','font-size':13,'text-anchor':'middle',fill:TH.muted,text:'坐'+cs.sit},planSvg);
+  const[sx,sy]=PX(cs.stoveXY);
+  el('line',{x1:cx,y1:cy,x2:sx,y2:sy,stroke:TH.cinnabar,'stroke-width':2.2,opacity:.9},planSvg);
+  const[ax,ay]=screenVec(norm(cs.face),Math.min(pw,ph)*.13);
+  el('line',{x1:sx,y1:sy,x2:sx+ax,y2:sy+ay,stroke:TH.accent,'stroke-width':2.4},planSvg);
+  const ang=Math.atan2(ay,ax)*180/Math.PI;
+  el('path',{d:'M 0 0 L -13 6 L -9 0 L -13 -6 Z',fill:TH.accent,transform:`translate(${sx+ax} ${sy+ay}) rotate(${ang})`},planSvg);
+  mk('facing',sx+ax,sy+ay,11,TH.accent,'口');
+  if(cs.doorOn){
+    const[dx,dy]=PX(cs.doorXY);
+    el('line',{x1:dx,y1:dy,x2:sx,y2:sy,stroke:doorFlag?TH.danger:TH.muted,'stroke-width':doorFlag?2:1,'stroke-dasharray':'5 5',opacity:.8},planSvg);
+    mk('door',dx,dy,13,'#8a7a5e','门');
+  }
+  mk('stove',sx,sy,15,TH.cinnabar,'灶');
+  mk('center',cx,cy,12,TH.accent,'◎');
+  const[nx,ny]=screenVec(0,R*1.02);
+  mk('north',cx+nx,cy+ny,13,TH.info,'N');
+  el('text',{x:12,y:ph-12,'font-size':11,fill:TH.muted,text:`图纸上方 = ${cs.northUp.toFixed(0)}° · 灶位 ${bearing(cs.center,cs.stoveXY).toFixed(1)}° · 火口 ${norm(cs.face).toFixed(1)}°`},planSvg);
+}
+function mk(kind,x,y,r,col,txt){
+  const g=el('g',{class:'mk','data-mk':kind},planSvg);
+  el('circle',{cx:x,cy:y,r:r+12,fill:'transparent'},g);
+  el('circle',{cx:x,cy:y,r,fill:col,'fill-opacity':.92,stroke:'#fff','stroke-opacity':.7,'stroke-width':1.6},g);
+  el('text',{x,y:y+4.5,'font-size':r*.95,'text-anchor':'middle',fill:'#fff8ee','font-weight':700,text:txt},g);
+  return g;
+}
+function updateDoorFlag(){
+  if(!cs.doorOn){doorFlag=false;return;}
+  doorFlag=Math.abs(sdiff(bearing(cs.doorXY,cs.stoveXY),bearing(cs.doorXY,cs.center)))<18;
+}
+let dragMk=null;
+planSvg.addEventListener('pointerdown',e=>{
+  const g=e.target.closest?e.target.closest('.mk'):null;
+  const r=planWrap.getBoundingClientRect();
+  const nx=clamp((e.clientX-r.left)/r.width,0,1),ny=clamp((e.clientY-r.top)/r.height,0,1);
+  if(g)dragMk=g.getAttribute('data-mk');
+  else{dragMk='stove';cs.stoveXY=[nx,ny];cs.stove=mOfDeg(bearing(cs.center,cs.stoveXY));taken.stove=true;applyCase();}
+  try{planSvg.setPointerCapture(e.pointerId);}catch(err){}
+  handleDrag(nx,ny);
+});
+planSvg.addEventListener('pointermove',e=>{
+  if(!dragMk)return;
+  const r=planWrap.getBoundingClientRect();
+  handleDrag(clamp((e.clientX-r.left)/r.width,0,1),clamp((e.clientY-r.top)/r.height,0,1));
+});
+function handleDrag(nx,ny){
+  if(!dragMk)return;
+  if(dragMk==='center'){cs.center=[nx,ny];cs.stove=mOfDeg(bearing(cs.center,cs.stoveXY));}
+  else if(dragMk==='stove'){cs.stoveXY=[nx,ny];cs.stove=mOfDeg(bearing(cs.center,cs.stoveXY));taken.stove=true;}
+  else if(dragMk==='door')cs.doorXY=[nx,ny];
+  else if(dragMk==='north'){
+    const dx=(nx-cs.center[0])*pw,dy=(ny-cs.center[1])*ph;
+    cs.northUp=norm(-Math.atan2(dx,-dy)*180/Math.PI);
+    cs.stove=mOfDeg(bearing(cs.center,cs.stoveXY));
+  }else if(dragMk==='facing'){cs.face=bearing(cs.stoveXY,[nx,ny]);taken.face=true;}
+  applyCase();
+}
+function endMk(){if(dragMk){dragMk=null;save();}}
+planSvg.addEventListener('pointerup',endMk);planSvg.addEventListener('pointercancel',endMk);
+new ResizeObserver(()=>{if(planReady){measurePlan();renderPlan();}}).observe(planWrap);
+['dragenter','dragover'].forEach(ev=>planWrap.addEventListener(ev,e=>{e.preventDefault();planWrap.classList.add('dragover');}));
+['dragleave','drop'].forEach(ev=>planWrap.addEventListener(ev,e=>{e.preventDefault();planWrap.classList.remove('dragover');}));
+planWrap.addEventListener('drop',e=>{const f=e.dataTransfer.files&&e.dataTransfer.files[0];if(f)readFile(f);});
+function readFile(f){
+  if(!f.type.startsWith('image/')){toast('请拖入图片文件');return;}
+  const fr=new FileReader();fr.onload=()=>loadPlan(fr.result);fr.onerror=()=>toast('读取失败');fr.readAsDataURL(f);
+}
+
+/* ---------- 判读刷新 ---------- */
+let flushPending=false,syncKind='',cardsSig='',ruleSig='';
+function applyCase(kind){
+  updateDoorFlag();
+  cs.face=norm(cs.face);
+  EV=evaluate(cs.stove,cs.face,cs.sit,cs.cks,doorFlag);
+  const key=cs.sit+'|'+JSON.stringify(cs.cks);
+  if(key!==ovKey){ovKey=key;OV=MOUNTS.map(m=>{const b=bestFace(m,cs.sit,cs.cks);return{m,best:b,ev:b.ev};});cardsSig='';}
+  syncKind=kind||'';
+  if(!flushPending){flushPending=true;requestAnimationFrame(()=>{flushPending=false;flushCase();});}
+  save();
+}
+function flushCase(){
+  $('roSit').textContent=`坐${cs.sit}向${oppMtn(cs.sit)}`;
+  const sg=GUA_MAP[cs.sit];
+  $('roSitGua').textContent=`${sg}宅 · ${EAST.has(sg)?'东四宅':'西四宅'}`;
+  $('roStove').textContent=cs.stove;$('roStove').style.setProperty('--c',PAL[EV.seatPal]);
+  $('roStoveMeta').textContent=`${EV.seatPal}宫 ${DIRS[EV.seatPal]} · ${EV.seatStar}`;
+  $('roFace').textContent=EV.faceM;$('roFace').style.setProperty('--c',PAL[EV.facePal]);
+  $('roFaceMeta').textContent=`${EV.facePal}宫 ${DIRS[EV.facePal]} · ${EV.faceStar}`;
+  $('roGrade').textContent=EV.g.t;$('roGrade').className='gd-'+EV.g.k;
+  $('scoreNum').textContent=EV.score;$('scoreNum').style.color=EV.g.c;
+  $('scoreArc').setAttribute('stroke',EV.g.c);
+  $('scoreArc').setAttribute('stroke-dashoffset',(138.2*(1-EV.score/100)).toFixed(1));
+  $('roVeto').textContent=EV.vetoes.length?'一票否决：'+EV.vetoes.join(' · '):'';
+  $('mrSit').textContent=`坐${cs.sit}向${oppMtn(cs.sit)}`;
+  $('mrStove').textContent=cs.stove;$('mrFace').textContent=EV.faceM;
+  const mg=$('mrGrade');mg.textContent=`${EV.g.s} · ${EV.score}`;mg.style.setProperty('--c',EV.g.c);
+  $('glTitle').textContent=EV.g.t;$('glNote').textContent=`灶坐${EV.seatPal}宫${EV.seatStar}，火口向${EV.facePal}宫${EV.faceStar}。`;
+  $('gradeLine').style.setProperty('--c',EV.g.c);
+  $('sitSel').value=cs.sit;$('stoveSel').value=cs.stove;$('faceSel').value=EV.faceM;
+  if(syncKind!=='faceSlider'){$('faceSlider').value=cs.face.toFixed(1);setFill($('faceSlider'));}
+  $('faceVal').textContent=cs.face.toFixed(1)+'°';
+  $('guaInfo').innerHTML=`<b>${sg}宅</b>（坐${cs.sit}向${oppMtn(cs.sit)}）属<b>${EAST.has(sg)?'东四宅':'西四宅'}</b>。四吉：生气·延年·天医·伏位；四凶：绝命·五鬼·六煞·祸害。灶座取凶宫，火口取吉宫。`;
+  renderChip8();renderRules();renderCards();renderPlan();paintStatic();updateSteps();
+  $('planInfo').innerHTML=`图纸判读：中心 → 灶位 <b>${bearing(cs.center,cs.stoveXY).toFixed(1)}°（${cs.stove}山 · ${EV.seatPal}宫${EV.seatStar}）</b>；火口 <b>${cs.face.toFixed(1)}°（${EV.faceM}山 · ${EV.faceStar}）</b>；`+
+    `${doorFlag?'<b style="color:var(--danger)">大门视线直冲灶位</b>；':''}综合 <b style="color:${EV.g.c}">${EV.g.t} ${EV.score}分</b>。`;
+  syncKind='';
+}
+function renderChip8(){
+  const box=$('chip8'),sg=GUA_MAP[cs.sit];box.innerHTML='';
+  GUA_ORDER.forEach(g=>{
+    const st=BAZHAI[sg][g],ji=STAR[st].k==='ji';
+    const d=document.createElement('div');d.style.setProperty('--c',ji?'var(--jade)':'var(--danger)');
+    d.innerHTML=`<b>${st}</b><span>${g} ${DIRS[g]}</span>`;box.appendChild(d);
+  });
+}
+function renderRules(){
+  const sig=EV.rows.map(x=>x.st+x.w).join(',')+'|'+EV.score;
+  if(sig===ruleSig)return;ruleSig=sig;
+  const box=$('ruleList'),open=new Set([...box.querySelectorAll('.rule.open')].map(e=>e.dataset.id));
+  box.innerHTML='';
+  const order={ji:0,he:1,ping:2};
+  const rows=EV.rows.slice().sort((a,b)=>order[a.st]-order[b.st]);
+  let he=0,ji=0;
+  rows.forEach(({r,st,detail,w})=>{
+    if(st==='he')he++;if(st==='ji')ji++;
+    const col=st==='he'?'var(--jade)':st==='ji'?'var(--danger)':'var(--muted)';
+    const d=document.createElement('div');d.className='rule'+(open.has(r.id)?' open':'');d.dataset.id=r.id;d.style.setProperty('--c',col);
+    d.innerHTML=`<button type="button"><span class="dot"></span><span class="tt">${r.t} <em>${r.v}</em></span><span class="st">${st==='he'?'合诀':st==='ji'?'犯忌':'平'}${w?` ${w>0?'+':''}${w}`:''}</span></button>
+      <div class="body"><b>${r.src}</b> · ${detail}${st==='ji'?`<span class="fix">化解：${r.fix}</span>`:''}</div>`;
+    d.querySelector('button').addEventListener('click',()=>{d.classList.toggle('open');uiTick();});
+    box.appendChild(d);
+  });
+  $('ruleCount').textContent=`合 ${he} · 忌 ${ji}`;
+}
+function updateSteps(){
+  $('step1').classList.toggle('done',taken.sit);
+  $('step2').classList.toggle('done',taken.stove);
+  $('step3').classList.toggle('done',taken.face);
+  $('step4').classList.toggle('done',taken.stove&&taken.face);
+}
+function renderCards(){
+  const q=$('searchIn').value.trim(),f=$('filterSel24').value,s=$('sortSel24').value;
+  const sig=ovKey+'|'+q+'|'+f+'|'+s;
+  const box=$('cards24');
+  if(sig===cardsSig){box.querySelectorAll('.mcard').forEach(c=>c.classList.toggle('cur',c.dataset.m===cs.stove));return;}
+  cardsSig=sig;
+  let arr=OV.map((o,i)=>({...o,i}));
+  if(q)arr=arr.filter(o=>o.m.includes(q)||GUA_MAP[o.m].includes(q)||DIRS[GUA_MAP[o.m]].includes(q)||o.ev.seatStar.includes(q)||o.best.m.includes(q));
+  if(f==='good')arr=arr.filter(o=>o.ev.score>=65);
+  if(f==='ping')arr=arr.filter(o=>o.ev.score>=48&&o.ev.score<65);
+  if(f==='bad')arr=arr.filter(o=>o.ev.score<48);
+  arr.sort(s==='score'?(a,b)=>b.ev.score-a.ev.score:s==='order'?(a,b)=>a.i-b.i:(a,b)=>GUA_ORDER.indexOf(GUA_MAP[a.m])-GUA_ORDER.indexOf(GUA_MAP[b.m])||a.i-b.i);
+  box.innerHTML='';
+  const good=OV.filter(o=>o.ev.score>=65).length,bad=OV.filter(o=>o.ev.score<48).length;
+  $('ovSum').innerHTML=`以 <b>${GUA_MAP[cs.sit]}宅（坐${cs.sit}向${oppMtn(cs.sit)}）</b> 论：廿四山中 <b>${good}</b> 山可安灶、<b>${bad}</b> 山忌灶。最优三山：`+
+    OV.slice().sort((a,b)=>b.ev.score-a.ev.score).slice(0,3).map(o=>`<b>${o.m}（${o.ev.score}）</b>`).join(' · ')+`。当前灶座 <b>${cs.stove}</b>。`;
+  if(!arr.length){box.innerHTML='<div class="rec-empty">无匹配之山，换个关键词或筛选。</div>';return;}
+  arr.forEach(o=>{
+    const b=document.createElement('button');b.className='mcard'+(o.m===cs.stove?' cur':'');b.dataset.m=o.m;b.style.setProperty('--c',o.ev.g.c);
+    b.innerHTML=`<div class="top"><span class="mt">${o.m}</span><span class="mm"><b>${GUA_MAP[o.m]}宫 ${DIRS[GUA_MAP[o.m]]}</b>${o.ev.seatStar} · ${ELEM[o.m]} · ${YUAN[o.m]}龙</span><span class="sc">${o.ev.score}</span></div>
+      <div class="bar"><i style="width:${o.ev.score}%"></i></div>
+      <div class="bt"><span>宜配火口 <b>${o.best.m}</b>（${BAZHAI[GUA_MAP[cs.sit]][GUA_MAP[o.best.m]]}）</span><span class="gb">${o.ev.g.s}</span></div>`;
+    b.addEventListener('click',()=>openMountain(o));
+    box.appendChild(b);
+  });
+}
+
+/* ---------- 抽屉 ---------- */
+function openDrawer(title,nodes){
+  $('drawerTitle').textContent=title;
+  const b=$('drawerBody');b.innerHTML='';nodes.forEach(n=>b.appendChild(n));
+  $('drawer').classList.add('on');$('scrim').classList.add('on');$('drawerClose').focus();
+}
+function closeDrawer(){$('drawer').classList.remove('on');$('scrim').classList.remove('on');}
+$('drawerClose').addEventListener('click',closeDrawer);$('scrim').addEventListener('click',closeDrawer);
+function sec(title,html){const d=document.createElement('div');d.className='dsec';d.innerHTML=`<h4>${title}</h4>${html}`;return d;}
+function openMountain(o){
+  const ev=o.ev,sg=GUA_MAP[cs.sit];
+  const nodes=[sec('灶座判读',`<p><b>${o.m}山</b> · ${GUA_MAP[o.m]}宫 ${DIRS[GUA_MAP[o.m]]} · ${ELEM[o.m]} · ${YUAN[o.m]}龙 · ${YANG.has(o.m)?'阳':'阴'}<br>
+    游年：<b>${ev.seatStar}</b>（${STAR[ev.seatStar].n}）<br>最优火口：<b>${o.best.m}山</b>（${BAZHAI[sg][GUA_MAP[o.best.m]]}）<br>
+    评分：<b style="color:${ev.g.c}">${ev.score} · ${ev.g.t}</b>${ev.vetoes.length?`<br><b style="color:var(--deep)">一票否决：${ev.vetoes.join('、')}</b>`:''}</p>`)];
+  const bad=ev.rows.filter(r=>r.st==='ji');
+  nodes.push(sec('逐条安灶诀',ev.rows.map(({r,st,detail})=>`<p><b style="color:${st==='he'?'var(--jade)':st==='ji'?'var(--danger)':'var(--muted)'}">${st==='he'?'合':'忌'} ${r.t}</b> — ${detail}</p>`).join('')));
+  if(bad.length)nodes.push(sec('化解建议',bad.map(({r})=>`<p><b>${r.t}</b>：${r.fix}</p>`).join('')));
+  const acts=document.createElement('div');acts.className='btn-grid';
+  const b1=document.createElement('button');b1.className='btn primary';b1.textContent='设为当前灶座';
+  b1.addEventListener('click',()=>{cs.stove=o.m;cs.face=o.best.deg;taken.stove=taken.face=true;applyCase();closeDrawer();toast(`已定灶：坐${o.m}向${o.best.m} · ${o.ev.score}分`);chime();});
+  const b2=document.createElement('button');b2.className='btn';b2.textContent='在图纸定位';
+  b2.addEventListener('click',()=>{
+    cs.stoveXY=placeAtBearing(mCenter(o.m),.34);
+    cs.stove=mOfDeg(bearing(cs.center,cs.stoveXY));cs.face=o.best.deg;taken.stove=taken.face=true;
+    applyCase();setMode('plan');closeDrawer();toast('已在图纸放置灶位于'+o.m+'山');});
+  acts.appendChild(b1);acts.appendChild(b2);nodes.push(acts);
+  openDrawer(`${o.m}山 · 安灶判读`,nodes);
+}
+
+/* ---------- 案例 ---------- */
+let records=[];
+try{const r=JSON.parse(localStorage.getItem('zao-rec')||'null');
+  if(Array.isArray(r))records=r;
+  else{const n=Date.now();
+    records=[
+      {id:'s1',ts:n-86400000*3,name:'示例 · 陈宅 大门朝南',sit:'子',stove:'乾',face:180,cks:{kao:true,tang:true,liang:true,shui:true,men:false,ce:true,jiao:true},note:'灶在西北乾宫，火烧天门兼开门见灶，建议移灶至西南坤宫。',pin:true},
+      {id:'s2',ts:n-86400000,name:'示例 · 林宅 坐卯向酉',sit:'卯',stove:'坤',face:270,cks:{kao:true,tang:true,liang:true,shui:true,men:true,ce:true,jiao:true},note:'灶坐坤宫祸害，火口向兑宫天医，压凶向吉，合诀。'},
+      {id:'s3',ts:n-5400000,name:'示例 · 王宅 户型图判读',sit:'午',stove:'巽',face:0,cks:{kao:true,tang:false,liang:true,shui:false,men:true,ce:true,jiao:true},note:'灶水紧贴，灶前逼仄，需加木质隔断并清理操作面。'}];
+    localStorage.setItem('zao-rec',JSON.stringify(records));}
+}catch(e){records=[];}
+function saveRec(){
+  try{localStorage.setItem('zao-rec',JSON.stringify(records));}
+  catch(e){
+    let cut=0;
+    for(let i=records.length-1;i>=0&&cut<8;i--){if(records[i].photo){delete records[i].photo;cut++;}}
+    try{localStorage.setItem('zao-rec',JSON.stringify(records));toast('存储将满，已释放部分照片');}catch(e2){toast('本地存储已满，记录仅本次会话保留');}
+  }
+}
+function fmtTime(ts){const d=new Date(ts),p=n=>String(n).padStart(2,'0');return`${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;}
+function stamp(ts){const d=new Date(ts),p=n=>String(n).padStart(2,'0');return`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;}
+function renderRecords(){
+  const q=$('recSearch').value.trim(),f=$('recFilter').value,s=$('recSort').value;
+  let arr=records.map(r=>({r,ev:evaluate(r.stove,r.face,r.sit,r.cks||DEF_CASE.cks,false)}));
+  if(q)arr=arr.filter(x=>(x.r.name||'').includes(q)||(x.r.note||'').includes(q)||x.r.stove.includes(q)||x.r.sit.includes(q));
+  if(f==='good')arr=arr.filter(x=>x.ev.score>=65);
+  if(f==='ping')arr=arr.filter(x=>x.ev.score>=48&&x.ev.score<65);
+  if(f==='bad')arr=arr.filter(x=>x.ev.score<48);
+  if(f==='photo')arr=arr.filter(x=>x.r.photo);
+  arr.sort((a,b)=>(b.r.pin?1:0)-(a.r.pin?1:0)||(s==='score'?b.ev.score-a.ev.score:s==='name'?(a.r.name||'').localeCompare(b.r.name||'','zh'):b.r.ts-a.r.ts));
+  $('recCount').textContent=`${arr.length}/${records.length}`;
+  const box=$('recList');box.innerHTML='';
+  if(!arr.length){box.innerHTML='<div class="rec-empty">暂无案例 · 点「锁定当前判读」立一案</div>';return;}
+  arr.forEach(({r,ev})=>{
+    const row=document.createElement('div');row.className='rec'+(r.pin?' pinned':'');row.style.setProperty('--c',ev.g.c);
+    if(r.photo){const im=document.createElement('img');im.className='th';im.src=r.photo;im.alt='现场快照';row.appendChild(im);}
+    else{const ph2=document.createElement('div');ph2.className='th ph';ph2.textContent=r.stove;row.appendChild(ph2);}
+    const mid=document.createElement('div');mid.style.minWidth='0';
+    mid.innerHTML=`<div class="nm">${r.name||'未命名案例'}</div><div class="mt">坐${r.sit} · 灶${r.stove} · 口${mOfDeg(r.face)} · ${fmtTime(r.ts)}</div>`;
+    row.appendChild(mid);
+    const gb=document.createElement('span');gb.className='gb2';gb.textContent=`${ev.g.s} ${ev.score}`;row.appendChild(gb);
+    const acts=document.createElement('div');acts.className='acts';
+    const pin=document.createElement('button');pin.textContent=r.pin?'★':'☆';pin.title='置顶';
+    pin.addEventListener('click',e=>{e.stopPropagation();r.pin=!r.pin;saveRec();renderRecords();uiTick();});
+    const del=document.createElement('button');del.className='del';del.textContent='✕';del.title='删除';
+    del.addEventListener('click',e=>{e.stopPropagation();const i=records.indexOf(r);records.splice(i,1);snapFull.delete(r.id);saveRec();renderRecords();uiTick();
+      toast('已删除案例',()=>{records.splice(Math.min(i,records.length),0,r);saveRec();renderRecords();});});
+    acts.appendChild(pin);acts.appendChild(del);row.appendChild(acts);
+    row.addEventListener('click',()=>openRecord(r,ev));
+    box.appendChild(row);
+  });
+}
+function openRecord(r,ev){
+  const nodes=[];
+  if(r.photo){
+    const d=document.createElement('div');d.className='dsec';d.innerHTML='<h4>实景快照</h4>';
+    const im=document.createElement('img');im.className='dphoto';im.src=r.photo;im.alt='实景快照';d.appendChild(im);
+    const acts=document.createElement('div');acts.className='btn-grid';acts.style.marginTop='9px';
+    const bs=document.createElement('button');bs.className='btn fire';bs.textContent='存入相册 / 分享';
+    bs.addEventListener('click',()=>savePhoto(r));
+    const bd=document.createElement('button');bd.className='btn';bd.textContent='下载 PNG';
+    bd.addEventListener('click',()=>downloadPhoto(r));
+    acts.appendChild(bs);acts.appendChild(bd);d.appendChild(acts);nodes.push(d);
+  }
+  const f1=document.createElement('div');f1.className='dsec';f1.innerHTML='<h4>案例</h4>';
+  const nm=document.createElement('div');nm.className='dfield';nm.innerHTML='<label>案例名称</label>';
+  const ni=document.createElement('input');ni.value=r.name||'';ni.addEventListener('input',()=>{r.name=ni.value;saveRec();renderRecords();});nm.appendChild(ni);
+  const nt=document.createElement('div');nt.className='dfield';nt.innerHTML='<label>备注 / 化解方案</label>';
+  const ta=document.createElement('textarea');ta.rows=4;ta.value=r.note||'';ta.addEventListener('input',()=>{r.note=ta.value;saveRec();});nt.appendChild(ta);
+  f1.appendChild(nm);f1.appendChild(nt);nodes.push(f1);
+  nodes.push(sec('判读摘要',`<p>宅向 <b>坐${r.sit}向${oppMtn(r.sit)}</b>（${GUA_MAP[r.sit]}宅）<br>灶座 <b>${r.stove}山</b> ${ev.seatPal}宫 ${ev.seatStar}<br>
+    火口 <b>${ev.faceM}山</b> ${ev.facePal}宫 ${ev.faceStar} · ${norm(r.face).toFixed(1)}°<br>评分 <b style="color:${ev.g.c}">${ev.score} · ${ev.g.t}</b>
+    ${ev.vetoes.length?`<br><b style="color:var(--deep)">否决：${ev.vetoes.join('、')}</b>`:''}
+    ${r.head!=null?`<br>实测方位 <b>${r.head.toFixed(1)}°</b>（${r.north||'磁北'}）`:''}
+    ${r.pose?`<br>姿态 俯仰${r.pose.pitch}° 横滚${r.pose.roll}° · ${r.pose.comp?'光轴补偿':'未补偿'}`:''}
+    <br>时间 ${fmtTime(r.ts)}</p>`));
+  nodes.push(sec('逐条诀判',ev.rows.map(({r:rr,st,detail})=>`<p><b style="color:${st==='he'?'var(--jade)':st==='ji'?'var(--danger)':'var(--muted)'}">${st==='he'?'合':'忌'} ${rr.t}</b> — ${detail}</p>`).join('')));
+  const bad=ev.rows.filter(x=>x.st==='ji');
+  if(bad.length)nodes.push(sec('化解建议',bad.map(({r:rr})=>`<p><b>${rr.t}</b>：${rr.fix}</p>`).join('')));
+  const acts=document.createElement('div');acts.className='btn-grid';
+  const b1=document.createElement('button');b1.className='btn primary';b1.textContent='载入此案例';
+  b1.addEventListener('click',()=>{cs.sit=r.sit;cs.stove=r.stove;cs.face=r.face;cs.cks=Object.assign({},DEF_CASE.cks,r.cks||{});
+    taken={sit:true,stove:true,face:true};syncChecks();ruleSig='';applyCase();closeDrawer();toast('案例已载入当前盘');});
+  const b2=document.createElement('button');b2.className='btn';b2.textContent='导出此报告';
+  b2.addEventListener('click',()=>downloadReport(r.name,evaluate(r.stove,r.face,r.sit,r.cks||DEF_CASE.cks,false),r.note));
+  acts.appendChild(b1);acts.appendChild(b2);nodes.push(acts);
+  openDrawer(r.name||'案例详情',nodes);
+}
+function lockCase(photo,extra){
+  const r={id:'r'+Date.now()+Math.random().toString(36).slice(2,6),ts:Date.now(),
+    name:`${GUA_MAP[cs.sit]}宅 灶${cs.stove} 口${mOfDeg(cs.face)}`,sit:cs.sit,stove:cs.stove,face:+cs.face.toFixed(1),cks:Object.assign({},cs.cks),note:''};
+  if(photo)r.photo=photo;
+  if(extra)Object.assign(r,extra);
+  records.unshift(r);saveRec();renderRecords();pulse(TH.accent,150,478,1000);
+  return r;
+}
+function exportCSV(){
+  if(!records.length){toast('暂无案例');return;}
+  const head='时间,名称,坐山,朝向,灶座,火口度,火口山,宫位,游年星,评分,判读,否决,实测方位,俯仰,横滚,备注';
+  const rows=records.map(r=>{const e=evaluate(r.stove,r.face,r.sit,r.cks||DEF_CASE.cks,false);
+    return[fmtTime(r.ts),(r.name||'').replace(/[,\n]/g,' '),r.sit,oppMtn(r.sit),r.stove,norm(r.face).toFixed(1),e.faceM,e.seatPal,e.seatStar,e.score,e.g.t,e.vetoes.join('/'),
+      r.head!=null?r.head.toFixed(1):'',r.pose?r.pose.pitch:'',r.pose?r.pose.roll:'',
+      (r.note||'').replace(/[,\n]/g,' ')].join(',');});
+  const b=new Blob(['\ufeff'+head+'\n'+rows.join('\n')],{type:'text/csv;charset=utf-8'});const u=URL.createObjectURL(b);
+  download(u,'安灶诀案例.csv');setTimeout(()=>URL.revokeObjectURL(u),4000);toast(`CSV 已导出 · ${records.length} 案`);uiTick();
+}
+function reportText(name,ev,note){
+  const L=['二十四山安灶诀 · 判读报告','生成：'+new Date().toLocaleString('zh-CN')];
+  if(name)L.push('案例：'+name);
+  L.push('',`宅向：坐${ev.sitM}向${oppMtn(ev.sitM)}（${ev.gua}宅 · ${EAST.has(ev.gua)?'东四宅':'西四宅'}）`,
+   `灶座：${ev.seatM}山 · ${ev.seatPal}宫 ${DIRS[ev.seatPal]} · 游年${ev.seatStar}（${STAR[ev.seatStar].n}）`,
+   `火口：${ev.faceM}山 · ${ev.facePal}宫 ${DIRS[ev.facePal]} · 游年${ev.faceStar} · ${ev.faceDeg.toFixed(1)}°`,
+   `判读：${ev.g.t} · ${ev.score} 分`);
+  if(ev.vetoes.length)L.push('一票否决：'+ev.vetoes.join('、'));
+  L.push('','【逐条安灶诀】');
+  ev.rows.forEach(({r,st,detail,w})=>L.push(`${st==='he'?'✓合诀':st==='ji'?'✗犯忌':'—平'} ${r.t}（${r.src}${w?` ${w>0?'+':''}${w}`:''}）：${detail}`));
+  const bad=ev.rows.filter(x=>x.st==='ji');
+  if(bad.length){L.push('','【化解建议】');bad.forEach(({r})=>L.push(`· ${r.t}：${r.fix}`));}
+  if(note){L.push('','【备注】',note);}
+  L.push('','说明：依八宅游年与形家禁忌综合判读，属传统民俗文化参考，非科学结论。炉灶实务以燃气安全、通风排烟与消防规范为先。');
+  return L.join('\n');
+}
+function downloadReport(name,ev,note){
+  const b=new Blob([reportText(name,ev,note)],{type:'text/plain;charset=utf-8'});const u=URL.createObjectURL(b);
+  download(u,`安灶诀报告_坐${ev.sitM}_灶${ev.seatM}.txt`);setTimeout(()=>URL.revokeObjectURL(u),4000);toast('判读报告已导出');uiTick();
+}
+
+/* ---------- 摄像头 ---------- */
+async function startCam(){
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){toast('此浏览器不支持摄像头');return;}
+  try{
+    stopCam(true);
+    const facing=state.camFace==='front'?'user':'environment';
+    camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:facing},width:{ideal:1280},height:{ideal:1280}},audio:false});
+    const v=$('camVideo');v.srcObject=camStream;await v.play().catch(()=>{});
+    camOn=true;$('viewer').classList.add('cam');document.body.classList.add('cam-on');
+    $('camBtn').classList.add('live');$('camLabel').textContent='关闭镜头';
+    setMode('compass');applyDialLayers();toast('摄像头已开启 · 举机对灶，读数已倾斜补偿');chime(true);
+    try{
+      const ds=await navigator.mediaDevices.enumerateDevices(),cams=ds.filter(d=>d.kind==='videoinput');
+      if(cams.length>1){const sel=$('camSel');sel.innerHTML='';
+        cams.forEach((d,i)=>{const o=document.createElement('option');o.value=d.deviceId;o.textContent=d.label||('镜头 '+(i+1));sel.appendChild(o);});
+        const cur=camStream.getVideoTracks()[0].getSettings().deviceId;if(cur)sel.value=cur;}
+    }catch(e){}
+  }catch(e){camOn=false;toast(e&&e.name==='NotAllowedError'?'摄像头权限被拒绝':'摄像头开启失败（需 HTTPS 与授权）');}
+}
+function stopCam(quiet){
+  if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null;}
+  $('camVideo').srcObject=null;camOn=false;$('viewer').classList.remove('cam');document.body.classList.remove('cam-on');
+  $('camBtn').classList.remove('live');$('camLabel').textContent='摄像头';
+  applyDialLayers();if(!quiet)toast('摄像头已关闭');
+}
+async function switchCam(val){
+  state.camFace=val;save();
+  if(!camOn)return;
+  if(val==='env'||val==='front'){startCam();return;}
+  try{
+    stopCam(true);
+    camStream=await navigator.mediaDevices.getUserMedia({video:{deviceId:{exact:val},width:{ideal:1280}},audio:false});
+    $('camVideo').srcObject=camStream;await $('camVideo').play().catch(()=>{});
+    camOn=true;$('viewer').classList.add('cam');document.body.classList.add('cam-on');
+    $('camBtn').classList.add('live');$('camLabel').textContent='关闭镜头';applyDialLayers();
+  }catch(e){toast('切换镜头失败');}
+}
+
+/* ---------- 快照合成：灶景 ＋ 罗盘 ＋ 读数 ---------- */
+function roundRect(c,x,y,w,h,r){
+  c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);
+  c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);
+  c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath();
+}
+function paintReading(c,S,head){
+  const P=S*.045,f=mInfo(head),ev=EV;
+  const g=c.createLinearGradient(0,S*.62,0,S);
+  g.addColorStop(0,'rgba(5,7,15,0)');g.addColorStop(.45,'rgba(5,7,15,.72)');g.addColorStop(1,'rgba(5,7,15,.94)');
+  c.fillStyle=g;c.fillRect(0,S*.62,S,S*.38);
+  c.strokeStyle='rgba(233,196,106,.55)';c.lineWidth=Math.max(1,S*.0016);
+  c.beginPath();c.moveTo(P,S*.795);c.lineTo(S-P,S*.795);c.stroke();
+  /* 顶部品牌 */
+  c.textBaseline='alphabetic';c.textAlign='left';
+  c.fillStyle='rgba(5,7,15,.55)';roundRect(c,P*.7,P*.55,S*.30,S*.052,S*.012);c.fill();
+  c.fillStyle='#f7dfa0';c.font=`700 ${S*.026}px "Noto Serif SC",serif`;
+  c.fillText('二十四山安灶诀',P,P*.55+S*.036);
+  /* 印章 */
+  if(state.snapSeal){
+    const ss=S*.085,sx=S-P*.7-ss,sy=P*.55;
+    c.save();c.translate(sx+ss/2,sy+ss/2);c.rotate(-6*Math.PI/180);
+    c.fillStyle='#b8352a';roundRect(c,-ss/2,-ss/2,ss,ss,ss*.1);c.fill();
+    c.strokeStyle='rgba(246,231,211,.55)';c.lineWidth=ss*.02;c.strokeRect(-ss*.40,-ss*.40,ss*.80,ss*.80);
+    c.fillStyle='#f8ecd9';c.font=`700 ${ss*.31}px "Ma Shan Zheng","KaiTi",serif`;c.textAlign='center';
+    c.fillText('安',-ss*.2,-ss*.06);c.fillText('灶',ss*.2,-ss*.06);
+    c.fillText('之',-ss*.2,ss*.32);c.fillText('诀',ss*.2,ss*.32);
+    c.restore();c.textAlign='left';
+  }
+  /* 主读数 */
+  const y1=S*.862;
+  c.fillStyle='#f7dfa0';c.font=`900 ${S*.062}px "Noto Serif SC",serif`;
+  c.fillText(head.toFixed(1)+'°',P,y1);
+  const wDeg=c.measureText(head.toFixed(1)+'°').width;
+  c.fillStyle='#f2ecdc';c.font=`700 ${S*.034}px "Noto Serif SC",serif`;
+  c.fillText(`${f.m}山 · ${DIRS[f.gua]}`,P+wDeg+S*.018,y1);
+  /* 判读徽标 */
+  const bw=S*.28,bh=S*.058,bx=S-P-bw,by=y1-bh*.86;
+  c.fillStyle=ev.g.c;roundRect(c,bx,by,bw,bh,bh/2);c.fill();
+  c.fillStyle='#0b1020';c.font=`900 ${S*.028}px "Noto Serif SC",serif`;c.textAlign='center';
+  c.fillText(`${ev.g.t} ${ev.score}`,bx+bw/2,by+bh*.68);c.textAlign='left';
+  /* 第二行 */
+  c.fillStyle='#e9c46a';c.font=`700 ${S*.030}px "Noto Serif SC",serif`;
+  c.fillText(`坐${cs.sit}向${oppMtn(cs.sit)} · 灶${cs.stove}山(${EV.seatStar}) · 火口${EV.faceM}山(${EV.faceStar})`,P,S*.912);
+  /* 第三行 */
+  const d=new Date(),p=n=>String(n).padStart(2,'0');
+  const meta=`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())} · ${state.trueNorth?'真北':'磁北'} · 俯仰${pose.pitch.toFixed(0)}° 横滚${pose.roll.toFixed(0)}° · ${state.tiltComp?'倾斜补偿':'未补偿'}`+
+    (refH!=null?` · 基准${refH.toFixed(1)}° Δ${(lastDelta||0).toFixed(1)}°`:'');
+  c.fillStyle='rgba(226,222,208,.78)';c.font=`400 ${S*.020}px "Noto Serif SC",serif`;
+  c.fillText(meta,P,S*.958);
+  if(EV.vetoes.length){
+    c.fillStyle='#ff8a7a';c.font=`700 ${S*.021}px "Noto Serif SC",serif`;c.textAlign='right';
+    c.fillText('否决：'+EV.vetoes.join('·'),S-P,S*.912);c.textAlign='left';
+  }
+}
+async function snap(){
+  if(!camOn){toast('请先开启摄像头');return;}
+  const v=$('camVideo'),vw=v.videoWidth||0,vh=v.videoHeight||0;
+  if(!vw){toast('画面尚未就绪，稍候再拍');return;}
+  const btns=[$('snapBtn'),$('shotBtn')];btns.forEach(b=>b.disabled=true);
+  const fl=$('snapFlash');fl.classList.remove('go');void fl.offsetWidth;fl.classList.add('go');
+  shutter();
+  try{ if(document.fonts&&document.fonts.ready)await document.fonts.ready; }catch(e){}
+  const S=state.snapSize,head=effH();
+  const cv=document.createElement('canvas');cv.width=S;cv.height=S;
+  const c=cv.getContext('2d');
+  const sc=Math.max(S/vw,S/vh),dw=vw*sc,dh=vh*sc;
+  c.drawImage(v,(S-dw)/2,(S-dh)/2,dw,dh);
+  const finish=()=>{
+    if(state.snapInfo)paintReading(c,S,head);
+    cv.toBlob(async blob=>{
+      btns.forEach(b=>b.disabled=false);
+      if(!blob){toast('快照生成失败，请重试');return;}
+      const name=`安灶诀_${head.toFixed(1)}度_灶${cs.stove}_${stamp(Date.now())}.png`;
+      snapBlobs.set(name,blob);
+      const file=new File([blob],name,{type:'image/png'});
+      let shared=false;
+      if(navigator.canShare&&navigator.canShare({files:[file]})){
+        try{
+          await navigator.share({files:[file],title:'二十四山安灶诀 · 实景快照',
+            text:`坐${cs.sit}向${oppMtn(cs.sit)} · 灶${cs.stove}山 · 火口${mOfDeg(cs.face)}山 · ${EV.g.t} ${EV.score}分 · ${head.toFixed(1)}°`});
+          shared=true;toast('已送出快照 · 选「存储图像」即入相册');
+        }catch(err){
+          if(err&&err.name==='AbortError')toast('已取消分享 · 快照仍可下载');
+          else dlBlob(blob,name);
+        }
+      }else dlBlob(blob,name);
+      const th=document.createElement('canvas');th.width=512;th.height=512;
+      th.getContext('2d').drawImage(cv,0,0,512,512);
+      if(state.snapCase){
+        const r=lockCase(th.toDataURL('image/jpeg',.62),{head:+head.toFixed(1),north:state.trueNorth?'真北':'磁北',
+          pose:{pitch:+pose.pitch.toFixed(0),roll:+pose.roll.toFixed(0),comp:state.tiltComp&&pose.comp}});
+        snapFull.set(r.id,{blob,name});
+        if(!shared)toast(`快照已存 · ${EV.g.t} ${EV.score}分`,()=>{const i=records.indexOf(r);if(i>=0){records.splice(i,1);snapFull.delete(r.id);saveRec();renderRecords();}});
+      }
+    },'image/png');
+  };
+  if(state.snapDial){
+    const clone=svg.cloneNode(true);clone.setAttribute('xmlns',NS);clone.setAttribute('width',S);clone.setAttribute('height',S);
+    const b=new Blob([new XMLSerializer().serializeToString(clone)],{type:'image/svg+xml;charset=utf-8'});
+    const u=URL.createObjectURL(b),im=new Image();
+    im.onload=()=>{c.drawImage(im,0,0,S,S);URL.revokeObjectURL(u);finish();};
+    im.onerror=()=>{URL.revokeObjectURL(u);toast('罗盘叠加失败，已存实景与读数');finish();};
+    im.src=u;
+  }else finish();
+}
+const snapBlobs=new Map();
+function dlBlob(blob,name){
+  const u=URL.createObjectURL(blob);download(u,name);setTimeout(()=>URL.revokeObjectURL(u),8000);
+  toast('快照已下载至下载目录');
+}
+async function photoBlob(r){
+  const full=snapFull.get(r.id);
+  if(full)return full;
+  if(!r.photo)return null;
+  const res=await fetch(r.photo);const blob=await res.blob();
+  return{blob,name:`安灶诀案例_${r.stove}_${stamp(r.ts)}.jpg`};
+}
+async function savePhoto(r){
+  const p=await photoBlob(r);if(!p){toast('此案例无照片');return;}
+  const file=new File([p.blob],p.name,{type:p.blob.type});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+    try{await navigator.share({files:[file],title:'安灶诀快照'});toast('已送出 · 选「存储图像」入相册');return;}
+    catch(e){if(e&&e.name==='AbortError')return;}
+  }
+  dlBlob(p.blob,p.name);
+}
+async function downloadPhoto(r){
+  const p=await photoBlob(r);if(!p){toast('此案例无照片');return;}
+  dlBlob(p.blob,p.name);
+}
+
+/* ---------- 传感器：倾斜补偿 ---------- */
+function setSensor(s){
+  sensorState=s;
+  const m={idle:'<b>演示旋转中。</b>手机点「启用罗盘」，盘面随手机转动；桌面可拖动盘面。',
+   requesting:'<b>请求罗盘权限…</b>请允许「运动与方向」。',
+   active:'<b>罗盘已连接。</b>举机对灶时自动以光轴投影定向，俯仰不影响方位。',
+   lost:'<b>信号暂失。</b>静止片刻或远离磁体、金属灶面。',
+   unsupported:'<b>无方向传感器。</b>可拖动盘面手动定向，或用图纸判灶。',
+   denied:'<b>权限被拒。</b>请在浏览器设置允许「运动与方向」。',
+   insecure:'<b>需 HTTPS。</b>传感器与摄像头仅在安全上下文可用。'};
+  $('sensorState').innerHTML=m[s]||'';
+}
+function screenAngle(){try{return (screen.orientation&&screen.orientation.angle)||window.orientation||0;}catch(e){return 0;}}
+function onOrient(e){
+  const wk=(typeof e.webkitCompassHeading==='number'&&!isNaN(e.webkitCompassHeading))?e.webkitCompassHeading:null;
+  const a=e.alpha,b=e.beta,g=e.gamma;
+  if(a==null&&wk==null)return;
+  let head=null,comp=false;
+  if(a!=null&&b!=null&&g!=null){
+    const za=rad(a),xb=rad(b),yc=rad(g);
+    const cZ=Math.cos(za),sZ=Math.sin(za),cX=Math.cos(xb),sX=Math.sin(xb),cY=Math.cos(yc),sY=Math.sin(yc);
+    const r12=-cX*sZ, r22=cZ*cX;
+    const r13=sY*cZ+cY*sX*sZ, r23=sZ*sY-cZ*cY*sX, r33=cX*cY;
+    const r31=-cX*sY;
+    const devTilt=Math.acos(clamp(r33,-1,1))*DEG;
+    pose.devTilt=devTilt;
+    pose.pitch=devTilt-90;
+    pose.roll=Math.atan2(-r31,r33)*DEG;
+    const topAz=norm(Math.atan2(r12,r22)*DEG+screenAngle());
+    const hMag=Math.hypot(r13,r23);
+    const camAz=norm(Math.atan2(-r13,-r23)*DEG);
+    if(state.tiltComp){
+      let w=clamp((hMag-.15)/.55,0,1);w=w*w*(3-2*w);
+      head=blendAz(topAz,camAz,w);comp=w>.5;
+    }else head=topAz;
+    if(wk!=null){
+      const off=sdiff(norm(wk+screenAngle()),topAz);
+      northOffset=haveOffset?blendAz(northOffset,off,.08):off;haveOffset=true;
+      head=norm(head+northOffset);
+    }
+    pose.comp=comp;
+  }else if(wk!=null){
+    head=norm(wk+screenAngle());
+    pose.devTilt=typeof b==='number'?Math.abs(b):0;
+    pose.pitch=pose.devTilt-90;pose.roll=typeof g==='number'?g:0;pose.comp=false;
+  }
+  if(head==null)return;
+  tilt.b=typeof b==='number'?b:0;tilt.g=typeof g==='number'?g:0;
+  pose.acc=(typeof e.webkitCompassAccuracy==='number')?e.webkitCompassAccuracy:null;
+  const rollAbs=Math.abs(pose.roll);
+  pose.quality=(pose.acc!=null&&pose.acc>=0)
+    ?(pose.acc<=15&&rollAbs<25?'优':pose.acc<=35&&rollAbs<35?'良':'差')
+    :(rollAbs<=14?'优':rollAbs<=28?'良':'差');
+  lastSensor=performance.now();
+  if(!sensorEver){sensorEver=true;setSensor('active');$('enableBtn').classList.add('live');$('enableLabel').textContent='罗盘运行中';toast('罗盘已连接 · 倾斜补偿已启用');chime();}
+  if(src!=='sensor'){src='sensor';$('demoT').checked=false;updateStatus();}
+  targetH=head;
+}
+let listenersOn=false;
+async function enableCompass(){
+  ensureAudio();
+  if(src==='sensor'){toast('罗盘运行中 · 远离金属灶面可提精度');return;}
+  if(!window.isSecureContext&&location.hostname!=='localhost'&&location.protocol!=='file:'){setSensor('insecure');toast('需 HTTPS 环境');return;}
+  if(typeof DeviceOrientationEvent==='undefined'){setSensor('unsupported');toast('此设备无方向传感器');return;}
+  setSensor('requesting');
+  if(typeof DeviceOrientationEvent.requestPermission==='function'){
+    try{const r=await DeviceOrientationEvent.requestPermission();if(r!=='granted'){setSensor('denied');toast('罗盘权限被拒');return;}}
+    catch(e){setSensor('denied');toast('权限请求失败');return;}
+  }
+  if(!listenersOn){listenersOn=true;window.addEventListener('deviceorientationabsolute',onOrient,true);window.addEventListener('deviceorientation',onOrient,true);}
+  setTimeout(()=>{if(!sensorEver){setSensor('unsupported');toast('未检测到罗盘信号 · 可拖动盘面');}},2600);
+}
+function updateStatus(){
+  $('statusBadge').className='status '+src;
+  $('statusText').textContent=src==='sensor'?'罗盘已连接':src==='manual'?'手动定向':'演示模式';
+  $('demoT').checked=src==='demo';
+  $('hintLine').innerHTML=camOn
+    ?'<em>举机取景：</em>镜头对准炉灶本体 → 取为灶座；对准开关面朝向 → 取为火口；点<b style="color:var(--flame)">快照存证</b>合成灶景＋罗盘＋读数。'
+    :src==='sensor'?'<em>手机对准炉灶本体 → 取为灶座；再对准灶具开关面朝向 → 取为火口。</em>红针指北，上方红标为当前朝向。'
+    :src==='manual'?'<em>手动定向：</em>横向拖动盘面 / 滚轮 / ←→ 微调（Shift ×15）。点「启用罗盘」恢复传感器。'
+    :'<em>演示旋转中。</em>拖动盘面可手动定向；手机点「启用罗盘」跟随真实方位，点「摄像头」实景对灶。';
+}
+function setManual(h){src='manual';targetH=norm(h);vel=0;$('demoT').checked=false;updateStatus();}
+
+/* ---------- 音 ---------- */
+let actx=null,master=null,lastTick=0;
+function ensureAudio(){
+  if(!actx){try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;actx=new A();master=actx.createGain();master.gain.value=state.sound?.5:0;master.connect(actx.destination);}catch(e){}}
+  if(actx&&actx.state==='suspended')actx.resume();
+}
+function unlock(){ensureAudio();if(actx&&actx.state==='running'){document.removeEventListener('pointerdown',unlock);document.removeEventListener('keydown',unlock);}}
+document.addEventListener('pointerdown',unlock);document.addEventListener('keydown',unlock);
+function tone(f,d,v,t){if(!actx||actx.state!=='running'||!state.sound)return;
+  const t0=actx.currentTime,g=actx.createGain();g.connect(master);g.gain.setValueAtTime(v,t0);g.gain.exponentialRampToValueAtTime(.0001,t0+d);
+  const o=actx.createOscillator();o.type=t||'sine';o.frequency.value=f;o.connect(g);o.start(t0);o.stop(t0+d+.02);}
+function tickSound(){const n=performance.now();if(n-lastTick<110)return;lastTick=n;tone(820,.05,.028,'triangle');}
+function uiTick(){tone(740,.05,.03,'triangle');}
+function chime(soft){tone(523.25,.9,soft?.07:.13);setTimeout(()=>tone(659.25,.8,soft?.05:.09),90);}
+function shutter(){tone(1600,.04,.06,'square');setTimeout(()=>tone(900,.06,.05,'square'),50);}
+function warnTone(){tone(160,.3,.08);}
+
+/* ---------- 背景灶火 ---------- */
+const bgC=$('bg'),bx=bgC.getContext('2d');
+let embers=[],bgPal=[],cleared=false;
+function refreshBgPal(){bgPal=[TH.flame,TH.accent,TH.cinnabar];}
+function newEmber(init){return{x:Math.random()*innerWidth,y:init?Math.random()*innerHeight:innerHeight+8,r:.7+Math.random()*2.1,
+  vy:-(8+Math.random()*22),vx:(Math.random()-.5)*10,ph:Math.random()*6.28,sp:1+Math.random()*2,ci:Math.floor(Math.random()*3)};}
+function resizeBg(){
+  const d=Math.min(2,window.devicePixelRatio||1);
+  bgC.width=innerWidth*d;bgC.height=innerHeight*d;bgC.style.width=innerWidth+'px';bgC.style.height=innerHeight+'px';
+  bx.setTransform(d,0,0,d,0,0);
+  const n=Math.min(70,Math.round(innerWidth*innerHeight/24000));
+  embers=[];for(let i=0;i<n;i++)embers.push(newEmber(true));
+}
+function drawBg(dt,now){
+  if(reduced){if(!cleared){bx.clearRect(0,0,innerWidth,innerHeight);cleared=true;}return;}
+  cleared=false;bx.clearRect(0,0,innerWidth,innerHeight);
+  for(let i=0;i<embers.length;i++){
+    const e=embers[i];e.y+=e.vy*dt;e.x+=(e.vx+Math.sin(now/900+e.ph)*6)*dt;
+    if(e.y<-10){embers[i]=newEmber(false);continue;}
+    const fade=clamp(e.y/innerHeight,0,1);
+    bx.globalAlpha=(light?.1:.16)+(light?.14:.42)*fade*(0.55+0.45*Math.sin(now/700*e.sp+e.ph));
+    bx.fillStyle=bgPal[e.ci]||TH.flame;bx.beginPath();bx.arc(e.x,e.y,e.r,0,6.283);bx.fill();
+  }
+  bx.globalAlpha=1;
+}
+window.addEventListener('resize',resizeBg);
+function pulse(col,r0,r1,dur){const e=el('circle',{cx:C,cy:C,r:r0,fill:'none',stroke:col,'stroke-width':3},pulsesG);pulses.push({e,born:performance.now(),dur,r0,r1});}
+function stepPulses(now){for(let i=pulses.length-1;i>=0;i--){const p=pulses[i],a=(now-p.born)/p.dur;
+  if(a>=1){p.e.remove();pulses.splice(i,1);continue;}const e=1-Math.pow(1-a,3);
+  p.e.setAttribute('r',p.r0+(p.r1-p.r0)*e);p.e.setAttribute('opacity',.7*(1-a));}}
+
+/* ---------- 导出 ---------- */
+function download(href,name){const a=document.createElement('a');a.href=href;a.download=name;document.body.appendChild(a);a.click();a.remove();}
+function serializeDial(){const c=svg.cloneNode(true);c.setAttribute('xmlns',NS);c.setAttribute('width',1000);c.setAttribute('height',1000);c.removeAttribute('style');
+  return'<?xml version="1.0" encoding="UTF-8"?>\n'+new XMLSerializer().serializeToString(c);}
+function fname(){return`安灶诀_坐${cs.sit}向${oppMtn(cs.sit)}_灶${cs.stove}口${mOfDeg(cs.face)}_${EV.score}分`;}
+function exportSVG(){try{const b=new Blob([serializeDial()],{type:'image/svg+xml;charset=utf-8'}),u=URL.createObjectURL(b);
+  download(u,fname()+'.svg');setTimeout(()=>URL.revokeObjectURL(u),4000);toast('SVG 已导出（当前盘态）');uiTick();}catch(e){toast('导出失败');}}
+function svgClonePlan(w,h){
+  const c=planSvg.cloneNode(true);c.setAttribute('xmlns',NS);c.setAttribute('width',w);c.setAttribute('height',h);
+  c.setAttribute('viewBox',`0 0 ${pw} ${ph}`);
+  return new XMLSerializer().serializeToString(c);
+}
+function exportPNG(){
+  const btn=$('pngBtn');btn.disabled=true;
+  const finish=()=>{btn.disabled=false;};
+  try{
+    if(mode==='plan'&&planReady){
+      const W=1400,H=Math.round(W*ph/pw),cv=document.createElement('canvas');cv.width=W;cv.height=H;const c2=cv.getContext('2d');
+      const im=new Image();
+      im.onload=()=>{
+        c2.globalAlpha=state.planAlpha/100;c2.drawImage(im,0,0,W,H);c2.globalAlpha=1;
+        const b=new Blob([svgClonePlan(W,H)],{type:'image/svg+xml;charset=utf-8'}),u=URL.createObjectURL(b),i2=new Image();
+        i2.onload=()=>{c2.drawImage(i2,0,0,W,H);URL.revokeObjectURL(u);
+          download(cv.toDataURL('image/png'),fname()+'_图纸.png');toast('图纸判读 PNG 已导出');uiTick();finish();};
+        i2.onerror=()=>{URL.revokeObjectURL(u);download(cv.toDataURL('image/png'),fname()+'_图纸.png');toast('已导出图纸（叠加层合成失败）');finish();};
+        i2.src=u;};
+      im.onerror=()=>{toast('图纸导出失败');finish();};im.src=planSrc;return;
+    }
+    const b=new Blob([serializeDial()],{type:'image/svg+xml;charset=utf-8'}),u=URL.createObjectURL(b),im=new Image();
+    im.onload=()=>{try{const cv=document.createElement('canvas');cv.width=2000;cv.height=2000;
+      cv.getContext('2d').drawImage(im,0,0,2000,2000);download(cv.toDataURL('image/png'),fname()+'.png');toast('PNG 已导出 2000×2000');uiTick();}
+      catch(e){toast('导出失败');}URL.revokeObjectURL(u);finish();};
+    im.onerror=()=>{URL.revokeObjectURL(u);finish();toast('导出失败');};im.src=u;
+  }catch(e){finish();toast('导出失败');}
+}
+
+/* ---------- Toast ---------- */
+function toast(msg,undo){
+  const box=$('toasts');while(box.children.length>=3)box.firstChild.remove();
+  const t=document.createElement('div');t.className='toast';
+  const s=document.createElement('span');s.textContent=msg;t.appendChild(s);
+  let timer;
+  if(undo){const b=document.createElement('button');b.textContent='撤销';
+    b.addEventListener('click',()=>{undo();clearTimeout(timer);t.classList.add('out');setTimeout(()=>t.remove(),300);});t.appendChild(b);}
+  box.appendChild(t);timer=setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},undo?6000:3400);
+}
+
+/* ---------- 视图 ---------- */
+function setMode(m){
+  mode=m;
+  document.querySelectorAll('#tabs button').forEach(b=>{const on=b.dataset.mode===m;b.classList.toggle('on',on);b.setAttribute('aria-selected',on);});
+  $('viewCompass').classList.toggle('on',m==='compass');
+  $('viewPlan').classList.toggle('on',m==='plan');
+  $('viewTable').classList.toggle('on',m==='table');
+  $('roHeadCell').style.display=m==='compass'?'':'none';
+  if(m!=='compass'&&camOn)stopCam(true);
+  if(m==='plan')requestAnimationFrame(()=>{measurePlan();renderPlan();});
+  if(m==='table')renderCards();
+  if(window.innerWidth<=1140)window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});
+  uiTick();
+}
+
+/* ---------- 控件 ---------- */
+function setFill(i){const p=(i.value-i.min)/(i.max-i.min)*100;i.style.setProperty('--p',p+'%');}
+function fillSelects(){
+  const mk=(sel,val)=>{const s=$(sel);s.innerHTML='';MOUNTS.forEach(m=>{const o=document.createElement('option');o.value=m;
+    o.textContent=`${m} · ${GUA_MAP[m]}宫 ${DIRS[GUA_MAP[m]]}`;s.appendChild(o);});s.value=val;};
+  mk('sitSel',cs.sit);mk('stoveSel',cs.stove);mk('faceSel',mOfDeg(cs.face));
+}
+function syncChecks(){[['ckKao','kao'],['ckTang','tang'],['ckLiang','liang'],['ckShui','shui'],['ckMen','men'],['ckCe','ce'],['ckJiao','jiao']].forEach(([id,k])=>$(id).checked=!!cs.cks[k]);}
+function syncControls(){
+  $('dampS').value=state.damp;$('dampVal').textContent=(+state.damp).toFixed(2);
+  $('declS').value=state.decl;$('declVal').textContent=(state.decl>=0?'+':'')+state.decl.toFixed(1)+'°';$('declS').disabled=!state.trueNorth;
+  $('camFade').value=state.camFade;$('camFadeVal').textContent=state.camFade+'%';
+  $('refTol').value=state.refTol;$('refTolVal').textContent=(+state.refTol).toFixed(1)+'°';
+  $('fontS').value=state.font;$('fontVal').textContent=state.font;
+  $('glowS').value=state.glow;$('glowVal').textContent=state.glow+'%';
+  $('planAlpha').value=state.planAlpha;$('planAlphaVal').textContent=state.planAlpha+'%';
+  $('ovAlpha').value=state.ovAlpha;$('ovAlphaVal').textContent=state.ovAlpha+'%';
+  $('densitySel').value=String(state.density);$('themeSel').value=state.theme;$('snapSize').value=String(state.snapSize);
+  $('trueNorthT').checked=state.trueNorth;$('tiltCompT').checked=state.tiltComp;$('refSnapT').checked=state.refSnap;
+  $('snapDialT').checked=state.snapDial;$('snapInfoT').checked=state.snapInfo;$('snapSealT').checked=state.snapSeal;$('snapCaseT').checked=state.snapCase;
+  [['verdictT','verdict'],['starRingT','starRing'],['palT','pal'],['triT','tri'],['degT','deg'],['yuanT','yuan'],['crossT','cross'],['markT','mark']].forEach(([id,k])=>$(id).checked=!!state[k]);
+  ['dampS','declS','camFade','fontS','glowS','planAlpha','ovAlpha','faceSlider','refTol'].forEach(id=>setFill($(id)));
+  syncChecks();syncSound();
+}
+function syncSound(){
+  $('soundBtn').setAttribute('aria-pressed',state.sound);
+  $('soundWaves').style.display=state.sound?'':'none';$('soundSlash').style.display=state.sound?'none':'';
+  $('soundLabel').textContent=state.sound?'音律':'静音';
+}
+let dragging=false,dragMoved=false,dA0=0,dH0=0,lA=0,lT=0;
+function pAngle(e){const r=svg.getBoundingClientRect();return Math.atan2(e.clientY-(r.top+r.height/2),e.clientX-(r.left+r.width/2))*180/Math.PI;}
+svg.addEventListener('pointerdown',e=>{ensureAudio();dragging=true;dragMoved=false;
+  try{svg.setPointerCapture(e.pointerId);}catch(err){}
+  dA0=pAngle(e);dH0=targetH;lA=dA0;lT=performance.now();vel=0;});
+svg.addEventListener('pointermove',e=>{
+  if(!dragging)return;
+  const a=pAngle(e);
+  if(!dragMoved){if(Math.abs(sdiff(a,dA0))<1.2)return;dragMoved=true;svg.classList.add('grabbing');setManual(dH0);}
+  const now=performance.now(),da=sdiff(a,lA),dt=Math.max(.016,(now-lT)/1000);
+  vel=clamp(-da/dt,-240,240);lA=a;lT=now;targetH=norm(dH0-sdiff(a,dA0));});
+function endDrag(){if(dragging){dragging=false;dragMoved=false;svg.classList.remove('grabbing');}}
+svg.addEventListener('pointerup',endDrag);svg.addEventListener('pointercancel',endDrag);
+svg.addEventListener('wheel',e=>{e.preventDefault();setManual(targetH+(e.deltaY>0?1:-1)*(e.shiftKey?15:1));},{passive:false});
+
+function wire(){
+  document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+  $('enableBtn').addEventListener('click',enableCompass);
+  $('camBtn').addEventListener('click',()=>{ensureAudio();camOn?stopCam():startCam();});
+  $('snapBtn').addEventListener('click',snap);
+  $('shotBtn').addEventListener('click',snap);
+  $('camSel').addEventListener('change',e=>switchCam(e.target.value));
+  $('camFade').addEventListener('input',e=>{state.camFade=+e.target.value;$('camFadeVal').textContent=state.camFade+'%';setFill(e.target);applyDialLayers();save();});
+  $('snapSize').addEventListener('change',e=>{state.snapSize=+e.target.value;uiTick();save();});
+  [['snapDialT','snapDial'],['snapInfoT','snapInfo'],['snapSealT','snapSeal'],['snapCaseT','snapCase']].forEach(([id,k])=>{
+    $(id).addEventListener('change',e=>{state[k]=e.target.checked;uiTick();save();});});
+  $('tiltCompT').addEventListener('change',e=>{state.tiltComp=e.target.checked;uiTick();save();
+    toast(state.tiltComp?'倾斜补偿已开 · 举机对灶读数与放平一致':'倾斜补偿已关 · 仅供对比，举机时读数会漂移');});
+  $('refSnapT').addEventListener('change',e=>{state.refSnap=e.target.checked;uiTick();save();
+    if(state.refSnap&&refH==null)toast('尚未取水平基准，请先放平手机点「取水平基准」');});
+  $('refTol').addEventListener('input',e=>{state.refTol=+e.target.value;$('refTolVal').textContent=state.refTol.toFixed(1)+'°';setFill(e.target);save();});
+  $('refSetBtn').addEventListener('click',()=>{
+    if(src!=='sensor'){toast('请先启用罗盘，再放平手机取基准');return;}
+    if(pose.devTilt>15){toast(`机身倾斜 ${pose.devTilt.toFixed(0)}°，请放平（≤15°）再取基准`);warnTone();return;}
+    refH=rawH();$('refSnapT').checked=true;state.refSnap=true;save();
+    pulse(TH.info,150,470,900);chime(true);toast(`水平基准已锁：${refH.toFixed(1)}° · 举机取景将自动贴附`);});
+  $('refClrBtn').addEventListener('click',()=>{refH=null;state.refSnap=false;$('refSnapT').checked=false;save();uiTick();toast('水平基准已清除');});
+  $('takeSit').addEventListener('click',()=>{cs.sit=oppMtn(mOfDeg(effH()));taken.sit=true;applyCase();toast(`宅向已定：坐${cs.sit}向${oppMtn(cs.sit)}`);chime(true);});
+  $('takeStove').addEventListener('click',()=>{cs.stove=mOfDeg(effH());taken.stove=true;applyCase();pulse(TH.cinnabar,150,470,900);
+    toast(`灶座已取：${cs.stove}山 · ${EV.g.t}`);EV.score<48?warnTone():chime(true);});
+  $('takeFace').addEventListener('click',()=>{cs.face=effH();taken.face=true;applyCase();toast(`火口已取：${mOfDeg(cs.face)}山 · ${EV.g.t}`);chime(true);});
+  $('sitSel').addEventListener('change',e=>{cs.sit=e.target.value;taken.sit=true;applyCase();uiTick();});
+  $('stoveSel').addEventListener('change',e=>{cs.stove=e.target.value;taken.stove=true;applyCase();uiTick();});
+  $('faceSel').addEventListener('change',e=>{cs.face=mCenter(e.target.value);taken.face=true;applyCase();uiTick();});
+  $('faceSlider').addEventListener('input',e=>{cs.face=+e.target.value;taken.face=true;setFill(e.target);applyCase('faceSlider');});
+  $('sitFromCompass').addEventListener('click',()=>$('takeSit').click());
+  $('stoveFromCompass').addEventListener('click',()=>$('takeStove').click());
+  $('faceFromCompass').addEventListener('click',()=>$('takeFace').click());
+  $('bestFaceBtn').addEventListener('click',()=>{const b=bestFace(cs.stove,cs.sit,cs.cks);cs.face=b.deg;taken.face=true;applyCase();
+    toast(`已择吉火口：${b.m}山（${BAZHAI[GUA_MAP[cs.sit]][GUA_MAP[b.m]]}）· ${b.ev.score}分`);chime();});
+  [['ckKao','kao'],['ckTang','tang'],['ckLiang','liang'],['ckShui','shui'],['ckMen','men'],['ckCe','ce'],['ckJiao','jiao']].forEach(([id,k])=>{
+    $(id).addEventListener('change',e=>{cs.cks[k]=e.target.checked;applyCase();uiTick();if(!e.target.checked)warnTone();});});
+  $('dampS').addEventListener('input',e=>{state.damp=+e.target.value;$('dampVal').textContent=state.damp.toFixed(2);setFill(e.target);save();});
+  $('declS').addEventListener('input',e=>{state.decl=+e.target.value;$('declVal').textContent=(state.decl>=0?'+':'')+state.decl.toFixed(1)+'°';setFill(e.target);lastIdx=-1;save();});
+  $('trueNorthT').addEventListener('change',e=>{state.trueNorth=e.target.checked;$('declS').disabled=!state.trueNorth;lastIdx=-1;uiTick();save();});
+  $('demoT').addEventListener('change',e=>{if(e.target.checked){src='demo';demoT=0;}else{src='manual';targetH=norm(dispH);}updateStatus();uiTick();});
+  $('themeSel').addEventListener('change',e=>{state.theme=e.target.value;refreshTheme();restyleDial();ruleSig='';applyCase();uiTick();save();});
+  $('densitySel').addEventListener('change',e=>{state.density=+e.target.value;buildTicks();uiTick();save();});
+  $('fontS').addEventListener('input',e=>{state.font=+e.target.value;$('fontVal').textContent=state.font;setFill(e.target);applyDialLayers();save();});
+  $('glowS').addEventListener('input',e=>{state.glow=+e.target.value;$('glowVal').textContent=state.glow+'%';setFill(e.target);applyDialLayers();save();});
+  [['verdictT','verdict'],['starRingT','starRing'],['palT','pal'],['triT','tri'],['degT','deg'],['yuanT','yuan'],['crossT','cross'],['markT','mark']].forEach(([id,k])=>{
+    $(id).addEventListener('change',e=>{state[k]=e.target.checked;applyCase();uiTick();save();});});
+  $('planAlpha').addEventListener('input',e=>{state.planAlpha=+e.target.value;$('planAlphaVal').textContent=state.planAlpha+'%';setFill(e.target);renderPlan();save();});
+  $('ovAlpha').addEventListener('input',e=>{state.ovAlpha=+e.target.value;$('ovAlphaVal').textContent=state.ovAlpha+'%';setFill(e.target);renderPlan();save();});
+  $('uploadBtn').addEventListener('click',()=>$('fileInput').click());
+  $('fileInput').addEventListener('change',e=>{const f=e.target.files[0];if(f)readFile(f);e.target.value='';});
+  $('sampleBtn').addEventListener('click',()=>{cs.center=[.5,.5];cs.stoveXY=[.4,.789];cs.doorXY=[.14,.947];cs.doorOn=true;cs.northUp=0;
+    loadPlan(SAMPLE);cs.stove=mOfDeg(bearing(cs.center,cs.stoveXY));applyCase();});
+  $('doorBtn').addEventListener('click',()=>{cs.doorOn=!cs.doorOn;applyCase();toast(cs.doorOn?'已启用大门标记（拖动定位）':'已移除大门标记');});
+  $('resetMkBtn').addEventListener('click',()=>{cs.center=[.5,.5];cs.stoveXY=[.4,.789];cs.doorXY=[.14,.947];cs.northUp=0;
+    cs.stove=mOfDeg(bearing(cs.center,cs.stoveXY));applyCase();toast('标记已重置');});
+  $('autoStoveBtn').addEventListener('click',()=>{
+    const best=OV.slice().sort((a,b)=>b.ev.score-a.ev.score)[0];
+    cs.stoveXY=placeAtBearing(mCenter(best.m),.34);
+    cs.stove=mOfDeg(bearing(cs.center,cs.stoveXY));cs.face=best.best.deg;taken.stove=taken.face=true;applyCase();
+    pulse(TH.accent,150,470,900);chime();toast(`已择吉灶：${best.m}山 口${best.best.m} · ${best.ev.score}分`);});
+  $('searchIn').addEventListener('input',renderCards);
+  $('filterSel24').addEventListener('change',renderCards);
+  $('sortSel24').addEventListener('change',renderCards);
+  $('lockBtn').addEventListener('click',()=>{ensureAudio();const r=lockCase(null,{head:+effH().toFixed(1),north:state.trueNorth?'真北':'磁北'});
+    chime();toast(`已立案 · ${EV.g.t} ${EV.score}分`,()=>{const i=records.indexOf(r);if(i>=0){records.splice(i,1);saveRec();renderRecords();}});});
+  $('recSearch').addEventListener('input',renderRecords);
+  $('recFilter').addEventListener('change',renderRecords);
+  $('recSort').addEventListener('change',renderRecords);
+  $('clearBtn').addEventListener('click',()=>{if(!records.length){toast('案例已空');return;}
+    const prev=records.slice();records=[];snapFull.clear();saveRec();renderRecords();uiTick();
+    toast(`已清空 ${prev.length} 案`,()=>{records=prev;saveRec();renderRecords();});});
+  $('csvBtn').addEventListener('click',exportCSV);
+  $('copyBtn').addEventListener('click',()=>{
+    const txt=reportText('',EV,'');
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>toast('判读全文已复制'),()=>downloadReport('当前判读',EV,''));
+    else downloadReport('当前判读',EV,'');});
+  $('reportBtn').addEventListener('click',()=>downloadReport('当前判读',EV,''));
+  $('randomBtn').addEventListener('click',()=>{
+    const th=['xuanye','zhusha','qingyu','xuanzhi'];state.theme=th[Math.floor(Math.random()*4)];
+    state.density=[1,2,5][Math.floor(Math.random()*3)];state.font=26+Math.floor(Math.random()*13);state.glow=30+Math.floor(Math.random()*65);
+    cs.sit=MOUNTS[Math.floor(Math.random()*24)];cs.stove=MOUNTS[Math.floor(Math.random()*24)];
+    const b=bestFace(cs.stove,cs.sit,cs.cks);cs.face=b.deg;taken={sit:true,stove:true,face:true};
+    refreshTheme();restyleDial();buildTicks();syncControls();ruleSig='';applyCase();setManual(Math.random()*360);
+    pulse(TH.accent,150,470,900);uiTick();toast(`随机布盘 · ${GUA_MAP[cs.sit]}宅 灶${cs.stove}`);});
+  $('resetBtn').addEventListener('click',()=>{
+    const ps=Object.assign({},state),pc=JSON.parse(JSON.stringify(cs));
+    Object.assign(state,DEF);cs=JSON.parse(JSON.stringify(DEF_CASE));taken={sit:false,stove:false,face:false};refH=null;
+    refreshTheme();restyleDial();buildTicks();fillSelects();syncControls();ruleSig='';applyCase();
+    src=reduced?'manual':'demo';demoT=0;targetH=135;updateStatus();setSensor('idle');
+    toast('已复位全盘',()=>{Object.assign(state,ps);cs=pc;refreshTheme();restyleDial();buildTicks();fillSelects();syncControls();ruleSig='';applyCase();});});
+  $('pngBtn').addEventListener('click',exportPNG);
+  $('svgBtn').addEventListener('click',exportSVG);
+  $('soundBtn').addEventListener('click',()=>{state.sound=!state.sound;if(state.sound)ensureAudio();
+    if(master)master.gain.setTargetAtTime(state.sound?.5:0,actx.currentTime,.02);syncSound();if(state.sound)uiTick();save();});
+  document.addEventListener('keydown',e=>{
+    const t=(e.target.tagName||'').toUpperCase();
+    if(t==='INPUT'||t==='SELECT'||t==='TEXTAREA')return;
+    if(e.key==='Escape'){closeDrawer();return;}
+    const st=e.shiftKey?15:1;
+    if(e.key==='ArrowRight'){e.preventDefault();mode==='compass'?setManual(targetH+st):(cs.face=norm(cs.face+st),taken.face=true,applyCase());}
+    else if(e.key==='ArrowLeft'){e.preventDefault();mode==='compass'?setManual(targetH-st):(cs.face=norm(cs.face-st),taken.face=true,applyCase());}
+    else if(e.key==='1')setMode('compass');else if(e.key==='2')setMode('plan');else if(e.key==='3')setMode('table');
+    else if(e.key==='l'||e.key==='L')$('lockBtn').click();
+    else if(e.key==='c'||e.key==='C')camOn?stopCam():startCam();
+    else if(e.key==='p'||e.key==='P')snap();
+    else if(e.key==='m'||e.key==='M')$('soundBtn').click();
+  });
+  document.addEventListener('visibilitychange',()=>{if(document.hidden&&camOn)stopCam(true);});
+  window.addEventListener('orientationchange',()=>{lastSensor=0;haveOffset=false;setTimeout(()=>{measurePlan();renderPlan();},350);});
+}
+
+/* ---------- 主循环 ---------- */
+let last=performance.now(),spinA=0;
+function frame(now){
+  const dt=Math.min(.05,(now-last)/1000);last=now;
+  if(src==='demo'){
+    demoT+=dt;targetH=norm(135+demoT*5.5+Math.sin(demoT*.5)*16);
+    pose.pitch=-18+Math.sin(demoT*.35)*22;pose.roll=Math.sin(demoT*.23)*6;
+    pose.devTilt=pose.pitch+90;pose.comp=state.tiltComp;pose.quality='优';
+  }
+  if(src==='manual'&&!dragging&&Math.abs(vel)>2){targetH=norm(targetH+vel*dt);vel*=Math.pow(.88,dt*60);}
+  if(src==='manual'){pose.pitch=0;pose.roll=0;pose.devTilt=0;pose.comp=false;pose.quality='优';}
+  if(src==='sensor'&&sensorEver&&now-lastSensor>3000&&sensorState==='active')setSensor('lost');
+  if(src==='sensor'&&sensorState==='lost'&&now-lastSensor<1500)setSensor('active');
+  const k=reduced?1:1-Math.pow(state.damp,dt*60);
+  dispH+=sdiff(targetH,norm(dispH))*k;
+  if(Math.abs(dispH)>7200)dispH=norm(dispH);
+  if(mode==='compass'){
+    if(!reduced){spinA+=dt*3;decor1.setAttribute('transform',`rotate(${spinA} ${C} ${C})`);decor2.setAttribute('transform',`rotate(${-spinA*1.5} ${C} ${C})`);}
+    renderDial();
+  }else updateAccUI();
+  const sim=src!=='sensor',b=sim?0:tilt.b,g=sim?0:tilt.g;
+  $('levelBall').style.transform=`translate(calc(-50% + ${clamp(g,-30,30)/30*17}px),calc(-50% + ${clamp(b,-30,30)/30*17}px))`;
+  const td=Math.round(Math.hypot(b,g));
+  $('levelWrap').classList.toggle('tilt',td>5);
+  $('levelText').textContent=sim?'水平·模拟':(td<=5?`水平 ${td}°`:`倾斜 ${td}°`);
+  stepPulses(now);drawBg(dt,now);
+  requestAnimationFrame(frame);
+}
+
+/* ---------- 起盘 ---------- */
+refreshTheme();buildDial();restyleDial();fillSelects();syncControls();
+applyCase();flushCase();renderRecords();resizeBg();updateStatus();setSensor('idle');
+loadPlan(planSrc||SAMPLE,true);
+renderDial();wire();
+requestAnimationFrame(n=>{last=n;requestAnimationFrame(frame);});
+})();
+</script>
+</body>
+</html>
