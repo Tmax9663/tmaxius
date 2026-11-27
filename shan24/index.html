@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>二十四山安灶诀 · 罗盘判灶</title>
-<meta name="description" content="二十四山安灶诀：罗盘随手机转动实测灶位火口，摄像头对灶快照取证，户型平面图定中心定北向，流年紫白飞星标注卦位（可选年份），依八宅游年「灶座压凶、火口向吉」与形家禁忌逐条判读宜忌化解。">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1226'/%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%23e9c46a' stroke-width='1.5'/%3E%3Cpath d='M16 6l3 8-3 3-3-3z' fill='%23e04a38'/%3E%3Cpath d='M16 26l-3-8 3-3 3 3z' fill='%23cfd6e6'/%3E%3Cpath d='M16 13c2 2 3 3.4 3 5a3 3 0 01-6 0c0-1.6 1-3 3-5z' fill='%23f5a623'/%3E%3C/svg%3E">
+<meta name="description" content="二十四山安灶诀：红十字天心十道定位引导，罗盘随手机转动实测灶位火口，摄像头对灶快照取证，户型平面图定中心定北向，流年紫白飞星标注卦位，依八宅游年「灶座压凶、火口向吉」与形家禁忌逐条判读宜忌化解。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1226'/%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%23e9c46a' stroke-width='1.5'/%3E%3Cpath d='M16 3.5v25M3.5 16h25' stroke='%23ff2f22' stroke-width='1.2'/%3E%3Cpath d='M16 6l3 8-3 3-3-3z' fill='%23e04a38'/%3E%3Cpath d='M16 26l-3-8 3-3 3 3z' fill='%23cfd6e6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --gold:#e9c46a;--gold-hi:#f7dfa0;--gold-lo:#c9973f;
-  --flame:#f5a623;--ember:#ff7a3d;
+  --flame:#f5a623;--ember:#ff7a3d;--guide:#ff2f22;
   --jade:#3ddc97;--ok2:#a3d977;--warn:#f5b32b;--danger:#ff5d52;--deep:#ff3b30;--info:#5eb6ff;--violet:#c77dff;
   --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
   --kai:"Ma Shan Zheng","KaiTi","STKaiti","Noto Serif SC",serif;
@@ -60,11 +60,10 @@ body::before{content:"";position:fixed;inset:-10%;z-index:0;pointer-events:none;
 .grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.6'/></svg>")}
 
-/* 顶栏 */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:60;height:64px;background:color-mix(in srgb,var(--bg0) 82%,transparent);
   backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid var(--edge)}
 .topbar::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
-  background:linear-gradient(90deg,transparent,var(--flame) 25%,var(--gold) 55%,var(--cinnabar) 80%,transparent);opacity:.6}
+  background:linear-gradient(90deg,transparent,var(--flame) 25%,var(--gold) 55%,var(--guide) 80%,transparent);opacity:.6}
 .topbar-in{max-width:1620px;margin:0 auto;height:100%;padding:0 16px;display:flex;align-items:center;gap:10px}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
 .brand svg{flex:none;filter:drop-shadow(0 0 7px rgba(245,166,35,.45))}
@@ -95,7 +94,6 @@ body::before{content:"";position:fixed;inset:-10%;z-index:0;pointer-events:none;
 .sound .slash{stroke:var(--danger);stroke-width:2;stroke-linecap:round}
 .sound[aria-pressed="false"] .spk{fill:var(--muted)}
 
-/* 布局 */
 .layout{position:relative;z-index:10;max-width:1620px;margin:0 auto;padding:80px 16px 34px;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;align-items:start}
 .stage{display:flex;flex-direction:column;gap:11px;min-width:0}
 .tabs{display:flex;gap:6px;background:color-mix(in srgb,var(--surface) 80%,transparent);border:1px solid var(--edge);border-radius:14px;padding:5px}
@@ -106,7 +104,6 @@ body::before{content:"";position:fixed;inset:-10%;z-index:0;pointer-events:none;
 .tabs button.on{background:linear-gradient(150deg,var(--gold-hi),var(--gold-lo));color:#241a05;font-weight:700;box-shadow:0 3px 12px -4px rgba(233,196,106,.7)}
 .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
 
-/* 判读条 */
 .readout{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:8px}
 .ro{background:linear-gradient(165deg,var(--surface2),var(--surface));border:1px solid var(--edge);border-radius:13px;padding:8px 12px;display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0}
 .ro .lb{font-size:9.5px;letter-spacing:2.4px;color:var(--muted)}
@@ -123,7 +120,6 @@ body::before{content:"";position:fixed;inset:-10%;z-index:0;pointer-events:none;
 .veto{font-size:9.5px;letter-spacing:1px;color:var(--deep);font-weight:700}
 .gd-daji{color:var(--jade)}.gd-ji{color:var(--ok2)}.gd-ping{color:var(--warn)}.gd-ji2{color:var(--danger)}
 
-/* 罗盘 / 摄像头 */
 .view{display:none;flex-direction:column;align-items:center;gap:10px;width:100%}
 .view.on{display:flex}
 .m-ribbon{display:none;align-items:center;gap:9px;width:100%;overflow-x:auto;padding:7px 11px;border-radius:12px;
@@ -140,7 +136,6 @@ body::before{content:"";position:fixed;inset:-10%;z-index:0;pointer-events:none;
 #dial.grabbing{cursor:grabbing}
 #dial text{user-select:none}
 
-/* HUD（罗盘画面之外） */
 .cam-hud{display:none;width:min(100%,660px);grid-template-columns:auto 1fr auto;gap:10px;align-items:center;
   border:1px solid var(--edge);border-radius:14px;padding:9px 13px;background:linear-gradient(160deg,var(--surface2),var(--surface))}
 .viewer.cam + .cam-hud{display:grid}
@@ -174,14 +169,13 @@ body::before{content:"";position:fixed;inset:-10%;z-index:0;pointer-events:none;
   background:linear-gradient(90deg,color-mix(in srgb,var(--danger) 55%,transparent) 0 2px,color-mix(in srgb,var(--warn) 26%,transparent) 2px 30%,
   color-mix(in srgb,var(--jade) 24%,transparent) 30% 70%,color-mix(in srgb,var(--warn) 26%,transparent) 70% calc(100% - 2px),color-mix(in srgb,var(--danger) 55%,transparent) calc(100% - 2px) 100%)}
 .ru-bar::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:color-mix(in srgb,var(--text) 55%,transparent)}
-.ru-marker{position:absolute;top:-3px;bottom:-3px;width:3px;border-radius:2px;background:var(--cinnabar);box-shadow:0 0 9px var(--cinnabar);transform:translateX(-50%)}
+.ru-marker{position:absolute;top:-3px;bottom:-3px;width:3px;border-radius:2px;background:var(--guide);box-shadow:0 0 9px var(--guide);transform:translateX(-50%)}
 .ru-labels{display:flex;justify-content:space-between;font-size:9.5px;color:var(--muted);letter-spacing:1px;margin-top:3px}
 .ru-labels b{color:var(--gold)}
 .hint{font-size:11.5px;color:var(--muted);letter-spacing:1.3px;text-align:center;line-height:1.8;max-width:680px}
 .hint em{font-style:normal;color:var(--gold)}
-.hint b{color:var(--danger)}
+.hint b{color:var(--guide)}
 
-/* 平面图 */
 .plan-tools{display:flex;flex-wrap:wrap;gap:7px;align-items:center;width:100%}
 .plan-wrap{position:relative;width:100%;border-radius:18px;overflow:hidden;border:1px solid var(--edge);background:var(--surface);
   box-shadow:0 20px 50px -26px rgba(0,0,0,.7);touch-action:none}
@@ -197,7 +191,6 @@ body::before{content:"";position:fixed;inset:-10%;z-index:0;pointer-events:none;
   border:2px dashed var(--gold);border-radius:18px;font-size:15px;letter-spacing:2px;color:var(--gold);z-index:5}
 .plan-wrap.dragover .drop-hint{display:grid}
 
-/* 24山总览 */
 .ov-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;width:100%}
 .search{flex:1;min-width:150px;position:relative}
 .search input{width:100%;font-family:var(--serif);font-size:12.5px;color:var(--text);background:color-mix(in srgb,var(--bg1) 65%,transparent);
@@ -223,7 +216,6 @@ body::before{content:"";position:fixed;inset:-10%;z-index:0;pointer-events:none;
 .ov-sum{font-size:11.5px;color:var(--muted);letter-spacing:1px;line-height:1.9;width:100%}
 .ov-sum b{color:var(--gold)}
 
-/* 面板 */
 .panel{position:sticky;top:78px;max-height:calc(100vh - 94px);overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:13px;padding:2px 8px 22px 2px}
 .card{background:linear-gradient(168deg,var(--surface2),var(--surface) 72%);border:1px solid var(--edge);border-radius:16px;padding:13px 14px;box-shadow:0 12px 34px -18px rgba(0,0,0,.6)}
 .card h3{font-size:12px;font-weight:700;letter-spacing:4.5px;color:var(--gold);margin-bottom:11px;display:flex;align-items:center;gap:8px}
@@ -241,6 +233,8 @@ input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;bac
 input[type=range]::-moz-range-track{height:6px;border-radius:6px;background:transparent}
 input[type=range]:disabled{opacity:.35;cursor:not-allowed}
 input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--gold)}
+#guideWSlider,#guideASlider,#guideGapSlider{background:linear-gradient(90deg,var(--guide) var(--p),var(--edge) var(--p))}
+#guideWSlider::-webkit-slider-thumb,#guideASlider::-webkit-slider-thumb,#guideGapSlider::-webkit-slider-thumb{background:radial-gradient(circle at 32% 30%,#ffd0c6,#c21f14);box-shadow:0 0 8px rgba(255,47,34,.7)}
 .selwrap{flex:1;position:relative;min-width:0}
 .selwrap::after{content:"▾";position:absolute;right:10px;top:50%;transform:translateY(-52%);color:var(--gold);pointer-events:none;font-size:12px}
 .selwrap select{width:100%;appearance:none;-webkit-appearance:none;font-family:var(--serif);font-size:12px;letter-spacing:1px;color:var(--text);
@@ -253,6 +247,8 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
 .switch .track::after{content:"";position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:#c8c2b0;transition:.22s}
 .switch input:checked + .track{background:linear-gradient(120deg,var(--jade),#1fae74)}
 .switch input:checked + .track::after{left:17px;background:#04241a}
+.switch.red input:checked + .track{background:linear-gradient(120deg,#ff7a6c,#c21f14)}
+.switch.red input:checked + .track::after{background:#2b0704}
 .switch input:focus-visible + .track{outline:2px solid var(--gold);outline-offset:2px}
 .toggles{display:grid;grid-template-columns:1fr 1fr;gap:8px 8px;margin-top:10px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--serif);cursor:pointer;font-size:12px;letter-spacing:1.6px;
@@ -268,12 +264,14 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
 .span2{grid-column:span 2}
 .gua-info{font-size:11.5px;color:var(--muted);letter-spacing:1px;line-height:1.8;margin:8px 0 6px}
 .gua-info b{color:var(--text)}
+.gua-info .rd{color:var(--guide);font-weight:700}
 .chip8{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
 .chip8 div{border:1px solid var(--edge);border-radius:9px;padding:5px 4px;text-align:center;font-size:10px;letter-spacing:.5px;background:color-mix(in srgb,var(--bg1) 45%,transparent)}
 .chip8 div b{display:block;font-size:11.5px;letter-spacing:1px;color:var(--c)}
 .chip8 div span{color:var(--muted)}
 
-/* 流年飞星卡 */
+.guide-card{border-color:color-mix(in srgb,var(--guide) 34%,var(--edge));
+  background:linear-gradient(168deg,color-mix(in srgb,var(--guide) 7%,var(--surface2)),var(--surface) 72%)}
 .fs-card{border-color:color-mix(in srgb,var(--violet) 34%,var(--edge));
   background:linear-gradient(168deg,color-mix(in srgb,var(--violet) 8%,var(--surface2)),var(--surface) 72%)}
 .fs-step{flex:none;width:34px;padding:7px 0;font-size:17px;line-height:1;letter-spacing:0}
@@ -349,7 +347,6 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
 .disclaim{border:1px dashed color-mix(in srgb,var(--warn) 45%,var(--edge));border-radius:11px;padding:8px 10px;font-size:10.5px;line-height:1.8;color:var(--muted);letter-spacing:.6px}
 .disclaim b{color:var(--warn)}
 
-/* 抽屉 */
 .scrim{position:fixed;inset:0;z-index:70;background:rgba(4,6,12,.62);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:.25s}
 .scrim.on{opacity:1;pointer-events:auto}
 .drawer{position:fixed;top:0;right:0;bottom:0;width:min(430px,94vw);z-index:71;background:linear-gradient(180deg,var(--surface2),var(--surface));
@@ -372,7 +369,6 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
   border:1px solid var(--edge);border-radius:9px;padding:7px 9px;outline:none;resize:vertical}
 .dfield input:focus,.dfield textarea:focus{border-color:var(--gold)}
 
-/* 快照预览 */
 .shot-scrim{position:fixed;inset:0;z-index:94;background:rgba(3,5,10,.78);backdrop-filter:blur(5px);opacity:0;pointer-events:none;transition:.25s}
 .shot-scrim.on{opacity:1;pointer-events:auto}
 .shot-modal{position:fixed;z-index:95;left:50%;top:50%;transform:translate(-50%,-46%) scale(.96);width:min(430px,94vw);max-height:92vh;overflow-y:auto;
@@ -396,7 +392,6 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
 @keyframes tin{from{opacity:0;transform:translateY(16px) scale(.94)}}
 @keyframes tout{to{opacity:0;transform:translateY(10px) scale(.95)}}
 
-/* 移动：罗盘视图置顶 */
 @media (max-width:1140px){
   .layout{grid-template-columns:1fr;padding-top:70px}
   .panel{position:static;max-height:none;overflow:visible}
@@ -448,11 +443,11 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
       <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
         <rect width="32" height="32" rx="7" fill="none" stroke="var(--gold-lo)" stroke-width="1.3"/>
         <circle cx="16" cy="16" r="12" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
-        <path d="M16 5l2.6 8.4L16 16l-2.6-2.6z" fill="var(--cinnabar)"/>
-        <path d="M16 27l-2.6-8.4L16 16l2.6 2.6z" fill="var(--silver)"/>
-        <path d="M16 12.6c2.1 2.2 3.2 3.7 3.2 5.3a3.2 3.2 0 01-6.4 0c0-1.6 1.1-3.1 3.2-5.3z" fill="var(--flame)"/>
+        <path d="M16 3.5v25M3.5 16h25" stroke="var(--guide)" stroke-width="1.1" opacity=".9"/>
+        <path d="M16 6l2.6 8.4L16 16l-2.6-2.6z" fill="var(--cinnabar)"/>
+        <path d="M16 26l-2.6-8.4L16 16l2.6 2.6z" fill="var(--silver)"/>
       </svg>
-      <div><h1>二十四山安灶诀</h1><p>灶座压凶 · 火口向吉 · 罗盘实测 · 流年紫白</p></div>
+      <div><h1>二十四山安灶诀</h1><p>天心十道 · 灶座压凶 · 火口向吉 · 流年紫白</p></div>
     </div>
     <div class="top-right">
       <div class="status demo" id="statusBadge" role="status"><span class="dot"></span><span id="statusText">演示模式</span></div>
@@ -494,7 +489,7 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
 
       <div class="viewer" id="viewer">
         <video id="camVideo" playsinline autoplay muted></video>
-        <svg id="dial" viewBox="0 0 1000 1000" role="img" aria-label="二十四山安灶罗盘"></svg>
+        <svg id="dial" viewBox="0 0 1000 1000" role="img" aria-label="二十四山安灶罗盘，红十字天心十道定位线"></svg>
       </div>
 
       <div class="cam-hud" id="camHud">
@@ -510,7 +505,7 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
 
       <div class="steps">
         <span class="step" id="step1"><i>1</i>定宅向</span>
-        <span class="step" id="step2"><i>2</i>对准炉灶取灶座</span>
+        <span class="step" id="step2"><i>2</i>红竖线对准炉灶取灶座</span>
         <span class="step" id="step3"><i>3</i>对准灶口取火口</span>
         <span class="step" id="step4"><i>4</i>看诀断吉凶</span>
       </div>
@@ -547,7 +542,7 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
       <div class="plan-legend">
         <span><i style="background:var(--jade)"></i>大吉宜灶</span><span><i style="background:var(--ok2)"></i>可安灶</span>
         <span><i style="background:var(--warn)"></i>平·需化解</span><span><i style="background:var(--danger)"></i>忌安灶</span>
-        <span><i style="background:var(--gold)"></i>宅向轴</span><span><i style="background:var(--cinnabar)"></i>灶座 / 火口</span>
+        <span><i style="background:var(--gold)"></i>宅向轴</span><span><i style="background:var(--guide)"></i>天心十道 / 灶座</span>
       </div>
       <p class="plan-info" id="planInfo"></p>
       <p class="hint">点击图纸任意处放置<em>灶位</em>；拖动 <em>◎中心</em> / <em>灶</em> / <em>门</em> / <em>N北向</em> / <em>口</em> 标记可调整。火口箭头即灶具开关面所朝之方。</p>
@@ -567,6 +562,23 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
   </section>
 
   <aside class="panel">
+    <div class="card guide-card">
+      <h3><svg viewBox="0 0 24 24"><path d="M11 2h2v9h9v2h-9v9h-2v-9H2v-2h9z"/></svg>天心十道 · 红十字引导</h3>
+      <div class="row"><span class="row-label">引导线粗</span><input type="range" id="guideWSlider" min="0.8" max="5" step="0.1" value="2.4" aria-label="红十字引导线粗细"><span class="row-val" id="guideWVal">2.4</span></div>
+      <div class="row"><span class="row-label">引导浓度</span><input type="range" id="guideASlider" min="20" max="100" step="1" value="92" aria-label="红十字引导线浓度"><span class="row-val" id="guideAVal">92%</span></div>
+      <div class="row"><span class="row-label">中心留空</span><input type="range" id="guideGapSlider" min="0" max="70" step="1" value="0" aria-label="十字中心留空半径"><span class="row-val" id="guideGapVal">0</span></div>
+      <div class="toggles" style="margin-top:2px;grid-template-columns:1fr 1fr">
+        <label class="switch red"><input type="checkbox" id="crossT" checked><span class="track"></span>红十字定位线</label>
+        <label class="switch red"><input type="checkbox" id="guideTicksT" checked><span class="track"></span>四端刻度</label>
+        <label class="switch red"><input type="checkbox" id="planCrossT" checked><span class="track"></span>图纸十字线</label>
+      </div>
+      <div class="btn-grid" style="margin-top:9px">
+        <button class="btn" id="guideThin">细线模式</button>
+        <button class="btn fire" id="guideBold">加粗对准</button>
+      </div>
+      <p class="gua-info"><span class="rd">红竖线</span>自盘面顶端贯通至底，<span class="rd">红横线</span>贯左右两端，交点即天心。对准炉灶时以竖线压住灶体中心，盘顶所对山名即灶座；横线用于校平机身、看左右宫位。中心留空可让开天池磁针。</p>
+    </div>
+
     <div class="card">
       <h3><svg viewBox="0 0 24 24"><path d="M12 3l9 7v11h-6v-6H9v6H3V10z"/></svg>宅向定盘</h3>
       <div class="row"><span class="row-label">坐山</span><div class="selwrap"><select id="sitSel" aria-label="宅之坐山"></select></div>
@@ -669,7 +681,6 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
         <label class="switch"><input type="checkbox" id="triT" checked><span class="track"></span>八卦环</label>
         <label class="switch"><input type="checkbox" id="degT" checked><span class="track"></span>度数环</label>
         <label class="switch"><input type="checkbox" id="yuanT" checked><span class="track"></span>三元龙</label>
-        <label class="switch"><input type="checkbox" id="crossT" checked><span class="track"></span>天心十道</label>
         <label class="switch"><input type="checkbox" id="markT" checked><span class="track"></span>灶座火口标</label>
       </div>
     </div>
@@ -702,7 +713,7 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
 
     <div class="panel-foot">
       <span class="kou">「灶座宜压凶方，火口宜向吉方。<br>开门见灶，钱财多耗；灶在乾宫，火烧天门。」</span>
-      <kbd>1/2/3</kbd> 切换视图 <kbd>←→</kbd> 微调 <kbd>[ ]</kbd> 换流年 <kbd>L</kbd> 立案 <kbd>C</kbd> 摄像头 <kbd>P</kbd> 快照 <kbd>M</kbd> 静音
+      <kbd>1/2/3</kbd> 切换视图 <kbd>←→</kbd> 微调 <kbd>[ ]</kbd> 换流年 <kbd>G</kbd> 十字线 <kbd>L</kbd> 立案 <kbd>C</kbd> 摄像头 <kbd>P</kbd> 快照 <kbd>M</kbd> 静音
     </div>
     <div class="disclaim"><b>说明：</b>本app依八宅游年（阳宅三要：门、房、灶）与形家禁忌综合判读，流年紫白为辅参，属传统民俗文化参考，非科学结论。炉灶实务须以燃气安全、通风排烟与消防规范为先。</div>
   </aside>
@@ -732,7 +743,6 @@ input[type=range]:focus-visible{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--
 <script>
 (function(){
 "use strict";
-/* ================= 二十四山安灶诀 ================= */
 const NS='http://www.w3.org/2000/svg',C=500;
 const $=id=>document.getElementById(id);
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -742,8 +752,8 @@ const sdiff=(a,b)=>((a-b+540)%360)-180;
 const rad=d=>d*Math.PI/180;
 function el(t,a,p){const n=document.createElementNS(NS,t);for(const k in a){if(k==='text')n.textContent=a[k];else n.setAttribute(k,a[k]);}if(p)p.appendChild(n);return n;}
 function setTxt(id,t){const e=$(id);if(e&&e.textContent!==t)e.textContent=t;}
+const RED='#ff2f22',RED_DK='#16060b',RED_HI='#ffe6d4',RED_GL='#ff4a3a';
 
-/* ---- 山 / 宫 / 游年 ---- */
 const MOUNTS=['壬','子','癸','丑','艮','寅','甲','卯','乙','辰','巽','巳','丙','午','丁','未','坤','申','庚','酉','辛','戌','乾','亥'];
 const GUA_MAP={壬:'坎',子:'坎',癸:'坎',丑:'艮',艮:'艮',寅:'艮',甲:'震',卯:'震',乙:'震',辰:'巽',巽:'巽',巳:'巽',丙:'离',午:'离',丁:'离',未:'坤',坤:'坤',申:'坤',庚:'兑',酉:'兑',辛:'兑',戌:'乾',乾:'乾',亥:'乾'};
 const DIRS={坎:'正北',艮:'东北',震:'正东',巽:'东南',离:'正南',坤:'西南',兑:'正西',乾:'西北'};
@@ -778,13 +788,12 @@ const oppMtn=m=>MOUNTS[(mIndex(m)+12)%24];
 function mInfo(h){h=norm(h);const i=Math.round(norm(h+15)/15)%24,m=MOUNTS[i],c=mdeg(i),off=sdiff(h,c),a=Math.abs(off),nb=off>=0?(i+1)%24:(i+23)%24;
  return{h,i,m,center:c,off,a,nb:MOUNTS[nb],gua:GUA_MAP[m],big:GUA_MAP[m]!==GUA_MAP[MOUNTS[nb]],zone:a<=4.5?'ok':(a<=6.8?'warn':'bad'),lo:norm(c-7.5),hi:norm(c+7.5)};}
 
-/* ---- 流年紫白 ---- */
 const STEMS='甲乙丙丁戊己庚辛壬癸',BRANCHES='子丑寅卯辰巳午未申酉戌亥',ANIMALS='鼠牛虎兔龙蛇马羊猴鸡狗猪';
 const gz=y=>STEMS[(y-4)%10]+BRANCHES[(y-4)%12];
 const animal=y=>ANIMALS[(y-4)%12];
-const yearCenter=y=>norm9(11-(y%9));            /* 2024→3 2025→2 2026→1 2027→9 … 2043→2 */
-const fsAt=(p,c)=>norm9(c+p-5);                 /* 宫 p 之流年星 */
-const fsPalaceOf=(s,c)=>norm9(s-c+5);           /* 星 s 所落之宫 */
+const yearCenter=y=>norm9(11-(y%9));
+const fsAt=(p,c)=>norm9(c+p-5);
+const fsPalaceOf=(s,c)=>norm9(s-c+5);
 const FS={
  1:{n:'一白',full:'一白贪狼',el:'水',c:'#5eb6ff',t:'#9ed2ff',lc:'#1d4ed8',tag:'生气',tk:'var(--info)'},
  2:{n:'二黑',full:'二黑巨门',el:'土',c:'#8d93a8',t:'#c0c6d9',lc:'#475569',tag:'病符',tk:'var(--warn)'},
@@ -799,7 +808,6 @@ const FS={
 const FS_MIN=2024,FS_MAX=2043;
 const palLabel=p=>p===5?'中宫':`${NUM_GUA[p]}宫${DIRS[NUM_GUA[p]]}`;
 
-/* ---- 安灶诀 ---- */
 const RULES=[
  {id:'zuo',t:'灶座压凶',v:'灶座宜压凶方。',src:'八宅·阳宅三要',fix:'移灶于绝命、五鬼、六煞、祸害之宫，以火压制凶气。'},
  {id:'kou',t:'火口向吉',v:'火口宜向吉方，生气延年天医伏位。',src:'八宅·阳宅三要',fix:'转灶具开关面朝向四吉方，首选生气、延年。'},
@@ -863,13 +871,13 @@ function bestFace(seatM,sitM,cks){
   return best;
 }
 
-/* ---- 状态 ---- */
 const DEF={damp:.82,decl:0,trueNorth:false,axis:'auto',density:1,theme:'xuanye',font:31,glow:62,camFade:82,camFace:'env',
  verdict:true,starRing:true,pal:true,tri:true,deg:true,yuan:true,cross:true,mark:true,sound:true,planAlpha:88,ovAlpha:72,
- fs:true,fsYear:2027,fsHalo:true};
+ fs:true,fsYear:2027,fsHalo:true,guideW:2.4,guideA:92,guideGap:0,guideTicks:true,planCross:true};
 let state=Object.assign({},DEF);
 try{const s=JSON.parse(localStorage.getItem('zao-set')||'{}');for(const k in DEF)if(k in s)state[k]=s[k];}catch(e){}
 state.fsYear=clamp(Math.round(state.fsYear),FS_MIN,FS_MAX);
+state.guideGap=clamp(Math.round(state.guideGap),0,70);
 const DEF_CASE={sit:'子',stove:'未',face:90,cks:{kao:true,tang:true,liang:true,shui:true,men:true,ce:true,jiao:true},
  northUp:0,center:[.5,.5],stoveXY:[.4,.789],doorXY:[.14,.947],doorOn:true};
 let cs=JSON.parse(JSON.stringify(DEF_CASE));
@@ -890,11 +898,11 @@ let taken={sit:false,stove:false,face:false};
 let shotBlob=null,shotFile=null,shotURL=null,shotCanvas=null;
 const effH=()=>norm(dispH+(state.trueNorth?state.decl:0));
 
-/* ================= 罗盘 SVG ================= */
 const svg=$('dial');
-let bgRect,plate,dialG,verdG,ticksG,degG,cardG,sepG,mountG,starG,palG,triG,markG,axisG,hiPath,decor1,decor2,fsG,crossG,needleG,indexG,capTitle,capSub,capMode,capKou,sealG,pulsesG,fsCornerG,fsCornerYear,fsCornerNum,fsCornerName;
+let bgRect,plate,guideU,guideO,dialG,verdG,ticksG,degG,cardG,sepG,mountG,starG,palG,triG,markG,axisG,hiPath,decor1,decor2,fsG,needleG,capTitle,capSub,capMode,capKou,sealG,pulsesG,fsCornerG,fsCornerYear,fsCornerNum,fsCornerName;
 let bgS0,bgS1,plS0,plS1,glS0,glS1;
 const mChars=[],yLabels=[],dLabels=[],cChars=[],triEls=[],palPaths=[],starPaths=[],starLabels=[],verdPaths=[],verdLabels=[],sepEls=[],tickEls=[],fsBadges=[];
+let guideParts={uDark:[],uMain:[],uTick:[],oGlow:[],oCore:[]};
 const pulses=[];
 function triGlyph(p,cx,cy,bits,w,rot){
   const g=el('g',{transform:`translate(${cx} ${cy}) rotate(${rot||0})`},p),bars=[],bh=w*.16,gap=w*.2,tot=3*bh+2*gap,y0=-tot/2;
@@ -913,12 +921,17 @@ function buildDial(){
   const bg=el('radialGradient',{id:'dbg',cx:'50%',cy:'42%',r:'80%'},defs);bgS0=el('stop',{offset:'0%'},bg);bgS1=el('stop',{offset:'100%'},bg);
   const pl=el('linearGradient',{id:'dplate',x1:'0',y1:'0',x2:'1',y2:'1'},defs);plS0=el('stop',{offset:'0%'},pl);plS1=el('stop',{offset:'100%'},pl);
   const gl=el('radialGradient',{id:'dglass',cx:'38%',cy:'30%',r:'85%'},defs);glS0=el('stop',{offset:'0%'},gl);glS1=el('stop',{offset:'100%'},gl);
-  const gf=el('filter',{id:'dglow',x:'-80%',y:'-80%',width:'260%',height:'260%'},defs);el('feGaussianBlur',{stdDeviation:8},gf);
   const sf=el('filter',{id:'dsoft',x:'-40%',y:'-40%',width:'180%',height:'180%'},defs);el('feGaussianBlur',{stdDeviation:3},sf);
+  const gg=el('filter',{id:'guideGlow',filterUnits:'userSpaceOnUse',x:0,y:0,width:1000,height:1000},defs);
+  el('feGaussianBlur',{stdDeviation:4},gg);
+
   bgRect=el('rect',{x:0,y:0,width:1000,height:1000,rx:30,fill:'url(#dbg)'},svg);
   plate=el('rect',{x:16,y:16,width:968,height:968,rx:44,fill:'url(#dplate)'},svg);
   el('circle',{cx:C,cy:C,r:478,fill:'none','stroke-width':3,class:'bezel'},svg);
   el('circle',{cx:C,cy:C,r:469,fill:'none','stroke-width':1,class:'bezel2'},svg);
+
+  guideU=el('g',{},svg);
+
   dialG=el('g',{},svg);
   verdG=el('g',{},dialG);
   for(let i=0;i<24;i++){
@@ -963,7 +976,6 @@ function buildDial(){
   axisG=el('g',{},dialG);markG=el('g',{},dialG);
   decor1=el('circle',{cx:C,cy:C,r:222,fill:'none','stroke-width':1.1,'stroke-dasharray':'3 10'},dialG);
   decor2=el('circle',{cx:C,cy:C,r:214,fill:'none','stroke-width':1,'stroke-dasharray':'1 7'},dialG);
-  /* 流年飞星徽标：标注于八卦宫位 */
   fsG=el('g',{},dialG);
   GUA_ORDER.forEach((g,j)=>{
     const d=j*45,a=rad(d-90),r=170,x=C+r*Math.cos(a),y=C+r*Math.sin(a);
@@ -977,8 +989,10 @@ function buildDial(){
     el('title',{},bg2);
     fsBadges.push({g:bg2,halo,back,tint,ring,num,x,y,gua:g,title:bg2.querySelector('title')});
   });
-  crossG=el('g',{},svg);
-  el('line',{x1:C,y1:30,x2:C,y2:970,'stroke-width':1},crossG);el('line',{x1:30,y1:C,x2:970,y2:C,'stroke-width':1},crossG);
+
+  guideO=el('g',{},svg);
+  buildGuides();
+
   const tc=el('g',{},svg);
   el('circle',{cx:C,cy:C,r:150,fill:'none','stroke-width':2.2,class:'tc-ring'},tc);
   el('circle',{cx:C,cy:C,r:138,fill:'none','stroke-width':1,class:'tc-inner'},tc);
@@ -990,10 +1004,7 @@ function buildDial(){
   el('circle',{cx:C,cy:C,r:11,class:'piv'},needleG);el('circle',{cx:C,cy:C,r:4,class:'pivd'},needleG);
   el('path',{d:`M ${C-104} ${C-72} A 128 128 0 0 1 ${C-30} ${C-124}`,fill:'none',stroke:'#fff','stroke-width':10,'stroke-linecap':'round',opacity:.1,filter:'url(#dsoft)',class:'tc-shine'},svg);
   el('text',{x:C,y:C+128,'font-size':12,'text-anchor':'middle','letter-spacing':4,class:'tcl',text:'天 池'},svg);
-  indexG=el('g',{filter:'url(#dglow)'},svg);
-  el('line',{x1:C,y1:22,x2:C,y2:48,'stroke-width':3,class:'idx'},indexG);
-  el('path',{d:`M ${C} 74 L ${C-12} 46 L ${C+12} 46 Z`,class:'idxf'},indexG);
-  el('text',{x:C,y:96,'font-size':14,'text-anchor':'middle','font-weight':700,class:'idxt',text:'向'},svg);
+
   capTitle=el('text',{x:60,y:74,'font-size':26,'letter-spacing':3,'font-family':"'Ma Shan Zheng','KaiTi',serif",class:'capt',text:'二十四山安灶诀'},svg);
   capSub=el('text',{x:60,y:100,'font-size':12.5,'letter-spacing':1.6,class:'caps'},svg);
   capMode=el('text',{x:940,y:74,'font-size':14,'letter-spacing':1.6,'text-anchor':'end',class:'capm'},svg);
@@ -1010,6 +1021,40 @@ function buildDial(){
   [['安',-16,-13],['灶',16,-13],['之',-16,19],['诀',16,19]].forEach(c=>el('text',{x:c[1],y:c[2],'font-size':26,'font-weight':700,'text-anchor':'middle',fill:'#f8ecd9','font-family':"'Ma Shan Zheng','KaiTi',serif",text:c[0]},sealG));
   pulsesG=el('g',{},svg);
   buildTicks();
+}
+/* 天心十道：竖线顶→底、横线左→右，可中心留空 */
+function guideSpans(){
+  const A=20,B=980,g=clamp(state.guideGap,0,70);
+  return[[C,A,C,C-g],[C,C+g,C,B],[A,C,C-g,C],[C+g,C,B,C]];
+}
+function buildGuides(){
+  guideU.innerHTML='';guideO.innerHTML='';
+  guideParts={uDark:[],uMain:[],uTick:[],oGlow:[],oCore:[]};
+  const spans=guideSpans();
+  const glowG=el('g',{filter:'url(#guideGlow)'},guideO);
+  spans.forEach(([x1,y1,x2,y2])=>{
+    guideParts.uDark.push(el('line',{x1,y1,x2,y2,'stroke-linecap':'round'},guideU));
+    guideParts.uMain.push(el('line',{x1,y1,x2,y2,'stroke-linecap':'round'},guideU));
+    guideParts.oGlow.push(el('line',{x1,y1,x2,y2,'stroke-linecap':'round'},glowG));
+    guideParts.oCore.push(el('line',{x1,y1,x2,y2,'stroke-linecap':'round'},guideO));
+  });
+  const A=20,B=980;
+  [[C,A,true],[C,B,true],[A,C,false],[B,C,false]].forEach(([x,y,vert])=>{
+    guideParts.uTick.push(vert?el('line',{x1:x-10,y1:y,x2:x+10,y2:y,'stroke-linecap':'round'},guideU)
+                              :el('line',{x1:x,y1:y-10,x2:x,y2:y+10,'stroke-linecap':'round'},guideU));
+  });
+  styleGuides();
+}
+function styleGuides(){
+  const w=state.guideW,a=state.guideA/100;
+  guideParts.uDark.forEach(e=>{e.setAttribute('stroke',RED_DK);e.setAttribute('stroke-width',w+3.6);e.setAttribute('opacity',(.62*a).toFixed(3));});
+  guideParts.uMain.forEach(e=>{e.setAttribute('stroke',RED);e.setAttribute('stroke-width',w);e.setAttribute('opacity',(.97*a).toFixed(3));});
+  guideParts.uTick.forEach(e=>{e.setAttribute('stroke',RED);e.setAttribute('stroke-width',Math.max(1.5,w*.85));e.setAttribute('opacity',(.92*a).toFixed(3));
+    e.style.display=state.guideTicks?'':'none';});
+  guideParts.oGlow.forEach(e=>{e.setAttribute('stroke',RED_GL);e.setAttribute('stroke-width',w*2.3);e.setAttribute('opacity',(.24*a).toFixed(3));});
+  guideParts.oCore.forEach(e=>{e.setAttribute('stroke',RED_HI);e.setAttribute('stroke-width',Math.max(.7,w*.26));e.setAttribute('opacity',(.88*a).toFixed(3));});
+  guideU.style.display=state.cross?'':'none';
+  guideO.style.display=state.cross?'':'none';
 }
 function buildTicks(){
   ticksG.innerHTML='';tickEls.length=0;
@@ -1043,7 +1088,6 @@ function restyleDial(){
   triEls.forEach(o=>{o.bars.forEach(b=>b.setAttribute('fill',TH.accent));o.t.setAttribute('fill',TH.muted);});
   palPaths.forEach((e,j)=>{e.setAttribute('fill',PAL[GUA_ORDER[j]]);e.setAttribute('fill-opacity',light?.7:.45);e.setAttribute('stroke',TH.bg1);});
   decor1.setAttribute('stroke',TH.edge);decor2.setAttribute('stroke',TH.accent);decor2.setAttribute('opacity','.35');
-  crossG.querySelectorAll('line').forEach(e=>{e.setAttribute('stroke',TH.cinnabar);e.setAttribute('opacity','.3');});
   svg.querySelectorAll('.tc-ring').forEach(e=>e.setAttribute('stroke',TH.accent));
   svg.querySelectorAll('.tc-inner').forEach(e=>e.setAttribute('stroke',TH.edge));
   svg.querySelectorAll('.nw').forEach(e=>e.setAttribute('stroke',TH.cinnabar));
@@ -1052,13 +1096,11 @@ function restyleDial(){
   svg.querySelectorAll('.piv').forEach(e=>{e.setAttribute('fill',TH.accent);e.setAttribute('stroke',TH.bg0);e.setAttribute('stroke-width',2);});
   svg.querySelectorAll('.pivd').forEach(e=>e.setAttribute('fill',TH.bg0));
   svg.querySelectorAll('.tcl').forEach(e=>e.setAttribute('fill',TH.muted));
-  svg.querySelectorAll('.idx').forEach(e=>e.setAttribute('stroke',TH.cinnabar));
-  svg.querySelectorAll('.idxf').forEach(e=>e.setAttribute('fill',TH.cinnabar));
-  svg.querySelectorAll('.idxt').forEach(e=>e.setAttribute('fill',TH.cinnabar));
   capTitle.setAttribute('fill',TH.text);
   capSub.setAttribute('fill',TH.muted);capMode.setAttribute('fill',TH.accent);
   capKou.setAttribute('fill',TH.muted);capKou.setAttribute('opacity','.85');
   fsCornerG.querySelector('.fs-c-lab').setAttribute('fill',TH.muted);
+  styleGuides();
   refreshBgPal();paintFS();
 }
 function paintStatic(){
@@ -1101,17 +1143,13 @@ function paintStatic(){
   }else hiPath.setAttribute('fill-opacity',0);
   applyDialLayers();
 }
-function applyFSDisplay(){
-  fsG.style.display=state.fs?'':'none';
-  fsCornerG.style.display=state.fs?'':'none';
-}
+function applyFSDisplay(){fsG.style.display=state.fs?'':'none';fsCornerG.style.display=state.fs?'':'none';}
 function applyDialLayers(){
   verdG.style.display=state.verdict?'':'none';
   starG.style.display=state.starRing?'':'none';
   palG.style.display=state.pal?'':'none';
   triG.style.display=state.tri?'':'none';
   degG.style.display=state.deg?'':'none';
-  crossG.style.display=state.cross?'':'none';
   markG.style.display=state.mark?'':'none';
   yLabels.forEach(e=>e.style.display=state.yuan?'':'none');
   mChars.forEach(e=>e.setAttribute('font-size',state.font));
@@ -1119,11 +1157,9 @@ function applyDialLayers(){
   bgRect.setAttribute('opacity',fade);plate.setAttribute('opacity',fade);
   [sealG,capTitle,capSub,capMode,capKou].forEach(e=>e.style.display=camOn?'none':'');
   const shine=svg.querySelector('.tc-shine');if(shine)shine.style.display=camOn?'none':'';
-  applyFSDisplay();
-  indexG.setAttribute('opacity',.55+state.glow/100*.55);
+  applyFSDisplay();styleGuides();
 }
 
-/* ---- 流年飞星绘制与面板 ---- */
 let fsSig='';
 function paintFS(){
   const y=state.fsYear,c=yearCenter(y);
@@ -1217,7 +1253,6 @@ function renderDial(){
   capMode.textContent=`${state.trueNorth?'真北':'磁北'} ${h.toFixed(1)}° · ${axisLab}`;
 }
 
-/* ================= 平面图 ================= */
 const SAMPLE=(function(){
   const s=`<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="760" viewBox="0 0 1000 760">
   <rect width="1000" height="760" fill="#f5efe0"/>
@@ -1318,6 +1353,17 @@ function renderPlan(){
     });
     el('text',{x:cx,y:cy-R*.6-20,'font-size':11,'text-anchor':'middle',fill:TH.accent,text:`${state.fsYear}${gz(state.fsYear)} 流年`},planSvg);
   }
+  if(state.planCross){
+    const a=state.guideA/100,w=Math.max(1,state.guideW*.62),sc=Math.min(pw,ph)/1000,gp=state.guideGap*sc;
+    [[0,R*1.04],[90,R*1.04]].forEach(([deg,len])=>{
+      const[vx,vy]=screenVec(deg,len),[ux,uy]=screenVec(deg,gp);
+      [[cx-vx,cy-vy,cx-ux,cy-uy],[cx+ux,cy+uy,cx+vx,cy+vy]].forEach(([x1,y1,x2,y2])=>{
+        el('line',{x1,y1,x2,y2,stroke:RED_DK,'stroke-width':w+2.6,opacity:.5*a,'stroke-linecap':'round'},planSvg);
+        el('line',{x1,y1,x2,y2,stroke:RED,'stroke-width':w,opacity:.92*a,'stroke-linecap':'round'},planSvg);
+        el('line',{x1,y1,x2,y2,stroke:RED_HI,'stroke-width':Math.max(.6,w*.26),opacity:.8*a,'stroke-linecap':'round'},planSvg);
+      });
+    });
+  }
   const fd=mCenter(oppMtn(cs.sit)),[fx,fy]=screenVec(fd,R);
   el('line',{x1:cx-fx,y1:cy-fy,x2:cx+fx,y2:cy+fy,stroke:TH.accent,'stroke-width':1.8,'stroke-dasharray':'8 6',opacity:.85},planSvg);
   el('text',{x:cx+fx*1.06,y:cy+fy*1.06,dy:'.35em','font-size':13,'text-anchor':'middle',fill:TH.accent,'font-weight':700,text:'向'+oppMtn(cs.sit)},planSvg);
@@ -1389,7 +1435,6 @@ function readFile(f){
   const fr=new FileReader();fr.onload=()=>loadPlan(fr.result);fr.onerror=()=>toast('读取失败');fr.readAsDataURL(f);
 }
 
-/* ================= 判读刷新 ================= */
 let flushPending=false,syncKind='',cardsSig='',ruleSig='';
 function applyCase(kind){
   updateDoorFlag();
@@ -1488,7 +1533,6 @@ function renderCards(){
   });
 }
 
-/* ================= 抽屉 ================= */
 function openDrawer(title,nodes){
   setTxt('drawerTitle',title);
   const b=$('drawerBody');b.innerHTML='';nodes.forEach(n=>b.appendChild(n));
@@ -1522,7 +1566,6 @@ function openMountain(o){
   openDrawer(`${o.m}山 · 安灶判读`,nodes);
 }
 
-/* ================= 案例 ================= */
 let records=[];
 try{const r=JSON.parse(localStorage.getItem('zao-rec')||'null');
   if(Array.isArray(r))records=r;
@@ -1639,7 +1682,6 @@ function downloadReport(name,ev,note,y){
   download(u,`安灶诀报告_坐${ev.sitM}_灶${ev.seatM}.txt`);setTimeout(()=>URL.revokeObjectURL(u),4000);toast('判读报告已导出');uiTick();
 }
 
-/* ================= 摄像头 ================= */
 async function startCam(){
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){toast('此浏览器不支持摄像头');return;}
   try{
@@ -1648,7 +1690,7 @@ async function startCam(){
     camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:facing},width:{ideal:1280},height:{ideal:1280}},audio:false});
     const v=$('camVideo');v.srcObject=camStream;await v.play().catch(()=>{});
     camOn=true;$('viewer').classList.add('cam');$('camBtn').classList.add('live');setTxt('camLabel','关闭镜头');
-    setMode('compass');applyDialLayers();toast('摄像头已开启 · 对准炉灶，点「快照存图」');chime(true);
+    setMode('compass');applyDialLayers();toast('摄像头已开启 · 红竖线压住灶体中心再取灶座');chime(true);
     try{
       const ds=await navigator.mediaDevices.enumerateDevices(),cams=ds.filter(d=>d.kind==='videoinput');
       if(cams.length>1){const sel=$('camSel');sel.innerHTML='';
@@ -1675,7 +1717,6 @@ async function switchCam(val){
   }catch(e){toast('切换镜头失败');}
 }
 
-/* ================= 快照 ================= */
 function drawBand(c,W,y0,H){
   const h=effH(),f=mInfo(h),ev=EV,y=state.fsYear,yc=yearCenter(y);
   const g=c.createLinearGradient(0,y0,0,y0+H);
@@ -1761,7 +1802,6 @@ async function shareShot(){
   }catch(e){if(e&&e.name!=='AbortError')toast('分享失败，请改用下载 PNG');}
 }
 
-/* ================= 传感器 ================= */
 function setSensor(s){
   sensorState=s;
   const m={idle:'<b>演示旋转中。</b>手机点「启用罗盘」，盘面随手机转动；桌面可拖动盘面。',
@@ -1836,13 +1876,12 @@ function updateStatus(){
   $('statusBadge').className='status '+src;
   setTxt('statusText',src==='sensor'?'罗盘已连接':src==='manual'?'手动定向':'演示模式');
   $('demoT').checked=src==='demo';
-  $('hintLine').innerHTML=src==='sensor'?'<em>手机对准炉灶本体 → 取为灶座；再对准灶具开关面朝向 → 取为火口。</em>举起对灶时自动用相机轴补偿磁倾，读数与平放一致。'
-    :src==='manual'?'<em>手动定向：</em>横向拖动盘面 / 滚轮 / ←→ 微调（Shift ×15）。点「启用罗盘」恢复传感器。'
+  $('hintLine').innerHTML=src==='sensor'?'<em>红竖线压住炉灶本体中心 → 取为灶座；再对准灶具开关面朝向 → 取为火口。</em>红横线用于校平机身；举起对灶自动用相机轴补偿磁倾。'
+    :src==='manual'?'<em>手动定向：</em>横向拖动盘面 / 滚轮 / ←→ 微调（Shift ×15）。红十字为天心十道定位线，盘顶所对山名即当前朝向。'
     :'<em>演示旋转中。</em>拖动盘面可手动定向；手机点「启用罗盘」跟随真实方位，点「摄像头」实景对灶并快照存图。';
 }
 function setManual(h){src='manual';targetH=norm(h);vel=0;$('demoT').checked=false;updateStatus();}
 
-/* ================= 音 ================= */
 let actx=null,master=null,lastTick=0;
 function ensureAudio(){
   if(!actx){try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;actx=new A();master=actx.createGain();master.gain.value=state.sound?.5:0;master.connect(actx.destination);}catch(e){}}
@@ -1859,7 +1898,6 @@ function chime(soft){tone(523.25,.9,soft?.07:.13);setTimeout(()=>tone(659.25,.8,
 function shutter(){tone(1600,.04,.06,'square');setTimeout(()=>tone(900,.06,.05,'square'),50);}
 function warnTone(){tone(160,.3,.08);}
 
-/* ================= 背景灶火 ================= */
 const bgC=$('bg'),bx=bgC.getContext('2d');
 let embers=[],bgPal=[],cleared=false;
 function refreshBgPal(){bgPal=[TH.flame,TH.accent,TH.cinnabar];}
@@ -1890,13 +1928,12 @@ function stepPulses(now){for(let i=pulses.length-1;i>=0;i--){const p=pulses[i],a
   if(a>=1){p.e.remove();pulses.splice(i,1);continue;}const e=1-Math.pow(1-a,3);
   p.e.setAttribute('r',p.r0+(p.r1-p.r0)*e);p.e.setAttribute('opacity',.7*(1-a));}}
 
-/* ================= 导出 ================= */
 function download(href,name){const a=document.createElement('a');a.href=href;a.download=name;document.body.appendChild(a);a.click();a.remove();}
 function serializeDial(){const c=svg.cloneNode(true);c.setAttribute('xmlns',NS);c.setAttribute('width',1000);c.setAttribute('height',1000);c.removeAttribute('style');
   return'<?xml version="1.0" encoding="UTF-8"?>\n'+new XMLSerializer().serializeToString(c);}
 function fname(){return`安灶诀_坐${cs.sit}向${oppMtn(cs.sit)}_灶${cs.stove}口${mOfDeg(cs.face)}_${state.fsYear}流年_${effH().toFixed(1)}度_${EV.score}分`;}
 function exportSVG(){try{const b=new Blob([serializeDial()],{type:'image/svg+xml;charset=utf-8'}),u=URL.createObjectURL(b);
-  download(u,fname()+'.svg');setTimeout(()=>URL.revokeObjectURL(u),4000);toast('SVG 已导出（当前盘态）');uiTick();}catch(e){toast('导出失败');}}
+  download(u,fname()+'.svg');setTimeout(()=>URL.revokeObjectURL(u),4000);toast('SVG 已导出（含红十字引导线）');uiTick();}catch(e){toast('导出失败');}}
 function svgClonePlan(w,h){
   const c=planSvg.cloneNode(true);c.setAttribute('xmlns',NS);c.setAttribute('width',w);c.setAttribute('height',h);
   c.setAttribute('viewBox',`0 0 ${pw} ${ph}`);
@@ -1926,7 +1963,6 @@ function exportPNG(){
   }catch(e){finish();toast('导出失败');}
 }
 
-/* ================= Toast ================= */
 function toast(msg,undo){
   const box=$('toasts');while(box.children.length>=3)box.firstChild.remove();
   const t=document.createElement('div');t.className='toast';
@@ -1937,7 +1973,6 @@ function toast(msg,undo){
   box.appendChild(t);timer=setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},undo?6000:3200);
 }
 
-/* ================= 视图 ================= */
 function setMode(m){
   mode=m;
   document.querySelectorAll('#tabs button').forEach(b=>{const on=b.dataset.mode===m;b.classList.toggle('on',on);b.setAttribute('aria-selected',on);});
@@ -1952,7 +1987,6 @@ function setMode(m){
   uiTick();
 }
 
-/* ================= 控件 ================= */
 function setFill(i){const p=(i.value-i.min)/(i.max-i.min)*100;i.style.setProperty('--p',p+'%');}
 function fillSelects(){
   const mk=(sel,val)=>{const s=$(sel);s.innerHTML='';MOUNTS.forEach(m=>{const o=document.createElement('option');o.value=m;
@@ -1972,10 +2006,13 @@ function syncControls(){
   $('glowS').value=state.glow;$('glowVal').textContent=state.glow+'%';
   $('planAlpha').value=state.planAlpha;$('planAlphaVal').textContent=state.planAlpha+'%';
   $('ovAlpha').value=state.ovAlpha;$('ovAlphaVal').textContent=state.ovAlpha+'%';
+  $('guideWSlider').value=state.guideW;$('guideWVal').textContent=(+state.guideW).toFixed(1);
+  $('guideASlider').value=state.guideA;$('guideAVal').textContent=state.guideA+'%';
+  $('guideGapSlider').value=state.guideGap;$('guideGapVal').textContent=state.guideGap;
   $('densitySel').value=String(state.density);$('themeSel').value=state.theme;$('axisSel').value=state.axis;
-  $('trueNorthT').checked=state.trueNorth;
-  [['verdictT','verdict'],['starRingT','starRing'],['palT','pal'],['triT','tri'],['degT','deg'],['yuanT','yuan'],['crossT','cross'],['markT','mark']].forEach(([id,k])=>$(id).checked=!!state[k]);
-  ['dampS','declS','camFade','fontS','glowS','planAlpha','ovAlpha','faceSlider'].forEach(id=>setFill($(id)));
+  $('trueNorthT').checked=state.trueNorth;$('crossT').checked=state.cross;$('guideTicksT').checked=state.guideTicks;$('planCrossT').checked=state.planCross;
+  [['verdictT','verdict'],['starRingT','starRing'],['palT','pal'],['triT','tri'],['degT','deg'],['yuanT','yuan'],['markT','mark']].forEach(([id,k])=>$(id).checked=!!state[k]);
+  ['dampS','declS','camFade','fontS','glowS','planAlpha','ovAlpha','faceSlider','guideWSlider','guideASlider','guideGapSlider'].forEach(id=>setFill($(id)));
   syncChecks();syncFS();syncSound();
 }
 function syncSound(){
@@ -2014,7 +2051,17 @@ function wire(){
   $('camFade').addEventListener('input',e=>{state.camFade=+e.target.value;$('camFadeVal').textContent=state.camFade+'%';setFill(e.target);applyDialLayers();save();});
   $('axisSel').addEventListener('change',e=>{state.axis=e.target.value;axisToastDone=false;uiTick();save();
     toast(state.axis==='auto'?'读数轴：自动（按倾角切换）':state.axis==='flat'?'读数轴锁定：水平·盘面上方':'读数轴锁定：相机轴·竖直对灶');});
-  /* 流年飞星控件 */
+  $('guideWSlider').addEventListener('input',e=>{state.guideW=+e.target.value;$('guideWVal').textContent=state.guideW.toFixed(1);setFill(e.target);styleGuides();renderPlan();save();});
+  $('guideASlider').addEventListener('input',e=>{state.guideA=+e.target.value;$('guideAVal').textContent=state.guideA+'%';setFill(e.target);styleGuides();renderPlan();save();});
+  $('guideGapSlider').addEventListener('input',e=>{state.guideGap=+e.target.value;$('guideGapVal').textContent=state.guideGap;setFill(e.target);buildGuides();renderPlan();save();});
+  $('crossT').addEventListener('change',e=>{state.cross=e.target.checked;styleGuides();uiTick();save();
+    toast(state.cross?'已开启天心十道红十字定位线':'已隐藏红十字定位线');});
+  $('guideTicksT').addEventListener('change',e=>{state.guideTicks=e.target.checked;styleGuides();uiTick();save();});
+  $('planCrossT').addEventListener('change',e=>{state.planCross=e.target.checked;renderPlan();uiTick();save();});
+  $('guideThin').addEventListener('click',()=>{state.guideW=1.4;state.guideA=72;state.guideGap=30;state.guideTicks=false;
+    syncControls();buildGuides();renderPlan();uiTick();save();toast('细线模式 · 中心让开磁针');});
+  $('guideBold').addEventListener('click',()=>{state.guideW=3.8;state.guideA=100;state.guideGap=0;state.guideTicks=true;state.cross=true;
+    syncControls();buildGuides();renderPlan();uiTick();save();toast('加粗对准 · 红十字贯通盘面');});
   $('fsYearSel').addEventListener('change',e=>setFSYear(+e.target.value));
   $('fsYearRange').addEventListener('input',e=>setFSYear(+e.target.value,true));
   $('fsPrev').addEventListener('click',()=>setFSYear(state.fsYear-1));
@@ -2025,7 +2072,7 @@ function wire(){
     toast(state.fs?'已开启卦位流年飞星标注':'已隐藏流年飞星标注');});
   $('fsHaloT').addEventListener('change',e=>{state.fsHalo=e.target.checked;fsSig='';paintFS();uiTick();save();});
   $('takeSit').addEventListener('click',()=>{cs.sit=oppMtn(mOfDeg(effH()));taken.sit=true;applyCase();toast(`宅向已定：坐${cs.sit}向${oppMtn(cs.sit)}`);chime(true);});
-  $('takeStove').addEventListener('click',()=>{cs.stove=mOfDeg(effH());taken.stove=true;applyCase();pulse(TH.cinnabar,150,470,900);
+  $('takeStove').addEventListener('click',()=>{cs.stove=mOfDeg(effH());taken.stove=true;applyCase();pulse(RED,150,470,900);
     toast(`灶座已取：${cs.stove}山 · ${EV.g.t}`);EV.score<48?warnTone():chime(true);});
   $('takeFace').addEventListener('click',()=>{cs.face=effH();taken.face=true;applyCase();toast(`火口已取：${mOfDeg(cs.face)}山 · ${EV.g.t}`);chime(true);});
   $('sitSel').addEventListener('change',e=>{cs.sit=e.target.value;taken.sit=true;applyCase();uiTick();});
@@ -2047,7 +2094,7 @@ function wire(){
   $('densitySel').addEventListener('change',e=>{state.density=+e.target.value;buildTicks();uiTick();save();});
   $('fontS').addEventListener('input',e=>{state.font=+e.target.value;$('fontVal').textContent=state.font;setFill(e.target);applyDialLayers();save();});
   $('glowS').addEventListener('input',e=>{state.glow=+e.target.value;$('glowVal').textContent=state.glow+'%';setFill(e.target);applyDialLayers();save();});
-  [['verdictT','verdict'],['starRingT','starRing'],['palT','pal'],['triT','tri'],['degT','deg'],['yuanT','yuan'],['crossT','cross'],['markT','mark']].forEach(([id,k])=>{
+  [['verdictT','verdict'],['starRingT','starRing'],['palT','pal'],['triT','tri'],['degT','deg'],['yuanT','yuan'],['markT','mark']].forEach(([id,k])=>{
     $(id).addEventListener('change',e=>{state[k]=e.target.checked;applyCase();uiTick();save();});});
   $('planAlpha').addEventListener('input',e=>{state.planAlpha=+e.target.value;$('planAlphaVal').textContent=state.planAlpha+'%';setFill(e.target);renderPlan();save();});
   $('ovAlpha').addEventListener('input',e=>{state.ovAlpha=+e.target.value;$('ovAlphaVal').textContent=state.ovAlpha+'%';setFill(e.target);renderPlan();save();});
@@ -2082,17 +2129,18 @@ function wire(){
   $('randomBtn').addEventListener('click',()=>{
     const th=['xuanye','zhusha','qingyu','xuanzhi'];state.theme=th[Math.floor(Math.random()*4)];
     state.density=[1,2,5][Math.floor(Math.random()*3)];state.font=26+Math.floor(Math.random()*13);state.glow=30+Math.floor(Math.random()*65);
+    state.guideW=+(1.6+Math.random()*2.4).toFixed(1);state.guideA=72+Math.floor(Math.random()*29);state.guideGap=Math.floor(Math.random()*40);
     cs.sit=MOUNTS[Math.floor(Math.random()*24)];cs.stove=MOUNTS[Math.floor(Math.random()*24)];
     state.fsYear=FS_MIN+Math.floor(Math.random()*(FS_MAX-FS_MIN+1));
     const b=bestFace(cs.stove,cs.sit,cs.cks);cs.face=b.deg;taken={sit:true,stove:true,face:true};
-    refreshTheme();restyleDial();buildTicks();syncControls();ruleSig='';fsSig='';applyCase();setManual(Math.random()*360);
+    refreshTheme();restyleDial();buildTicks();buildGuides();syncControls();ruleSig='';fsSig='';applyCase();setManual(Math.random()*360);
     pulse(TH.accent,150,470,900);uiTick();toast(`随机布盘 · ${GUA_MAP[cs.sit]}宅 灶${cs.stove} · ${state.fsYear}流年`);});
   $('resetBtn').addEventListener('click',()=>{
     const ps=Object.assign({},state),pc=JSON.parse(JSON.stringify(cs));
     Object.assign(state,DEF);cs=JSON.parse(JSON.stringify(DEF_CASE));taken={sit:false,stove:false,face:false};
-    refreshTheme();restyleDial();buildTicks();fillSelects();syncControls();ruleSig='';fsSig='';applyCase();
+    refreshTheme();restyleDial();buildTicks();buildGuides();fillSelects();syncControls();ruleSig='';fsSig='';applyCase();
     src=reduced?'manual':'demo';demoT=0;targetH=135;updateStatus();setSensor('idle');
-    toast('已复位全盘',()=>{Object.assign(state,ps);cs=pc;refreshTheme();restyleDial();buildTicks();fillSelects();syncControls();ruleSig='';fsSig='';applyCase();});});
+    toast('已复位全盘',()=>{Object.assign(state,ps);cs=pc;refreshTheme();restyleDial();buildTicks();buildGuides();fillSelects();syncControls();ruleSig='';fsSig='';applyCase();});});
   $('pngBtn').addEventListener('click',exportPNG);
   $('svgBtn').addEventListener('click',exportSVG);
   $('soundBtn').addEventListener('click',()=>{state.sound=!state.sound;if(state.sound)ensureAudio();
@@ -2106,6 +2154,7 @@ function wire(){
     else if(e.key==='ArrowLeft'){e.preventDefault();mode==='compass'?setManual(targetH-st):(cs.face=norm(cs.face-st),taken.face=true,applyCase());}
     else if(e.key==='[')setFSYear(state.fsYear-1);
     else if(e.key===']')setFSYear(state.fsYear+1);
+    else if(e.key==='g'||e.key==='G')$('crossT').click();
     else if(e.key==='1')setMode('compass');else if(e.key==='2')setMode('plan');else if(e.key==='3')setMode('table');
     else if(e.key==='l'||e.key==='L')lockCase(null);
     else if(e.key==='c'||e.key==='C')camOn?stopCam():startCam();
@@ -2116,7 +2165,6 @@ function wire(){
   window.addEventListener('orientationchange',()=>{lastSensor=0;offsetInit=false;setTimeout(()=>{measurePlan();renderPlan();},350);});
 }
 
-/* ================= 主循环 ================= */
 let last=performance.now(),spinA=0;
 function frame(now){
   const dt=Math.min(.05,(now-last)/1000);last=now;
@@ -2146,7 +2194,6 @@ function frame(now){
   requestAnimationFrame(frame);
 }
 
-/* ================= 起盘 ================= */
 refreshTheme();buildDial();restyleDial();fillSelects();syncControls();
 applyCase();flushCase();paintFS();renderRecords();resizeBg();updateStatus();setSensor('idle');
 loadPlan(planSrc||SAMPLE,true);
