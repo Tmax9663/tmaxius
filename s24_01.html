@@ -901,7 +901,7 @@ function buildDial(){
   crossG=el('g',{},svg);
   el('line',{x1:C,y1:30,x2:C,y2:970,'stroke-width':1},crossG);el('line',{x1:30,y1:C,x2:970,y2:C,'stroke-width':1},crossG);
   const tc=el('g',{},svg);
-  el('circle',{cx:C,cy:C,r:150,fill:'url(#dglass)','stroke-width':2.2,class:'tc-ring'},tc);
+  el('circle',{cx:C,cy:C,r:150,fill:'none','stroke-width':2.2,class:'tc-ring'},tc);
   el('circle',{cx:C,cy:C,r:138,fill:'none','stroke-width':1,class:'tc-inner'},tc);
   needleG=el('g',{},svg);
   el('line',{x1:C,y1:C-132,x2:C,y2:C+132,'stroke-width':1.4,opacity:.5,class:'nw'},needleG);
