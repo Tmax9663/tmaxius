@@ -1,0 +1,2427 @@
+{
+  "_meta": {
+    "名稱": "FreePaths 命理對照表（天干地支會合刑沖破害／十神／神煞／客戶報告解說）",
+    "版本": "1.36.72",
+    "產生時間": "2026-11-27T09:54:28.539Z",
+    "語言": "每項都有 中文／English",
+    "來源檔": [
+      "src/data/teacherTextbook.js",
+      "src/data/en/clientReportEn.js",
+      "src/data/en/reportTranslateEn.js",
+      "src/data/en/shenshaShortEn.js",
+      "src/data/en/enTerms.js",
+      "src/data/shenshaInfo.js",
+      "src/data/shenshaShort.js",
+      "src/engines/interactionEngine.js",
+      "docs/老师神煞解说.json",
+      "docs/report_translate2.json"
+    ],
+    "說明": "reportsFlag＝此互動是否會出現在「客戶報告」；若 false 代表程式有算但報告未列。"
+  },
+  "天干": {
+    "基本": {
+      "甲": {
+        "五行": "木",
+        "拼音": "Jia",
+        "器官": "膽、頭",
+        "器官英文": "gallbladder, head"
+      },
+      "乙": {
+        "五行": "木",
+        "拼音": "Yi",
+        "器官": "肝、項",
+        "器官英文": "liver, neck"
+      },
+      "丙": {
+        "五行": "火",
+        "拼音": "Bing",
+        "器官": "小腸、肩、眼睛",
+        "器官英文": "small intestine, shoulders, eyes"
+      },
+      "丁": {
+        "五行": "火",
+        "拼音": "Ding",
+        "器官": "心、眼睛",
+        "器官英文": "heart, eyes"
+      },
+      "戊": {
+        "五行": "土",
+        "拼音": "Wu",
+        "器官": "胃",
+        "器官英文": "stomach"
+      },
+      "己": {
+        "五行": "土",
+        "拼音": "Ji",
+        "器官": "脾、腹",
+        "器官英文": "spleen, abdomen"
+      },
+      "庚": {
+        "五行": "金",
+        "拼音": "Geng",
+        "器官": "大腸、臍輪",
+        "器官英文": "large intestine, navel chakra"
+      },
+      "辛": {
+        "五行": "金",
+        "拼音": "Xin",
+        "器官": "肺、股",
+        "器官英文": "lungs, thighs"
+      },
+      "壬": {
+        "五行": "水",
+        "拼音": "Ren",
+        "器官": "膀胱、三焦、脛",
+        "器官英文": "bladder, triple burner, shins"
+      },
+      "癸": {
+        "五行": "水",
+        "拼音": "Gui",
+        "器官": "腎、心包絡、足",
+        "器官英文": "kidneys, pericardium, feet"
+      }
+    },
+    "五合": {
+      "甲己": {
+        "合化五行": "土",
+        "中文": "正義之合：重信用、固執，但人緣好。",
+        "英文": "The union of justice: values trust and is stubborn, but well liked.",
+        "reportsFlag": true
+      },
+      "乙庚": {
+        "合化五行": "金",
+        "中文": "人緣好、沒自我、重義氣、仁德，個性剛強果斷、積極進取、忍力強。",
+        "英文": "Well liked, self-effacing, loyal and kind; strong and decisive, enterprising and very enduring.",
+        "reportsFlag": true
+      },
+      "丙辛": {
+        "合化五行": "水",
+        "中文": "人緣好、仁意，個性強、威嚴、聰明。",
+        "英文": "Well liked and kind-hearted; a strong, dignified personality, clevers.",
+        "reportsFlag": true
+      },
+      "丁壬": {
+        "合化五行": "木",
+        "中文": "心好。",
+        "英文": "Kind-hearted.",
+        "reportsFlag": true
+      },
+      "戊癸": {
+        "合化五行": "火",
+        "中文": "成熟、外型不錯、重情趣，冷漠、易怒、禮節周到、現實。最好遵循標準作業程序（SOP）／規則。",
+        "英文": "Mature, good-looking, values romance; aloof, quick-tempered, courteous and realistic.Better follow SOP / rules",
+        "reportsFlag": true
+      }
+    },
+    "相沖": {
+      "庚甲": {
+        "組合": "甲庚",
+        "說明": "同陰陽的相剋（四沖），最直接",
+        "英文說明": "Clash between two stems of the same polarity — the most direct form of stem control.",
+        "reportsFlag": true,
+        "報告顯示": "客戶報告只列「身體部位要留意」，判詞見下方 器官對照"
+      },
+      "乙辛": {
+        "組合": "乙辛",
+        "說明": "同陰陽的相剋（四沖），最直接",
+        "英文說明": "Clash between two stems of the same polarity — the most direct form of stem control.",
+        "reportsFlag": true,
+        "報告顯示": "客戶報告只列「身體部位要留意」，判詞見下方 器官對照"
+      },
+      "丙壬": {
+        "組合": "丙壬",
+        "說明": "同陰陽的相剋（四沖），最直接",
+        "英文說明": "Clash between two stems of the same polarity — the most direct form of stem control.",
+        "reportsFlag": true,
+        "報告顯示": "客戶報告只列「身體部位要留意」，判詞見下方 器官對照"
+      },
+      "丁癸": {
+        "組合": "丁癸",
+        "說明": "同陰陽的相剋（四沖），最直接",
+        "英文說明": "Clash between two stems of the same polarity — the most direct form of stem control.",
+        "reportsFlag": true,
+        "報告顯示": "客戶報告只列「身體部位要留意」，判詞見下方 器官對照"
+      }
+    },
+    "相剋": {
+      "戊甲": {
+        "組合": "甲戊",
+        "說明": "五行相剋（非同陰陽）",
+        "英文說明": "Stem control by the five-element cycle (different polarity).",
+        "reportsFlag": true,
+        "報告顯示": "客戶報告只列「身體部位要留意」"
+      },
+      "乙己": {
+        "組合": "乙己",
+        "說明": "五行相剋（非同陰陽）",
+        "英文說明": "Stem control by the five-element cycle (different polarity).",
+        "reportsFlag": true,
+        "報告顯示": "客戶報告只列「身體部位要留意」"
+      },
+      "丙庚": {
+        "組合": "丙庚",
+        "說明": "五行相剋（非同陰陽）",
+        "英文說明": "Stem control by the five-element cycle (different polarity).",
+        "reportsFlag": true,
+        "報告顯示": "客戶報告只列「身體部位要留意」"
+      },
+      "丁辛": {
+        "組合": "丁辛",
+        "說明": "五行相剋（非同陰陽）",
+        "英文說明": "Stem control by the five-element cycle (different polarity).",
+        "reportsFlag": true,
+        "報告顯示": "客戶報告只列「身體部位要留意」"
+      },
+      "壬戊": {
+        "組合": "戊壬",
+        "說明": "五行相剋（非同陰陽）",
+        "英文說明": "Stem control by the five-element cycle (different polarity).",
+        "reportsFlag": true,
+        "報告顯示": "客戶報告只列「身體部位要留意」"
+      },
+      "己癸": {
+        "組合": "己癸",
+        "說明": "五行相剋（非同陰陽）",
+        "英文說明": "Stem control by the five-element cycle (different polarity).",
+        "reportsFlag": true,
+        "報告顯示": "客戶報告只列「身體部位要留意」"
+      }
+    },
+    "總則": {
+      "中文": "八字四柱、大運、流年有相沖相剋者多較衝動；如八字四柱與大運或與流年有相沖相剋者，那此人的運較差。"
+    },
+    "五合婚姻提示": {
+      "中文": "一對夫妻如丈夫日元為甲木而妻子日元為己土，將可天長地久。",
+      "英文": "If a husband's Day Master is Jia Wood and the wife's Day Master is Ji Earth, they will have a long-lasting and harmonious marriage."
+    },
+    "器官說明": {
+      "中文": "天干也代表人的身體器官；如八字四柱與大運或與流年有相沖相剋者，那部份的身體器官較可能出問題。例如一個人的八字裡有甲庚相沖，身體最容易出現問題的器官為膽、頭、大腸和臍輪。",
+      "英文": "Heavenly Stems also represent human body organs. If there is a clash or harm between the Four Pillars, the Major Luck, or the Annual Pillar, those corresponding body parts are more likely to have issues. For example, if a person's BaZi has a Jia-Geng clash, the organs most prone to problems are the gallbladder, head, large intestine, and navel chakra."
+    }
+  },
+  "地支": {
+    "基本": {
+      "子": {
+        "五行": "水",
+        "拼音": "Zi",
+        "器官": "膀胱、尿道、耳朵",
+        "器官英文": "bladder, urinary tract, ears"
+      },
+      "丑": {
+        "五行": "土",
+        "拼音": "Chou",
+        "器官": "肚、脾",
+        "器官英文": "belly, spleen"
+      },
+      "寅": {
+        "五行": "木",
+        "拼音": "Yin",
+        "器官": "膽、兩手",
+        "器官英文": "gallbladder, both hands"
+      },
+      "卯": {
+        "五行": "木",
+        "拼音": "Mao",
+        "器官": "十指、肝",
+        "器官英文": "fingers, liver"
+      },
+      "辰": {
+        "五行": "土",
+        "拼音": "Chen",
+        "器官": "脾、肩、胸",
+        "器官英文": "spleen, shoulders, chest"
+      },
+      "巳": {
+        "五行": "火",
+        "拼音": "Si",
+        "器官": "面、齒、咽、肛",
+        "器官英文": "face, teeth, throat, anus"
+      },
+      "午": {
+        "五行": "火",
+        "拼音": "Wu",
+        "器官": "精神、眼睛",
+        "器官英文": "spirit, eyes"
+      },
+      "未": {
+        "五行": "土",
+        "拼音": "Wei",
+        "器官": "胃、膈、脊骨",
+        "器官英文": "stomach, diaphragm, spine"
+      },
+      "申": {
+        "五行": "金",
+        "拼音": "Shen",
+        "器官": "大腸、肺",
+        "器官英文": "large intestine, lungs"
+      },
+      "酉": {
+        "五行": "金",
+        "拼音": "You",
+        "器官": "精血、小腸",
+        "器官英文": "blood and essence, small intestine"
+      },
+      "戌": {
+        "五行": "土",
+        "拼音": "Xu",
+        "器官": "命門、腳踝足",
+        "器官英文": "life gate, ankles and feet"
+      },
+      "亥": {
+        "五行": "水",
+        "拼音": "Hai",
+        "器官": "頭、腎囊",
+        "器官英文": "head, scrotum"
+      }
+    },
+    "六合": {
+      "午未": {
+        "中文": "較重情意，執行力強有效力。",
+        "英文": "Values affection strongly, with strong and effective execution.",
+        "reportsFlag": true
+      },
+      "巳申": {
+        "中文": "聰明反被聰明誤，太自信，憑感覺投資。",
+        "英文": "Too clever for your own good, over-confident, invests on feeling.",
+        "reportsFlag": true
+      },
+      "辰酉": {
+        "中文": "重義氣。",
+        "英文": "Loyal and values righteousness.",
+        "reportsFlag": true
+      },
+      "子丑": {
+        "中文": "夫妻溝通好，較顧家，財要守。",
+        "英文": "Good communication with your spouse, family-minded, money needs to be guarded.",
+        "reportsFlag": true
+      },
+      "卯戌": {
+        "中文": "愛面子、注重外表、顧家，外強內柔。",
+        "英文": "Cares about face and appearance, family-minded, soft inside under a firm exterior.",
+        "reportsFlag": true
+      },
+      "寅亥": {
+        "中文": "重視倫理道德。",
+        "英文": "Values ethics and moral order.",
+        "reportsFlag": true
+      }
+    },
+    "三合": {
+      "火": {
+        "地支三支": "午、寅、戌",
+        "中文": "火為禮，熱情有禮、做事效率高、執行力強。務必注意飲食，並最好遵守相關操作規程／規定。",
+        "英文": "Fire stands for courtesy: a chart strong in Fire is warm and courteous, efficient and good at getting things done. Have to take care your diet and better follow SOP / rules.",
+        "喜神時": {
+          "中文": "火為禮，熱情有禮、做事效率高、執行力強；能把熱忱轉化為行動，主動負責，並在規範內發揮效率。",
+          "英文": "Fire stands for courtesy: warm and courteous, efficient and strong in execution; you turn enthusiasm into action, take responsibility on your own initiative, and stay efficient within the rules."
+        },
+        "忌神時": {
+          "中文": "火為禮，看似熱情有禮，但容易急躁冒進、三分鐘熱度，執行力強卻易衝動；需留意言行節奏，避免因心急而失誤。",
+          "英文": "Fire stands for courtesy: it looks warm and courteous, but you can be impatient and act rashly, quick to start and quick to drop; strong in execution yet easily carried away — mind your words and pace, and avoid mistakes caused by haste."
+        },
+        "共性提醒": {
+          "中文": "注意飲食，並遵守相關操作規程／規定。",
+          "英文": "Watch your diet and follow the relevant tOP / rules."
+        },
+        "判定依據": "喜忌須依日主強弱、格局與用神綜合判定，不宜單憑三合局定論。",
+        "reportsFlag": true,
+        "備註": {
+          "中文": "三合（或其中二合）如在四柱出現，即具上述特質；也可以四柱配大運或流年——例如四柱已有二合，大運或流年出現第三支，那樣的情況會更明顯。如大運流年見子、八字地支見申辰，那此人行水多運：水為用神則行好運，為忌神則行運较差。行好運時可以「衝」，行運较差時要「守」。",
+          "英文": ""
+        }
+      },
+      "金": {
+        "地支三支": "酉、巳、丑",
+        "中文": "金為義，很注重面子、不容易服輸、重義氣，且會包裝自己，不要與別人比較。容易感到壓力，得試著放鬆一下。",
+        "英文": "Metal stands for righteousness: strong in Metal means caring about face and loyalty, and being good at presenting yourself.  Don't compare yourself to others.  You may feel stressed, so try to relax.",
+        "喜神時": {
+          "中文": "金為義，注重面子、不容易服輸、重義氣，懂得適度包裝自己；能把原則與義氣用於正途，重視承諾，並避免與他人比較。",
+          "英文": "Metal stands for righteousness: you care about face, do not give in easily and value loyalty, and you present yourself well in moderation; you put principle and loyalty to good use, keep your promises and avoid comparing yourself with others."
+        },
+        "忌神時": {
+          "中文": "金為義，很注重面子、不容易服輸、重義氣，且會包裝自己，不要與別人比較。",
+          "英文": "Metal stands for righteousness: you care about face, do not give in easily and value loyalty, but you can be stubborn, over-package yourself and love comparing with others; the sense of pressure is heavy and hard to release."
+        },
+        "共性提醒": {
+          "中文": "容易感到壓力，應試著放鬆，並避免以他人標準衡量自己。",
+          "英文": "You feel pressure easily — try to relax and stop measuring yourself by other people's standards."
+        },
+        "判定依據": "喜忌須依日主強弱、格局與用神綜合判定，不宜單憑三合局定論。",
+        "reportsFlag": true,
+        "備註": {
+          "中文": "三合（或其中二合）如在四柱出現，即具上述特質；也可以四柱配大運或流年——例如四柱已有二合，大運或流年出現第三支，那樣的情況會更明顯。如大運流年見子、八字地支見申辰，那此人行水多運：水為用神則行好運，為忌神則行運较差。行好運時可以「衝」，行運较差時要「守」。",
+          "英文": ""
+        }
+      },
+      "水": {
+        "地支三支": "子、申、辰",
+        "中文": "水為智，足智多謀、學識過人，但常改變思想，聰明也較冷漠。",
+        "英文": "Strong in Water: resourceful and knowledgeable, but often changes their mind — clever, yet rather cold.",
+        "喜神時": {
+          "中文": "水為智，足智多謀、學識過人；思想靈活、懂得變通，聰明而能保持理智冷靜，善於觀察與調整。",
+          "英文": "Water stands for wisdom: resourceful and knowledgeable; flexible in thought and good at adapting, clever yet rationally calm, skilled at observing and adjusting."
+        },
+        "忌神時": {
+          "中文": "水為智，足智多謀、學識過人，但思想多變不定、聰明反被聰明誤；待人處事較為冷漠，需避免過度算計與疏離，事業要全力以赴。",
+          "英文": "Water stands for wisdom: resourceful and knowledgeable, but your thinking keeps changing and cleverness can backfire; you may seem cold towards others, so avoid over-calculating and drifting apart."
+        },
+        "共性提醒": {
+          "中文": "宜培養穩定目標與同理心，避免因想法多變而失焦。",
+          "英文": "Build stable goals and empathy; do not lose focus because your ideas keep changing."
+        },
+        "判定依據": "喜忌須依日主強弱、格局與用神綜合判定，不宜單憑三合局定論。",
+        "reportsFlag": true,
+        "備註": {
+          "中文": "三合（或其中二合）如在四柱出現，即具上述特質；也可以四柱配大運或流年——例如四柱已有二合，大運或流年出現第三支，那樣的情況會更明顯。如大運流年見子、八字地支見申辰，那此人行水多運：水為用神則行好運，為忌神則行運较差。行好運時可以「衝」，行運较差時要「守」。",
+          "英文": ""
+        }
+      },
+      "木": {
+        "地支三支": "卯、亥、未",
+        "中文": "木為仁，富有同情心，傾向於好的點子，創造財富。",
+        "英文": "Strong in Wood: compassionate, inclined to good ideas. Got wealth.",
+        "喜神時": {
+          "中文": "木為仁，富有同情心，傾向於好的點子；能把想法具體落實，專注經營並創造財富。",
+          "英文": "Wood stands for benevolence: compassionate and inclined to good ideas; you turn ideas into concrete steps, focus on what you build and create wealth."
+        },
+        "忌神時": {
+          "中文": "木為仁，富有同情心，但容易有不切實際的想法；想法過多而分散，導致難以專注與落實。",
+          "英文": "Wood stands for benevolence: compassionate, but inclined to unrealistic ideas; too many ideas scatter your attention, making it hard to focus and follow through."
+        },
+        "共性提醒": {
+          "中文": "宜設定優先順序，將善意與創意轉化為可執行步驟。",
+          "英文": "Set priorities so goodwill and creativity become executable steps."
+        },
+        "判定依據": "喜忌須依日主強弱、格局與用神綜合判定，不宜單憑三合局定論。",
+        "reportsFlag": true,
+        "備註": {
+          "中文": "三合（或其中二合）如在四柱出現，即具上述特質；也可以四柱配大運或流年——例如四柱已有二合，大運或流年出現第三支，那樣的情況會更明顯。如大運流年見子、八字地支見申辰，那此人行水多運：水為用神則行好運，為忌神則行運较差。行好運時可以「衝」，行運较差時要「守」。",
+          "英文": ""
+        }
+      }
+    },
+    "三會": {
+      "木": {
+        "地支三支": "寅、卯、辰",
+        "中文": "木為仁，富有同情心，傾向於好的點子，創造財富。（沿用同五行三合判詞）",
+        "英文": "Strong in Wood: compassionate, inclined to good ideas. Got wealth.",
+        "英文備註": "三會／二會的判詞沿用同五行的三合判詞（與程式行為一致）",
+        "reportsFlag": true,
+        "備註": "四柱有其中二支＝二會（半會／拱會），三支齊＝三會"
+      },
+      "火": {
+        "地支三支": "巳、午、未",
+        "中文": "火為禮，熱情有禮、做事效率高、執行力強。務必注意飲食，並最好遵守相關操作規程／規定。（沿用同五行三合判詞）",
+        "英文": "Fire stands for courtesy: a chart strong in Fire is warm and courteous, efficient and good at getting things done. Have to take care your diet and better follow SOP / rules.",
+        "英文備註": "三會／二會的判詞沿用同五行的三合判詞（與程式行為一致）",
+        "reportsFlag": true,
+        "備註": "四柱有其中二支＝二會（半會／拱會），三支齊＝三會"
+      },
+      "金": {
+        "地支三支": "申、酉、戌",
+        "中文": "金為義，很注重面子、不容易服輸、重義氣，且會包裝自己，不要與別人比較。容易感到壓力，得試著放鬆一下。（沿用同五行三合判詞）",
+        "英文": "Metal stands for righteousness: strong in Metal means caring about face and loyalty, and being good at presenting yourself.  Don't compare yourself to others.  You may feel stressed, so try to relax.",
+        "英文備註": "三會／二會的判詞沿用同五行的三合判詞（與程式行為一致）",
+        "reportsFlag": true,
+        "備註": "四柱有其中二支＝二會（半會／拱會），三支齊＝三會"
+      },
+      "水": {
+        "地支三支": "亥、子、丑",
+        "中文": "水為智，足智多謀、學識過人，但常改變思想，聰明也較冷漠。（沿用同五行三合判詞）",
+        "英文": "Strong in Water: resourceful and knowledgeable, but often changes their mind — clever, yet rather cold.",
+        "英文備註": "三會／二會的判詞沿用同五行的三合判詞（與程式行為一致）",
+        "reportsFlag": true,
+        "備註": "四柱有其中二支＝二會（半會／拱會），三支齊＝三會"
+      }
+    },
+    "相沖": {
+      "寅申": {
+        "中文": "東奔西跑，注意車關，適合外務；對人付出，別人不容易感激你，無人賞識。",
+        "英文": "Always on the move — watch out for traffic accidents; suited to outside work. You give to people, yet they seldom appreciate you or recognise your worth.",
+        "reportsFlag": true
+      },
+      "亥巳": {
+        "中文": "東奔西跑，注意車關，適合外務；口才好有辯才，做事要快。",
+        "英文": "Always on the move — watch out for traffic accidents; suited to outside work. Good with words and quick in debate; things should be done fast.",
+        "reportsFlag": true
+      },
+      "午子": {
+        "中文": "個性極端、反復不常；影響桃花、要處理好感情與異性之間問題，生氣時會抓狂，感情困擾。",
+        "英文": "Extreme and changeable; romance is stirred and you are popular, but anger can flare up and love troubles follow.",
+        "reportsFlag": true
+      },
+      "卯酉": {
+        "中文": "影響桃花、要處理好感情與異性之間問題;第六感強、較會衡量人，以直覺做事。",
+        "英文": "Romance is stirred; handle relationships with the opposite sex carefully. Strong sixth sense, good at evaluating people, and acts on intuition.",
+        "reportsFlag": true
+      },
+      "戌辰": {
+        "中文": "個性不好、脾氣壞，較會自圓其說；庫衝破、財難守，口才好有辯才，身體不好。",
+        "英文": "A difficult temperament and a bad temper, inclined to justify yourself; the storage vaults clash so money is hard to keep; good with words and debate, poor health.",
+        "reportsFlag": true
+      },
+      "丑未": {
+        "中文": "追根究底、較會查行蹤；庫衝破、財難守，小財不斷流失。",
+        "英文": "You dig to the bottom of things and check up on people; the vaults clash and money is hard to keep — small amounts leak away constantly.",
+        "reportsFlag": true
+      }
+    },
+    "相沖總則": {
+      "中文": "地支裡相沖的生肖：例如子午相沖，因此鼠年時生肖鼠者犯太歲、生肖馬者沖太歲，都運氣較差，尤其生肖馬者。八字四柱相沖多者命差；大運流年再相沖者運差。",
+      "英文": ""
+    },
+    "三刑": {
+      "無恩之刑": {
+        "地支": "寅、申、巳",
+        "中文": "容易發生意外，別人不容易感激你、無人賞識，愛恨交加，身體健康差。對於曾經提拔你或者協助你的人，要心存感恩。",
+        "英文": "Ungrateful punishment: Prone to accidents, others rarely appreciate you, unrecognised talent, mixed love and hate, poor physical health.",
+        "reportsFlag": true
+      },
+      "恃勢之刑": {
+        "地支": "戌、丑、未",
+        "中文": "同類像兄弟卻同室操戈；易因過度自信、固執己見而招致財務麻煩。憑感覺投資的損財機率高，財富易看不見地流失。切忌仗勢欺人或獨斷專行，人際合作務必明算帳，方能避免因利益糾紛而破財。",
+        "英文": "Relying on power punishment: Like brothers turning against each other; treating relatives as adversaries (e.g., wealth star turning hostile), causing trouble over money; overconfident, investing on feeling. Be grateful to those who promoted or helped you. Wei-Chou: High chance of financial loss, invisible but constant leakage.",
+        "reportsFlag": true
+      },
+      "無禮之刑": {
+        "地支": "子、卯",
+        "中文": "水本可生木，如同母生子現在卻相刑；說話直接、要会感恩和多听别⼈尤其是⻓辈的思告。",
+        "英文": "Rude punishment: Water should nurture Wood, like a mother birthing a child, but now they punish each other. If it appears in the four pillars, the person is arrogant, speaks too directly, learn to be grateful, and listen carefully to the advice of others—especially your elders.",
+        "reportsFlag": true
+      }
+    },
+    "自刑": {
+      "辰": {
+        "中文": "希望別人都聽你的，做事直接，但有遠見。",
+        "英文": "You want others to listen to you; you act directly, but you do have vision.",
+        "reportsFlag": true
+      },
+      "午": {
+        "中文": "常事與願違，要以禮待人方好。",
+        "英文": "Things often turn out against your wishes; courtesy towards others is the way through.",
+        "reportsFlag": true
+      },
+      "酉": {
+        "中文": "常想幫人，但別人不容易感激你、無人賞識你。",
+        "英文": "You always want to help, yet others rarely appreciate or recognise you.",
+        "reportsFlag": true
+      },
+      "亥": {
+        "中文": "較無理取鬧、悲觀，總感到自己運氣比別人差；如又逢流年來害月柱，喜歡用腦但多愁善感。",
+        "英文": "Unreasonable and pessimistic, always feeling your luck is worse than other people's; if an annual pillar also harms the month pillar, you like to use your mind but are sentimental.",
+        "reportsFlag": true
+      }
+    },
+    "自刑說明": {
+      "中文": "自刑：辰、午、酉、亥。如有兩個或以上同時出現在四柱，那個人將會想太多、對自己不滿意、自尊心強、自尋煩惱、有話不說；如在月柱較無法溝通。",
+      "英文": ""
+    },
+    "六害": {
+      "子未": {
+        "中文": "個性極端，易犯小人，親子間較早分離。",
+        "英文": "Extreme personality, easily troubled by petty people; early parting from children (or parents).",
+        "reportsFlag": true
+      },
+      "丑午": {
+        "中文": "小心是非小人多促進人際關係。",
+        "英文": "Be careful of gossip and petty people; focus on improving interpersonal relationships.",
+        "reportsFlag": true
+      },
+      "寅巳": {
+        "中文": "是非多、易犯小人，在家裡待不住。",
+        "英文": "Much gossip and petty people around; you cannot stay settled at home.",
+        "reportsFlag": true
+      },
+      "卯辰": {
+        "中文": "容易被扯後腿，兄弟姐妹無助，易遭親人相害。",
+        "英文": "Easily pulled down by others; little help from siblings; harmed by close relatives.",
+        "reportsFlag": true
+      },
+      "酉戌": {
+        "中文": "容易被扯後腿、易遭親人相害。",
+        "英文": "Easily pulled down and harmed by close relatives.",
+        "reportsFlag": true
+      },
+      "申亥": {
+        "中文": "是非多、易犯小人，挫折感重，受不了刺激。",
+        "英文": "Much gossip and petty people, a heavy sense of frustration, cannot take provocation.",
+        "reportsFlag": true
+      }
+    },
+    "相破": {
+      "子酉": {
+        "中文": "（老師課本列有「破」，但客戶報告目前沒有『破』的判詞）",
+        "英文": "(Listed in the teacher's notes; the client report does not print 破 yet.)",
+        "reportsFlag": false
+      },
+      "午卯": {
+        "中文": "（老師課本列有「破」，但客戶報告目前沒有『破』的判詞）",
+        "英文": "(Listed in the teacher's notes; the client report does not print 破 yet.)",
+        "reportsFlag": false
+      },
+      "丑辰": {
+        "中文": "（老師課本列有「破」，但客戶報告目前沒有『破』的判詞）",
+        "英文": "(Listed in the teacher's notes; the client report does not print 破 yet.)",
+        "reportsFlag": false
+      },
+      "亥寅": {
+        "中文": "（老師課本列有「破」，但客戶報告目前沒有『破』的判詞）",
+        "英文": "(Listed in the teacher's notes; the client report does not print 破 yet.)",
+        "reportsFlag": false
+      },
+      "巳申": {
+        "中文": "（老師課本列有「破」，但客戶報告目前沒有『破』的判詞）",
+        "英文": "(Listed in the teacher's notes; the client report does not print 破 yet.)",
+        "reportsFlag": false
+      },
+      "戌未": {
+        "中文": "（老師課本列有「破」，但客戶報告目前沒有『破』的判詞）",
+        "英文": "(Listed in the teacher's notes; the client report does not print 破 yet.)",
+        "reportsFlag": false
+      }
+    }
+  },
+  "十神": {
+    "比肩": {
+      "類別": "比劫",
+      "中文": {
+        "喜用方向": "身弱比劫，代表財祿。",
+        "性格正面": "正直、獨立",
+        "性格負面": "自我、硬勁",
+        "六親": "兄弟姐妹、朋友、同事、生意拍檔（同我）。",
+        "大運流年短句": "財庫相沖會有財但是也要守財，也有些阻力。"
+      },
+      "英文": {
+        "名稱": "Peer",
+        "喜用方向": "For a weak Day Master, Companion stars represent wealth and fortune.",
+        "性格": "Positive: Upright, independent / Negative: Self-centered, stubborn",
+        "大運流年短句": "The wealth vault is clashed — there is money, but it must be guarded, and there is some resistance."
+      }
+    },
+    "劫財": {
+      "類別": "比劫",
+      "中文": {
+        "喜用方向": "身弱比劫，代表財祿。",
+        "性格正面": "正直、獨立",
+        "性格負面": "自我、硬勁",
+        "六親": "兄弟姐妹、朋友、同事、生意拍檔（同我）。",
+        "大運流年短句": "錢財或守住，不要借人也不要做別人的擔保人。"
+      },
+      "英文": {
+        "名稱": "Rival",
+        "喜用方向": "For a weak Day Master, Companion stars represent wealth and fortune.",
+        "性格": "Positive: Upright, independent / Negative: Self-centered, stubborn",
+        "大運流年短句": "Guard your money: do not lend it, and do not stand as guarantor for others."
+      }
+    },
+    "食神": {
+      "類別": "傷食",
+      "中文": {
+        "喜用方向": "身旺代表才華；身旺傷食生財，可斷因才華而致富。",
+        "性格正面": "機智、聰明",
+        "性格負面": "傲慢、任性",
+        "六親": "子女（女命以傷官食神作子女）；也代表祖輩，因為傷食生財。",
+        "大運流年短句": ""
+      },
+      "英文": {
+        "名稱": "Gentle Output",
+        "喜用方向": "For a strong Day Master, it represents talent; a strong Day Master with Output generating Wealth indicates getting rich through talent.",
+        "性格": "Positive: Witty, intelligent / Negative: Arrogant, willful",
+        "大運流年短句": ""
+      }
+    },
+    "傷官": {
+      "類別": "傷食",
+      "中文": {
+        "喜用方向": "身旺代表才華；身旺傷食生財，可斷因才華而致富。",
+        "性格正面": "機智、聰明",
+        "性格負面": "傲慢、任性",
+        "六親": "子女（女命以傷官食神作子女）；也代表祖輩，因為傷食生財。",
+        "大運流年短句": "表現好。"
+      },
+      "英文": {
+        "名稱": "Bold Output",
+        "喜用方向": "For a strong Day Master, it represents talent; a strong Day Master with Output generating Wealth indicates getting rich through talent.",
+        "性格": "Positive: Witty, intelligent / Negative: Arrogant, willful",
+        "大運流年短句": "You perform well."
+      }
+    },
+    "偏財": {
+      "類別": "財才",
+      "中文": {
+        "喜用方向": "身旺財星代表財富，身弱見財反貧。",
+        "性格正面": "慷慨",
+        "性格負面": "重利、貪心",
+        "六親": "父親，或男命的女性朋友。",
+        "大運流年短句": "有財，但財來財去。"
+      },
+      "英文": {
+        "名稱": "Windfall Wealth",
+        "喜用方向": "For a strong Day Master, the Wealth star represents riches; for a weak Day Master, seeing Wealth leads to poverty.",
+        "性格": "Positive: Generous / Negative: Materialistic, greedy",
+        "大運流年短句": "There is money, but it comes and goes."
+      }
+    },
+    "正財": {
+      "類別": "財才",
+      "中文": {
+        "喜用方向": "身旺財星代表財富，身弱見財反貧。",
+        "性格正面": "慷慨",
+        "性格負面": "重利、貪心",
+        "六親": "男命以我克而性異者為妻。",
+        "大運流年短句": ""
+      },
+      "英文": {
+        "名稱": "Steady Wealth",
+        "喜用方向": "For a strong Day Master, the Wealth star represents riches; for a weak Day Master, seeing Wealth leads to poverty.",
+        "性格": "Positive: Generous / Negative: Materialistic, greedy",
+        "大運流年短句": ""
+      }
+    },
+    "七殺": {
+      "類別": "官殺",
+      "中文": {
+        "喜用方向": "代表事業職業；身弱殺印相生為創業升職。",
+        "性格正面": "",
+        "性格負面": "",
+        "六親": "女命的丈夫、男朋友，或上司、老師、管家。",
+        "大運流年短句": "會有權威。"
+      },
+      "英文": {
+        "名稱": "Pressure",
+        "喜用方向": "Represents career and profession; for a weak Day Master, Power generating Resource indicates entrepreneurship and promotion.",
+        "性格": "Positive: Upright, independent / Negative: Self-centered, stubborn",
+        "大運流年短句": "You will carry authority."
+      }
+    },
+    "正官": {
+      "類別": "官殺",
+      "中文": {
+        "喜用方向": "代表事業職業；身弱殺印相生為創業升職。",
+        "性格正面": "",
+        "性格負面": "",
+        "六親": "丈夫（女命以正官為丈夫）。",
+        "大運流年短句": "事業好，但也有些阻力。"
+      },
+      "英文": {
+        "名稱": "Authority",
+        "喜用方向": "Represents career and profession; for a weak Day Master, Power generating Resource indicates entrepreneurship and promotion.",
+        "性格": "Positive: Upright, independent / Negative: Self-centered, stubborn",
+        "大運流年短句": "Career goes well, though there is some resistance."
+      }
+    },
+    "偏印": {
+      "類別": "印",
+      "中文": {
+        "喜用方向": "身弱印星代表名譽、才華、健康。",
+        "性格正面": "權威、服眾",
+        "性格負面": "軟弱、怕事",
+        "六親": "養母、繼母、祖母。",
+        "大運流年短句": ""
+      },
+      "英文": {
+        "名稱": "Unusual Resource",
+        "喜用方向": "For a weak Day Master, the Resource star represents reputation, talent, and health.",
+        "性格": "Positive: Authoritative, commands respect / Negative: Weak-willed, timid",
+        "大運流年短句": ""
+      }
+    },
+    "正印": {
+      "類別": "印",
+      "中文": {
+        "喜用方向": "身弱印星代表名譽、才華、健康。",
+        "性格正面": "權威、服眾",
+        "性格負面": "軟弱、怕事",
+        "六親": "母親（我由母親所生）。月支正印坐而無相沖相刑，與母親緣份佳；反之月支坐財或相沖相刑，緣份差。",
+        "大運流年短句": "有財。"
+      },
+      "英文": {
+        "名稱": "Resource",
+        "喜用方向": "For a weak Day Master, the Resource star represents reputation, talent, and health.",
+        "性格": "Positive: Authoritative, commands respect / Negative: Weak-willed, timid",
+        "大運流年短句": "There is wealth."
+      }
+    }
+  },
+  "神煞": {
+    "月德貴人": {
+      "分類": "貴人星",
+      "中文": {
+        "短句": "陰德貴人星，主逢凶化吉。",
+        "解說": "貴人星（陰德），主逢凶化吉。　影響：主福分深厚、長壽、不犯官刑、是一顆強而有力的貴人星　組合：天、月德若同會，力量集中，濟世利人、社會鹹欽，萬福雲集。",
+        "影響": [
+          "主福分深厚",
+          "長壽",
+          "不犯官刑",
+          "是一顆強而有力的貴人星"
+        ],
+        "組合": [
+          "天、月德若同會，力量集中，濟世利人、社會鹹欽，萬福雲集。"
+        ]
+      },
+      "英文": {
+        "短句": "Yin-virtue noble star — turns misfortune into fortune.",
+        "解說": "Noble star (Yin virtue), turns misfortune into fortune. Impact: Deep blessings, longevity, free from legal punishment, a powerful helpful star. Combination: If Heavenly and Monthly Virtue meet, their power concentrates, benefiting society and attracting abundant blessings."
+      },
+      "是否顯示": true
+    },
+    "月德合": {
+      "分類": "貴人星",
+      "中文": {
+        "短句": "有貴人。",
+        "解說": "貴人星（陰德），主逢凶化吉。　影響：主福分深厚、長壽、不犯官刑、是一顆強而有力的貴人星　組合：天、月德若同會，力量集中，濟世利人、社會鹹欽，萬福雲集。",
+        "影響": [
+          "主福分深厚",
+          "長壽",
+          "不犯官刑",
+          "是一顆強而有力的貴人星"
+        ],
+        "組合": [
+          "天、月德若同會，力量集中，濟世利人、社會鹹欽，萬福雲集。"
+        ]
+      },
+      "英文": {
+        "短句": "Helpful people.",
+        "解說": "Noble star (Yin virtue), turns misfortune into fortune. Impact: Deep blessings, longevity, free from legal punishment, a powerful helpful star. Combination: If Heavenly and Monthly Virtue meet, their power concentrates, benefiting society and attracting abundant blessings."
+      },
+      "是否顯示": true
+    },
+    "天德貴人": {
+      "分類": "貴人星",
+      "中文": {
+        "短句": "陽德貴人星，主逢凶化吉。",
+        "解說": "貴人星（陽德），主逢凶化吉。　影響：直接阻止不吉利的事情發生、使你可以專心完成老闆委派的工作　組合：天、月德若同會，力量集中，濟世利人、社會鹹欽，萬福雲集。",
+        "影響": [
+          "直接阻止不吉利的事情發生",
+          "使你可以專心完成老闆委派的工作"
+        ],
+        "組合": [
+          "天、月德若同會，力量集中，濟世利人、社會鹹欽，萬福雲集。"
+        ]
+      },
+      "英文": {
+        "短句": "Yang-virtue noble star — turns misfortune into fortune.",
+        "解說": "Noble star (Yang virtue), turns misfortune into fortune. Impact: Directly prevents inauspicious events, allowing you to focus on completing tasks assigned by superiors. Combination: If Heavenly and Monthly Virtue meet, their power concentrates, benefiting society and attracting abundant blessings."
+      },
+      "是否顯示": true
+    },
+    "天德合": {
+      "分類": "貴人星",
+      "中文": {
+        "短句": "",
+        "解說": "貴人星（陽德），主逢凶化吉。　影響：直接阻止不吉利的事情發生、使你可以專心完成老闆委派的工作　組合：天、月德若同會，力量集中，濟世利人、社會鹹欽，萬福雲集。",
+        "影響": [
+          "直接阻止不吉利的事情發生",
+          "使你可以專心完成老闆委派的工作"
+        ],
+        "組合": [
+          "天、月德若同會，力量集中，濟世利人、社會鹹欽，萬福雲集。"
+        ]
+      },
+      "英文": {
+        "短句": "Helpful people (Yang virtue combination).",
+        "解說": "Noble star (Yang virtue), turns misfortune into fortune. Impact: Directly prevents inauspicious events, allowing you to focus on completing tasks assigned by superiors. Combination: If Heavenly and Monthly Virtue meet, their power concentrates, benefiting society and attracting abundant blessings."
+      },
+      "是否顯示": true
+    },
+    "太極貴人": {
+      "分類": "貴人星",
+      "中文": {
+        "短句": "",
+        "解說": "主聰明好學，有鑽勁，喜文史哲宗教等科目。為人正直，做事有始有終。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Smart and eager to learn.",
+        "解說": "Indicates intelligence and a strong desire to learn, especially in literature, history, philosophy, and religion. Upright character, sees things through to the end."
+      },
+      "是否顯示": false
+    },
+    "文昌": {
+      "分類": "貴人星",
+      "中文": {
+        "短句": "主聰明過人，逢凶化吉。氣質雅秀，舉止溫文，好學新知，具上進心。一生近官利貴，不與粗俗之輩亂交",
+        "解說": "主聰明過人，又主逢凶化吉。氣質雅秀，舉止溫文，男命逢著內涵，女命逢著儀容。好學新知，具上進心。一生近官利貴，不與粗俗之輩亂交。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Unusually bright, turns misfortune into fortune; refined manner, fond of learning, associates with people of standing.",
+        "解說": "Indicates exceptional intelligence and turning misfortune into fortune. Elegant temperament and gentle manners. For men, it implies inner depth; for women, graceful appearance. Fond of learning new things, ambitious, associates with people of standing, and avoids vulgar company."
+      },
+      "是否顯示": true
+    },
+    "將星": {
+      "分類": "貴人星/武星",
+      "中文": {
+        "短句": "有權威。",
+        "解說": "掌管權位提升的星宿，代表會有貴人提拔，在公司裡有職位升遷之喜，權力也同時得到提高。本身是一顆武星，表示必須自己經過一番拼搏奮鬥，才可以做出卓越成績。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Carries authority.",
+        "解說": "Governs promotion and authority. Represents being promoted by helpful people and gaining power in the company. As a martial star, it also means one must struggle and fight hard to achieve outstanding results."
+      },
+      "是否顯示": true
+    },
+    "學堂": {
+      "分類": "吉星",
+      "中文": {
+        "短句": "",
+        "解說": "學習機會多或與學校有緣。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Good Academic opportunities.",
+        "解說": "Many learning opportunities or a strong affinity with schools and education."
+      },
+      "是否顯示": true
+    },
+    "天醫": {
+      "分類": "吉星",
+      "中文": {
+        "短句": "天醫入命，對健康好，有貴人，也對玄學有天分。",
+        "解說": "天上的醫生的意思，代表此人是個好醫生，包括對玄學有濃厚的興趣或天分，可以用算命來醫別人。它是月支的前一地支（如寅月，天醫星是丑）。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "The healer star: good for health, brings helpful people, and gives a flair for the metaphysical.",
+        "解說": "Literally 'Heavenly Doctor'. Indicates the person is a good healer, including having a strong interest or talent in metaphysics, and can use fortune-telling to help others. It is the earthly branch preceding the month branch (e.g., in a Yin month, the Tianyi star is Chou)."
+      },
+      "是否顯示": true
+    },
+    "劫煞": {
+      "分類": "凶煞",
+      "中文": {
+        "短句": "",
+        "解說": "主徒勞無功，預兆做事大多事倍功半，甚至白費氣力。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Futile effort.",
+        "解說": "Indicates futile effort, suggesting that most tasks will require twice the work for half the result, or even wasted energy."
+      },
+      "是否顯示": true
+    },
+    "亡神": {
+      "分類": "吉凶參半",
+      "中文": {
+        "短句": "主耗敗，主官非；主多災和是非、金錢動向有著深刻的關係。也是給人自新和重生的機會",
+        "解說": "主耗敗，亦主官非；忌入命、身宮，主多災。和是非、金錢動向有著深刻的關係。「亡神」其實是給人自新和重生的機會。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Loss and disputes; closely tied to money movements and trouble. Also a chance to start over.",
+        "解說": "Indicates loss and legal disputes; entering the life or body palace brings many disasters. It is deeply related to gossip and money movements. However, 'Wang Shen' also offers a chance for self-renewal and rebirth."
+      },
+      "是否顯示": true
+    },
+    "寡宿": {
+      "分類": "凶煞",
+      "中文": {
+        "短句": "",
+        "解說": "主孤獨且悶悶不樂。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Solitude.",
+        "解說": "Indicates loneliness and unhappiness."
+      },
+      "是否顯示": true
+    },
+    "孤辰": {
+      "分類": "凶煞",
+      "中文": {
+        "短句": "",
+        "解說": "主孤獨且悶悶不樂。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Solitude.",
+        "解說": "Indicates loneliness and unhappiness."
+      },
+      "是否顯示": true
+    },
+    "羊刃": {
+      "分類": "凶煞/武星",
+      "中文": {
+        "短句": "男：（用老師原文）／女：小心血光之災，去捐血來化解。",
+        "解說": "男人命盤中含有羊刃，十有八九都是固執而不會輕易妥協讓步的大男人，但相對也是屬於有責任感的男人。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "male: (teacher's text) / female: Beware of bloodshed or injury; donating blood can offset it.",
+        "解說": "Men with this in their chart are mostly stubborn and rarely compromise, but are also highly responsible."
+      },
+      "是否顯示": true
+    },
+    "官符煞": {
+      "分類": "凶煞",
+      "中文": {
+        "短句": "小心是非。",
+        "解說": "年支生肖前五辰，就是官符煞，此人易有官非。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Watch out for disputes and lawsuits.",
+        "解說": "The fifth earthly branch after the year branch is the Official Seal Sha, indicating the person is prone to legal disputes."
+      },
+      "是否顯示": true
+    },
+    "桃花": {
+      "分類": "桃花星",
+      "中文": {
+        "短句": "",
+        "解說": "四柱桃花星的整體特徵。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Romance and popularity.",
+        "解說": "Overall characteristics of the Peach Blossom star in the four pillars."
+      },
+      "是否顯示": false
+    },
+    "咸池": {
+      "分類": "桃花星",
+      "中文": {
+        "短句": "要熱鬧，有異性緣。",
+        "解說": "主性慾的桃花星。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Loves a lively social life and attracts the opposite sex.",
+        "解說": "The Peach Blossom star governing sexual desire."
+      },
+      "是否顯示": true
+    },
+    "紅鸞": {
+      "分類": "桃花星",
+      "中文": {
+        "短句": "有喜慶之事，有異性缘",
+        "解說": "主嫁娶的桃花星。大利感情亦主有喜慶之事，年長的人士會有嫁女娶媳婦或是添孫的喜事。而正在蜜運的朋友則會共諧連理。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Joyful events, attracts the opposite sex.",
+        "解說": "The Peach Blossom star governing marriage. Highly beneficial for relationships and indicates joyful events. For older people, it means a daughter getting married, a son getting married, or having grandchildren. For those in a relationship, it means getting married."
+      },
+      "是否顯示": true
+    },
+    "紅豔": {
+      "分類": "桃花星",
+      "中文": {
+        "短句": "有異性緣",
+        "解說": "為主戀愛拍拖的桃花星。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Popular with the opposite sex.",
+        "解說": "The Peach Blossom star governing romantic dating."
+      },
+      "是否顯示": true
+    },
+    "天喜": {
+      "分類": "桃花星",
+      "中文": {
+        "短句": "樂觀，有開心的事情。",
+        "解說": "為主快樂之星。亦主有喜慶之事或樂觀主義者。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Cheerful — happy events are likely.",
+        "解說": "The star of happiness. Also indicates joyful events or an optimistic nature."
+      },
+      "是否顯示": true
+    },
+    "驛馬": {
+      "分類": "吉星/動星",
+      "中文": {
+        "短句": "喜歡或必須東奔西跑，喜歡旅遊或改變環境。是一顆中級的貴人吉星。",
+        "解說": "喜歡或必須東奔西跑，喜歡旅遊或改變環境。出現在命宮代表動象頻頻，主吉主兇全憑自己對事情的掌握。是一顆中級的貴人吉星。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Like it or not you are on the move — travel and changing environments suit you. A mid-grade lucky star.",
+        "解說": "Like it or not, you are on the move — travel and changing environments suit you. Appearing in the life palace indicates frequent movement; whether it is auspicious or inauspicious depends entirely on your grasp of the situation. It is a mid-grade lucky star."
+      },
+      "是否顯示": true
+    },
+    "詞館": {
+      "分類": "吉星",
+      "中文": {
+        "短句": "",
+        "解說": "語言能力強。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Eloquent. Good in speaking or language ability",
+        "解說": "Strong language and communication abilities."
+      },
+      "是否顯示": true
+    },
+    "華蓋": {
+      "分類": "藝術/孤星",
+      "中文": {
+        "短句": "藝術，孤芳自賞，有說服力。",
+        "解說": "藝術，孤芳自賞，有說服力。除了說經講道理很靈光之外，一開口旁邊的人都會靜下來，這情況很妙。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Artistic, solitary, persuasive.",
+        "解說": "Artistic, solitary, and persuasive. Besides being brilliant at explaining principles and reasoning, once you speak, people around you will quiet down, which is quite a remarkable phenomenon."
+      },
+      "是否顯示": true
+    },
+    "天羅地網": {
+      "分類": "凶煞",
+      "中文": {
+        "短句": "男怕天羅（亥戌），女怕地網（辰巳），兩者必須連在一起，代表坐牢或困在同一個地方。",
+        "解說": "男怕天羅（亥戌），女怕地網（辰巳），兩者必須連在一起，代表坐牢或困在同一個地方。八字很多土受困於土中央，男怕【天羅】女怕【地網】。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Men fear the net of heaven (亥戌), women fear the net of earth (辰巳); together they mean being trapped or confined.",
+        "解說": "Men fear the net of heaven (Hai-Xu), women fear the net of earth (Chen-Si); together they mean being trapped or confined. A BaZi with too much Earth means being trapped in the center of Earth. Men fear the 'Net of Heaven', women fear the 'Net of Earth'."
+      },
+      "是否顯示": true
+    },
+    "毛失星": {
+      "分類": "凶煞",
+      "中文": {
+        "短句": "",
+        "解說": "八字出現代表破財,總是莫名其妙失去很多錢。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Financial loss.",
+        "解說": "Indicates financial loss in the BaZi: women like to buy luxury brands and diamonds; men lose money in stocks or get scammed, always inexplicably losing a lot of money."
+      },
+      "是否顯示": true
+    },
+    "囚獄": {
+      "分類": "凶煞",
+      "中文": {
+        "短句": "",
+        "解說": "失去自由包括身心自由。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Imprisonment.",
+        "解說": "Loss of freedom, including physical and mental freedom."
+      },
+      "是否顯示": true
+    },
+    "自縊煞": {
+      "分類": "凶煞",
+      "中文": {
+        "短句": "",
+        "解說": "死亡尤其是輕生。",
+        "影響": [],
+        "組合": []
+      },
+      "英文": {
+        "短句": "Risk of self-harm.",
+        "解說": "Risk of death, especially suicide."
+      },
+      "是否顯示": false
+    }
+  },
+  "客戶報告解說": {
+    "1_大運流年短句": {
+      "用神": {
+        "中文": "當年執行力強，有效率。",
+        "英文": "Strong execution this year — efficient and effective."
+      },
+      "相剋": {
+        "中文": "會感壓力。財要守。注意身體健康。",
+        "英文": "You will feel pressure. Guard your money. Watch your health."
+      },
+      "正官": {
+        "中文": "事業好，但也有些阻力。",
+        "英文": "Career goes well, though there is some resistance."
+      },
+      "七殺": {
+        "中文": "會有權威。",
+        "英文": "You will carry authority."
+      },
+      "比肩": {
+        "中文": "財庫相沖會有財但是也要守財，也有些阻力。",
+        "英文": "The wealth vault is clashed — there is money, but it must be guarded, and there is some resistance."
+      },
+      "正印": {
+        "中文": "有財。",
+        "英文": "There is wealth."
+      },
+      "劫財": {
+        "中文": "錢財或守住，不要借人也不要做別人的擔保人。",
+        "英文": "Guard your money: do not lend it, and do not stand as guarantor for others."
+      },
+      "偏財": {
+        "中文": "有財，但財來財去。",
+        "英文": "There is money, but it comes and goes."
+      },
+      "傷官": {
+        "中文": "表現好。",
+        "英文": "You perform well."
+      }
+    },
+    "2_日主解說": {
+      "甲": {
+        "中文": {
+          "陰陽": "陽",
+          "比喻": "參天大樹・棟梁之材",
+          "正面": "正直進取、重承諾、愈挫愈勇，具開創與領導力。",
+          "負面": "固執己見、好勝出頭，不善轉圜、易樹敵。",
+          "適合方向": "開創、管理、建設性事業。"
+        },
+        "英文": {
+          "陰陽": "Yang",
+          "比喻": "a tall tree — a pillar of timber",
+          "正面": "Honest and driven, keeps promises, grows stronger after setbacks, natural leadership.",
+          "負面": "Stubborn and eager to stand out; finds it hard to bend and easily makes enemies.",
+          "適合方向": "Starting things, management and building work."
+        }
+      },
+      "乙": {
+        "中文": {
+          "陰陽": "陰",
+          "比喻": "花草藤蔓・柔韌向上",
+          "正面": "柔軟彈性、善協調、觀察入微，生命力韌。",
+          "負面": "優柔寡斷、易依附他人、小事糾結。",
+          "適合方向": "文藝、外交、輔佐與創意工作。"
+        },
+        "英文": {
+          "陰陽": "Yin",
+          "比喻": "flowers and vines — soft but rising",
+          "正面": "Flexible and accommodating, observant, and very hard to kill off.",
+          "負面": "Indecisive, tends to lean on others, gets tangled in small details.",
+          "適合方向": "Arts, diplomacy, support roles and creative work."
+        }
+      },
+      "丙": {
+        "中文": {
+          "陰陽": "陽",
+          "比喻": "太陽之火・光明磊落",
+          "正面": "熱情開朗、慷慨大方、感染力強，光明磊落。",
+          "負面": "急躁三分鐘熱度、好面子、衝動直言。",
+          "適合方向": "曝光型、公關、能源與領導職。"
+        },
+        "英文": {
+          "陰陽": "Yang",
+          "比喻": "the sun — bright and open",
+          "正面": "Warm and generous, infectious energy, nothing hidden.",
+          "負面": "Impatient and short-lived enthusiasm; cares about face, blurts things out.",
+          "適合方向": "Public-facing work, PR, energy and leadership roles."
+        }
+      },
+      "丁": {
+        "中文": {
+          "陰陽": "陰",
+          "比喻": "燈燭之火・細膩溫暖",
+          "正面": "細膩敏銳、洞察人心、溫和內斂、有耐性。",
+          "負面": "多慮善感、易內耗、不易拒絕他人。",
+          "適合方向": "研究、服務、心理與精緻工藝。"
+        },
+        "英文": {
+          "陰陽": "Yin",
+          "比喻": "a candle flame — fine and warm",
+          "正面": "Sensitive and perceptive, reads people well, gentle and patient.",
+          "負面": "Over-thinks and feels a lot, drains own energy, finds it hard to say no.",
+          "適合方向": "Research, service, counselling and fine craftwork."
+        }
+      },
+      "戊": {
+        "中文": {
+          "陰陽": "陽",
+          "比喻": "高崗厚土・穩重包容",
+          "正面": "穩重可靠、包容守信、厚積薄發、能承擔。",
+          "負面": "遲鈍頑固、不擅變通、易過度承諾。",
+          "適合方向": "地產、倉儲、管理與傳統產業。"
+        },
+        "英文": {
+          "陰陽": "Yang",
+          "比喻": "a high plateau — steady and tolerant",
+          "正面": "Reliable and tolerant, keeps promises, builds slowly but solidly.",
+          "負面": "Slow to react and stubborn, not flexible, over-promises.",
+          "適合方向": "Property, storage, management and traditional industries."
+        }
+      },
+      "己": {
+        "中文": {
+          "陰陽": "陰",
+          "比喻": "田園沃土・滋養務實",
+          "正面": "細心滋養、務實低調、善照顧人、配合度高。",
+          "負面": "操心過度、易委屈自己、遇事想太多。",
+          "適合方向": "教育、醫護、行政與後勤支援。"
+        },
+        "英文": {
+          "陰陽": "Yin",
+          "比喻": "fertile farmland — nurturing and practical",
+          "正面": "Careful and nurturing, practical and low-key, good at looking after people.",
+          "負面": "Worries too much, gives in to others, overthinks every decision.",
+          "適合方向": "Teaching, healthcare, administration and back-office support."
+        }
+      },
+      "庚": {
+        "中文": {
+          "陰陽": "陽",
+          "比喻": "刀劍之金・剛毅果斷",
+          "正面": "剛毅果斷、重義氣、執行力強、敢作敢當。",
+          "負面": "鋒利傷人、好勝強硬、缺乏圓融。",
+          "適合方向": "軍警、機械、法律與攻堅型工作。"
+        },
+        "英文": {
+          "陰陽": "Yang",
+          "比喻": "a blade — hard and decisive",
+          "正面": "Decisive and loyal, strong execution, takes responsibility.",
+          "負面": "Sharp edges that hurt people; competitive and inflexible.",
+          "適合方向": "Police and military, machinery, law and tough assignments."
+        }
+      },
+      "辛": {
+        "中文": {
+          "陰陽": "陰",
+          "比喻": "珠玉之金・精緻敏銳",
+          "正面": "精緻敏銳、講究原則、有審美、眼光獨到。",
+          "負面": "過度挑剔、易敏感、完美主義壓力大。",
+          "適合方向": "珠寶、財務、技術與精品產業。"
+        },
+        "英文": {
+          "陰陽": "Yin",
+          "比喻": "jewellery — refined and sharp-eyed",
+          "正面": "Refined and sensitive, holds to standards, has taste and an eye for detail.",
+          "負面": "Overly picky, easily hurt, pressured by perfectionism.",
+          "適合方向": "Jewellery, finance, technical work and premium goods."
+        }
+      },
+      "壬": {
+        "中文": {
+          "陰陽": "陽",
+          "比喻": "江河大水・豁達奔流",
+          "正面": "豁達聰明、不拘小節、善交際匯聚人脈資源。",
+          "負面": "散漫善變、計畫不持久、易隨波逐流。",
+          "適合方向": "貿易、旅遊、傳播與流動性行業。"
+        },
+        "英文": {
+          "陰陽": "Yang",
+          "比喻": "a great river — open and flowing",
+          "正面": "Open-minded and clever, easy-going, good at gathering people and resources.",
+          "負面": "Scattered and changeable; plans don't last, drifts with the current.",
+          "適合方向": "Trade, travel, media and fluid, mobile industries."
+        }
+      },
+      "癸": {
+        "中文": {
+          "陰陽": "陰",
+          "比喻": "雨露之水・機智柔活",
+          "正面": "機智柔和、直覺敏銳、適應力強、細水長流。",
+          "負面": "情緒起伏、過度迂迴、易想太多裹足不前。",
+          "適合方向": "策劃、諮詢、智慧型與幕僚工作。"
+        },
+        "英文": {
+          "陰陽": "Yin",
+          "比喻": "rain and dew — clever and gentle",
+          "正面": "Clever and gentle, sharp intuition, adaptable, works quietly and steadily.",
+          "負面": "Moody and indirect; over-thinking can leave you stuck.",
+          "適合方向": "Planning, consulting, knowledge work and staff roles."
+        }
+      }
+    },
+    "3_開運建議": {
+      "木": {
+        "中文": {
+          "顏色": "青，綠",
+          "方位": "東方或東南方",
+          "形狀": "長方形",
+          "職業": "適合種植、園藝、醫藥、教育、出版、傢俱與木材行業",
+          "環境": "宜用活的植物、竹子、植物畫作與植物紋壁紙。"
+        },
+        "英文": {
+          "顏色": "Green",
+          "方位": "East or Southeast",
+          "形狀": "Rectangular shape",
+          "職業": "Agriculture, horticulture, pharmaceuticals, education, publishing, furniture, and wood industries.",
+          "環境": "Plants, bamboo, plants picture, plants wallpaper."
+        }
+      },
+      "火": {
+        "中文": {
+          "顏色": "紅，粉，橙，紫",
+          "方位": "南方",
+          "形狀": "三角形",
+          "職業": "適合餐飲、電子與電腦行業",
+          "環境": "宜用燈光、日出的畫作與火色元素的佈置。"
+        },
+        "英文": {
+          "顏色": "Red, Pink, Orange, Purple",
+          "方位": "South",
+          "形狀": "Triangle shape",
+          "職業": "Food and beverage industry, electronics industry, or the computer industry",
+          "環境": "Light, sun rise picture, fire element colors."
+        }
+      },
+      "土": {
+        "中文": {
+          "顏色": "黃，米",
+          "方位": "東北方或西南方",
+          "形狀": "正方形",
+          "職業": "適合房地產行業",
+          "環境": "宜用水晶、石頭、山景畫、長城畫、玉與大理石。"
+        },
+        "英文": {
+          "顏色": "Yellow, Earth",
+          "方位": "Northeast or Southwest",
+          "形狀": "Square shape",
+          "職業": "Real estate industry",
+          "環境": "Crystal, stones, mountain picture, Great Wall picture, jade, marble."
+        }
+      },
+      "金": {
+        "中文": {
+          "顏色": "白，金，銀",
+          "方位": "西方或西北方",
+          "形狀": "圓形與橢圓形",
+          "職業": "適合金融與金屬製造業",
+          "環境": "宜用金屬製品、銅龍龜、銅麒麟與金屬紋壁紙。"
+        },
+        "英文": {
+          "顏色": "White, Silver, Gold",
+          "方位": "West or Northwest",
+          "形狀": "Circular and Oval shape",
+          "職業": "Financial and metal fabrication industry",
+          "環境": "Metallic items, bronze dragon turtle, bronze qi li, metallic design wallpaper."
+        }
+      },
+      "水": {
+        "中文": {
+          "顏色": "藍，灰，黑",
+          "方位": "北方",
+          "形狀": "不規則形",
+          "職業": "適合礦泉水、液體銷售貿易與交通相關行業",
+          "環境": "宜用水景、水族箱、水的畫作與水紋壁紙。"
+        },
+        "英文": {
+          "顏色": "Blue, Grey, Black",
+          "方位": "North",
+          "形狀": "Irregular shape",
+          "職業": "Open a mineral water factory; sales and trading as well as transportation related industries",
+          "環境": "Water feature, aquarium, water picture, water wallpaper."
+        }
+      }
+    },
+    "4_地支相沖": {
+      "寅申": {
+        "中文": "東奔西跑，注意車關，適合外務；對人付出，別人不容易感激你，無人賞識。",
+        "英文": "Always on the move — watch out for traffic accidents; suited to outside work. You give to people, yet they seldom appreciate you or recognise your worth."
+      },
+      "亥巳": {
+        "中文": "東奔西跑，注意車關，適合外務；口才好有辯才，做事要快。",
+        "英文": "Always on the move — watch out for traffic accidents; suited to outside work. Good with words and quick in debate; things should be done fast."
+      },
+      "午子": {
+        "中文": "個性極端、反復不常；影響桃花、要處理好感情與異性之間問題，生氣時會抓狂，感情困擾。",
+        "英文": "Extreme and changeable; romance is stirred and you are popular, but anger can flare up and love troubles follow."
+      },
+      "卯酉": {
+        "中文": "影響桃花、要處理好感情與異性之間問題;第六感強、較會衡量人，以直覺做事。",
+        "英文": "Romance is stirred; handle relationships with the opposite sex carefully. Strong sixth sense, good at evaluating people, and acts on intuition."
+      },
+      "戌辰": {
+        "中文": "個性不好、脾氣壞，較會自圓其說；庫衝破、財難守，口才好有辯才，身體不好。",
+        "英文": "A difficult temperament and a bad temper, inclined to justify yourself; the storage vaults clash so money is hard to keep; good with words and debate, poor health."
+      },
+      "丑未": {
+        "中文": "追根究底、較會查行蹤；庫衝破、財難守，小財不斷流失。",
+        "英文": "You dig to the bottom of things and check up on people; the vaults clash and money is hard to keep — small amounts leak away constantly."
+      }
+    },
+    "5_天干相沖相剋": {
+      "庚甲": {
+        "中文": "（報告只列「身體部位要留意」，判詞見 12_器官對照）",
+        "英文": "(only the body parts are listed in the report; see 12_器官對照)"
+      },
+      "乙辛": {
+        "中文": "（報告只列「身體部位要留意」，判詞見 12_器官對照）",
+        "英文": "(only the body parts are listed in the report; see 12_器官對照)"
+      },
+      "丙壬": {
+        "中文": "（報告只列「身體部位要留意」，判詞見 12_器官對照）",
+        "英文": "(only the body parts are listed in the report; see 12_器官對照)"
+      },
+      "丁癸": {
+        "中文": "（報告只列「身體部位要留意」，判詞見 12_器官對照）",
+        "英文": "(only the body parts are listed in the report; see 12_器官對照)"
+      },
+      "戊甲": {
+        "中文": "（報告只列「身體部位要留意」，判詞見 12_器官對照）",
+        "英文": "(only the body parts are listed in the report; see 12_器官對照)"
+      },
+      "乙己": {
+        "中文": "（報告只列「身體部位要留意」，判詞見 12_器官對照）",
+        "英文": "(only the body parts are listed in the report; see 12_器官對照)"
+      },
+      "丙庚": {
+        "中文": "（報告只列「身體部位要留意」，判詞見 12_器官對照）",
+        "英文": "(only the body parts are listed in the report; see 12_器官對照)"
+      },
+      "丁辛": {
+        "中文": "（報告只列「身體部位要留意」，判詞見 12_器官對照）",
+        "英文": "(only the body parts are listed in the report; see 12_器官對照)"
+      },
+      "壬戊": {
+        "中文": "（報告只列「身體部位要留意」，判詞見 12_器官對照）",
+        "英文": "(only the body parts are listed in the report; see 12_器官對照)"
+      },
+      "己癸": {
+        "中文": "（報告只列「身體部位要留意」，判詞見 12_器官對照）",
+        "英文": "(only the body parts are listed in the report; see 12_器官對照)"
+      }
+    },
+    "6_六合": {
+      "午未": {
+        "中文": "較重情意，執行力強有效力。",
+        "英文": "Values affection strongly, with strong and effective execution."
+      },
+      "巳申": {
+        "中文": "聰明反被聰明誤，太自信，憑感覺投資。",
+        "英文": "Too clever for your own good, over-confident, invests on feeling."
+      },
+      "辰酉": {
+        "中文": "重義氣。",
+        "英文": "Loyal and values righteousness."
+      },
+      "子丑": {
+        "中文": "夫妻溝通好，較顧家，財要守。",
+        "英文": "Good communication with your spouse, family-minded, money needs to be guarded."
+      },
+      "卯戌": {
+        "中文": "愛面子、注重外表、顧家，外強內柔。",
+        "英文": "Cares about face and appearance, family-minded, soft inside under a firm exterior."
+      },
+      "寅亥": {
+        "中文": "重視倫理道德。",
+        "英文": "Values ethics and moral order."
+      }
+    },
+    "7_六害": {
+      "子未": {
+        "中文": "個性極端，易犯小人，親子間較早分離。",
+        "英文": "Extreme personality, easily troubled by petty people; early parting from children (or parents)."
+      },
+      "丑午": {
+        "中文": "小心是非小人多促進人際關係。",
+        "英文": "Be careful of gossip and petty people; focus on improving interpersonal relationships."
+      },
+      "寅巳": {
+        "中文": "是非多、易犯小人，在家裡待不住。",
+        "英文": "Much gossip and petty people around; you cannot stay settled at home."
+      },
+      "卯辰": {
+        "中文": "容易被扯後腿，兄弟姐妹無助，易遭親人相害。",
+        "英文": "Easily pulled down by others; little help from siblings; harmed by close relatives."
+      },
+      "酉戌": {
+        "中文": "容易被扯後腿、易遭親人相害。",
+        "英文": "Easily pulled down and harmed by close relatives."
+      },
+      "申亥": {
+        "中文": "是非多、易犯小人，挫折感重，受不了刺激。",
+        "英文": "Much gossip and petty people, a heavy sense of frustration, cannot take provocation."
+      }
+    },
+    "8_三合與三會": {
+      "三合_火": {
+        "中文": "火為禮，熱情有禮、做事效率高、執行力強。務必注意飲食，並最好遵守相關操作規程／規定。",
+        "英文": {
+          "set": [
+            "午",
+            "寅",
+            "戌"
+          ],
+          "text": "Fire stands for courtesy: a chart strong in Fire is warm and courteous, efficient and good at getting things done. Have to take care your diet and better follow SOP / rules."
+        }
+      },
+      "三合_金": {
+        "中文": "金為義，很注重面子、不容易服輸、重義氣，且會包裝自己，不要與別人比較。容易感到壓力，得試著放鬆一下。",
+        "英文": {
+          "set": [
+            "酉",
+            "巳",
+            "丑"
+          ],
+          "text": "Metal stands for righteousness: strong in Metal means caring about face and loyalty, and being good at presenting yourself.  Don't compare yourself to others.  You may feel stressed, so try to relax."
+        }
+      },
+      "三合_水": {
+        "中文": "水為智，足智多謀、學識過人，但常改變思想，聰明也較冷漠。",
+        "英文": {
+          "set": [
+            "子",
+            "申",
+            "辰"
+          ],
+          "text": "Strong in Water: resourceful and knowledgeable, but often changes their mind — clever, yet rather cold."
+        }
+      },
+      "三合_木": {
+        "中文": "木為仁，富有同情心，傾向於好的點子，創造財富。",
+        "英文": {
+          "set": [
+            "卯",
+            "亥",
+            "未"
+          ],
+          "text": "Strong in Wood: compassionate, inclined to good ideas. Got wealth."
+        }
+      },
+      "三會_木": {
+        "中文": "",
+        "英文": {
+          "set": [
+            "寅",
+            "卯",
+            "辰"
+          ]
+        }
+      },
+      "三會_火": {
+        "中文": "",
+        "英文": {
+          "set": [
+            "巳",
+            "午",
+            "未"
+          ]
+        }
+      },
+      "三會_金": {
+        "中文": "",
+        "英文": {
+          "set": [
+            "申",
+            "酉",
+            "戌"
+          ]
+        }
+      },
+      "三會_水": {
+        "中文": "",
+        "英文": {
+          "set": [
+            "亥",
+            "子",
+            "丑"
+          ]
+        }
+      }
+    },
+    "9_三刑與自刑": {
+      "三刑_恃勢之刑": {
+        "中文": "同類像兄弟卻同室操戈；易因過度自信、固執己見而招致財務麻煩。憑感覺投資的損財機率高，財富易看不見地流失。切忌仗勢欺人或獨斷專行，人際合作務必明算帳，方能避免因利益糾紛而破財。",
+        "英文": "Relying on power punishment: Like brothers turning against each other; treating relatives as adversaries (e.g., wealth star turning hostile), causing trouble over money; overconfident, investing on feeling. Be grateful to those who promoted or helped you. Wei-Chou: High chance of financial loss, invisible but constant leakage."
+      },
+      "三刑_無恩之刑": {
+        "中文": "容易發生意外，別人不容易感激你、無人賞識，愛恨交加，身體健康差。對於曾經提拔你或者協助你的人，要心存感恩。",
+        "英文": "Ungrateful punishment: Prone to accidents, others rarely appreciate you, unrecognised talent, mixed love and hate, poor physical health."
+      },
+      "三刑_無禮之刑": {
+        "中文": "水本可生木，如同母生子現在卻相刑；在四柱出現者自命不凡、說話直接、較沒大沒小。",
+        "英文": "Rude punishment: Water should nurture Wood, like a mother birthing a child, but now they punish each other. If it appears in the four pillars, the person is arrogant, speaks too directly, and lacks respect for elders."
+      },
+      "自刑_辰": {
+        "中文": "希望別人都聽你的，做事直接，但有遠見。",
+        "英文": "You want others to listen to you; you act directly, but you do have vision."
+      },
+      "自刑_午": {
+        "中文": "常事與願違，要以禮待人方好。",
+        "英文": "Things often turn out against your wishes; courtesy towards others is the way through."
+      },
+      "自刑_酉": {
+        "中文": "常想幫人，但別人不容易感激你、無人賞識你。",
+        "英文": "You always want to help, yet others rarely appreciate or recognise you."
+      },
+      "自刑_亥": {
+        "中文": "較無理取鬧、悲觀，總感到自己運氣比別人差；如又逢流年來害月柱，喜歡用腦但多愁善感。",
+        "英文": "Unreasonable and pessimistic, always feeling your luck is worse than other people's; if an annual pillar also harms the month pillar, you like to use your mind but are sentimental."
+      }
+    },
+    "10_天干五合": {
+      "甲己": {
+        "中文": "正義之合：重信用、固執，但人緣好。",
+        "英文": {
+          "el": "Earth 土",
+          "text": "The union of justice: values trust and is stubborn, but well liked."
+        }
+      },
+      "乙庚": {
+        "中文": "人緣好、沒自我、重義氣、仁德，個性剛強果斷、積極進取、忍力強。",
+        "英文": {
+          "el": "Metal 金",
+          "text": "Well liked, self-effacing, loyal and kind; strong and decisive, enterprising and very enduring."
+        }
+      },
+      "丙辛": {
+        "中文": "人緣好、仁意，個性強、威嚴、聰明。",
+        "英文": {
+          "el": "Water 水",
+          "text": "Well liked and kind-hearted; a strong, dignified personality, clevers."
+        }
+      },
+      "丁壬": {
+        "中文": "心好。",
+        "英文": {
+          "el": "Wood 木",
+          "text": "Kind-hearted."
+        }
+      },
+      "戊癸": {
+        "中文": "成熟、外型不錯、重情趣，冷漠、易怒、禮節周到、現實。最好遵循標準作業程序（SOP）／規則。",
+        "英文": {
+          "el": "Fire 火",
+          "text": "Mature, good-looking, values romance; aloof, quick-tempered, courteous and realistic.Better follow SOP / rules"
+        }
+      }
+    },
+    "11_其他判詞": {
+      "天干相沖相剋總則": {
+        "中文": "",
+        "英文": ""
+      },
+      "STEM_HE_NOTE": {
+        "中文": "一對夫妻如丈夫日元為甲木而妻子日元為己土，將可天長地久。",
+        "英文": "If a husband's Day Master is Jia Wood and the wife's Day Master is Ji Earth, they will have a long-lasting and harmonious marriage."
+      },
+      "ORGAN_NOTE": {
+        "中文": "天干也代表人的身體器官；如八字四柱與大運或與流年有相沖相剋者，那部份的身體器官較可能出問題。例如一個人的八字裡有甲庚相沖，身體最容易出現問題的器官為膽、頭、大腸和臍輪。",
+        "英文": "Heavenly Stems also represent human body organs. If there is a clash or harm between the Four Pillars, the Major Luck, or the Annual Pillar, those corresponding body parts are more likely to have issues. For example, if a person's BaZi has a Jia-Geng clash, the organs most prone to problems are the gallbladder, head, large intestine, and navel chakra."
+      }
+    },
+    "12_器官對照": {
+      "天干": {
+        "甲": {
+          "中文": "膽、頭",
+          "英文": "gallbladder, head"
+        },
+        "乙": {
+          "中文": "肝、項",
+          "英文": "liver, neck"
+        },
+        "丙": {
+          "中文": "小腸、肩、眼睛",
+          "英文": "small intestine, shoulders, eyes"
+        },
+        "丁": {
+          "中文": "心、眼睛",
+          "英文": "heart, eyes"
+        },
+        "戊": {
+          "中文": "胃",
+          "英文": "stomach"
+        },
+        "己": {
+          "中文": "脾、腹",
+          "英文": "spleen, abdomen"
+        },
+        "庚": {
+          "中文": "大腸、臍輪",
+          "英文": "large intestine, navel chakra"
+        },
+        "辛": {
+          "中文": "肺、股",
+          "英文": "lungs, thighs"
+        },
+        "壬": {
+          "中文": "膀胱、三焦、脛",
+          "英文": "bladder, triple burner, shins"
+        },
+        "癸": {
+          "中文": "腎、心包絡、足",
+          "英文": "kidneys, pericardium, feet"
+        }
+      },
+      "地支": {
+        "子": {
+          "中文": "膀胱、尿道、耳朵",
+          "英文": "bladder, urinary tract, ears"
+        },
+        "丑": {
+          "中文": "肚、脾",
+          "英文": "belly, spleen"
+        },
+        "寅": {
+          "中文": "膽、兩手",
+          "英文": "gallbladder, both hands"
+        },
+        "卯": {
+          "中文": "十指、肝",
+          "英文": "fingers, liver"
+        },
+        "辰": {
+          "中文": "脾、肩、胸",
+          "英文": "spleen, shoulders, chest"
+        },
+        "巳": {
+          "中文": "面、齒、咽、肛",
+          "英文": "face, teeth, throat, anus"
+        },
+        "午": {
+          "中文": "精神、眼睛",
+          "英文": "spirit, eyes"
+        },
+        "未": {
+          "中文": "胃、膈、脊骨",
+          "英文": "stomach, diaphragm, spine"
+        },
+        "申": {
+          "中文": "大腸、肺",
+          "英文": "large intestine, lungs"
+        },
+        "酉": {
+          "中文": "精血、小腸",
+          "英文": "blood and essence, small intestine"
+        },
+        "戌": {
+          "中文": "命門、腳踝足",
+          "英文": "life gate, ankles and feet"
+        },
+        "亥": {
+          "中文": "頭、腎囊",
+          "英文": "head, scrotum"
+        }
+      },
+      "報告補充": {
+        "補充": {
+          "中文": "血液、子宮",
+          "英文": "blood, uterus"
+        }
+      }
+    },
+    "13_十神說明": {
+      "喜用方向": {
+        "食神": {
+          "中文": "同時代表財富、名譽、事業、才華和健康。",
+          "英文": "Represents wealth, reputation, career, talent, and health."
+        },
+        "比劫": {
+          "中文": "身弱比劫，代表財祿。",
+          "英文": "For a weak Day Master, Companion stars represent wealth and fortune."
+        },
+        "印": {
+          "中文": "身弱印星代表名譽、才華、健康。",
+          "英文": "For a weak Day Master, the Resource star represents reputation, talent, and health."
+        },
+        "官殺": {
+          "中文": "代表事業職業；身弱殺印相生為創業升職。",
+          "英文": "Represents career and profession; for a weak Day Master, Power generating Resource indicates entrepreneurship and promotion."
+        },
+        "傷食": {
+          "中文": "身旺代表才華；身旺傷食生財，可斷因才華而致富。",
+          "英文": "For a strong Day Master, it represents talent; a strong Day Master with Output generating Wealth indicates getting rich through talent."
+        },
+        "財才": {
+          "中文": "身旺財星代表財富，身弱見財反貧。",
+          "英文": "For a strong Day Master, the Wealth star represents riches; for a weak Day Master, seeing Wealth leads to poverty."
+        }
+      },
+      "性格": {
+        "比劫": {
+          "中文": "正面：正直、獨立／負面：自我、硬勁",
+          "英文": "Positive: Upright, independent / Negative: Self-centered, stubborn"
+        },
+        "印": {
+          "中文": "正面：權威、服眾／負面：軟弱、怕事",
+          "英文": "Positive: Authoritative, commands respect / Negative: Weak-willed, timid"
+        },
+        "傷食": {
+          "中文": "正面：機智、聰明／負面：傲慢、任性",
+          "英文": "Positive: Witty, intelligent / Negative: Arrogant, willful"
+        },
+        "財才": {
+          "中文": "正面：慷慨／負面：重利、貪心",
+          "英文": "Positive: Generous / Negative: Materialistic, greedy"
+        }
+      }
+    },
+    "14_神煞": {
+      "月德貴人": {
+        "中文": {
+          "短句": "陰德貴人星，主逢凶化吉。",
+          "解說": "貴人星（陰德），主逢凶化吉。 影響：主福分深厚、長壽、不犯官刑、是一顆強而有力的貴人星 組合：天、月德若同會，力量集中，濟世利人、社會鹹欽，萬福雲集。"
+        },
+        "英文": {
+          "短句": "Yin-virtue noble star — turns misfortune into fortune.",
+          "解說": "Noble star (Yin virtue), turns misfortune into fortune. Impact: Deep blessings, longevity, free from legal punishment, a powerful helpful star. Combination: If Heavenly and Monthly Virtue meet, their power concentrates, benefiting society and attracting abundant blessings."
+        }
+      },
+      "月德合": {
+        "中文": {
+          "短句": "有貴人。",
+          "解說": "貴人星（陰德），主逢凶化吉。 影響：主福分深厚、長壽、不犯官刑、是一顆強而有力的貴人星 組合：天、月德若同會，力量集中，濟世利人、社會鹹欽，萬福雲集。"
+        },
+        "英文": {
+          "短句": "Helpful people.",
+          "解說": "Noble star (Yin virtue), turns misfortune into fortune. Impact: Deep blessings, longevity, free from legal punishment, a powerful helpful star. Combination: If Heavenly and Monthly Virtue meet, their power concentrates, benefiting society and attracting abundant blessings."
+        }
+      },
+      "天德貴人": {
+        "中文": {
+          "短句": "陽德貴人星，主逢凶化吉。",
+          "解說": "貴人星（陽德），主逢凶化吉。 影響：直接阻止不吉利的事情發生、使你可以專心完成老闆委派的工作 組合：天、月德若同會，力量集中，濟世利人、社會鹹欽，萬福雲集。"
+        },
+        "英文": {
+          "短句": "Yang-virtue noble star — turns misfortune into fortune.",
+          "解說": "Noble star (Yang virtue), turns misfortune into fortune. Impact: Directly prevents inauspicious events, allowing you to focus on completing tasks assigned by superiors. Combination: If Heavenly and Monthly Virtue meet, their power concentrates, benefiting society and attracting abundant blessings."
+        }
+      },
+      "天德合": {
+        "中文": {
+          "短句": "",
+          "解說": "貴人星（陽德），主逢凶化吉。 影響：直接阻止不吉利的事情發生、使你可以專心完成老闆委派的工作 組合：天、月德若同會，力量集中，濟世利人、社會鹹欽，萬福雲集。"
+        },
+        "英文": {
+          "短句": "Helpful people (Yang virtue combination).",
+          "解說": "Noble star (Yang virtue), turns misfortune into fortune. Impact: Directly prevents inauspicious events, allowing you to focus on completing tasks assigned by superiors. Combination: If Heavenly and Monthly Virtue meet, their power concentrates, benefiting society and attracting abundant blessings."
+        }
+      },
+      "太極貴人": {
+        "中文": {
+          "短句": "",
+          "解說": "主聰明好學，有鑽勁，喜文史哲宗教等科目。為人正直，做事有始有終。"
+        },
+        "英文": {
+          "短句": "Smart and eager to learn.",
+          "解說": "Indicates intelligence and a strong desire to learn, especially in literature, history, philosophy, and religion. Upright character, sees things through to the end."
+        }
+      },
+      "文昌": {
+        "中文": {
+          "短句": "主聰明過人，逢凶化吉。氣質雅秀，舉止溫文，好學新知，具上進心。一生近官利貴，不與粗俗之輩亂交",
+          "解說": "主聰明過人，又主逢凶化吉。氣質雅秀，舉止溫文，男命逢著內涵，女命逢著儀容。好學新知，具上進心。一生近官利貴，不與粗俗之輩亂交。"
+        },
+        "英文": {
+          "短句": "Unusually bright, turns misfortune into fortune; refined manner, fond of learning, associates with people of standing.",
+          "解說": "Indicates exceptional intelligence and turning misfortune into fortune. Elegant temperament and gentle manners. For men, it implies inner depth; for women, graceful appearance. Fond of learning new things, ambitious, associates with people of standing, and avoids vulgar company."
+        }
+      },
+      "將星": {
+        "中文": {
+          "短句": "有權威。",
+          "解說": "掌管權位提升的星宿，代表會有貴人提拔，在公司裡有職位升遷之喜，權力也同時得到提高。本身是一顆武星，表示必須自己經過一番拼搏奮鬥，才可以做出卓越成績。"
+        },
+        "英文": {
+          "短句": "Carries authority.",
+          "解說": "Governs promotion and authority. Represents being promoted by helpful people and gaining power in the company. As a martial star, it also means one must struggle and fight hard to achieve outstanding results."
+        }
+      },
+      "學堂": {
+        "中文": {
+          "短句": "",
+          "解說": "學習機會多或與學校有緣。"
+        },
+        "英文": {
+          "短句": "Good Academic opportunities.",
+          "解說": "Many learning opportunities or a strong affinity with schools and education."
+        }
+      },
+      "天醫": {
+        "中文": {
+          "短句": "天醫入命，對健康好，有貴人，也對玄學有天分。",
+          "解說": "天上的醫生的意思，代表此人是個好醫生，包括對玄學有濃厚的興趣或天分，可以用算命來醫別人。它是月支的前一地支（如寅月，天醫星是丑）。"
+        },
+        "英文": {
+          "短句": "The healer star: good for health, brings helpful people, and gives a flair for the metaphysical.",
+          "解說": "Literally 'Heavenly Doctor'. Indicates the person is a good healer, including having a strong interest or talent in metaphysics, and can use fortune-telling to help others. It is the earthly branch preceding the month branch (e.g., in a Yin month, the Tianyi star is Chou)."
+        }
+      },
+      "劫煞": {
+        "中文": {
+          "短句": "",
+          "解說": "主徒勞無功，預兆做事大多事倍功半，甚至白費氣力。"
+        },
+        "英文": {
+          "短句": "Futile effort.",
+          "解說": "Indicates futile effort, suggesting that most tasks will require twice the work for half the result, or even wasted energy."
+        }
+      },
+      "亡神": {
+        "中文": {
+          "短句": "主耗敗，主官非；主多災和是非、金錢動向有著深刻的關係。也是給人自新和重生的機會",
+          "解說": "主耗敗，亦主官非；忌入命、身宮，主多災。和是非、金錢動向有著深刻的關係。「亡神」其實是給人自新和重生的機會。"
+        },
+        "英文": {
+          "短句": "Loss and disputes; closely tied to money movements and trouble. Also a chance to start over.",
+          "解說": "Indicates loss and legal disputes; entering the life or body palace brings many disasters. It is deeply related to gossip and money movements. However, 'Wang Shen' also offers a chance for self-renewal and rebirth."
+        }
+      },
+      "寡宿": {
+        "中文": {
+          "短句": "",
+          "解說": "主孤獨且悶悶不樂。"
+        },
+        "英文": {
+          "短句": "Solitude.",
+          "解說": "Indicates loneliness and unhappiness."
+        }
+      },
+      "孤辰": {
+        "中文": {
+          "短句": "",
+          "解說": "主孤獨且悶悶不樂。"
+        },
+        "英文": {
+          "短句": "Solitude.",
+          "解說": "Indicates loneliness and unhappiness."
+        }
+      },
+      "羊刃": {
+        "中文": {
+          "短句": "男：（用老師原文）／女：小心血光之災，去捐血來化解。",
+          "解說": "男人命盤中含有羊刃，十有八九都是固執而不會輕易妥協讓步的大男人，但相對也是屬於有責任感的男人。"
+        },
+        "英文": {
+          "短句": "male: (teacher's text) / female: Beware of bloodshed or injury; donating blood can offset it.",
+          "解說": "Men with this in their chart are mostly stubborn and rarely compromise, but are also highly responsible."
+        }
+      },
+      "官符煞": {
+        "中文": {
+          "短句": "小心是非。",
+          "解說": "年支生肖前五辰，就是官符煞，此人易有官非。"
+        },
+        "英文": {
+          "短句": "Watch out for disputes and lawsuits.",
+          "解說": "The fifth earthly branch after the year branch is the Official Seal Sha, indicating the person is prone to legal disputes."
+        }
+      },
+      "桃花": {
+        "中文": {
+          "短句": "",
+          "解說": "四柱桃花星的整體特徵。"
+        },
+        "英文": {
+          "短句": "Romance and popularity.",
+          "解說": "Overall characteristics of the Peach Blossom star in the four pillars."
+        }
+      },
+      "咸池": {
+        "中文": {
+          "短句": "要熱鬧，有異性緣。",
+          "解說": "主性慾的桃花星。"
+        },
+        "英文": {
+          "短句": "Loves a lively social life and attracts the opposite sex.",
+          "解說": "The Peach Blossom star governing sexual desire."
+        }
+      },
+      "紅鸞": {
+        "中文": {
+          "短句": "有喜慶之事，有異性缘",
+          "解說": "主嫁娶的桃花星。大利感情亦主有喜慶之事，年長的人士會有嫁女娶媳婦或是添孫的喜事。而正在蜜運的朋友則會共諧連理。"
+        },
+        "英文": {
+          "短句": "Joyful events, attracts the opposite sex.",
+          "解說": "The Peach Blossom star governing marriage. Highly beneficial for relationships and indicates joyful events. For older people, it means a daughter getting married, a son getting married, or having grandchildren. For those in a relationship, it means getting married."
+        }
+      },
+      "紅豔": {
+        "中文": {
+          "短句": "有異性緣",
+          "解說": "為主戀愛拍拖的桃花星。"
+        },
+        "英文": {
+          "短句": "Popular with the opposite sex.",
+          "解說": "The Peach Blossom star governing romantic dating."
+        }
+      },
+      "天喜": {
+        "中文": {
+          "短句": "樂觀，有開心的事情。",
+          "解說": "為主快樂之星。亦主有喜慶之事或樂觀主義者。"
+        },
+        "英文": {
+          "短句": "Cheerful — happy events are likely.",
+          "解說": "The star of happiness. Also indicates joyful events or an optimistic nature."
+        }
+      },
+      "驛馬": {
+        "中文": {
+          "短句": "喜歡或必須東奔西跑，喜歡旅遊或改變環境。是一顆中級的貴人吉星。",
+          "解說": "喜歡或必須東奔西跑，喜歡旅遊或改變環境。出現在命宮代表動象頻頻，主吉主兇全憑自己對事情的掌握。是一顆中級的貴人吉星。"
+        },
+        "英文": {
+          "短句": "Like it or not you are on the move — travel and changing environments suit you. A mid-grade lucky star.",
+          "解說": "Like it or not, you are on the move — travel and changing environments suit you. Appearing in the life palace indicates frequent movement; whether it is auspicious or inauspicious depends entirely on your grasp of the situation. It is a mid-grade lucky star."
+        }
+      },
+      "詞館": {
+        "中文": {
+          "短句": "",
+          "解說": "語言能力強。"
+        },
+        "英文": {
+          "短句": "Eloquent. Good in speaking or language ability",
+          "解說": "Strong language and communication abilities."
+        }
+      },
+      "華蓋": {
+        "中文": {
+          "短句": "藝術，孤芳自賞，有說服力。",
+          "解說": "藝術，孤芳自賞，有說服力。除了說經講道理很靈光之外，一開口旁邊的人都會靜下來，這情況很妙。"
+        },
+        "英文": {
+          "短句": "Artistic, solitary, persuasive.",
+          "解說": "Artistic, solitary, and persuasive. Besides being brilliant at explaining principles and reasoning, once you speak, people around you will quiet down, which is quite a remarkable phenomenon."
+        }
+      },
+      "天羅地網": {
+        "中文": {
+          "短句": "男怕天羅（亥戌），女怕地網（辰巳），兩者必須連在一起，代表坐牢或困在同一個地方。",
+          "解說": "男怕天羅（亥戌），女怕地網（辰巳），兩者必須連在一起，代表坐牢或困在同一個地方。八字很多土受困於土中央，男怕【天羅】女怕【地網】。"
+        },
+        "英文": {
+          "短句": "Men fear the net of heaven (亥戌), women fear the net of earth (辰巳); together they mean being trapped or confined.",
+          "解說": "Men fear the net of heaven (Hai-Xu), women fear the net of earth (Chen-Si); together they mean being trapped or confined. A BaZi with too much Earth means being trapped in the center of Earth. Men fear the 'Net of Heaven', women fear the 'Net of Earth'."
+        }
+      },
+      "毛失星": {
+        "中文": {
+          "短句": "财务损失",
+          "解說": "八字出現代表破財,總是莫名其妙失去很多錢。"
+        },
+        "英文": {
+          "短句": "Financial loss.",
+          "解說": "Indicates financial loss in the BaZi: women like to buy luxury brands and diamonds; men lose money in stocks or get scammed, always inexplicably losing a lot of money."
+        }
+      },
+      "囚獄": {
+        "中文": {
+          "短句": "",
+          "解說": "失去自由包括身心自由。"
+        },
+        "英文": {
+          "短句": "Imprisonment.",
+          "解說": "Loss of freedom, including physical and mental freedom."
+        }
+      },
+      "自縊煞": {
+        "中文": {
+          "短句": "",
+          "解說": "死亡尤其是輕生。"
+        },
+        "英文": {
+          "短句": "Risk of self-harm.",
+          "解說": "Risk of death, especially suicide."
+        }
+      }
+    }
+  },
+  "報告用語": {
+    "區塊標題": {
+      "命盤能量互動": {
+        "中文": "命盤能量互動",
+        "英文": "How the Forces in the Bazi Chart Interact 命盤能量互動"
+      },
+      "大運預測": {
+        "中文": "大運預測",
+        "英文": "Luck pillars 大運預測"
+      },
+      "流年預測": {
+        "中文": "流年預測",
+        "英文": "Annual pillars 流年預測"
+      },
+      "開運建議": {
+        "中文": "開運建議",
+        "英文": "Luck boost 開運建議"
+      },
+      "干支": {
+        "中文": "干支",
+        "英文": "Stems & Branches 干支"
+      },
+      "沖刑影響": {
+        "中文": "沖刑影響",
+        "英文": "Clashes & punishments 沖刑影響"
+      },
+      "合會影響": {
+        "中文": "合會影響",
+        "英文": "Combinations & meetings 合會影響"
+      },
+      "大運神煞": {
+        "中文": "大運神煞",
+        "英文": "Luck-pillar deities 大運神煞"
+      },
+      "身體部位要留意": {
+        "中文": "身體部位要留意",
+        "英文": "Body parts to watch 身體部位要留意"
+      },
+      "神煞": {
+        "中文": "神煞",
+        "英文": "Deities 神煞"
+      }
+    },
+    "夫妻宮句型": {
+      "沖": {
+        "中文": "沖到日柱（影響夫妻宮）…",
+        "英文": "The clash lands on the day pillar (marriage palace) — this is the single biggest influence on the marriage or partnership: strain, time apart or a turning point. Say important things face to face; do not go silent."
+      },
+      "害": {
+        "中文": "害到日柱（影響夫妻宮）—夫妻（伴侶）之間容易有悶氣與誤會，講開比猜心重要。",
+        "英文": "The harm lands on the day pillar (marriage palace) — quiet friction and misunderstanding between partners; talking it out matters more than guessing."
+      },
+      "刑": {
+        "中文": "刑到日柱（影響夫妻宮）…",
+        "英文": "The punishment lands on the day pillar (marriage palace) — tempers flare most easily with those closest; handle feelings before facts."
+      },
+      "合": {
+        "中文": "合到日柱（影響夫妻宮）…",
+        "英文": "The combination lands on the day pillar (marriage palace) — love and cooperation come closer and agreements are easier; a current you can use."
+      }
+    },
+    "器官對照": {
+      "中文": {
+        "甲": "膽、頭",
+        "乙": "肝、項",
+        "丙": "小腸、肩、眼睛",
+        "丁": "心、眼睛",
+        "戊": "胃",
+        "己": "脾、腹",
+        "庚": "大腸、臍輪",
+        "辛": "肺、股",
+        "壬": "膀胱、三焦、脛",
+        "癸": "腎、心包絡、足"
+      },
+      "英文": {
+        "甲": "gallbladder, head",
+        "乙": "liver, neck",
+        "丙": "small intestine, shoulders, eyes",
+        "丁": "heart, eyes",
+        "戊": "stomach",
+        "己": "spleen, abdomen",
+        "庚": "large intestine, navel chakra",
+        "辛": "lungs, thighs",
+        "壬": "bladder, triple burner, shins",
+        "癸": "kidneys, pericardium, feet"
+      }
+    }
+  },
+  "十神優缺點": {
+    "中文": {
+      "正印": {
+        "優點": "學習能力強、智慧深厚，易得貴人、長輩及母親幫助，學業名譽佳、心態平和。",
+        "缺點": "思想豐富但缺乏行動力，安於現狀、依賴心強，缺乏開創精神及冒險勇氣。"
+      },
+      "偏印": {
+        "優點": "直覺敏銳、洞察力強，擅長研究冷門及高難度領域，具備特殊技能與獨特破局能力。",
+        "缺點": "多疑敏感、易鑽牛角尖，性格孤僻、思想易偏激，做事三心二意易半途而廢。"
+      },
+      "正財": {
+        "優點": "理財能力強、懂管理財富，腳踏實地、誠信守原則，善於儲蓄及穩健累積資產。",
+        "缺點": "易財多身弱、為賺錢過度勞累，過於看重金錢顯得斤斤計較，易忽略生活情趣及享受。"
+      },
+      "偏財": {
+        "優點": "商業頭腦靈活、善抓機會，人脈廣、懂整合資源，具備創業精神及創造財富能力。",
+        "缺點": {
+          "male": "破財、賭博失利；父親健康不佳；易因風流、酒色破財惹禍。",
+          "female": "為錢財奔波勞累，現實物質壓力較大；若過度看重眼前利益，容易損害名譽、耽誤學業或進修，也可能與母親／長輩關係不和。"
+        }
+      },
+      "食神": {
+        "優點": "才華出眾、創造力強，性格溫和、樂觀從容，懂享受生活；也容易靠才華、技能、創意和服務轉化為收入。",
+        "缺點": "日主力量被洩弱，缺乏行動力及緊迫感，貪圖享樂、容易懶散。"
+      },
+      "傷官": {
+        "優點": "聰明機智、創新能力強，口才出眾、說服力強，不畏挑戰，善突破傳統及解決難題。",
+        "缺點": "自傲清高、易目中無人，說話尖銳易得罪人；鋒芒過露時容易衝撞上司、權威和規則，引發衝突。"
+      },
+      "正官": {
+        "優點": "責任感強、自律守規矩，為人正直、做事有原則，易獲上司及大機構賞識，建立社會地位。",
+        "缺點": "易感壓力及受約束，性格刻板保守、膽小怕事，精神易焦慮、缺乏應變能力。"
+      },
+      "七殺": {
+        "優點": "魄力十足、果斷勇敢，危機處理及執行能力強，能在逆境中崛起成為優秀領導者。",
+        "缺點": "易遇小人及外來壓力，精神緊張、缺乏安全感，易遭遇意外、傷害及各種挑戰。"
+      },
+      "比肩": {
+        "優點": "朋友助力，合夥得利；意志堅定，利團隊合作，共渡難關。可得財。",
+        "缺點": "要放下身段，不要太固執，不要總是拿自己與他人比較，也不要試圖在各方面勝過別人。財要守。"
+      },
+      "劫財": {
+        "優點": "競爭力強，逆境翻盤；社交手腕高，利開拓市場，得同輩助力。可得財。",
+        "缺點": "容易衝動消費及投資失利，財要守，避免因合夥而損失或被親友及合作夥伴拖累。"
+      }
+    },
+    "英文": {
+      "正印": {
+        "Advantages": "Strong learning ability, deep wisdom; easily gains help from benefactors, elders, and mother; academic success, good reputation, peaceful mindset.",
+        "Disadvantages": "Rich in ideas but lacks action; content with status quo, strong dependence; lacks pioneering spirit and courage to take risks."
+      },
+      "偏印": {
+        "Advantages": "Keen intuition, strong insight; skilled in researching obscure and high-difficulty fields; possesses special skills and unique ability to break through dilemmas.",
+        "Disadvantages": "Suspicious and sensitive, prone to overthinking; solitary personality, tendency toward extreme thoughts; indecisive, easily gives up halfway."
+      },
+      "正財": {
+        "Advantages": "Strong financial management, understands wealth management; down-to-earth, honest and principled; good at saving and steadily accumulating assets.",
+        "Disadvantages": "Easily wealth more than self (weak day master), overworks to earn money; overly values money, appears petty; easily neglects life's pleasures and enjoyment."
+      },
+      "偏財": {
+        "Advantages": "Flexible business mind, good at seizing opportunities; wide network, knows how to integrate resources; possesses entrepreneurial spirit and ability to create wealth.",
+        "Disadvantages": {
+          "male": "Financial loss/gambling failure; father's health poor; easily loses money and invites trouble due to romance/alcohol.",
+          "female": "Toils for money, high realistic material pressure; if overly focused on short-term gains, may damage reputation, delay studies or further education, or cause disharmony with mother/elders."
+        }
+      },
+      "食神": {
+        "Advantages": "Outstanding talent, strong creativity; gentle personality, optimistic and relaxed; knows how to enjoy life; easily turns talent, skills, creativity and service into income.",
+        "Disadvantages": "Day master's strength further weakened; lacks drive and sense of urgency; indulges in pleasure, prone to laziness."
+      },
+      "傷官": {
+        "Advantages": "Smart and witty, strong innovation ability; excellent eloquence, strong persuasiveness; unafraid of challenges, good at breaking tradition and solving difficult problems.",
+        "Disadvantages": "Arrogant and aloof, easily looks down on others; sharp tongue, easily offends people; when too sharp, easily clashes with superiors, authority and rules."
+      },
+      "正官": {
+        "Advantages": "Strong sense of responsibility, self-disciplined and rule-abiding; upright, principled in actions; easily appreciated by superiors and large organizations, establishes social status.",
+        "Disadvantages": "Easily feels pressure and constraint; rigid and conservative personality, timid and fearful; prone to anxiety, lacks adaptability."
+      },
+      "七殺": {
+        "Advantages": "Full of boldness, decisive and brave; strong crisis management and execution ability; can rise in adversity and become an excellent leader.",
+        "Disadvantages": "Easily encounters petty people and external pressure; mentally tense, lacks sense of security; prone to accidents, injuries, and various challenges."
+      },
+      "比肩": {
+        "Advantages": "Help from friends, profitable partnerships; strong will, good for teamwork, overcoming difficulties together. Can obtain wealth.",
+        "Disadvantages": "Need to lower oneself, not too stubborn, don't always compare yourself with others, and don't try to outdo others in every aspect. Wealth needs to be guarded."
+      },
+      "劫財": {
+        "Advantages": "Strong competitiveness, can turn things around in adversity; high social skills, good for expanding markets, gains help from peers. Can obtain wealth.",
+        "Disadvantages": "Prone to impulsive spending and investment failure; wealth needs to be guarded; avoid losses due to partnerships or being dragged down by relatives, friends, or partners."
+      }
+    }
+  },
+  "終極客戶報告範例": {
+    "範例四柱": "乙丑 乙酉 庚午 庚辰（1985-09-28 07:30 男）",
+    "中文": {
+      "本命關係": [
+        "六害｜丑午（年、日）:  小心是非小人多促進人際關係。",
+        "三合二合｜酉丑:  金局：酉（月柱）＋丑（年柱）：很注重面子，為了虛榮心硬撐反而容易讓自己吃虧。",
+        "六合｜酉辰（月、時）:  很注重面子，為了虛榮心硬撐反而容易讓自己吃虧。",
+        "天干合化｜乙庚（年、日），（年、時），（月、日），（月、時）:  乙庚 合金：人緣好、沒自我、重義氣、仁德，個性剛強果斷、積極進取、忍力強。不可衝動。",
+        "財要守。"
+      ],
+      "本命神煞": [],
+      "當前大運": {
+        "干支": "天干辛（劫財）、地支巳（七殺）容易衝動消費及投資失利，財要守，避免因合夥而損失或被親友及合作夥伴拖累；魄力十足、果斷勇敢，危機處理及執行能力強，能在逆境中崛起成為優秀領導者。",
+        "沖刑影響": [
+          "天干：辛乙天干相沖（年柱、月柱）。較衝動，運較差。身體容易出現問題的器官為肺、股。會感壓力。財要守。注意身體健康。",
+          "月干（相沖）：（如父親健在），緣分與其健康要多留意，重要的事當面講清楚。"
+        ],
+        "合會影響": [
+          "巳午半會（日）：待人懂禮貌，做事乾脆俐落、不拖泥帶水。責任感強、自律守規矩，為人正直、做事有原則，易獲上司及大機構賞識，建立社會地位。",
+          "補成金局：很注重面子，為了虛榮心硬撐反而容易讓自己吃虧。",
+          "日支（半會-火）：（如有另一半），緣分較順、容易靠近，可以多聯絡。"
+        ],
+        "神煞": []
+      },
+      "下個大運": {
+        "干支": "天干庚（比肩）、地支辰（偏印）要放下身段，不要太固執，不要總是拿自己與他人比較，也不要試圖在各方面勝過別人。財要守；多疑敏感、易鑽牛角尖，性格孤僻、思想易偏激，做事三心二意易半途而廢。",
+        "沖刑影響": [
+          "辰辰自刑（時）：希望別人都聽你的，做事直接，但有遠見。會感壓力。財要守。注意身體健康。多疑敏感、易鑽牛角尖，性格孤僻、思想易偏激，做事三心二意易半途而廢。",
+          "時支（自刑）：（如有女兒，下屬），緣分與其健康要多留意，重要的事當面講清楚。"
+        ],
+        "合會影響": [
+          "辰酉合金（月），庚乙合化金（年柱、月柱）：很注重面子，為了虛榮心硬撐反而容易讓自己吃虧。財要守。容易衝動消費及投資失利，財要守，避免因合夥而損失或被親友及合作夥伴拖累。",
+          "月支（六合-金）：（如母親健在），緣分與其健康要多留意，重要的事當面講清楚。",
+          "月干（五合-金）：（如父親健在），緣分與其健康要多留意，重要的事當面講清楚。"
+        ],
+        "神煞": []
+      },
+      "流年": {
+        "干支": "天干丙（七殺）、地支午（正官）。魄力十足、果斷勇敢，危機處理及執行能力強，能在逆境中崛起成為優秀領導者；責任感強、自律守規矩，為人正直、做事有原則，易獲上司及大機構賞識，建立社會地位。對日主為喜用之年。行好運可以「衝」，適合主動爭取與佈局；節奏抓穩，變化都在可控範圍。",
+        "沖刑影響": [
+          "與命局日柱自刑：午午 自刑— 常事與願違，要以禮待人方好。會感壓力。財要守。注意身體健康。",
+          "自刑到日柱（影響夫妻宮）—容易自己跟自己過不去，情緒別悶著，講出來才會鬆。會感壓力。財要守。注意身體健康。",
+          "與命局年柱相害：午丑 相害— 小心是非小人多促進人際關係。會感壓力。財要守。注意身體健康。",
+          "天干：丙庚天干相剋（日柱、時柱）。較衝動，運較差。身體容易出現問題的器官為大腸、臍輪。會感壓力。財要守。注意身體健康。",
+          "日支（自刑）：（如有另一半），緣分與其健康要多留意，重要的事當面講清楚。",
+          "時干（相剋）：（如有兒子，下屬），緣分與其健康要多留意，重要的事當面講清楚。"
+        ],
+        "合會影響": [
+          "午巳半會（大運）：待人懂禮貌，做事乾脆俐落、不拖泥帶水。",
+          "丙辛合化水（大運）：頭腦靈活，機智聰明，懂得順勢變通。"
+        ],
+        "神煞": []
+      }
+    },
+    "英文": {
+      "本命關係": [
+        "Harm 六害｜丑午(year pillar, day pillar): Be careful of gossip and petty people; focus on improving interpersonal relationships.",
+        "Triple combination (two of three) 三合二合｜酉丑: 金 set: 酉 (month pillar) + 丑 (year pillar) — Cares too much about face; forcing yourself for vanity often leaves you worse off.",
+        "Six-combination 六合｜酉辰(month pillar, hour pillar): Cares too much about face; forcing yourself for vanity often leaves you worse off.",
+        "Stem combination 天干合化｜乙庚(year pillar, day pillar), (year pillar, hour pillar), (month pillar, day pillar), (month pillar, hour pillar): 乙庚 combine into Metal 金: Well liked, self-effacing, loyal and kind; strong and decisive, enterprising and very enduring.",
+        "Keep your money safe."
+      ],
+      "本命神煞": [],
+      "當前大運": {
+        "干支": "stem 辛 (劫財), branch 巳 (七殺) — Prone to impulsive spending and investment failure; wealth needs to be guarded; avoid losses due to partnerships or being dragged down by relatives, friends, or partners; Full of boldness, decisive and brave; strong crisis management and execution ability; can rise in adversity and become an excellent leader.",
+        "沖刑影響": [
+          "Stems：辛乙 stem clash (year pillar, month pillar). More impulsive — weaker fortune. Organs that may have problems: lungs, thighs. You will feel pressure. Have to keep your money well. Take care your health.",
+          "month stem (clash) = (father, if living): watch the bond and their health in this period — speak important things face to face."
+        ],
+        "合會影響": [
+          "巳午 half-meeting (day pillar)：火 direction formed by two branches (includes the pivotal branch; “未” still missing): Fire stands for courtesy: warm and courteous, efficient and strong in execution; you turn enthusiasm into action, take responsibility on your own initiative, and stay efficient within the rules. Helpful support and mentors will come.",
+          "Completes the Metal set：Cares too much about face; forcing yourself for vanity often leaves you worse off.",
+          "day branch (half-meeting-火) = (partner, if any): the bond is more open this period — stay in touch."
+        ],
+        "神煞": []
+      },
+      "下個大運": {
+        "干支": "stem 庚 (比肩), branch 辰 (偏印) — Need to lower oneself, not too stubborn, don't always compare yourself with others, and don't try to outdo others in every aspect. Wealth needs to be guarded; Suspicious and sensitive, prone to overthinking; solitary personality, tendency toward extreme thoughts; indecisive, easily gives up halfway.",
+        "沖刑影響": [
+          "辰辰 self-punishment (hour pillar)：You want others to listen to you; you act directly, but you do have vision. You will feel pressure. Have to keep your money well. Take care your health.",
+          "hour branch (self-punishment) = (daughter / subordinates, if any): watch the bond and their health in this period — speak important things face to face."
+        ],
+        "合會影響": [
+          "辰酉 combine 金 (month pillar)：Cares too much about face; forcing yourself for vanity often leaves you worse off.",
+          "庚乙 → Metal 金 (年柱, 月柱)：庚乙 → Metal 金 (year pillar, month pillar) — Well liked, self-effacing, loyal and kind; strong and decisive, enterprising and very enduring. Keep your money safe。Prone to impulsive spending and investment failure; wealth needs to be guarded; avoid losses due to partnerships or being dragged down by relatives, friends, or partners。",
+          "month branch (six-combination-金) = (mother, if living): watch the bond and their health in this period — speak important things face to face.",
+          "month stem (five-combination-Metal 金) = (father, if living): the bond is more open this period — stay in touch."
+        ],
+        "神煞": []
+      },
+      "流年": {
+        "干支": "Annual pillar 丙午: stem 丙 (七殺) and branch 午 (正官) — favourable for the day master. Full of boldness, decisive and brave; strong crisis management and execution ability; can rise in adversity and become an excellent leader; Strong sense of responsibility, self-disciplined and rule-abiding; upright, principled in actions; easily appreciated by superiors and large organizations, establishes social status. A favourable year: you may push forward, take the initiative and set things out; keep the rhythm steady and changes stay manageable.",
+        "沖刑影響": [
+          "With the day pillar of the chart — self-punishment: 午午 self-punishment — Things often turn out against your wishes; courtesy towards others is the way through. You will feel pressure. Have to keep your money well. Take care your health.",
+          "Self-punishment on the day pillar (marriage palace) — you get in your own way; do not hold it in, say it out loud. You will feel pressure. Have to keep your money well. Take care your health.",
+          "With the year pillar of the chart — harm: 午丑 harm — Be careful of gossip and petty people; focus on improving interpersonal relationships. You will feel pressure. Have to keep your money well. Take care your health.",
+          "Stems: 丙庚 stem control (day pillar, hour pillar). More impulsive — weaker fortune. Organs that may have problems: large intestine, navel chakra. You will feel pressure. Have to keep your money well. Take care your health.",
+          "day branch (self-punishment) = (partner, if any): watch the bond and their health in this period — speak important things face to face.",
+          "hour stem (control) = (son / subordinates, if any): watch the bond and their health in this period — speak important things face to face."
+        ],
+        "合會影響": [
+          "午巳半會 (luck pillar)：Polite to others; decisive and efficient.",
+          "丙辛 → Water 水 (luck pillar)：Stem combination: 丙辛 → Water 水 (luck pillar) — Well liked and kind-hearted; a strong, dignified personality, clevers."
+        ],
+        "神煞": []
+      }
+    }
+  }
+}
