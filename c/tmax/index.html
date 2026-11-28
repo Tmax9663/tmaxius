@@ -185,7 +185,7 @@ $("#shareBtn").onclick=async()=>{const d={title:document.title,text:"Tmax · Tma
   try{if(navigator.share){await navigator.share(d);return}throw 0}catch(e){if(e&&e.name==="AbortError")return}
   try{await navigator.clipboard.writeText(URL_CARD);toast(t("copied"))}catch(e){prompt("Copy:",URL_CARD)}};
 const dlg=$("#qrDlg");
-$("#qrBtn").onclick=()=>{$("#qrImg").src="/c/"+SLUG+"/qr";dlg.showModal()};
+$("#qrBtn").onclick=()=>{$("#qrImg").src="/c/"+SLUG+"/qr/tmax-qr.png";dlg.showModal()};
 $("#qrClose").onclick=()=>dlg.close();
 dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
 $("#leadForm").onsubmit=async e=>{
