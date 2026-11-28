@@ -149,22 +149,22 @@ dialog .btn{padding:9px 16px;font-size:14px}
 <nav class="bar" aria-label="Card actions">
   <button id="qrBtn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zm4 4h3v3h-3z"/></svg><span data-i18n="qr"></span></button>
   <button id="shareBtn"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="17" cy="5.5" r="2.5"/><circle cx="17" cy="18.5" r="2.5"/><path d="m8.3 10.8 6.4-4m-6.4 6.4 6.4 4"/></svg><span data-i18n="share"></span></button>
-  <a href="/cards/c/tmax.vcf"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16"/></svg><span data-i18n="save"></span></a>
+  <a href="/c/tmax.vcf"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16"/></svg><span data-i18n="save"></span></a>
   <a data-wa href="https://wa.me/60193639663" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-13.6 7.7L3 21l1.3-4.4A9 9 0 1 1 21 12Z"/></svg><span>WhatsApp</span></a>
 </nav>
 
 <dialog id="qrDlg">
-  <img id="qrImg" alt="QR code — www.tmaxius.com/cards/c/tmax" width="220" height="220">
+  <img id="qrImg" alt="QR code — www.tmaxius.com/c/tmax" width="220" height="220">
   <p data-i18n="scan"></p>
-  <p>www.tmaxius.com/cards/c/tmax</p>
-  <a class="btn dl" href="/cards/c/tmax/qr" download="tmax-qr.svg">SVG</a>
+  <p>www.tmaxius.com/c/tmax</p>
+  <a class="btn dl" href="/c/tmax/qr" download="tmax-qr.svg">SVG</a>
   <button class="btn x" id="qrClose" data-i18n="close"></button>
 </dialog>
 
 <div id="toast" role="status"></div>
 
 <script>
-const SLUG="tmax", URL_CARD="https://www.tmaxius.com/cards/c/tmax";
+const SLUG="tmax", URL_CARD="https://www.tmaxius.com/c/tmax";
 const I18N={
 en:{role:"Software Developer · Digital Craftsman · Designer",avail:"Available for selected projects",bio:"One pair of hands from database to print — web systems, mobile apps, kiosks & POS, hardware integration, and the design details that earn trust.",svc:"Services",links:"Find me",contact:"Start a project",save:"Save Contact",share:"Share",qr:"QR Code",send:"Send Inquiry",close:"Close",scan:"Scan to open this card",ph_name:"Your name",ph_contact:"Email or phone",ph_msg:"What do you want to build? A date and budget range help.",sent:"Thanks! I usually reply within a day or two.",fail:"Opening your email app…",copied:"Link copied",wa_msg:"Hi Tmax, I saw your digital card and I'd like to discuss a project.",tag:"Let's Build a Better Tomorrow",d1:"React · Node.js · Cloudflare",d2:"Flutter · Kotlin · Offline-first",d3:"Touch flows · Receipts · Peripherals",d4:"PHP · MySQL · Reports",d5:"Arduino · Raspberry Pi · Sensors",d6:"UI/UX · Brand · Print-ready"},
 zh:{role:"软件开发 · 数字工匠 · 设计师",avail:"接受新专案",bio:"一双手，从数据库到印刷品 —— 网站系统、手机 App、Kiosk 与 POS、硬件整合，以及让人信任你的设计细节。",svc:"服务",links:"联系我",contact:"聊聊你的项目",save:"保存名片",share:"分享",qr:"二维码",send:"发送询问",close:"关闭",scan:"扫码打开这张名片",ph_name:"你的称呼",ph_contact:"邮箱或电话",ph_msg:"想做什么？附上时间与预算范围更好。",sent:"收到！通常一两天内回复。",fail:"正在打开邮箱…",copied:"链接已复制",wa_msg:"你好 Tmax，我看到你的数码名片，想聊聊一个项目。",tag:"让我们共建美好明天",d1:"React · Node.js · Cloudflare",d2:"Flutter · Kotlin · 离线可用",d3:"触控流程 · 票据 · 周边整合",d4:"PHP · MySQL · 报表",d5:"Arduino · 树莓派 · 传感器",d6:"UI/UX · 品牌 · 印刷品"},
